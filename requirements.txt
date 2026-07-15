@@ -1,0 +1,4 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+jinja2>=3.1
+xlrd>=2.0        # data ingest only (scripts/import_hcm.py reads legacy .xls HCM files)

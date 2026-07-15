@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv*/
+dist/
+build/
+*.egg
+.pytest_cache/
+.ruff_cache/
+
+# Environment & secrets
+.env
+*.env.local
+*.env.production
+*.env.prod
+
+# macOS
+.DS_Store
+
+# Logs & runtime artifacts
+*.log
+
+# Research corpus: source PDFs, article captures, and raw spreadsheets kept local
+# (copyright + repo size). The derived, non-copyrightable facts in data/*.csv ARE the
+# committed source of truth (see docs/technical/DATA_MODEL.md); only the built DB is ignored.
+uploads/
+exports/
+backups/
+*.sqlite
+*.sqlite3
+*.db
+
+# Docker local overrides
+docker-compose.override.yml
+
+# Claude Code (local settings, skills, everything)
+.claude/
+
+# Superpowers brainstorm sessions
+.superpowers/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Coverage / test artifacts
+.coverage
+.coverage.*
+htmlcov/
+
+# Production seed dumps (data; generated, never committed)
+dumps/
+
+# IPEDS download cache (raw NCES files; re-downloadable)
+data/ipeds_cache/
+
+# College Evaluator page cache (raw HTML for the browser ingestion console; re-fetchable)
+data/ce_cache/
+scripts/_hechinger_review.csv
+scripts/_*.csv
