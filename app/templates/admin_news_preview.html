@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Preview news closure | Beyond the Cliff{% endblock %}
+{% block main %}
+<section class="admin">
+  <h1>Preview</h1>
+  <p class="lead">
+    <strong>{{ counts.institutions }}</strong> record(s) ready to add;
+    <strong>{{ counts.skipped }}</strong> already tracked;
+    <strong>{{ counts.held }}</strong> held for review.
+    All will be recorded as <strong>{{ f.status }}</strong>, sourced to
+    <a href="{{ f.source_url }}">the article</a>.
+  </p>
+
+  {% include "_proposals.html" %}
+
+  <form method="post" action="/admin/news/commit">
+    {% for k, v in f.items() %}<input type="hidden" name="{{ k }}" value="{{ v }}">{% endfor %}
+    <div class="admin-actions">
+      <button type="submit"{% if not counts.institutions %} disabled{% endif %}>
+        Approve and add {{ counts.institutions }} record(s)
+      </button>
+      <a class="muted" href="/admin">Back</a>
+    </div>
+    <p class="muted">Approving appends the rows above and rebuilds the tracker.</p>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Ingest closures | Beyond the Cliff{% endblock %}
+{% block main %}
+<section class="admin">
+  <h1>Ingest closures</h1>
+
+  {% if error %}<p class="admin-error">{{ error }}</p>{% endif %}
+
+  <h2>From College Evaluator URLs</h2>
+  <p class="lead">Paste College Evaluator "closing information" URLs, one per line. The tracker
+  fetches and reads each page, matches it to federal IPEDS data, checks it is not already tracked,
+  and shows you a preview before anything is saved.</p>
+  <form method="post" action="/admin/preview">
+    <textarea name="urls" rows="10" placeholder="https://www.collegeevaluator.com/institute/...&#10;https://www.collegeevaluator.com/institute/..."></textarea>
+    <div class="admin-actions">
+      <button type="submit">Preview</button>
+      <span class="muted">Nothing is saved until you approve the preview. First preview may take a few seconds while the IPEDS index warms up.</span>
+    </div>
+  </form>
+
+  <h2>From a news article (announced or program closures)</h2>
+  <p class="lead">For closures federal data has not captured yet: an announced (upcoming) closure,
+  a campus closure, or a program closure. You supply the facts from the article; the tracker fills
+  in the OPEID, city, and sector from IPEDS where it can. The article URL is the citation.</p>
+  <form method="post" action="/admin/news/preview" class="admin-grid">
+    <label>Source article URL
+      <input type="url" name="source_url" required placeholder="https://...">
+    </label>
+    <label>Institution (or parent, for a campus/program)
+      <input type="text" name="name" required placeholder="e.g. Pennsylvania State University">
+    </label>
+    <label>State
+      <input type="text" name="state" maxlength="2" placeholder="PA" style="text-transform:uppercase">
+    </label>
+    <label>Outcome
+      <select name="status">
+        <option value="announced">Announced (upcoming)</option>
+        <option value="closed">Closed (already)</option>
+        <option value="merged">Merged / consolidated / acquired</option>
+        <option value="at_risk">At-risk (financially distressed, still open)</option>
+      </select>
+    </label>
+    <label>Closure type
+      <select name="closure_type">
+        <option value="institutional">Institutional (the whole school)</option>
+        <option value="campus">Campus (a branch; parent survives)</option>
+        <option value="program">Program (a program ends; school survives)</option>
+      </select>
+    </label>
+    <label>Year
+      <input type="number" name="year" min="1900" max="2100" placeholder="2027">
+    </label>
+    <label>Primary cause of failure
+      <select name="cause">
+        <option value="">Unknown / not coded</option>
+        <option value="financial">Financial insolvency</option>
+        <option value="enrollment">Enrollment / demographic decline</option>
+        <option value="accreditation">Loss of accreditation</option>
+        <option value="sponsor">Sponsor withdrawal</option>
+        <option value="misconduct">Fraud / mismanagement</option>
+        <option value="disaster">Disaster / fire</option>
+        <option value="restructuring">State restructuring</option>
+        <option value="external">External shock (war / pandemic)</option>
+        <option value="benefactor">Benefactor collapse</option>
+      </select>
+    </label>
+    <label class="admin-wide">Campus or program names (one per line; leave blank for an institutional closure)
+      <textarea name="items" rows="4" placeholder="DuBois&#10;Fayette&#10;York"></textarea>
+    </label>
+    <label class="admin-wide">Acquiring / surviving institution (mergers only: the school that bought or absorbed it)
+      <input type="text" name="acquirer" placeholder="e.g. University of Massachusetts Amherst">
+    </label>
+    <label class="admin-wide">Note (optional, from the article)
+      <textarea name="note" rows="2" placeholder="e.g. Board voted May 22, 2025 to close after the 2026-27 academic year."></textarea>
+    </label>
+    <div class="admin-actions admin-wide">
+      <button type="submit">Preview</button>
+      <span class="muted">Nothing is saved until you approve the preview.</span>
+    </div>
+  </form>
+</section>
+{% endblock %}

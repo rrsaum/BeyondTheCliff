@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Ingest complete | Beyond the Cliff{% endblock %}
+{% block main %}
+<section class="admin">
+  <h1>Done</h1>
+
+  {% if db_error %}
+    <p class="admin-error">Rows were written, but rebuilding the database reported a problem:</p>
+    <pre class="admin-error">{{ db_error }}</pre>
+    <p class="muted">The pages below may not appear until the issue is resolved.</p>
+  {% else %}
+    <p class="lead">Added <strong>{{ counts.institutions }}</strong> record(s),
+      <strong>{{ counts.campuses }}</strong> campus location(s), and
+      <strong>{{ counts.aliases }}</strong> former-name alias(es). The tracker has been rebuilt.</p>
+  {% endif %}
+
+  {% if added %}
+  <ul class="admin-list">
+    {% for r in added %}
+    <li class="admin-item act-add">
+      <span class="pill act-pill-add">ADDED</span>
+      <a href="/institution/{{ r.id }}"><strong>{{ r.name }}</strong></a>
+      <span class="muted">{{ r.city }}{% if r.state %}, {{ r.state }}{% endif %}
+        {% if r.status_year %}&middot; {{ r.status_year }}{% endif %} &middot; {{ r.closure_type }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <p class="admin-actions"><a href="/admin">Ingest more</a> &middot; <a href="/">View the closure map</a></p>
+</section>
+{% endblock %}

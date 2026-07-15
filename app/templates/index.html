@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}The Closure and Consolidation Map | Beyond the Cliff{% endblock %}
+{% block main %}
+
+<section class="intro">
+  {% if args.parent %}
+  <p class="parent-context">Showing all closures under <strong>{{ args.parent }}</strong>. <a href="/">Back to the full map</a></p>
+  {% endif %}
+  <h1>The Closure and Consolidation Map</h1>
+  <p class="lead">{{ grand_total }} U.S. college closures, campus and program closures, and consolidations: modern closures from federal and Clearinghouse records plus announced closures in primary news reporting, and a historical archive of defunct colleges reaching back to the 1800s. The charts below focus on the modern era (2004 on); the table and search cover the full record.</p>
+  <p class="breakdown"><strong>{{ closure_summary.institutional }}</strong> institutional closures (the school itself closed) &middot; <strong>{{ closure_summary.campus }}</strong> campus closures (a branch closed, the institution survives) &middot; <strong>{{ closure_summary.program }}</strong> program closures (a program ended, the school stays open) &middot; <strong>{{ closure_summary.merged }}</strong> mergers and consolidations{% if closure_summary.announced %} &middot; <strong>{{ closure_summary.announced }}</strong> announced and not yet closed{% endif %}{% if closure_summary.at_risk %} &middot; <strong>{{ closure_summary.at_risk }}</strong> at-risk and still open{% endif %}. The difference matters: a campus or program closing is not a school dying, an announced closure has not happened yet, and an at-risk school is still operating.</p>
+  {% if hcm_summary.before_closure %}
+  <p class="signal"><strong>{{ hcm_summary.before_closure }}</strong> of the {{ hcm_summary.eligible }} institutions that closed for good since 2015 were flagged for federal Heightened Cash Monitoring <em>before</em> they closed. The distress was visible in the data years ahead. That signal is what this project exists to read.</p>
+  {% endif %}
+</section>
+
+<section class="charts" aria-label="Charts for the current selection">
+  {{ charts_html | safe }}
+</section>
+
+<form class="filters" method="get" action="/">
+  <div class="field">
+    <label for="q">Search name</label>
+    <input type="search" id="q" name="q" value="{{ args.q }}" placeholder="e.g. nursing, Marlboro">
+  </div>
+  <div class="field">
+    <label for="state">State</label>
+    <select id="state" name="state">
+      <option value="">All</option>
+      {% for s in facets.states %}
+      <option value="{{ s }}" {{ 'selected' if args.state == s }}>{{ s }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label for="control">Control</label>
+    <select id="control" name="control">
+      <option value="">All</option>
+      {% for key, label in facets.controls.items() %}
+      <option value="{{ key }}" {{ 'selected' if args.control == key }}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label for="status">Outcome</label>
+    <select id="status" name="status">
+      <option value="">All</option>
+      {% for key, label in facets.statuses.items() %}
+      <option value="{{ key }}" {{ 'selected' if args.status == key }}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label for="closure_type">Closure type</label>
+    <select id="closure_type" name="closure_type">
+      <option value="">All</option>
+      {% for key, label in facets.closure_types.items() %}
+      <option value="{{ key }}" {{ 'selected' if args.closure_type == key }}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label for="cause">Cause of failure</label>
+    <select id="cause" name="cause">
+      <option value="">All</option>
+      {% for key, label in facets.causes.items() %}
+      <option value="{{ key }}" {{ 'selected' if args.cause == key }}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="field field-check">
+    <label><input type="checkbox" name="abrupt" value="1" {{ 'checked' if args.abrupt }}> Abrupt closures only</label>
+  </div>
+  <div class="field field-check">
+    <label><input type="checkbox" name="has_profile" value="1" {{ 'checked' if args.has_profile }}> Has profile only <span class="has-profile">&#9679;</span></label>
+  </div>
+  <div class="field field-actions">
+    <button type="submit">Apply</button>
+    <a class="clear" href="/">Clear</a>
+  </div>
+</form>
+
+<p class="result-count">{{ total }} institution{{ '' if total == 1 else 's' }} match. Showing page {{ page }} of {{ pages }}. <span class="legend"><span class="has-profile">&#9679;</span> = financial and demographic profile available</span></p>
+
+<div class="table-scroll">
+<table class="results">
+  <thead>
+    <tr>
+      <th><a href="/{{ sort_links.name }}">Institution</a></th>
+      <th><a href="/{{ sort_links.city }}">City</a></th>
+      <th><a href="/{{ sort_links.state }}">State</a></th>
+      <th><a href="/{{ sort_links.control }}">Sector</a></th>
+      <th><a href="/{{ sort_links.year }}">Closed</a></th>
+      <th><a href="/{{ sort_links.status }}">Outcome</a></th>
+      <th>Abrupt</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in rows %}
+    <tr>
+      <td><a href="/institution/{{ r.id }}">{{ r.name | title }}</a>{% if r.has_profile %} <span class="has-profile" title="Financial and demographic profile available">&#9679;</span>{% endif %}</td>
+      <td>{{ r.city | title if r.city else '' }}</td>
+      <td>{{ r.state }}</td>
+      <td>{{ control_labels.get(r.control, '') }}{{ ' ' + r.level if r.level else '' }}</td>
+      <td>{{ r.status_year or '' }}</td>
+      <td>
+        {% if r.status == 'announced' %}<span class="pill pill-announced">Announced</span> {% endif %}
+        {% if r.status == 'at_risk' %}<span class="pill pill-at_risk">At-risk</span>
+        {% elif r.status == 'merged' %}<span class="pill pill-merged">Merged</span>
+        {% elif r.closure_type == 'campus' %}<span class="pill pill-campus">Campus</span>
+        {% elif r.closure_type == 'program' %}<span class="pill pill-program">Program</span>
+        {% elif r.status == 'closed' %}<span class="pill pill-closed">Institutional</span>{% endif %}
+      </td>
+      <td>{{ 'Yes' if r.abrupt == 1 else ('No' if r.abrupt == 0 else '') }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="7" class="muted">No institutions match this selection.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<nav class="pager" aria-label="Pagination">
+  {% if prev_qs %}<a href="/{{ prev_qs }}">Previous</a>{% else %}<span class="disabled">Previous</span>{% endif %}
+  <span>Page {{ page }} of {{ pages }}</span>
+  {% if next_qs %}<a href="/{{ next_qs }}">Next</a>{% else %}<span class="disabled">Next</span>{% endif %}
+</nav>
+
+{% endblock %}

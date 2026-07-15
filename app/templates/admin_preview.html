@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Preview ingest | Beyond the Cliff{% endblock %}
+{% block main %}
+<section class="admin">
+  <h1>Preview</h1>
+  <p class="lead">
+    <strong>{{ counts.institutions }}</strong> record(s) and
+    <strong>{{ counts.campuses }}</strong> campus location(s) ready to add;
+    <strong>{{ counts.aliases }}</strong> former-name alias(es);
+    <strong>{{ counts.skipped }}</strong> already tracked;
+    <strong>{{ counts.held }}</strong> held for review{% if counts.errors %};
+    <strong>{{ counts.errors }}</strong> could not be read{% endif %}.
+  </p>
+
+  {% include "_proposals.html" %}
+
+  <form method="post" action="/admin/commit">
+    <textarea name="urls" hidden>{{ urls_text }}</textarea>
+    <div class="admin-actions">
+      <button type="submit"{% if not counts.institutions and not counts.aliases %} disabled{% endif %}>
+        Approve and add {{ counts.institutions }} record(s)
+      </button>
+      <a class="muted" href="/admin">Back</a>
+    </div>
+    <p class="muted">Held and already-tracked rows are not written. Approving appends the rows above to the data files and rebuilds the tracker.</p>
+  </form>
+</section>
+{% endblock %}

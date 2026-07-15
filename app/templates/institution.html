@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}{{ inst.name | title }} | Beyond the Cliff{% endblock %}
+{% block main %}
+
+<p class="breadcrumb"><a href="/">The Closure and Consolidation Map</a> &middot; <a href="/admin/edit?id={{ inst.id }}">Edit</a></p>
+
+<article class="institution">
+  <h1>{{ inst.name | title }}</h1>
+  {% if inst.background %}<p class="lead">{{ inst.background }}</p>{% endif %}
+
+  {% if inst.status == 'at_risk' %}
+  <aside class="closure-banner at_risk">
+    <strong>Financially at-risk, still open.</strong> This institution has been flagged for financial
+    distress{% if inst.status_year %} ({{ inst.status_year }}){% endif %} but has not announced a
+    closure and continues to operate.{% if inst.source_url %} <a href="{{ inst.source_url }}">Source</a>.{% endif %}
+  </aside>
+  {% elif inst.status == 'announced' %}
+  <aside class="closure-banner announced">
+    <strong>Announced closure (upcoming).</strong>
+    {% if inst.closure_type == 'campus' %}This campus is scheduled to close{% if inst.status_year %} after {{ inst.status_year }}{% endif %}; the parent institution{% if inst.parent_name %}, <a href="/?parent={{ inst.parent_name | urlencode }}">{{ inst.parent_name }}</a>,{% endif %} continues operating.
+    {% elif inst.closure_type == 'program' %}This program is scheduled to end{% if inst.status_year %} after {{ inst.status_year }}{% endif %}; the institution{% if inst.parent_name %}, <a href="/?parent={{ inst.parent_name | urlencode }}">{{ inst.parent_name }}</a>,{% endif %} continues operating.
+    {% else %}This institution has announced it will close{% if inst.status_year %} in {{ inst.status_year }}{% endif %}.{% endif %}
+    It has not closed yet.{% if inst.source_url %} <a href="{{ inst.source_url }}">Source</a>.{% endif %}
+  </aside>
+  {% elif inst.status == 'closed' and inst.closure_type == 'campus' %}
+  <aside class="closure-banner campus">
+    <strong>Campus closure, not an institutional closure.</strong> This location closed{% if inst.status_year %} in {{ inst.status_year }}{% endif %}, but the parent institution{% if inst.parent_name %}, <a href="/?parent={{ inst.parent_name | urlencode }}">{{ inst.parent_name }}</a>,{% endif %} remains open and operating.
+    {% if siblings %}<br>This is one of {{ siblings|length + 1 }} closures under this institution &mdash; <a href="/?parent={{ inst.parent_name | urlencode }}">see all of them</a>.{% endif %}
+  </aside>
+  {% elif inst.status == 'closed' and inst.closure_type == 'program' %}
+  <aside class="closure-banner program">
+    <strong>Program closure, not an institutional closure.</strong> This program ended{% if inst.status_year %} in {{ inst.status_year }}{% endif %}, but the institution{% if inst.parent_name %}, <a href="/?parent={{ inst.parent_name | urlencode }}">{{ inst.parent_name }}</a>,{% endif %} remains open and operating.
+  </aside>
+  {% elif inst.status == 'closed' %}
+  <aside class="closure-banner institutional">
+    <strong>Institutional closure.</strong> The institution itself ceased operating{% if inst.status_year %} in {{ inst.status_year }}{% endif %}.
+  </aside>
+  {% elif inst.status == 'merged' %}
+  <aside class="closure-banner merged">
+    <strong>Merger / consolidation.</strong> This institution
+    {% if inst.parent_name %}merged into or was absorbed by <a href="/?parent={{ inst.parent_name | urlencode }}">{{ inst.parent_name }}</a>{% else %}merged or consolidated with another institution{% endif %}{% if inst.status_year %} in {{ inst.status_year }}{% endif %}.
+  </aside>
+  {% endif %}
+
+  <dl class="bio">
+    <div><dt>Location</dt><dd>{{ inst.city | title if inst.city else 'Unknown' }}{{ ', ' + inst.state if inst.state }}</dd></div>
+    <div><dt>Control</dt><dd>{{ control_labels.get(inst.control, 'Unknown') }}{{ ' ' + inst.level if inst.level else '' }}</dd></div>
+    {% if inst.religious_affiliation %}<div><dt>Affiliation</dt><dd>{{ inst.religious_affiliation }}</dd></div>{% endif %}
+    {% if inst.founding_year %}<div><dt>Founded</dt><dd>{{ inst.founding_year }}</dd></div>{% endif %}
+    {% if inst.degrees %}<div><dt>Highest award</dt><dd>{{ inst.degrees }}</dd></div>{% endif %}
+    <div><dt>Outcome</dt><dd><span class="pill pill-{{ inst.status }}">{{ status_labels.get(inst.status, inst.status) }}</span>{{ ' in ' ~ inst.status_year if inst.status_year }}</dd></div>
+    {% if inst.cause %}<div><dt>Primary cause</dt><dd>{{ cause_labels.get(inst.cause, inst.cause) }}</dd></div>{% endif %}
+    <div><dt>OPEID</dt><dd>{{ inst.opeid or 'None recorded' }}</dd></div>
+    {% if tags %}<div><dt>Tags</dt><dd>{% for t in tags %}<span class="tag">{{ t }}</span> {% endfor %}</dd></div>{% endif %}
+  </dl>
+
+  {% if hcm_first %}
+  <aside class="hcm-flag">
+    <strong>Heightened Cash Monitoring.</strong> The U.S. Dept. of Education flagged this
+    institution for extra financial oversight{% if hcm_lead_years and hcm_lead_years > 0 %}
+    {{ hcm_lead_years }} year{{ 's' if hcm_lead_years != 1 else '' }} before it closed{% endif %},
+    first appearing on {{ hcm_first }}{% if hcm_has_severe %}, later escalating to HCM2 (reimbursement only, the most severe level){% endif %}.
+  </aside>
+  {% endif %}
+
+  {% if inst.history %}
+  <section>
+    <h2>History</h2>
+    <p class="history">{{ inst.history }} <span class="muted">(Wikipedia)</span></p>
+  </section>
+  {% endif %}
+
+  {% if scorecard %}
+  <section class="scorecard">
+    <h2>Financial and demographic profile</h2>
+    {% if scorecard.flags %}
+    <div class="risk-flags">
+      <span class="risk-label">Closure-risk signals</span>
+      {% for f in scorecard.flags %}<span class="risk-flag">{{ f }}</span>{% endfor %}
+    </div>
+    {% endif %}
+    <dl class="stat-grid">
+      {% for label, value, year in scorecard.metrics %}
+      <div><dt>{{ label }}</dt><dd>{{ value }} <span class="stat-year">{{ year }}</span></dd></div>
+      {% endfor %}
+      {% if scorecard.demographics %}<div class="wide"><dt>Undergraduate makeup</dt><dd>{{ scorecard.demographics }}</dd></div>{% endif %}
+    </dl>
+    <p class="chart-note">Source: College Scorecard (U.S. Dept. of Education), data {{ scorecard.year_range }}. Latest reported value shown per metric; risk signals are interpretive.</p>
+  </section>
+  {% endif %}
+
+  {% if campuses %}
+  <section>
+    <h2>Campuses ({{ campuses|length }})</h2>
+    <ul class="campus-list">
+      {% for cp in campuses %}
+      <li>{{ cp.name | title }} <span class="muted">{{ cp.city | title if cp.city else '' }}{{ ', ' + cp.state if cp.state }}{% if cp.closed_year %} &middot; closed {{ cp.closed_year }}{% endif %}</span></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if names %}
+  <section>
+    <h2>Names</h2>
+    <ul class="names">
+      {% for n in names %}
+      <li>{{ n.name | title }} <span class="muted">({{ n.start_year or '?' }} to {{ n.end_year or 'present' }})</span></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <section>
+    <h2>Timeline</h2>
+    {% if events %}
+    <ul class="timeline">
+      {% for e in events %}
+      <li>
+        <span class="t-year">{{ e.event_year or '' }}</span>
+        <span class="t-body">
+          <strong>{{ e.event_type | replace('_', ' ') | capitalize }}</strong>
+          {% if e.abrupt == 1 %}<span class="pill pill-abrupt">abrupt</span>{% endif %}
+          {% if e.description %}<span class="t-desc">{{ e.description }}</span>{% endif %}
+          {% if e.source_url %}<a class="src" href="{{ e.source_url }}" rel="nofollow noopener">source</a>{% endif %}
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}<p class="muted">No timeline events recorded.</p>{% endif %}
+  </section>
+
+  {% if enrollment %}
+  <section>
+    <h2>Enrollment</h2>
+    {{ trend_html | safe }}
+    <table class="mini">
+      <thead><tr><th>Year</th><th>Total</th><th>Source</th></tr></thead>
+      <tbody>
+        {% for row in enrollment %}
+        <tr><td>{{ row.year }}</td><td>{{ row.total_headcount or '' }}</td><td>{{ row.source or '' }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  {% endif %}
+
+  {% if hcm %}
+  <section>
+    <h2>Heightened Cash Monitoring history</h2>
+    <p class="muted">{{ hcm|length }} quarterly snapshot{{ 's' if hcm|length != 1 else '' }} on HCM, {{ hcm[0].as_of_date }} to {{ hcm[-1].as_of_date }}. Source: U.S. Dept. of Education (studentaid.gov).</p>
+    <ul class="hcm-list">
+      {% for h in hcm %}<li class="hcm-{{ h.level }}">HCM{{ h.level }} <span class="muted">{{ h.as_of_date }}</span></li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if inst.notes %}<section><h2>Notes</h2><p class="notes">{{ inst.notes }}</p></section>{% endif %}
+  {% if inst.source_url %}<p><a class="src" href="{{ inst.source_url }}" rel="nofollow noopener">Primary source</a></p>{% endif %}
+</article>
+
+{% endblock %}

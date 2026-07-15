@@ -1,0 +1,38 @@
+{# Shared render of a ce_ingest.Batch preview. Expects `batch` in context. #}
+<ul class="admin-list">
+  {% for p in batch.proposals %}
+  <li class="admin-item act-{{ p.action }}">
+    <div class="admin-head">
+      <span class="pill act-pill-{{ p.action }}">{{ p.action|upper }}</span>
+      <strong>{{ p.institution }}</strong>
+    </div>
+
+    {% if p.error %}<p class="admin-note admin-error">{{ p.error }}</p>{% endif %}
+    {% if p.reason %}<p class="admin-note muted">{{ p.reason }}</p>{% endif %}
+
+    {% if p.inst_rows %}
+    <ul class="admin-campuses">
+      {% for r in p.inst_rows %}
+      <li><strong>{{ r.name }}</strong>
+        <span class="muted">{{ r.city }}{% if r.state %}, {{ r.state }}{% endif %}
+        {% if r.status_year %}&middot; {{ r.status }} {{ r.status_year }}{% else %}&middot; {{ r.status }}, year unknown{% endif %}
+        &middot; {{ r.closure_type }}{% if r.parent_name %} &middot; parent: {{ r.parent_name }}{% endif %}{% if r.opeid %} &middot; OPEID {{ r.opeid }}{% endif %}</span></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if p.campus_rows %}
+      <details><summary>{{ p.campus_rows|length }} campus location(s) enumerated</summary>
+        <ul class="admin-campuses">
+          {% for c in p.campus_rows %}<li>{{ c.name }} <span class="muted">{{ c.city }}, {{ c.state }}{% if c.closed_year %} &middot; {{ c.closed_year }}{% endif %}</span></li>{% endfor %}
+        </ul>
+      </details>
+    {% endif %}
+
+    {% for fl in p.flags %}<p class="admin-note admin-flag">&#9873; {{ fl }}</p>{% endfor %}
+    {% for h in p.held %}<p class="admin-note admin-flag">held: {{ h }}</p>{% endfor %}
+    {% for s in p.skipped %}<p class="admin-note muted">skipped: {{ s }}</p>{% endfor %}
+    {% if p.name_rows %}<p class="admin-note">Will record "{{ p.name_rows[0].name }}" as a former name (improves search).</p>{% endif %}
+  </li>
+  {% endfor %}
+</ul>

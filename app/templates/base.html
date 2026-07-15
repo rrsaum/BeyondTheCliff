@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Beyond the Cliff{% endblock %}</title>
+  <meta name="description" content="A sourced tracker of U.S. college closures, mergers, and consolidations, and the resilience patterns behind them.">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Beyond the Cliff</a>
+      <p class="tagline">Foresight and resilience for institutions facing the enrollment cliff.</p>
+      <nav class="site-nav">
+        <a href="/">The Closure Map</a>
+        <a href="/cliff">The Demographic Cliff</a>
+        <a href="/admin">Ingest</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    {% block main %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Sources: SHEEO Closed College Context dataset (2004 to 2020); IPEDS directory closures (2021 to 2024); IPEDS enrollment; ED Heightened Cash Monitoring; Wikidata and Wikipedia for founding year and history. Every fact is sourced; verify before citing.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Edit record | Beyond the Cliff{% endblock %}
+{% block main %}
+<section class="admin">
+  <h1>Edit a record</h1>
+
+  {% if error %}<p class="admin-error">{{ error }}</p>{% endif %}
+
+  {% if not record %}
+    {% if not_found %}<p class="admin-error">No record found with id "{{ id }}".</p>{% endif %}
+    <p class="lead">Reach this from any school's page via the <strong>Edit</strong> link, or enter a record id below.</p>
+    <form method="get" action="/admin/edit" class="admin-actions">
+      <input type="text" name="id" placeholder="e.g. 00466100 or MAN-0190" value="{{ id }}">
+      <button type="submit">Load</button>
+    </form>
+  {% else %}
+    <p class="lead">Editing <strong>{{ record.name }}</strong> (id <code>{{ id }}</code>). Change what
+    you need and save; the tracker rebuilds. Use this to reclassify, for example an
+    <em>announced</em> closure to <em>closed</em> once the date passes.</p>
+
+    <form method="post" action="/admin/edit/commit" class="admin-grid">
+      <input type="hidden" name="id" value="{{ id }}">
+      <label>Name<input type="text" name="name" value="{{ record.name }}"></label>
+      <label>City<input type="text" name="city" value="{{ record.city }}"></label>
+      <label>State<input type="text" name="state" maxlength="2" value="{{ record.state }}"></label>
+      <label>Control
+        <select name="control">
+          {% for c in controls %}<option value="{{ c }}" {{ 'selected' if record.control == c }}>{{ c or '(none)' }}</option>{% endfor %}
+        </select>
+      </label>
+      <label>Level
+        <select name="level">
+          {% for l in levels %}<option value="{{ l }}" {{ 'selected' if record.level == l }}>{{ l or '(none)' }}</option>{% endfor %}
+        </select>
+      </label>
+      <label>Outcome / status
+        <select name="status">
+          {% for s in statuses %}<option value="{{ s }}" {{ 'selected' if record.status == s }}>{{ status_labels.get(s, s) }}</option>{% endfor %}
+        </select>
+      </label>
+      <label>Year<input type="text" name="status_year" value="{{ record.status_year }}"></label>
+      <label>Closure type
+        <select name="closure_type">
+          {% for t in closure_types %}<option value="{{ t }}" {{ 'selected' if record.closure_type == t }}>{{ t or '(none)' }}</option>{% endfor %}
+        </select>
+      </label>
+      <label>Parent (for a campus/program)<input type="text" name="parent_name" value="{{ record.parent_name }}"></label>
+      <label>Primary cause of failure
+        <select name="cause">
+          {% for c in causes %}<option value="{{ c }}" {{ 'selected' if record.cause == c }}>{{ cause_labels.get(c, '(none)') if c else '(none)' }}</option>{% endfor %}
+        </select>
+      </label>
+      <label class="admin-wide">Source URL<input type="url" name="source_url" value="{{ record.source_url }}"></label>
+      <label class="admin-wide">Notes<textarea name="notes" rows="3">{{ record.notes }}</textarea></label>
+      <div class="admin-actions admin-wide">
+        <button type="submit">Save changes</button>
+        <a class="muted" href="/institution/{{ id }}">Cancel</a>
+      </div>
+    </form>
+  {% endif %}
+</section>
+{% endblock %}

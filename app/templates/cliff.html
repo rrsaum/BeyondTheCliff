@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}The Demographic Cliff | Beyond the Cliff{% endblock %}
+{% block main %}
+
+<section class="intro">
+  <h1>The Demographic Cliff</h1>
+  <p class="lead">The number of high school graduates is the pool from which traditional college enrollment is drawn. It rose for decades and plateaued near an all-time high. The projected decline after 2025, driven by the drop in births around the 2008 recession, is the enrollment cliff that pressures every tuition-dependent institution.</p>
+</section>
+
+<section>
+  {{ national_chart | safe }}
+</section>
+
+<section class="cliff-split">
+  <div>
+    <h2>By state</h2>
+    <form method="get" action="/cliff" class="filters">
+      <div class="field">
+        <label for="state">State</label>
+        <select id="state" name="state" onchange="this.form.submit()">
+          {% for s in states %}
+          <option value="{{ s }}" {{ 'selected' if state == s }}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <noscript><div class="field field-actions"><button type="submit">Show</button></div></noscript>
+    </form>
+    {{ state_chart | safe }}
+  </div>
+</section>
+
+<section>
+  {{ decliners | safe }}
+  <div class="cliff-lists">
+    <div>
+      <h3>Shrinking fastest (2013 to 2024)</h3>
+      <ul>{% for j, pct in decline %}<li>{{ j }} <strong class="neg">{{ pct }}%</strong></li>{% endfor %}</ul>
+    </div>
+    <div>
+      <h3>Still growing</h3>
+      <ul>{% for j, pct in growth %}<li>{{ j }} <strong class="pos">+{{ pct }}%</strong></li>{% endfor %}</ul>
+    </div>
+  </div>
+  <p class="muted">A shrinking graduate pool is a leading indicator of enrollment pressure, and enrollment pressure is what precedes closure. States losing graduates fastest are where the closure risk concentrates next.</p>
+</section>
+
+{% endblock %}

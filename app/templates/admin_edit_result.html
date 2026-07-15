@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Record updated | Beyond the Cliff{% endblock %}
+{% block main %}
+<section class="admin">
+  <h1>Updated</h1>
+  {% if db_error %}
+    <p class="admin-error">The row was saved, but rebuilding the database reported a problem:</p>
+    <pre class="admin-error">{{ db_error }}</pre>
+  {% else %}
+    <p class="lead"><strong>{{ record.name }}</strong> is now recorded as
+      <strong>{{ record.status }}</strong>{% if record.status_year %} ({{ record.status_year }}){% endif %}{% if record.closure_type %}, {{ record.closure_type }}{% endif %}.
+      The tracker has been rebuilt.</p>
+  {% endif %}
+  <p class="admin-actions"><a href="/institution/{{ id }}">View the record</a> &middot;
+    <a href="/admin/edit?id={{ id }}">Edit again</a> &middot; <a href="/">Closure map</a></p>
+</section>
+{% endblock %}
