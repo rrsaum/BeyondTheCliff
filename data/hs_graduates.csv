@@ -1,0 +1,1081 @@
+source_table,jurisdiction,jurisdiction_type,school_year,year,measure,graduates
+219.10,United States,national,1869-70,1870,total,16000
+219.10,United States,national,1879-80,1880,total,23634
+219.10,United States,national,1889-90,1890,total,43731
+219.10,United States,national,1889-90,1890,public,21882
+219.10,United States,national,1889-90,1890,private,21849
+219.10,United States,national,1899-1900,1900,total,94883
+219.10,United States,national,1899-1900,1900,public,61737
+219.10,United States,national,1899-1900,1900,private,33146
+219.10,United States,national,1909-10,1910,total,156429
+219.10,United States,national,1909-10,1910,public,111363
+219.10,United States,national,1909-10,1910,private,45066
+219.10,United States,national,1919-20,1920,total,311266
+219.10,United States,national,1919-20,1920,public,230902
+219.10,United States,national,1919-20,1920,private,80364
+219.10,United States,national,1929-30,1930,total,666904
+219.10,United States,national,1929-30,1930,public,591719
+219.10,United States,national,1929-30,1930,private,75185
+219.10,United States,national,1939-40,1940,total,1221475
+219.10,United States,national,1939-40,1940,public,1143246
+219.10,United States,national,1939-40,1940,private,78229
+219.10,United States,national,1949-50,1950,total,1199700
+219.10,United States,national,1949-50,1950,public,1063444
+219.10,United States,national,1949-50,1950,private,136256
+219.10,United States,national,1959-60,1960,total,1858023
+219.10,United States,national,1959-60,1960,public,1627050
+219.10,United States,national,1959-60,1960,private,230973
+219.10,United States,national,1969-70,1970,total,2888639
+219.10,United States,national,1969-70,1970,public,2588639
+219.10,United States,national,1969-70,1970,private,300000
+219.10,United States,national,1975-76,1976,total,3142120
+219.10,United States,national,1975-76,1976,public,2837129
+219.10,United States,national,1975-76,1976,private,304991
+219.10,United States,national,1979-80,1980,total,3042214
+219.10,United States,national,1979-80,1980,public,2747678
+219.10,United States,national,1979-80,1980,private,294536
+219.10,United States,national,1985-86,1986,total,2642616
+219.10,United States,national,1985-86,1986,public,2382616
+219.10,United States,national,1985-86,1986,private,260000
+219.10,United States,national,1986-87,1987,total,2693803
+219.10,United States,national,1986-87,1987,public,2428803
+219.10,United States,national,1986-87,1987,private,265000
+219.10,United States,national,1987-88,1988,total,2773020
+219.10,United States,national,1987-88,1988,public,2500020
+219.10,United States,national,1987-88,1988,private,273000
+219.10,United States,national,1988-89,1989,total,2743743
+219.10,United States,national,1988-89,1989,public,2458800
+219.10,United States,national,1988-89,1989,private,284943
+219.10,United States,national,1989-90,1990,total,2574162
+219.10,United States,national,1989-90,1990,public,2320337
+219.10,United States,national,1989-90,1990,private,253825
+219.10,United States,national,1990-91,1991,total,2492988
+219.10,United States,national,1990-91,1991,public,2234893
+219.10,United States,national,1990-91,1991,private,258095
+219.10,United States,national,1991-92,1992,total,2480399
+219.10,United States,national,1991-92,1992,public,2226016
+219.10,United States,national,1991-92,1992,private,254383
+219.10,United States,national,1992-93,1993,total,2480519
+219.10,United States,national,1992-93,1993,public,2233241
+219.10,United States,national,1992-93,1993,private,247278
+219.10,United States,national,1993-94,1994,total,2463849
+219.10,United States,national,1993-94,1994,public,2220849
+219.10,United States,national,1993-94,1994,private,243000
+219.10,United States,national,1994-95,1995,total,2519084
+219.10,United States,national,1994-95,1995,public,2273541
+219.10,United States,national,1994-95,1995,private,245543
+219.10,United States,national,1995-96,1996,total,2518109
+219.10,United States,national,1995-96,1996,public,2273109
+219.10,United States,national,1995-96,1996,private,245000
+219.10,United States,national,1996-97,1997,total,2611988
+219.10,United States,national,1996-97,1997,public,2358403
+219.10,United States,national,1996-97,1997,private,253585
+219.10,United States,national,1997-98,1998,total,2704050
+219.10,United States,national,1997-98,1998,public,2439050
+219.10,United States,national,1997-98,1998,private,265000
+219.10,United States,national,1998-99,1999,total,2758655
+219.10,United States,national,1998-99,1999,public,2485630
+219.10,United States,national,1998-99,1999,private,273025
+219.10,United States,national,1999-2000,2000,total,2832844
+219.10,United States,national,1999-2000,2000,public,2553844
+219.10,United States,national,1999-2000,2000,private,279000
+219.10,United States,national,2000-01,2001,total,2847973
+219.10,United States,national,2000-01,2001,public,2569200
+219.10,United States,national,2000-01,2001,private,278773
+219.10,United States,national,2001-02,2002,total,2906534
+219.10,United States,national,2001-02,2002,public,2621534
+219.10,United States,national,2001-02,2002,private,285000
+219.10,United States,national,2002-03,2003,total,3015735
+219.10,United States,national,2002-03,2003,public,2719947
+219.10,United States,national,2002-03,2003,private,295788
+219.10,United States,national,2004-05,2005,total,3106499
+219.10,United States,national,2004-05,2005,public,2799250
+219.10,United States,national,2004-05,2005,private,307249
+219.10,United States,national,2005-06,2006,total,3122544
+219.10,United States,national,2005-06,2006,public,2815544
+219.10,United States,national,2005-06,2006,private,307000
+219.10,United States,national,2006-07,2007,total,3199650
+219.10,United States,national,2006-07,2007,public,2893045
+219.10,United States,national,2006-07,2007,private,306605
+219.10,United States,national,2007-08,2008,total,3312337
+219.10,United States,national,2007-08,2008,public,3001337
+219.10,United States,national,2007-08,2008,private,311000
+219.10,United States,national,2008-09,2009,total,3347828
+219.10,United States,national,2008-09,2009,public,3039015
+219.10,United States,national,2008-09,2009,private,308813
+219.10,United States,national,2009-10,2010,total,3435022
+219.10,United States,national,2009-10,2010,public,3128022
+219.10,United States,national,2009-10,2010,private,307000
+219.10,United States,national,2010-11,2011,total,3449940
+219.10,United States,national,2010-11,2011,public,3144100
+219.10,United States,national,2010-11,2011,private,305840
+219.10,United States,national,2011-12,2012,total,3454095
+219.10,United States,national,2011-12,2012,public,3149185
+219.10,United States,national,2011-12,2012,private,304910
+219.10,United States,national,2012-13,2013,total,3478027
+219.10,United States,national,2012-13,2013,public,3169257
+219.10,United States,national,2012-13,2013,private,308770
+219.10,United States,national,2013-14,2014,total,3499560
+219.10,United States,national,2013-14,2014,public,3179700
+219.10,United States,national,2013-14,2014,private,319860
+219.10,United States,national,2014-15,2015,total,3552880
+219.10,United States,national,2014-15,2015,public,3209630
+219.10,United States,national,2014-15,2015,private,343250
+219.10,United States,national,2015-16,2016,total,3609080
+219.10,United States,national,2015-16,2016,public,3258490
+219.10,United States,national,2015-16,2016,private,350590
+219.10,United States,national,2016-17,2017,total,3649800
+219.10,United States,national,2016-17,2017,public,3301560
+219.10,United States,national,2016-17,2017,private,348230
+219.10,United States,national,2017-18,2018,total,3718590
+219.10,United States,national,2017-18,2018,public,3368790
+219.10,United States,national,2017-18,2018,private,349800
+219.10,United States,national,2018-19,2019,total,3737174
+219.10,United States,national,2018-19,2019,public,3396565
+219.10,United States,national,2018-19,2019,private,340610
+219.10,United States,national,2019-20,2020,total,3709640
+219.10,United States,national,2019-20,2020,public,3374770
+219.10,United States,national,2019-20,2020,private,334870
+219.10,United States,national,2020-21,2021,total,3749800
+219.10,United States,national,2020-21,2021,public,3418220
+219.10,United States,national,2020-21,2021,private,331580
+219.10,United States,national,2021-22,2022,total,3754890
+219.10,United States,national,2021-22,2022,public,3428350
+219.10,United States,national,2021-22,2022,private,326540
+219.10,United States,national,2022-23,2023,total,3753992
+219.10,United States,national,2022-23,2023,public,3425512
+219.10,United States,national,2022-23,2023,private,328480
+219.20,United States,national,1980-81,1981,public,2725285
+219.20,United States,national,1989-90,1990,public,2320337
+219.20,United States,national,1999-2000,2000,public,2553844
+219.20,United States,national,2009-10,2010,public,3128022
+219.20,United States,national,2012-13,2013,public,3169257
+219.20,United States,national,2013-14,2014,public,3179700
+219.20,United States,national,2014-15,2015,public,3209630
+219.20,United States,national,2015-16,2016,public,3258490
+219.20,United States,national,2016-17,2017,public,3301560
+219.20,United States,national,2017-18,2018,public,3368790
+219.20,United States,national,2018-19,2019,public,3396565
+219.20,United States,national,2019-20,2020,public,3374770
+219.20,United States,national,2020-21,2021,public,3418220
+219.20,United States,national,2021-22,2022,public,3428350
+219.20,United States,national,2022-23,2023,public,3425512
+219.20,United States,national,2023-24,2024,public,3492851
+219.20,Northeast,region,1980-81,1981,public,593727
+219.20,Northeast,region,1989-90,1990,public,446045
+219.20,Northeast,region,1999-2000,2000,public,453814
+219.20,Northeast,region,2009-10,2010,public,556400
+219.20,Northeast,region,2012-13,2013,public,555202
+219.20,Northeast,region,2013-14,2014,public,549000
+219.20,Northeast,region,2014-15,2015,public,544400
+219.20,Northeast,region,2015-16,2016,public,546390
+219.20,Northeast,region,2016-17,2017,public,551410
+219.20,Northeast,region,2017-18,2018,public,552910
+219.20,Northeast,region,2018-19,2019,public,550844
+219.20,Northeast,region,2019-20,2020,public,546610
+219.20,Northeast,region,2020-21,2021,public,553980
+219.20,Northeast,region,2021-22,2022,public,551210
+219.20,Northeast,region,2022-23,2023,public,543771
+219.20,Northeast,region,2023-24,2024,public,541493
+219.20,Midwest,region,1980-81,1981,public,784071
+219.20,Midwest,region,1989-90,1990,public,616700
+219.20,Midwest,region,1999-2000,2000,public,648020
+219.20,Midwest,region,2009-10,2010,public,726844
+219.20,Midwest,region,2012-13,2013,public,713662
+219.20,Midwest,region,2013-14,2014,public,704360
+219.20,Midwest,region,2014-15,2015,public,705720
+219.20,Midwest,region,2015-16,2016,public,710180
+219.20,Midwest,region,2016-17,2017,public,714000
+219.20,Midwest,region,2017-18,2018,public,721680
+219.20,Midwest,region,2018-19,2019,public,719427
+219.20,Midwest,region,2019-20,2020,public,702660
+219.20,Midwest,region,2020-21,2021,public,709730
+219.20,Midwest,region,2021-22,2022,public,727150
+219.20,Midwest,region,2022-23,2023,public,715657
+219.20,Midwest,region,2023-24,2024,public,726902
+219.20,South,region,1980-81,1981,public,868068
+219.20,South,region,1989-90,1990,public,796385
+219.20,South,region,1999-2000,2000,public,861498
+219.20,South,region,2009-10,2010,public,1104770
+219.20,South,region,2012-13,2013,public,1138965
+219.20,South,region,2013-14,2014,public,1152250
+219.20,South,region,2014-15,2015,public,1175960
+219.20,South,region,2015-16,2016,public,1208850
+219.20,South,region,2016-17,2017,public,1238190
+219.20,South,region,2017-18,2018,public,1281830
+219.20,South,region,2018-19,2019,public,1303349
+219.20,South,region,2019-20,2020,public,1300510
+219.20,South,region,2020-21,2021,public,1318490
+219.20,South,region,2021-22,2022,public,1305950
+219.20,South,region,2022-23,2023,public,1325815
+219.20,South,region,2023-24,2024,public,1359935
+219.20,West,region,1980-81,1981,public,479419
+219.20,West,region,1989-90,1990,public,461207
+219.20,West,region,1999-2000,2000,public,590512
+219.20,West,region,2009-10,2010,public,740008
+219.20,West,region,2012-13,2013,public,761428
+219.20,West,region,2013-14,2014,public,774100
+219.20,West,region,2014-15,2015,public,783550
+219.20,West,region,2015-16,2016,public,793070
+219.20,West,region,2016-17,2017,public,797960
+219.20,West,region,2017-18,2018,public,812380
+219.20,West,region,2018-19,2019,public,822945
+219.20,West,region,2019-20,2020,public,825020
+219.20,West,region,2020-21,2021,public,836050
+219.20,West,region,2021-22,2022,public,844060
+219.20,West,region,2022-23,2023,public,840269
+219.20,West,region,2023-24,2024,public,864521
+219.20,Alabama,state,1980-81,1981,public,44894
+219.20,Alabama,state,1989-90,1990,public,40485
+219.20,Alabama,state,1999-2000,2000,public,37819
+219.20,Alabama,state,2009-10,2010,public,43166
+219.20,Alabama,state,2012-13,2013,public,44233
+219.20,Alabama,state,2013-14,2014,public,44410
+219.20,Alabama,state,2014-15,2015,public,45440
+219.20,Alabama,state,2015-16,2016,public,46240
+219.20,Alabama,state,2016-17,2017,public,47900
+219.20,Alabama,state,2017-18,2018,public,48520
+219.20,Alabama,state,2018-19,2019,public,47922
+219.20,Alabama,state,2019-20,2020,public,47220
+219.20,Alabama,state,2020-21,2021,public,47240
+219.20,Alabama,state,2021-22,2022,public,47410
+219.20,Alabama,state,2022-23,2023,public,47656
+219.20,Alabama,state,2023-24,2024,public,48068
+219.20,Alaska,state,1980-81,1981,public,5343
+219.20,Alaska,state,1989-90,1990,public,5386
+219.20,Alaska,state,1999-2000,2000,public,6615
+219.20,Alaska,state,2009-10,2010,public,8245
+219.20,Alaska,state,2012-13,2013,public,7860
+219.20,Alaska,state,2013-14,2014,public,7800
+219.20,Alaska,state,2014-15,2015,public,8040
+219.20,Alaska,state,2015-16,2016,public,8120
+219.20,Alaska,state,2016-17,2017,public,8290
+219.20,Alaska,state,2017-18,2018,public,8510
+219.20,Alaska,state,2018-19,2019,public,8461
+219.20,Alaska,state,2019-20,2020,public,8190
+219.20,Alaska,state,2020-21,2021,public,8060
+219.20,Alaska,state,2021-22,2022,public,7950
+219.20,Alaska,state,2022-23,2023,public,8058
+219.20,Alaska,state,2023-24,2024,public,8280
+219.20,Arizona,state,1980-81,1981,public,28416
+219.20,Arizona,state,1989-90,1990,public,32103
+219.20,Arizona,state,1999-2000,2000,public,38304
+219.20,Arizona,state,2009-10,2010,public,61145
+219.20,Arizona,state,2012-13,2013,public,62208
+219.20,Arizona,state,2013-14,2014,public,65180
+219.20,Arizona,state,2014-15,2015,public,66690
+219.20,Arizona,state,2015-16,2016,public,67640
+219.20,Arizona,state,2016-17,2017,public,70350
+219.20,Arizona,state,2017-18,2018,public,69220
+219.20,Arizona,state,2018-19,2019,public,73613
+219.20,Arizona,state,2019-20,2020,public,74820
+219.20,Arizona,state,2020-21,2021,public,75180
+219.20,Arizona,state,2021-22,2022,public,77260
+219.20,Arizona,state,2022-23,2023,public,78847
+219.20,Arizona,state,2023-24,2024,public,79746
+219.20,Arkansas,state,1980-81,1981,public,29577
+219.20,Arkansas,state,1989-90,1990,public,26475
+219.20,Arkansas,state,1999-2000,2000,public,27335
+219.20,Arkansas,state,2009-10,2010,public,28276
+219.20,Arkansas,state,2012-13,2013,public,28928
+219.20,Arkansas,state,2013-14,2014,public,29930
+219.20,Arkansas,state,2014-15,2015,public,30820
+219.20,Arkansas,state,2015-16,2016,public,30910
+219.20,Arkansas,state,2016-17,2017,public,31520
+219.20,Arkansas,state,2017-18,2018,public,31860
+219.20,Arkansas,state,2018-19,2019,public,32331
+219.20,Arkansas,state,2019-20,2020,public,32640
+219.20,Arkansas,state,2020-21,2021,public,32540
+219.20,Arkansas,state,2021-22,2022,public,31880
+219.20,Arkansas,state,2022-23,2023,public,31709
+219.20,Arkansas,state,2023-24,2024,public,32689
+219.20,California,state,1980-81,1981,public,242172
+219.20,California,state,1989-90,1990,public,236291
+219.20,California,state,1999-2000,2000,public,309866
+219.20,California,state,2009-10,2010,public,404987
+219.20,California,state,2012-13,2013,public,422125
+219.20,California,state,2013-14,2014,public,427500
+219.20,California,state,2014-15,2015,public,430110
+219.20,California,state,2015-16,2016,public,430240
+219.20,California,state,2016-17,2017,public,426330
+219.20,California,state,2017-18,2018,public,434440
+219.20,California,state,2018-19,2019,public,438628
+219.20,California,state,2019-20,2020,public,436510
+219.20,California,state,2020-21,2021,public,441730
+219.20,California,state,2021-22,2022,public,445860
+219.20,California,state,2022-23,2023,public,440659
+219.20,California,state,2023-24,2024,public,455542
+219.20,Colorado,state,1980-81,1981,public,35897
+219.20,Colorado,state,1989-90,1990,public,32967
+219.20,Colorado,state,1999-2000,2000,public,38924
+219.20,Colorado,state,2009-10,2010,public,49321
+219.20,Colorado,state,2012-13,2013,public,50968
+219.20,Colorado,state,2013-14,2014,public,51480
+219.20,Colorado,state,2014-15,2015,public,51840
+219.20,Colorado,state,2015-16,2016,public,53950
+219.20,Colorado,state,2016-17,2017,public,54940
+219.20,Colorado,state,2017-18,2018,public,56720
+219.20,Colorado,state,2018-19,2019,public,58031
+219.20,Colorado,state,2019-20,2020,public,58860
+219.20,Colorado,state,2020-21,2021,public,59990
+219.20,Colorado,state,2021-22,2022,public,60210
+219.20,Colorado,state,2022-23,2023,public,59952
+219.20,Colorado,state,2023-24,2024,public,61610
+219.20,Connecticut,state,1980-81,1981,public,38369
+219.20,Connecticut,state,1989-90,1990,public,27878
+219.20,Connecticut,state,1999-2000,2000,public,31562
+219.20,Connecticut,state,2009-10,2010,public,34495
+219.20,Connecticut,state,2012-13,2013,public,38722
+219.20,Connecticut,state,2013-14,2014,public,38720
+219.20,Connecticut,state,2014-15,2015,public,37970
+219.20,Connecticut,state,2015-16,2016,public,38200
+219.20,Connecticut,state,2016-17,2017,public,38640
+219.20,Connecticut,state,2017-18,2018,public,38560
+219.20,Connecticut,state,2018-19,2019,public,38303
+219.20,Connecticut,state,2019-20,2020,public,37420
+219.20,Connecticut,state,2020-21,2021,public,37830
+219.20,Connecticut,state,2021-22,2022,public,36990
+219.20,Connecticut,state,2022-23,2023,public,36729
+219.20,Connecticut,state,2023-24,2024,public,37184
+219.20,Delaware,state,1980-81,1981,public,7349
+219.20,Delaware,state,1989-90,1990,public,5550
+219.20,Delaware,state,1999-2000,2000,public,6108
+219.20,Delaware,state,2009-10,2010,public,8133
+219.20,Delaware,state,2012-13,2013,public,8070
+219.20,Delaware,state,2013-14,2014,public,8220
+219.20,Delaware,state,2014-15,2015,public,8340
+219.20,Delaware,state,2015-16,2016,public,8410
+219.20,Delaware,state,2016-17,2017,public,8590
+219.20,Delaware,state,2017-18,2018,public,8660
+219.20,Delaware,state,2018-19,2019,public,8829
+219.20,Delaware,state,2019-20,2020,public,9000
+219.20,Delaware,state,2020-21,2021,public,9360
+219.20,Delaware,state,2021-22,2022,public,9360
+219.20,Delaware,state,2022-23,2023,public,9686
+219.20,Delaware,state,2023-24,2024,public,10085
+219.20,District of Columbia,state,1980-81,1981,public,4848
+219.20,District of Columbia,state,1989-90,1990,public,3626
+219.20,District of Columbia,state,1999-2000,2000,public,2695
+219.20,District of Columbia,state,2009-10,2010,public,3602
+219.20,District of Columbia,state,2012-13,2013,public,3961
+219.20,District of Columbia,state,2013-14,2014,public,3810
+219.20,District of Columbia,state,2014-15,2015,public,3760
+219.20,District of Columbia,state,2015-16,2016,public,4060
+219.20,District of Columbia,state,2016-17,2017,public,3800
+219.20,District of Columbia,state,2017-18,2018,public,3910
+219.20,District of Columbia,state,2018-19,2019,public,3710
+219.20,District of Columbia,state,2019-20,2020,public,3720
+219.20,District of Columbia,state,2020-21,2021,public,3720
+219.20,District of Columbia,state,2021-22,2022,public,3690
+219.20,District of Columbia,state,2022-23,2023,public,3982
+219.20,District of Columbia,state,2023-24,2024,public,4126
+219.20,Florida,state,1980-81,1981,public,88755
+219.20,Florida,state,1989-90,1990,public,88934
+219.20,Florida,state,1999-2000,2000,public,106708
+219.20,Florida,state,2009-10,2010,public,156130
+219.20,Florida,state,2012-13,2013,public,158029
+219.20,Florida,state,2013-14,2014,public,159790
+219.20,Florida,state,2014-15,2015,public,166710
+219.20,Florida,state,2015-16,2016,public,171170
+219.20,Florida,state,2016-17,2017,public,177220
+219.20,Florida,state,2017-18,2018,public,183380
+219.20,Florida,state,2018-19,2019,public,188713
+219.20,Florida,state,2019-20,2020,public,185640
+219.20,Florida,state,2020-21,2021,public,187320
+219.20,Florida,state,2021-22,2022,public,188430
+219.20,Florida,state,2022-23,2023,public,190683
+219.20,Florida,state,2023-24,2024,public,202833
+219.20,Georgia,state,1980-81,1981,public,62963
+219.20,Georgia,state,1989-90,1990,public,56605
+219.20,Georgia,state,1999-2000,2000,public,62563
+219.20,Georgia,state,2009-10,2010,public,91561
+219.20,Georgia,state,2012-13,2013,public,92416
+219.20,Georgia,state,2013-14,2014,public,95360
+219.20,Georgia,state,2014-15,2015,public,99530
+219.20,Georgia,state,2015-16,2016,public,103380
+219.20,Georgia,state,2016-17,2017,public,106580
+219.20,Georgia,state,2017-18,2018,public,111710
+219.20,Georgia,state,2018-19,2019,public,115031
+219.20,Georgia,state,2019-20,2020,public,114390
+219.20,Georgia,state,2020-21,2021,public,116200
+219.20,Georgia,state,2021-22,2022,public,115410
+219.20,Georgia,state,2022-23,2023,public,115718
+219.20,Georgia,state,2023-24,2024,public,119763
+219.20,Hawaii,state,1980-81,1981,public,11472
+219.20,Hawaii,state,1989-90,1990,public,10325
+219.20,Hawaii,state,1999-2000,2000,public,10437
+219.20,Hawaii,state,2009-10,2010,public,10998
+219.20,Hawaii,state,2012-13,2013,public,10790
+219.20,Hawaii,state,2013-14,2014,public,11000
+219.20,Hawaii,state,2014-15,2015,public,10720
+219.20,Hawaii,state,2015-16,2016,public,10810
+219.20,Hawaii,state,2016-17,2017,public,10650
+219.20,Hawaii,state,2017-18,2018,public,11140
+219.20,Hawaii,state,2018-19,2019,public,10660
+219.20,Hawaii,state,2019-20,2020,public,11270
+219.20,Hawaii,state,2020-21,2021,public,11420
+219.20,Hawaii,state,2021-22,2022,public,11210
+219.20,Hawaii,state,2022-23,2023,public,11358
+219.20,Hawaii,state,2023-24,2024,public,11417
+219.20,Idaho,state,1980-81,1981,public,12679
+219.20,Idaho,state,1989-90,1990,public,11971
+219.20,Idaho,state,1999-2000,2000,public,16170
+219.20,Idaho,state,2009-10,2010,public,17793
+219.20,Idaho,state,2012-13,2013,public,17198
+219.20,Idaho,state,2013-14,2014,public,18860
+219.20,Idaho,state,2014-15,2015,public,17720
+219.20,Idaho,state,2015-16,2016,public,17820
+219.20,Idaho,state,2016-17,2017,public,18620
+219.20,Idaho,state,2017-18,2018,public,18900
+219.20,Idaho,state,2018-19,2019,public,19569
+219.20,Idaho,state,2019-20,2020,public,19520
+219.20,Idaho,state,2020-21,2021,public,20180
+219.20,Idaho,state,2021-22,2022,public,20570
+219.20,Idaho,state,2022-23,2023,public,21549
+219.20,Idaho,state,2023-24,2024,public,21908
+219.20,Illinois,state,1980-81,1981,public,136795
+219.20,Illinois,state,1989-90,1990,public,108119
+219.20,Illinois,state,1999-2000,2000,public,111835
+219.20,Illinois,state,2009-10,2010,public,139035
+219.20,Illinois,state,2012-13,2013,public,139228
+219.20,Illinois,state,2013-14,2014,public,136790
+219.20,Illinois,state,2014-15,2015,public,138800
+219.20,Illinois,state,2015-16,2016,public,138260
+219.20,Illinois,state,2016-17,2017,public,137790
+219.20,Illinois,state,2017-18,2018,public,138340
+219.20,Illinois,state,2018-19,2019,public,136725
+219.20,Illinois,state,2019-20,2020,public,133710
+219.20,Illinois,state,2020-21,2021,public,137040
+219.20,Illinois,state,2021-22,2022,public,137260
+219.20,Illinois,state,2022-23,2023,public,133737
+219.20,Illinois,state,2023-24,2024,public,132293
+219.20,Indiana,state,1980-81,1981,public,73381
+219.20,Indiana,state,1989-90,1990,public,60012
+219.20,Indiana,state,1999-2000,2000,public,57012
+219.20,Indiana,state,2009-10,2010,public,64551
+219.20,Indiana,state,2012-13,2013,public,66595
+219.20,Indiana,state,2013-14,2014,public,67110
+219.20,Indiana,state,2014-15,2015,public,65920
+219.20,Indiana,state,2015-16,2016,public,65510
+219.20,Indiana,state,2016-17,2017,public,67340
+219.20,Indiana,state,2017-18,2018,public,69490
+219.20,Indiana,state,2018-19,2019,public,71960
+219.20,Indiana,state,2019-20,2020,public,66090
+219.20,Indiana,state,2020-21,2021,public,67990
+219.20,Indiana,state,2021-22,2022,public,70100
+219.20,Indiana,state,2022-23,2023,public,70844
+219.20,Indiana,state,2023-24,2024,public,74487
+219.20,Iowa,state,1980-81,1981,public,42635
+219.20,Iowa,state,1989-90,1990,public,31796
+219.20,Iowa,state,1999-2000,2000,public,33926
+219.20,Iowa,state,2009-10,2010,public,34462
+219.20,Iowa,state,2012-13,2013,public,32548
+219.20,Iowa,state,2013-14,2014,public,32640
+219.20,Iowa,state,2014-15,2015,public,32570
+219.20,Iowa,state,2015-16,2016,public,32910
+219.20,Iowa,state,2016-17,2017,public,33140
+219.20,Iowa,state,2017-18,2018,public,33650
+219.20,Iowa,state,2018-19,2019,public,33647
+219.20,Iowa,state,2019-20,2020,public,33720
+219.20,Iowa,state,2020-21,2021,public,34110
+219.20,Iowa,state,2021-22,2022,public,34200
+219.20,Iowa,state,2022-23,2023,public,34646
+219.20,Iowa,state,2023-24,2024,public,35647
+219.20,Kansas,state,1980-81,1981,public,29397
+219.20,Kansas,state,1989-90,1990,public,25367
+219.20,Kansas,state,1999-2000,2000,public,29102
+219.20,Kansas,state,2009-10,2010,public,31642
+219.20,Kansas,state,2012-13,2013,public,31922
+219.20,Kansas,state,2013-14,2014,public,32100
+219.20,Kansas,state,2014-15,2015,public,31850
+219.20,Kansas,state,2015-16,2016,public,32750
+219.20,Kansas,state,2016-17,2017,public,32850
+219.20,Kansas,state,2017-18,2018,public,33480
+219.20,Kansas,state,2018-19,2019,public,33349
+219.20,Kansas,state,2019-20,2020,public,33390
+219.20,Kansas,state,2020-21,2021,public,33850
+219.20,Kansas,state,2021-22,2022,public,33890
+219.20,Kansas,state,2022-23,2023,public,34170
+219.20,Kansas,state,2023-24,2024,public,35065
+219.20,Kentucky,state,1980-81,1981,public,41714
+219.20,Kentucky,state,1989-90,1990,public,38005
+219.20,Kentucky,state,1999-2000,2000,public,36830
+219.20,Kentucky,state,2009-10,2010,public,42664
+219.20,Kentucky,state,2012-13,2013,public,42888
+219.20,Kentucky,state,2013-14,2014,public,42870
+219.20,Kentucky,state,2014-15,2015,public,43270
+219.20,Kentucky,state,2015-16,2016,public,44310
+219.20,Kentucky,state,2016-17,2017,public,44580
+219.20,Kentucky,state,2017-18,2018,public,45760
+219.20,Kentucky,state,2018-19,2019,public,46130
+219.20,Kentucky,state,2019-20,2020,public,47040
+219.20,Kentucky,state,2020-21,2021,public,46720
+219.20,Kentucky,state,2021-22,2022,public,45750
+219.20,Kentucky,state,2022-23,2023,public,46427
+219.20,Kentucky,state,2023-24,2024,public,46842
+219.20,Louisiana,state,1980-81,1981,public,46199
+219.20,Louisiana,state,1989-90,1990,public,36053
+219.20,Louisiana,state,1999-2000,2000,public,38430
+219.20,Louisiana,state,2009-10,2010,public,36573
+219.20,Louisiana,state,2012-13,2013,public,37508
+219.20,Louisiana,state,2013-14,2014,public,38640
+219.20,Louisiana,state,2014-15,2015,public,38410
+219.20,Louisiana,state,2015-16,2016,public,39750
+219.20,Louisiana,state,2016-17,2017,public,40610
+219.20,Louisiana,state,2017-18,2018,public,43430
+219.20,Louisiana,state,2018-19,2019,public,43138
+219.20,Louisiana,state,2019-20,2020,public,42430
+219.20,Louisiana,state,2020-21,2021,public,40850
+219.20,Louisiana,state,2021-22,2022,public,39420
+219.20,Louisiana,state,2022-23,2023,public,41455
+219.20,Louisiana,state,2023-24,2024,public,42907
+219.20,Maine,state,1980-81,1981,public,15554
+219.20,Maine,state,1989-90,1990,public,13839
+219.20,Maine,state,1999-2000,2000,public,12211
+219.20,Maine,state,2009-10,2010,public,14069
+219.20,Maine,state,2012-13,2013,public,13170
+219.20,Maine,state,2013-14,2014,public,12530
+219.20,Maine,state,2014-15,2015,public,12180
+219.20,Maine,state,2015-16,2016,public,12210
+219.20,Maine,state,2016-17,2017,public,11880
+219.20,Maine,state,2017-18,2018,public,11750
+219.20,Maine,state,2018-19,2019,public,11679
+219.20,Maine,state,2019-20,2020,public,11670
+219.20,Maine,state,2020-21,2021,public,12050
+219.20,Maine,state,2021-22,2022,public,12550
+219.20,Maine,state,2022-23,2023,public,12671
+219.20,Maine,state,2023-24,2024,public,12520
+219.20,Maryland,state,1980-81,1981,public,54050
+219.20,Maryland,state,1989-90,1990,public,41566
+219.20,Maryland,state,1999-2000,2000,public,47849
+219.20,Maryland,state,2009-10,2010,public,59078
+219.20,Maryland,state,2012-13,2013,public,58896
+219.20,Maryland,state,2013-14,2014,public,57930
+219.20,Maryland,state,2014-15,2015,public,57320
+219.20,Maryland,state,2015-16,2016,public,57040
+219.20,Maryland,state,2016-17,2017,public,56710
+219.20,Maryland,state,2017-18,2018,public,58390
+219.20,Maryland,state,2018-19,2019,public,57421
+219.20,Maryland,state,2019-20,2020,public,59490
+219.20,Maryland,state,2020-21,2021,public,60410
+219.20,Maryland,state,2021-22,2022,public,59850
+219.20,Maryland,state,2022-23,2023,public,60273
+219.20,Maryland,state,2023-24,2024,public,61127
+219.20,Massachusetts,state,1980-81,1981,public,74831
+219.20,Massachusetts,state,1989-90,1990,public,55941
+219.20,Massachusetts,state,1999-2000,2000,public,52950
+219.20,Massachusetts,state,2009-10,2010,public,64462
+219.20,Massachusetts,state,2012-13,2013,public,66360
+219.20,Massachusetts,state,2013-14,2014,public,65650
+219.20,Massachusetts,state,2014-15,2015,public,65940
+219.20,Massachusetts,state,2015-16,2016,public,68460
+219.20,Massachusetts,state,2016-17,2017,public,68130
+219.20,Massachusetts,state,2017-18,2018,public,68440
+219.20,Massachusetts,state,2018-19,2019,public,68235
+219.20,Massachusetts,state,2019-20,2020,public,67370
+219.20,Massachusetts,state,2020-21,2021,public,68370
+219.20,Massachusetts,state,2021-22,2022,public,68430
+219.20,Massachusetts,state,2022-23,2023,public,66860
+219.20,Massachusetts,state,2023-24,2024,public,66183
+219.20,Michigan,state,1980-81,1981,public,124372
+219.20,Michigan,state,1989-90,1990,public,93807
+219.20,Michigan,state,1999-2000,2000,public,97679
+219.20,Michigan,state,2009-10,2010,public,110682
+219.20,Michigan,state,2012-13,2013,public,104210
+219.20,Michigan,state,2013-14,2014,public,102140
+219.20,Michigan,state,2014-15,2015,public,101270
+219.20,Michigan,state,2015-16,2016,public,99700
+219.20,Michigan,state,2016-17,2017,public,100100
+219.20,Michigan,state,2017-18,2018,public,101070
+219.20,Michigan,state,2018-19,2019,public,100062
+219.20,Michigan,state,2019-20,2020,public,98620
+219.20,Michigan,state,2020-21,2021,public,99570
+219.20,Michigan,state,2021-22,2022,public,101530
+219.20,Michigan,state,2022-23,2023,public,99036
+219.20,Michigan,state,2023-24,2024,public,100245
+219.20,Minnesota,state,1980-81,1981,public,64166
+219.20,Minnesota,state,1989-90,1990,public,49087
+219.20,Minnesota,state,1999-2000,2000,public,57372
+219.20,Minnesota,state,2009-10,2010,public,59667
+219.20,Minnesota,state,2012-13,2013,public,58255
+219.20,Minnesota,state,2013-14,2014,public,57350
+219.20,Minnesota,state,2014-15,2015,public,58040
+219.20,Minnesota,state,2015-16,2016,public,58120
+219.20,Minnesota,state,2016-17,2017,public,59010
+219.20,Minnesota,state,2017-18,2018,public,59770
+219.20,Minnesota,state,2018-19,2019,public,61165
+219.20,Minnesota,state,2019-20,2020,public,60470
+219.20,Minnesota,state,2020-21,2021,public,62080
+219.20,Minnesota,state,2021-22,2022,public,63090
+219.20,Minnesota,state,2022-23,2023,public,62224
+219.20,Minnesota,state,2023-24,2024,public,63162
+219.20,Mississippi,state,1980-81,1981,public,28083
+219.20,Mississippi,state,1989-90,1990,public,25182
+219.20,Mississippi,state,1999-2000,2000,public,24232
+219.20,Mississippi,state,2009-10,2010,public,25478
+219.20,Mississippi,state,2012-13,2013,public,26502
+219.20,Mississippi,state,2013-14,2014,public,26690
+219.20,Mississippi,state,2014-15,2015,public,26720
+219.20,Mississippi,state,2015-16,2016,public,27660
+219.20,Mississippi,state,2016-17,2017,public,28220
+219.20,Mississippi,state,2017-18,2018,public,29810
+219.20,Mississippi,state,2018-19,2019,public,29133
+219.20,Mississippi,state,2019-20,2020,public,28550
+219.20,Mississippi,state,2020-21,2021,public,28450
+219.20,Mississippi,state,2021-22,2022,public,28710
+219.20,Mississippi,state,2022-23,2023,public,28847
+219.20,Mississippi,state,2023-24,2024,public,28558
+219.20,Missouri,state,1980-81,1981,public,60359
+219.20,Missouri,state,1989-90,1990,public,48957
+219.20,Missouri,state,1999-2000,2000,public,52848
+219.20,Missouri,state,2009-10,2010,public,63994
+219.20,Missouri,state,2012-13,2013,public,61407
+219.20,Missouri,state,2013-14,2014,public,61050
+219.20,Missouri,state,2014-15,2015,public,60770
+219.20,Missouri,state,2015-16,2016,public,61820
+219.20,Missouri,state,2016-17,2017,public,61150
+219.20,Missouri,state,2017-18,2018,public,61680
+219.20,Missouri,state,2018-19,2019,public,61211
+219.20,Missouri,state,2019-20,2020,public,60830
+219.20,Missouri,state,2020-21,2021,public,61790
+219.20,Missouri,state,2021-22,2022,public,61690
+219.20,Missouri,state,2022-23,2023,public,61558
+219.20,Missouri,state,2023-24,2024,public,63012
+219.20,Montana,state,1980-81,1981,public,11634
+219.20,Montana,state,1989-90,1990,public,9370
+219.20,Montana,state,1999-2000,2000,public,10903
+219.20,Montana,state,2009-10,2010,public,10075
+219.20,Montana,state,2012-13,2013,public,9369
+219.20,Montana,state,2013-14,2014,public,9480
+219.20,Montana,state,2014-15,2015,public,9380
+219.20,Montana,state,2015-16,2016,public,9290
+219.20,Montana,state,2016-17,2017,public,9330
+219.20,Montana,state,2017-18,2018,public,9420
+219.20,Montana,state,2018-19,2019,public,9272
+219.20,Montana,state,2019-20,2020,public,9160
+219.20,Montana,state,2020-21,2021,public,9280
+219.20,Montana,state,2021-22,2022,public,9550
+219.20,Montana,state,2022-23,2023,public,9543
+219.20,Montana,state,2023-24,2024,public,9770
+219.20,Nebraska,state,1980-81,1981,public,21411
+219.20,Nebraska,state,1989-90,1990,public,17664
+219.20,Nebraska,state,1999-2000,2000,public,20149
+219.20,Nebraska,state,2009-10,2010,public,19370
+219.20,Nebraska,state,2012-13,2013,public,20442
+219.20,Nebraska,state,2013-14,2014,public,20250
+219.20,Nebraska,state,2014-15,2015,public,20290
+219.20,Nebraska,state,2015-16,2016,public,20690
+219.20,Nebraska,state,2016-17,2017,public,20690
+219.20,Nebraska,state,2017-18,2018,public,21310
+219.20,Nebraska,state,2018-19,2019,public,21357
+219.20,Nebraska,state,2019-20,2020,public,21730
+219.20,Nebraska,state,2020-21,2021,public,21890
+219.20,Nebraska,state,2021-22,2022,public,22220
+219.20,Nebraska,state,2022-23,2023,public,22213
+219.20,Nebraska,state,2023-24,2024,public,22440
+219.20,Nevada,state,1980-81,1981,public,9069
+219.20,Nevada,state,1989-90,1990,public,9477
+219.20,Nevada,state,1999-2000,2000,public,14551
+219.20,Nevada,state,2009-10,2010,public,20956
+219.20,Nevada,state,2012-13,2013,public,23038
+219.20,Nevada,state,2013-14,2014,public,23710
+219.20,Nevada,state,2014-15,2015,public,25090
+219.20,Nevada,state,2015-16,2016,public,26300
+219.20,Nevada,state,2016-17,2017,public,28040
+219.20,Nevada,state,2017-18,2018,public,29560
+219.20,Nevada,state,2018-19,2019,public,31008
+219.20,Nevada,state,2019-20,2020,public,31100
+219.20,Nevada,state,2020-21,2021,public,31450
+219.20,Nevada,state,2021-22,2022,public,31370
+219.20,Nevada,state,2022-23,2023,public,31502
+219.20,Nevada,state,2023-24,2024,public,33009
+219.20,New Hampshire,state,1980-81,1981,public,11552
+219.20,New Hampshire,state,1989-90,1990,public,10766
+219.20,New Hampshire,state,1999-2000,2000,public,11829
+219.20,New Hampshire,state,2009-10,2010,public,15034
+219.20,New Hampshire,state,2012-13,2013,public,14262
+219.20,New Hampshire,state,2013-14,2014,public,13780
+219.20,New Hampshire,state,2014-15,2015,public,13470
+219.20,New Hampshire,state,2015-16,2016,public,13520
+219.20,New Hampshire,state,2016-17,2017,public,13050
+219.20,New Hampshire,state,2017-18,2018,public,12950
+219.20,New Hampshire,state,2018-19,2019,public,12786
+219.20,New Hampshire,state,2019-20,2020,public,12770
+219.20,New Hampshire,state,2020-21,2021,public,12650
+219.20,New Hampshire,state,2021-22,2022,public,12460
+219.20,New Hampshire,state,2022-23,2023,public,12034
+219.20,New Hampshire,state,2023-24,2024,public,11982
+219.20,New Jersey,state,1980-81,1981,public,93168
+219.20,New Jersey,state,1989-90,1990,public,69824
+219.20,New Jersey,state,1999-2000,2000,public,74420
+219.20,New Jersey,state,2009-10,2010,public,96225
+219.20,New Jersey,state,2012-13,2013,public,96490
+219.20,New Jersey,state,2013-14,2014,public,94840
+219.20,New Jersey,state,2014-15,2015,public,94590
+219.20,New Jersey,state,2015-16,2016,public,96180
+219.20,New Jersey,state,2016-17,2017,public,96740
+219.20,New Jersey,state,2017-18,2018,public,96770
+219.20,New Jersey,state,2018-19,2019,public,96530
+219.20,New Jersey,state,2019-20,2020,public,95390
+219.20,New Jersey,state,2020-21,2021,public,97910
+219.20,New Jersey,state,2021-22,2022,public,97680
+219.20,New Jersey,state,2022-23,2023,public,97119
+219.20,New Jersey,state,2023-24,2024,public,94740
+219.20,New Mexico,state,1980-81,1981,public,17915
+219.20,New Mexico,state,1989-90,1990,public,14884
+219.20,New Mexico,state,1999-2000,2000,public,18031
+219.20,New Mexico,state,2009-10,2010,public,18595
+219.20,New Mexico,state,2012-13,2013,public,19232
+219.20,New Mexico,state,2013-14,2014,public,18780
+219.20,New Mexico,state,2014-15,2015,public,19660
+219.20,New Mexico,state,2015-16,2016,public,19550
+219.20,New Mexico,state,2016-17,2017,public,19770
+219.20,New Mexico,state,2017-18,2018,public,19830
+219.20,New Mexico,state,2018-19,2019,public,19774
+219.20,New Mexico,state,2019-20,2020,public,19670
+219.20,New Mexico,state,2020-21,2021,public,19730
+219.20,New Mexico,state,2021-22,2022,public,19310
+219.20,New Mexico,state,2022-23,2023,public,19026
+219.20,New Mexico,state,2023-24,2024,public,19246
+219.20,New York,state,1980-81,1981,public,198465
+219.20,New York,state,1989-90,1990,public,143318
+219.20,New York,state,1999-2000,2000,public,141731
+219.20,New York,state,2009-10,2010,public,183826
+219.20,New York,state,2012-13,2013,public,180351
+219.20,New York,state,2013-14,2014,public,178880
+219.20,New York,state,2014-15,2015,public,179580
+219.20,New York,state,2015-16,2016,public,179120
+219.20,New York,state,2016-17,2017,public,183080
+219.20,New York,state,2017-18,2018,public,184090
+219.20,New York,state,2018-19,2019,public,182799
+219.20,New York,state,2019-20,2020,public,182890
+219.20,New York,state,2020-21,2021,public,183770
+219.20,New York,state,2021-22,2022,public,181070
+219.20,New York,state,2022-23,2023,public,178129
+219.20,New York,state,2023-24,2024,public,177226
+219.20,North Carolina,state,1980-81,1981,public,69395
+219.20,North Carolina,state,1989-90,1990,public,64782
+219.20,North Carolina,state,1999-2000,2000,public,62140
+219.20,North Carolina,state,2009-10,2010,public,88704
+219.20,North Carolina,state,2012-13,2013,public,94339
+219.20,North Carolina,state,2013-14,2014,public,96390
+219.20,North Carolina,state,2014-15,2015,public,97430
+219.20,North Carolina,state,2015-16,2016,public,99630
+219.20,North Carolina,state,2016-17,2017,public,102630
+219.20,North Carolina,state,2017-18,2018,public,106050
+219.20,North Carolina,state,2018-19,2019,public,108363
+219.20,North Carolina,state,2019-20,2020,public,107280
+219.20,North Carolina,state,2020-21,2021,public,108590
+219.20,North Carolina,state,2021-22,2022,public,99670
+219.20,North Carolina,state,2022-23,2023,public,106316
+219.20,North Carolina,state,2023-24,2024,public,109161
+219.20,North Dakota,state,1980-81,1981,public,9924
+219.20,North Dakota,state,1989-90,1990,public,7690
+219.20,North Dakota,state,1999-2000,2000,public,8606
+219.20,North Dakota,state,2009-10,2010,public,7155
+219.20,North Dakota,state,2012-13,2013,public,6900
+219.20,North Dakota,state,2013-14,2014,public,6910
+219.20,North Dakota,state,2014-15,2015,public,6960
+219.20,North Dakota,state,2015-16,2016,public,6920
+219.20,North Dakota,state,2016-17,2017,public,6820
+219.20,North Dakota,state,2017-18,2018,public,6780
+219.20,North Dakota,state,2018-19,2019,public,6956
+219.20,North Dakota,state,2019-20,2020,public,6860
+219.20,North Dakota,state,2020-21,2021,public,7010
+219.20,North Dakota,state,2021-22,2022,public,7020
+219.20,North Dakota,state,2022-23,2023,public,7101
+219.20,North Dakota,state,2023-24,2024,public,7365
+219.20,Ohio,state,1980-81,1981,public,143503
+219.20,Ohio,state,1989-90,1990,public,114513
+219.20,Ohio,state,1999-2000,2000,public,111668
+219.20,Ohio,state,2009-10,2010,public,123437
+219.20,Ohio,state,2012-13,2013,public,122491
+219.20,Ohio,state,2013-14,2014,public,119220
+219.20,Ohio,state,2014-15,2015,public,120470
+219.20,Ohio,state,2015-16,2016,public,124390
+219.20,Ohio,state,2016-17,2017,public,125760
+219.20,Ohio,state,2017-18,2018,public,125890
+219.20,Ohio,state,2018-19,2019,public,123302
+219.20,Ohio,state,2019-20,2020,public,118170
+219.20,Ohio,state,2020-21,2021,public,115090
+219.20,Ohio,state,2021-22,2022,public,125230
+219.20,Ohio,state,2022-23,2023,public,120007
+219.20,Ohio,state,2023-24,2024,public,122520
+219.20,Oklahoma,state,1980-81,1981,public,38875
+219.20,Oklahoma,state,1989-90,1990,public,35606
+219.20,Oklahoma,state,1999-2000,2000,public,37646
+219.20,Oklahoma,state,2009-10,2010,public,38503
+219.20,Oklahoma,state,2012-13,2013,public,37033
+219.20,Oklahoma,state,2013-14,2014,public,37430
+219.20,Oklahoma,state,2014-15,2015,public,38910
+219.20,Oklahoma,state,2015-16,2016,public,40510
+219.20,Oklahoma,state,2016-17,2017,public,41380
+219.20,Oklahoma,state,2017-18,2018,public,42530
+219.20,Oklahoma,state,2018-19,2019,public,43464
+219.20,Oklahoma,state,2019-20,2020,public,43450
+219.20,Oklahoma,state,2020-21,2021,public,44390
+219.20,Oklahoma,state,2021-22,2022,public,44540
+219.20,Oklahoma,state,2022-23,2023,public,43941
+219.20,Oklahoma,state,2023-24,2024,public,45874
+219.20,Oregon,state,1980-81,1981,public,28729
+219.20,Oregon,state,1989-90,1990,public,25473
+219.20,Oregon,state,1999-2000,2000,public,30151
+219.20,Oregon,state,2009-10,2010,public,34671
+219.20,Oregon,state,2012-13,2013,public,33899
+219.20,Oregon,state,2013-14,2014,public,34980
+219.20,Oregon,state,2014-15,2015,public,36180
+219.20,Oregon,state,2015-16,2016,public,37910
+219.20,Oregon,state,2016-17,2017,public,37730
+219.20,Oregon,state,2017-18,2018,public,38370
+219.20,Oregon,state,2018-19,2019,public,38734
+219.20,Oregon,state,2019-20,2020,public,38540
+219.20,Oregon,state,2020-21,2021,public,38860
+219.20,Oregon,state,2021-22,2022,public,39600
+219.20,Oregon,state,2022-23,2023,public,39149
+219.20,Oregon,state,2023-24,2024,public,40225
+219.20,Pennsylvania,state,1980-81,1981,public,144645
+219.20,Pennsylvania,state,1989-90,1990,public,110527
+219.20,Pennsylvania,state,1999-2000,2000,public,113959
+219.20,Pennsylvania,state,2009-10,2010,public,131182
+219.20,Pennsylvania,state,2012-13,2013,public,129777
+219.20,Pennsylvania,state,2013-14,2014,public,128900
+219.20,Pennsylvania,state,2014-15,2015,public,125040
+219.20,Pennsylvania,state,2015-16,2016,public,123140
+219.20,Pennsylvania,state,2016-17,2017,public,125150
+219.20,Pennsylvania,state,2017-18,2018,public,125740
+219.20,Pennsylvania,state,2018-19,2019,public,125515
+219.20,Pennsylvania,state,2019-20,2020,public,124150
+219.20,Pennsylvania,state,2020-21,2021,public,126190
+219.20,Pennsylvania,state,2021-22,2022,public,126870
+219.20,Pennsylvania,state,2022-23,2023,public,125585
+219.20,Pennsylvania,state,2023-24,2024,public,127343
+219.20,Rhode Island,state,1980-81,1981,public,10719
+219.20,Rhode Island,state,1989-90,1990,public,7825
+219.20,Rhode Island,state,1999-2000,2000,public,8477
+219.20,Rhode Island,state,2009-10,2010,public,9908
+219.20,Rhode Island,state,2012-13,2013,public,9579
+219.20,Rhode Island,state,2013-14,2014,public,9460
+219.20,Rhode Island,state,2014-15,2015,public,9600
+219.20,Rhode Island,state,2015-16,2016,public,9730
+219.20,Rhode Island,state,2016-17,2017,public,9070
+219.20,Rhode Island,state,2017-18,2018,public,9270
+219.20,Rhode Island,state,2018-19,2019,public,9790
+219.20,Rhode Island,state,2019-20,2020,public,9800
+219.20,Rhode Island,state,2020-21,2021,public,10000
+219.20,Rhode Island,state,2021-22,2022,public,10030
+219.20,Rhode Island,state,2022-23,2023,public,9638
+219.20,Rhode Island,state,2023-24,2024,public,9482
+219.20,South Carolina,state,1980-81,1981,public,38347
+219.20,South Carolina,state,1989-90,1990,public,32483
+219.20,South Carolina,state,1999-2000,2000,public,31617
+219.20,South Carolina,state,2009-10,2010,public,40438
+219.20,South Carolina,state,2012-13,2013,public,42246
+219.20,South Carolina,state,2013-14,2014,public,42410
+219.20,South Carolina,state,2014-15,2015,public,43650
+219.20,South Carolina,state,2015-16,2016,public,45160
+219.20,South Carolina,state,2016-17,2017,public,46750
+219.20,South Carolina,state,2017-18,2018,public,48830
+219.20,South Carolina,state,2018-19,2019,public,49279
+219.20,South Carolina,state,2019-20,2020,public,48860
+219.20,South Carolina,state,2020-21,2021,public,49630
+219.20,South Carolina,state,2021-22,2022,public,49290
+219.20,South Carolina,state,2022-23,2023,public,50247
+219.20,South Carolina,state,2023-24,2024,public,52080
+219.20,South Dakota,state,1980-81,1981,public,10385
+219.20,South Dakota,state,1989-90,1990,public,7650
+219.20,South Dakota,state,1999-2000,2000,public,9278
+219.20,South Dakota,state,2009-10,2010,public,8162
+219.20,South Dakota,state,2012-13,2013,public,8239
+219.20,South Dakota,state,2013-14,2014,public,7960
+219.20,South Dakota,state,2014-15,2015,public,8170
+219.20,South Dakota,state,2015-16,2016,public,8150
+219.20,South Dakota,state,2016-17,2017,public,8260
+219.20,South Dakota,state,2017-18,2018,public,8360
+219.20,South Dakota,state,2018-19,2019,public,8189
+219.20,South Dakota,state,2019-20,2020,public,8270
+219.20,South Dakota,state,2020-21,2021,public,8340
+219.20,South Dakota,state,2021-22,2022,public,8730
+219.20,South Dakota,state,2022-23,2023,public,8661
+219.20,South Dakota,state,2023-24,2024,public,8938
+219.20,Tennessee,state,1980-81,1981,public,50648
+219.20,Tennessee,state,1989-90,1990,public,46094
+219.20,Tennessee,state,1999-2000,2000,public,41568
+219.20,Tennessee,state,2009-10,2010,public,62408
+219.20,Tennessee,state,2012-13,2013,public,61323
+219.20,Tennessee,state,2013-14,2014,public,60950
+219.20,Tennessee,state,2014-15,2015,public,62020
+219.20,Tennessee,state,2015-16,2016,public,63510
+219.20,Tennessee,state,2016-17,2017,public,63770
+219.20,Tennessee,state,2017-18,2018,public,64370
+219.20,Tennessee,state,2018-19,2019,public,64946
+219.20,Tennessee,state,2019-20,2020,public,62650
+219.20,Tennessee,state,2020-21,2021,public,62140
+219.20,Tennessee,state,2021-22,2022,public,61680
+219.20,Tennessee,state,2022-23,2023,public,61813
+219.20,Tennessee,state,2023-24,2024,public,64361
+219.20,Texas,state,1980-81,1981,public,171665
+219.20,Texas,state,1989-90,1990,public,172480
+219.20,Texas,state,1999-2000,2000,public,212925
+219.20,Texas,state,2009-10,2010,public,280894
+219.20,Texas,state,2012-13,2013,public,301390
+219.20,Texas,state,2013-14,2014,public,306120
+219.20,Texas,state,2014-15,2015,public,312130
+219.20,Texas,state,2015-16,2016,public,322720
+219.20,Texas,state,2016-17,2017,public,333010
+219.20,Texas,state,2017-18,2018,public,346350
+219.20,Texas,state,2018-19,2019,public,355614
+219.20,Texas,state,2019-20,2020,public,358840
+219.20,Texas,state,2020-21,2021,public,371210
+219.20,Texas,state,2021-22,2022,public,370950
+219.20,Texas,state,2022-23,2023,public,377367
+219.20,Texas,state,2023-24,2024,public,382023
+219.20,Utah,state,1980-81,1981,public,19886
+219.20,Utah,state,1989-90,1990,public,21196
+219.20,Utah,state,1999-2000,2000,public,32501
+219.20,Utah,state,2009-10,2010,public,31481
+219.20,Utah,state,2012-13,2013,public,33186
+219.20,Utah,state,2013-14,2014,public,34130
+219.20,Utah,state,2014-15,2015,public,35320
+219.20,Utah,state,2015-16,2016,public,37220
+219.20,Utah,state,2016-17,2017,public,38970
+219.20,Utah,state,2017-18,2018,public,40580
+219.20,Utah,state,2018-19,2019,public,41795
+219.20,Utah,state,2019-20,2020,public,42840
+219.20,Utah,state,2020-21,2021,public,45040
+219.20,Utah,state,2021-22,2022,public,45570
+219.20,Utah,state,2022-23,2023,public,46110
+219.20,Utah,state,2023-24,2024,public,47772
+219.20,Vermont,state,1980-81,1981,public,6424
+219.20,Vermont,state,1989-90,1990,public,6127
+219.20,Vermont,state,1999-2000,2000,public,6675
+219.20,Vermont,state,2009-10,2010,public,7199
+219.20,Vermont,state,2012-13,2013,public,6491
+219.20,Vermont,state,2013-14,2014,public,6220
+219.20,Vermont,state,2014-15,2015,public,6030
+219.20,Vermont,state,2015-16,2016,public,5820
+219.20,Vermont,state,2016-17,2017,public,5670
+219.20,Vermont,state,2017-18,2018,public,5350
+219.20,Vermont,state,2018-19,2019,public,5207
+219.20,Vermont,state,2019-20,2020,public,5140
+219.20,Vermont,state,2020-21,2021,public,5220
+219.20,Vermont,state,2021-22,2022,public,5130
+219.20,Vermont,state,2022-23,2023,public,5006
+219.20,Vermont,state,2023-24,2024,public,4833
+219.20,Virginia,state,1980-81,1981,public,67126
+219.20,Virginia,state,1989-90,1990,public,60605
+219.20,Virginia,state,1999-2000,2000,public,65596
+219.20,Virginia,state,2009-10,2010,public,81511
+219.20,Virginia,state,2012-13,2013,public,83279
+219.20,Virginia,state,2013-14,2014,public,83640
+219.20,Virginia,state,2014-15,2015,public,83800
+219.20,Virginia,state,2015-16,2016,public,86390
+219.20,Virginia,state,2016-17,2017,public,87070
+219.20,Virginia,state,2017-18,2018,public,90180
+219.20,Virginia,state,2018-19,2019,public,91411
+219.20,Virginia,state,2019-20,2020,public,91770
+219.20,Virginia,state,2020-21,2021,public,92380
+219.20,Virginia,state,2021-22,2022,public,92650
+219.20,Virginia,state,2022-23,2023,public,92627
+219.20,Virginia,state,2023-24,2024,public,93272
+219.20,Washington,state,1980-81,1981,public,50046
+219.20,Washington,state,1989-90,1990,public,45941
+219.20,Washington,state,1999-2000,2000,public,57597
+219.20,Washington,state,2009-10,2010,public,66046
+219.20,Washington,state,2012-13,2013,public,66066
+219.20,Washington,state,2013-14,2014,public,65590
+219.20,Washington,state,2014-15,2015,public,67250
+219.20,Washington,state,2015-16,2016,public,68510
+219.20,Washington,state,2016-17,2017,public,69260
+219.20,Washington,state,2017-18,2018,public,69890
+219.20,Washington,state,2018-19,2019,public,67572
+219.20,Washington,state,2019-20,2020,public,68700
+219.20,Washington,state,2020-21,2021,public,69110
+219.20,Washington,state,2021-22,2022,public,69530
+219.20,Washington,state,2022-23,2023,public,68308
+219.20,Washington,state,2023-24,2024,public,69651
+219.20,West Virginia,state,1980-81,1981,public,23580
+219.20,West Virginia,state,1989-90,1990,public,21854
+219.20,West Virginia,state,1999-2000,2000,public,19437
+219.20,West Virginia,state,2009-10,2010,public,17651
+219.20,West Virginia,state,2012-13,2013,public,17924
+219.20,West Virginia,state,2013-14,2014,public,17650
+219.20,West Virginia,state,2014-15,2015,public,17710
+219.20,West Virginia,state,2015-16,2016,public,18000
+219.20,West Virginia,state,2016-17,2017,public,17840
+219.20,West Virginia,state,2017-18,2018,public,18060
+219.20,West Virginia,state,2018-19,2019,public,17914
+219.20,West Virginia,state,2019-20,2020,public,17540
+219.20,West Virginia,state,2020-21,2021,public,17340
+219.20,West Virginia,state,2021-22,2022,public,17260
+219.20,West Virginia,state,2022-23,2023,public,17068
+219.20,West Virginia,state,2023-24,2024,public,16166
+219.20,Wisconsin,state,1980-81,1981,public,67743
+219.20,Wisconsin,state,1989-90,1990,public,52038
+219.20,Wisconsin,state,1999-2000,2000,public,58545
+219.20,Wisconsin,state,2009-10,2010,public,64687
+219.20,Wisconsin,state,2012-13,2013,public,61425
+219.20,Wisconsin,state,2013-14,2014,public,60830
+219.20,Wisconsin,state,2014-15,2015,public,60590
+219.20,Wisconsin,state,2015-16,2016,public,60950
+219.20,Wisconsin,state,2016-17,2017,public,61090
+219.20,Wisconsin,state,2017-18,2018,public,61850
+219.20,Wisconsin,state,2018-19,2019,public,61504
+219.20,Wisconsin,state,2019-20,2020,public,60800
+219.20,Wisconsin,state,2020-21,2021,public,60970
+219.20,Wisconsin,state,2021-22,2022,public,62190
+219.20,Wisconsin,state,2022-23,2023,public,61460
+219.20,Wisconsin,state,2023-24,2024,public,61728
+219.20,Wyoming,state,1980-81,1981,public,6161
+219.20,Wyoming,state,1989-90,1990,public,5823
+219.20,Wyoming,state,1999-2000,2000,public,6462
+219.20,Wyoming,state,2009-10,2010,public,5695
+219.20,Wyoming,state,2012-13,2013,public,5489
+219.20,Wyoming,state,2013-14,2014,public,5610
+219.20,Wyoming,state,2014-15,2015,public,5570
+219.20,Wyoming,state,2015-16,2016,public,5720
+219.20,Wyoming,state,2016-17,2017,public,5680
+219.20,Wyoming,state,2017-18,2018,public,5810
+219.20,Wyoming,state,2018-19,2019,public,5828
+219.20,Wyoming,state,2019-20,2020,public,5840
+219.20,Wyoming,state,2020-21,2021,public,6020
+219.20,Wyoming,state,2021-22,2022,public,6070
+219.20,Wyoming,state,2022-23,2023,public,6208
+219.20,Wyoming,state,2023-24,2024,public,6345
+219.20,"Bureau of Indian
+   Education",state,2018-19,2019,public,1835
+219.20,"Bureau of Indian
+   Education",state,2019-20,2020,public,1710
+219.20,"Bureau of Indian
+   Education",state,2020-21,2021,public,1490
+219.20,"Bureau of Indian
+   Education",state,2021-22,2022,public,1490
+219.20,"Bureau of Indian
+   Education",state,2022-23,2023,public,1683
+219.20,"Bureau of Indian
+   Education",state,2023-24,2024,public,1645
+219.20,DoDEA,state,1999-2000,2000,public,3202
+219.20,American Samoa,state,1989-90,1990,public,703
+219.20,American Samoa,state,1999-2000,2000,public,698
+219.20,Guam,state,1989-90,1990,public,1033
+219.20,Guam,state,1999-2000,2000,public,1406
+219.20,Northern Marianas,state,1989-90,1990,public,227
+219.20,Northern Marianas,state,1999-2000,2000,public,360
+219.20,Puerto Rico,state,1989-90,1990,public,29049
+219.20,Puerto Rico,state,1999-2000,2000,public,30856
+219.20,Puerto Rico,state,2009-10,2010,public,25514
+219.20,Puerto Rico,state,2018-19,2019,public,22169
+219.20,Puerto Rico,state,2019-20,2020,public,20460
+219.20,Puerto Rico,state,2020-21,2021,public,19180
+219.20,Puerto Rico,state,2021-22,2022,public,18190
+219.20,Puerto Rico,state,2022-23,2023,public,18594
+219.20,Puerto Rico,state,2023-24,2024,public,17918
+219.20,U.S. Virgin Islands,state,1989-90,1990,public,1260
+219.20,U.S. Virgin Islands,state,1999-2000,2000,public,1060
+219.20,U.S. Virgin Islands,state,2009-10,2010,public,958
+219.20,U.S. Virgin Islands,state,2012-13,2013,public,897
+219.20,U.S. Virgin Islands,state,2018-19,2019,public,808
+219.20,U.S. Virgin Islands,state,2019-20,2020,public,860
+219.20,U.S. Virgin Islands,state,2020-21,2021,public,820
+219.20,U.S. Virgin Islands,state,2021-22,2022,public,750
+219.20,U.S. Virgin Islands,state,2022-23,2023,public,694
+219.20,U.S. Virgin Islands,state,2023-24,2024,public,734

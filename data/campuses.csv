@@ -1,0 +1,484 @@
+institution_id,name,city,state,opened_year,closed_year,is_main,source_url
+MAN-0017,Royal Business School - New York,New York,NY,,1988,1,https://www.collegeevaluator.com/institute/royal-business-school-(closed)/
+MAN-0017,Royal Business School - Queens,Queens,NY,,1988,0,https://www.collegeevaluator.com/institute/royal-business-school-(closed)/
+MAN-0019,PSI Institute - Miami,Miami,FL,,1992,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0019,PSI Institute - Columbus,Columbus,OH,,1992,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0019,PSI Institute - Baltimore,Baltimore,MD,,1992,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0019,PSI Institute - Cleveland,Cleveland,OH,,1992,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0019,PSI Institute - New York,New York,NY,,1993,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0019,PSI Institute - Charlotte,Charlotte,NC,,1993,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0019,PSI Institute - Philadelphia,Philadelphia,PA,,1993,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0019,PSI Institute - Southfield,Southfield,MI,,1993,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0019,PSI Institute - Flint,Flint,MI,,1993,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0020,Flamingo Beauty College - Lincoln,Lincoln,IL,,1994,0,https://www.collegeevaluator.com/institute/flamingo-beauty-college_closed-campuses/
+MAN-0020,Flamingo Beauty College - Springfield,Springfield,IL,,1994,0,https://www.collegeevaluator.com/institute/flamingo-beauty-college_closed-campuses/
+MAN-0020,Flamingo Beauty College - Las Vegas,Las Vegas,NV,,1993,0,https://www.collegeevaluator.com/institute/flamingo-beauty-college_closed-campuses/
+MAN-0020,Flamingo Beauty College - Quincy,Quincy,IL,,1994,0,https://www.collegeevaluator.com/institute/flamingo-beauty-college_closed-campuses/
+MAN-0020,Flamingo Beauty College - Decatur,Decatur,IL,,1994,0,https://www.collegeevaluator.com/institute/flamingo-beauty-college_closed-campuses/
+MAN-0020,Flamingo Beauty College - Normal,Normal,IL,,1994,0,https://www.collegeevaluator.com/institute/flamingo-beauty-college_closed-campuses/
+MAN-0021,American Business Institute - Philadelphia,Philadelphia,PA,,1990,0,https://www.collegeevaluator.com/institute/american-business-institute-closed-/
+MAN-0021,American Business Institute - Chicago,Chicago,IL,,1990,0,https://www.collegeevaluator.com/institute/american-business-institute-closed-/
+MAN-0021,American Business Institute - Tampa,Tampa,FL,,1990,0,https://www.collegeevaluator.com/institute/american-business-institute-closed-/
+MAN-0036,Wilshire Computer College - Los Angeles,Los Angeles,CA,,1991,1,https://www.collegeevaluator.com/institute/wilshire-computer-college_closed-campuses/
+MAN-0036,Wilshire Computer College - Whittier,Whittier,CA,,1991,0,https://www.collegeevaluator.com/institute/wilshire-computer-college_closed-campuses/
+MAN-0036,Wilshire Computer College - Garden Grove,Garden Grove,CA,,1991,0,https://www.collegeevaluator.com/institute/wilshire-computer-college_closed-campuses/
+MAN-0036,Wilshire Computer College - Irwindale,Irwindale,CA,,1991,0,https://www.collegeevaluator.com/institute/wilshire-computer-college_closed-campuses/
+MAN-0037,Brown Mackie College-Cincinnati (Westown),Dayton,OH,,2001,0,https://www.collegeevaluator.com/institute/southern-ohio-college_closed-campuses/
+MAN-0037,Southern Ohio College - Cleveland,Cleveland,OH,,1992,0,https://www.collegeevaluator.com/institute/southern-ohio-college_closed-campuses/
+MAN-0037,Southern Ohio College - Columbus,Columbus,OH,,1992,0,https://www.collegeevaluator.com/institute/southern-ohio-college_closed-campuses/
+MAN-0039,Delta Junior College - Baton Rouge,Baton Rouge,LA,,1996,0,https://www.collegeevaluator.com/institute/delta-junior-college_closed-campuses/
+MAN-0039,Delta College - Gretna,Gretna,LA,,1991,1,https://www.collegeevaluator.com/institute/delta-junior-college_closed-campuses/
+MAN-0039,Delta Junior College - Metairie,Metairie,LA,,1992,0,https://www.collegeevaluator.com/institute/delta-junior-college_closed-campuses/
+MAN-0039,Delta Junior College - Houma,Houma,LA,,1995,0,https://www.collegeevaluator.com/institute/delta-junior-college_closed-campuses/
+MAN-0039,Delta Junior College - Covington,Covington,LA,,1996,0,https://www.collegeevaluator.com/institute/delta-junior-college_closed-campuses/
+MAN-0039,Delta Junior College - New Orleans,New Orleans,LA,,1991,0,https://www.collegeevaluator.com/institute/delta-junior-college_closed-campuses/
+MAN-0040,Blake Business School - New York (Fourth Ave),New York,NY,,1996,1,https://www.collegeevaluator.com/institute/blake-business-school_closed-campuses/
+MAN-0040,Blake Business School - New York (Cooper Square),New York,NY,,1997,0,https://www.collegeevaluator.com/institute/blake-business-school_closed-campuses/
+MAN-0041,Louisiana Business College - Monroe,Monroe,LA,,1990,1,https://www.collegeevaluator.com/institute/louisiana-business-college_closed-campuses/
+MAN-0041,Louisiana Business College - Alexandria,Alexandria,LA,,1990,0,https://www.collegeevaluator.com/institute/louisiana-business-college_closed-campuses/
+MAN-0041,Louisiana Business College - Vidalia,Vidalia,LA,,1990,0,https://www.collegeevaluator.com/institute/louisiana-business-college_closed-campuses/
+MAN-0041,Louisiana Business College - Tupelo,Tupelo,MS,,1990,0,https://www.collegeevaluator.com/institute/louisiana-business-college_closed-campuses/
+MAN-0041,Louisiana Business College - Marksville,Marksville,LA,,1990,0,https://www.collegeevaluator.com/institute/louisiana-business-college_closed-campuses/
+MAN-0042,San Antonio Court Reporting Institute - San Antonio,San Antonio,TX,,1995,1,https://www.collegeevaluator.com/institute/san-antonio-court-reporting-institute_closed-campuses/
+MAN-0042,San Antonio Court Reporting Institute - Austin,Austin,TX,,1995,0,https://www.collegeevaluator.com/institute/san-antonio-court-reporting-institute_closed-campuses/
+MAN-0046,Flagler Career Institute - Jacksonville,Jacksonville,FL,,1998,1,https://www.collegeevaluator.com/institute/flagler-career-institute_closed-campuses/
+MAN-0046,Flagler Career Institute - Saint Augustine,Saint Augustine,FL,,1990,0,https://www.collegeevaluator.com/institute/flagler-career-institute_closed-campuses/
+MAN-0059,Essex College of Business - Newark,Newark,NJ,,1989,1,https://www.collegeevaluator.com/institute/essex-college-of-business/
+MAN-0059,Essex College of Business - Paramus,Paramus,NJ,,1986,0,https://www.collegeevaluator.com/institute/essex-college-of-business/
+MAN-0060,Kane Business Institute - Cherry Hill,Cherry Hill,NJ,,1996,1,https://www.collegeevaluator.com/institute/kane-business-institute_closed-campuses/
+MAN-0060,Kane Business Institute - Camden,Camden,NJ,,1990,0,https://www.collegeevaluator.com/institute/kane-business-institute_closed-campuses/
+MAN-0061,Computer Dynamics Institute - Virginia Beach,Virginia Beach,VA,,2000,1,https://www.collegeevaluator.com/institute/computer-dynamics-institute_closed-campuses/
+MAN-0061,Computer Dynamics Institute - Electronics Center,Virginia Beach,VA,,2000,0,https://www.collegeevaluator.com/institute/computer-dynamics-institute_closed-campuses/
+MAN-0061,Computer Dynamics Institute - Dental Assisting Center,Virginia Beach,VA,,2000,0,https://www.collegeevaluator.com/institute/computer-dynamics-institute_closed-campuses/
+MAN-0062,Muir Technical College - San Diego (Twain Ave),San Diego,CA,,1989,1,https://www.collegeevaluator.com/institute/muir-technical-college_closed-campuses/
+MAN-0062,Muir Technical College - Palm Desert,Palm Desert,CA,,1989,0,https://www.collegeevaluator.com/institute/muir-technical-college_closed-campuses/
+MAN-0062,Muir Technical College - Tucson,Tucson,AZ,,1989,0,https://www.collegeevaluator.com/institute/muir-technical-college_closed-campuses/
+MAN-0062,Muir Technical College - Albuquerque,Albuquerque,NM,,1989,0,https://www.collegeevaluator.com/institute/muir-technical-college_closed-campuses/
+MAN-0062,Muir Technical College - San Marcos,San Marcos,CA,,1989,0,https://www.collegeevaluator.com/institute/muir-technical-college_closed-campuses/
+MAN-0062,Muir Technical College - Riverside,Riverside,CA,,1989,0,https://www.collegeevaluator.com/institute/muir-technical-college_closed-campuses/
+MAN-0062,Muir Technical College - San Diego (Mission Rd),San Diego,CA,,1989,0,https://www.collegeevaluator.com/institute/muir-technical-college_closed-campuses/
+MAN-0063,Columbia School of Broadcasting - San Francisco,San Francisco,CA,,1988,0,https://www.collegeevaluator.com/institute/columbia-school-of-broadcasting-home-study/
+MAN-0063,Columbia School of Broadcasting - Las Vegas,Las Vegas,NV,,1992,0,https://www.collegeevaluator.com/institute/columbia-school-of-broadcasting-home-study/
+MAN-0063,Columbia School of Broadcasting - Pittsburgh,Pittsburgh,PA,,1991,0,https://www.collegeevaluator.com/institute/columbia-school-of-broadcasting-home-study/
+MAN-0063,Columbia School of Broadcasting - Chicago,Chicago,IL,,1991,0,https://www.collegeevaluator.com/institute/columbia-school-of-broadcasting-home-study/
+MAN-0063,Columbia School of Broadcasting - Boston,Boston,MA,,1992,0,https://www.collegeevaluator.com/institute/columbia-school-of-broadcasting-home-study/
+MAN-0063,Columbia School of Broadcasting - Santa Rosa,Santa Rosa,CA,,1995,0,https://www.collegeevaluator.com/institute/columbia-school-of-broadcasting-home-study/
+MAN-0064,Drake Secretarial College - Jersey City,Jersey City,NJ,,1993,1,https://www.collegeevaluator.com/institute/drake-secretarial-college_closed-campuses/
+MAN-0064,Drake Secretarial College - Perth Amboy,Perth Amboy,NJ,,1990,0,https://www.collegeevaluator.com/institute/drake-secretarial-college_closed-campuses/
+02564700,Advance Beauty College - Warrenton,Warrenton,MO,,2013,0,https://www.collegeevaluator.com/institute/elaine-steven-beauty-college_closed-campuses/
+02564700,Advance Beauty College - Hannibal,Hannibal,MO,,2018,0,https://www.collegeevaluator.com/institute/elaine-steven-beauty-college_closed-campuses/
+02564700,Advance Beauty College - Wentzville,Wentzville,MO,,2020,0,https://www.collegeevaluator.com/institute/elaine-steven-beauty-college_closed-campuses/
+02340700,Labaron Hairdressing Academy - New Bedford,New Bedford,MA,,2016,0,https://www.collegeevaluator.com/institute/labaron-hairdressing-academy/
+02340700,Labaron Hairdressing Academy - Brockton,Brockton,MA,,2016,0,https://www.collegeevaluator.com/institute/labaron-hairdressing-academy/
+MAN-0072,Unilex College - San Francisco,San Francisco,CA,,1990,1,https://www.collegeevaluator.com/institute/unilex-college_closed-campuses/
+MAN-0072,Unilex College - Sacramento,Sacramento,CA,,1990,0,https://www.collegeevaluator.com/institute/unilex-college_closed-campuses/
+MAN-0094,CDI Career Development Institute - El Segundo,El Segundo,CA,,1992,1,https://www.collegeevaluator.com/institute/cdi-career-development-institute_closed-campuses/
+MAN-0094,CDI Career Development Institute - Richfield,Richfield,MN,,1993,0,https://www.collegeevaluator.com/institute/cdi-career-development-institute_closed-campuses/
+MAN-0094,CDI Career Development Institute - Southfield,Southfield,MI,,1993,0,https://www.collegeevaluator.com/institute/cdi-career-development-institute_closed-campuses/
+MAN-0094,CDI Career Development Institute - Montclair,Montclair,CA,,1993,0,https://www.collegeevaluator.com/institute/cdi-career-development-institute_closed-campuses/
+MAN-0094,CDI Career Development Institute - Riverside,Riverside,CA,,1992,0,https://www.collegeevaluator.com/institute/cdi-career-development-institute_closed-campuses/
+MAN-0094,CDI Career Development Institute - St. Louis,St. Louis,MO,,1993,0,https://www.collegeevaluator.com/institute/cdi-career-development-institute_closed-campuses/
+MAN-0095,Barclay Career School - Washington,Washington,DC,,1993,1,https://www.collegeevaluator.com/institute/barclay-career-school_closed-campuses/
+MAN-0095,Barclay Career School - Washington (branch),Washington,DC,,1994,0,https://www.collegeevaluator.com/institute/barclay-career-school_closed-campuses/
+MAN-0095,Barclay Career School - Baltimore,Baltimore,MD,,1991,0,https://www.collegeevaluator.com/institute/barclay-career-school_closed-campuses/
+MAN-0095,Barclay Career School - Norfolk,Norfolk,VA,,1993,0,https://www.collegeevaluator.com/institute/barclay-career-school_closed-campuses/
+MAN-0095,Barclay Career School - Jacksonville,Jacksonville,FL,,1992,0,https://www.collegeevaluator.com/institute/barclay-career-school_closed-campuses/
+MAN-0095,Barclay Career School - New York,New York,NY,,1990,0,https://www.collegeevaluator.com/institute/barclay-career-school_closed-campuses/
+MAN-0095,Barclay Career School - Los Angeles,Los Angeles,CA,,1990,0,https://www.collegeevaluator.com/institute/barclay-career-school_closed-campuses/
+MAN-0095,Barclay Career School - Houston,Houston,TX,,1990,0,https://www.collegeevaluator.com/institute/barclay-career-school_closed-campuses/
+MAN-0096,Branell Institute - Nashville,Nashville,TN,,1993,1,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Goodlettsville,Goodlettsville,TN,,1994,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Tallahassee,Tallahassee,FL,,1994,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Tampa,Tampa,FL,,1993,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Nashville (branch),Nashville,TN,,1994,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Grants,Grants,NM,,1991,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Nashville (TN State Prison),Nashville,TN,,1990,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Memphis (Luttrell Center),Memphis,TN,,1993,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Homestead (Dade Correctional),Homestead,FL,,1992,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Belle Glade (Glades Correctional),Belle Glade,FL,,1993,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Winnfield (Winn Correctional),Winnfield,LA,,1994,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Lantana (Lantana Correctional),Lantana,FL,,1992,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Zephyrhills (Zephyrhills Correctional),Zephyrhills,FL,,1993,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Immokalee (Hendry Correctional),Immokalee,FL,,1993,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Polk City (Polk Correctional),Polk City,FL,,1992,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Punta Gorda (Charlotte Correctional),Punta Gorda,FL,,1993,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Pembroke Pines (Broward Correctional),Pembroke Pines,FL,,1993,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Arcadia (Desoto Correctional),Arcadia,FL,,1993,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Wartburg (Morgan County),Wartburg,TN,,1994,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Kinder (Allen Correctional),Kinder,LA,,1991,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Mason,Mason,TN,,1994,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Columbia,Columbia,SC,,1991,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0096,Branell Institute - Goodyear,Goodyear,AZ,,1991,0,https://www.collegeevaluator.com/institute/branell-institute_closed-campuses/
+MAN-0097,Debbie's School of Beauty Culture - Chicago (Madison St),Chicago,IL,,1989,1,https://www.collegeevaluator.com/institute/debbies-school-of-beauty-culture/
+MAN-0097,Debbie's School of Beauty Culture - Chicago (Michigan Ave),Chicago,IL,,1993,0,https://www.collegeevaluator.com/institute/debbies-school-of-beauty-culture/
+MAN-0097,Debbie's School of Beauty Culture - East St. Louis,East St. Louis,IL,,1987,0,https://www.collegeevaluator.com/institute/debbies-school-of-beauty-culture/
+MAN-0097,Debbie's School of Beauty Culture - Harvey,Harvey,IL,,1990,0,https://www.collegeevaluator.com/institute/debbies-school-of-beauty-culture/
+MAN-0097,Debbie's School of Beauty Culture - Chicago (75th St),Chicago,IL,,1990,0,https://www.collegeevaluator.com/institute/debbies-school-of-beauty-culture/
+MAN-0097,Debbie's School of Beauty Culture - Chicago (Lafayette Ave),Chicago,IL,,1992,0,https://www.collegeevaluator.com/institute/debbies-school-of-beauty-culture/
+MAN-0097,Debbie's School of Beauty Culture - Indianapolis,Indianapolis,IN,,1989,0,https://www.collegeevaluator.com/institute/debbies-school-of-beauty-culture/
+MAN-0097,Debbie's School of Beauty Culture - Houston,Houston,TX,,1992,0,https://www.collegeevaluator.com/institute/debbies-school-of-beauty-culture/
+MAN-0099,Careercom Junior College of Business - Hopkinsville,Hopkinsville,KY,,1995,1,https://www.collegeevaluator.com/institute/careercom-junior-college-of-business/
+MAN-0099,Careercom Junior College of Business - Knoxville,Knoxville,TN,,1992,0,https://www.collegeevaluator.com/institute/careercom-junior-college-of-business/
+MAN-0099,Careercom Junior College of Business - New Orleans,New Orleans,LA,,1991,0,https://www.collegeevaluator.com/institute/careercom-junior-college-of-business/
+MAN-0099,Careercom Junior College of Business - Evansville,Evansville,IN,,1993,0,https://www.collegeevaluator.com/institute/careercom-junior-college-of-business/
+MAN-0099,Careercom Junior College of Business - Jacksonville,Jacksonville,FL,,1993,0,https://www.collegeevaluator.com/institute/careercom-junior-college-of-business/
+MAN-0101,National Institute of Technology - West Des Moines,West Des Moines,IA,,1995,1,https://www.collegeevaluator.com/institute/national-education-center-national-institute-of-technology-campus/
+MAN-0101,National Institute of Technology - Dallas,Dallas,TX,,1995,0,https://www.collegeevaluator.com/institute/national-education-center-national-institute-of-technology-campus/
+MAN-0101,National Institute of Technology - Homewood,Homewood,AL,,1992,0,https://www.collegeevaluator.com/institute/national-education-center-national-institute-of-technology-campus/
+MAN-0102,Cooper Career Institute - West Palm Beach,West Palm Beach,FL,,2004,1,https://www.collegeevaluator.com/institute/cooper-career-institute_closed-campuses/
+MAN-0102,Cooper Career Institute - Virginia Beach,Virginia Beach,VA,,2005,0,https://www.collegeevaluator.com/institute/cooper-career-institute_closed-campuses/
+MAN-0103,National Business Academy - Glendale,Glendale,CA,,1991,1,https://www.collegeevaluator.com/institute/national-business-academy/
+MAN-0103,National Business Academy - Albuquerque,Albuquerque,NM,,1992,0,https://www.collegeevaluator.com/institute/national-business-academy/
+MAN-0103,National Business Academy - Van Nuys,Van Nuys,CA,,1992,0,https://www.collegeevaluator.com/institute/national-business-academy/
+MAN-0103,National Business Academy - Inglewood,Inglewood,CA,,1992,0,https://www.collegeevaluator.com/institute/national-business-academy/
+MAN-0105,Fleet Business School - Annapolis,Annapolis,MD,,2001,1,https://www.collegeevaluator.com/institute/fleet-business-school_closed-campuses/
+MAN-0105,Fleet Business School - Washington,Washington,DC,,2001,0,https://www.collegeevaluator.com/institute/fleet-business-school_closed-campuses/
+MAN-0106,Climate Control Institute - Wichita,Wichita,KS,,1998,1,https://www.collegeevaluator.com/institute/climate-control-institute_closed-campuses/
+MAN-0106,Climate Control Institute - Downers Grove,Downers Grove,IL,,1991,0,https://www.collegeevaluator.com/institute/climate-control-institute_closed-campuses/
+MAN-0106,Climate Control Institute - Memphis,Memphis,TN,,1998,0,https://www.collegeevaluator.com/institute/climate-control-institute_closed-campuses/
+MAN-0106,Climate Control Institute - Tulsa,Tulsa,OK,,1997,0,https://www.collegeevaluator.com/institute/climate-control-institute_closed-campuses/
+01093000,Suburban Technical School - Ronkonkoma,Ronkonkoma,NY,,2011,0,https://www.collegeevaluator.com/institute/suburban-technical-school_closed-campuses/
+01093000,Suburban Technical School - Upper Darby,Upper Darby,PA,,2011,0,https://www.collegeevaluator.com/institute/suburban-technical-school_closed-campuses/
+02116300,San Juan Basin Technical College - Durango,Durango,CO,,2009,0,https://www.collegeevaluator.com/institute/san-juan-basin-technical-college/
+02116300,San Juan Basin Technical College - Cortez,Cortez,CO,,2009,0,https://www.collegeevaluator.com/institute/san-juan-basin-technical-college/
+MAN-0109,USA Training Academy - Clarksville,Clarksville,TN,,1989,0,https://www.collegeevaluator.com/institute/usa-training-academy-home-study/
+MAN-0109,USA Training Academy - Pensacola,Pensacola,FL,,1989,0,https://www.collegeevaluator.com/institute/usa-training-academy-home-study/
+MAN-0109,USA Training Academy - Ripley,Ripley,WV,,1989,0,https://www.collegeevaluator.com/institute/usa-training-academy-home-study/
+MAN-0109,USA Training Academy - Columbus,Columbus,OH,,1989,0,https://www.collegeevaluator.com/institute/usa-training-academy-home-study/
+MAN-0109,USA Training Academy - Birmingham,Birmingham,AL,,1990,0,https://www.collegeevaluator.com/institute/usa-training-academy-home-study/
+MAN-0109,USA Training Academy - Wilmington,Wilmington,DE,,1991,0,https://www.collegeevaluator.com/institute/usa-training-academy-home-study/
+MAN-0109,USA Training Academy - Jackson,Jackson,MS,,1990,0,https://www.collegeevaluator.com/institute/usa-training-academy-home-study/
+MAN-0110,Mountain States Technical Institute - Phoenix (34th Dr),Phoenix,AZ,,1991,1,https://www.collegeevaluator.com/institute/mountain-states-technical-institute_closed-campuses/
+MAN-0110,Mountain States Technical Institute - Phoenix (33rd Ave),Phoenix,AZ,,1991,0,https://www.collegeevaluator.com/institute/mountain-states-technical-institute_closed-campuses/
+MAN-0111,Valley Commercial College - Modesto,Modesto,CA,,1998,1,https://www.collegeevaluator.com/institute/valley-commercial-college_closed-campuses/
+MAN-0111,Valley Commercial College - Fresno,Fresno,CA,,1987,0,https://www.collegeevaluator.com/institute/valley-commercial-college_closed-campuses/
+MAN-0112,Trend College - Vancouver,Vancouver,WA,,1990,1,https://www.collegeevaluator.com/institute/trend-college_closed-campuses/
+MAN-0112,Trend College - Lynnwood,Lynnwood,WA,,1991,0,https://www.collegeevaluator.com/institute/trend-college_closed-campuses/
+MAN-0112,Trend College - Portland,Portland,OR,,1994,0,https://www.collegeevaluator.com/institute/trend-college_closed-campuses/
+MAN-0112,Trend College - Spokane,Spokane,WA,,1994,0,https://www.collegeevaluator.com/institute/trend-college_closed-campuses/
+MAN-0112,Trend College - East Wenatchee,East Wenatchee,WA,,1994,0,https://www.collegeevaluator.com/institute/trend-college_closed-campuses/
+MAN-0112,Trend College - Salem,Salem,OR,,1994,0,https://www.collegeevaluator.com/institute/trend-college_closed-campuses/
+MAN-0112,Trend College - Medford,Medford,OR,,1994,0,https://www.collegeevaluator.com/institute/trend-college_closed-campuses/
+MAN-0112,Trend College - Yakima,Yakima,WA,,1994,0,https://www.collegeevaluator.com/institute/trend-college_closed-campuses/
+MAN-0112,Trend College - Kennewick,Kennewick,WA,,1994,0,https://www.collegeevaluator.com/institute/trend-college_closed-campuses/
+MAN-0112,Trend College - Longview,Longview,WA,,1994,0,https://www.collegeevaluator.com/institute/trend-college_closed-campuses/
+MAN-0112,Trend College - Eugene,Eugene,OR,,1994,0,https://www.collegeevaluator.com/institute/trend-college_closed-campuses/
+MAN-0116,Phillips Junior College Condie - Fresno,Fresno,CA,,1995,0,https://www.collegeevaluator.com/institute/phillips-junior-college-condie-campus/
+MAN-0120,Sawyer College of Business - San Diego,San Diego,CA,,1992,1,https://www.collegeevaluator.com/institute/sawyer-college-of-business/
+MAN-0120,Sawyer College of Business - Cleveland Heights,Cleveland Heights,OH,,1998,0,https://www.collegeevaluator.com/institute/sawyer-college-of-business/
+MAN-0120,Sawyer College of Business - Cleveland,Cleveland,OH,,1999,0,https://www.collegeevaluator.com/institute/sawyer-college-of-business/
+MAN-0124,Draughons College - St. Louis,St. Louis,MO,,1991,0,https://www.collegeevaluator.com/institute/draughons-college_closed-campuses/
+MAN-0124,Draughons College - Memphis,Memphis,TN,,1994,1,https://www.collegeevaluator.com/institute/draughons-college_closed-campuses/
+MAN-0124,Draughons College - Atlanta,Atlanta,GA,,1996,0,https://www.collegeevaluator.com/institute/draughons-college_closed-campuses/
+MAN-0125,Rice College - Memphis,Memphis,TN,,1995,1,https://www.collegeevaluator.com/institute/rice-college_closed-campuses/
+MAN-0125,Rice College - Jacksonville,Jacksonville,FL,,1992,0,https://www.collegeevaluator.com/institute/rice-college_closed-campuses/
+MAN-0125,Rice College - Knoxville,Knoxville,TN,,1995,0,https://www.collegeevaluator.com/institute/rice-college_closed-campuses/
+MAN-0125,Rice College - Jackson,Jackson,MS,,1995,0,https://www.collegeevaluator.com/institute/rice-college_closed-campuses/
+MAN-0125,Rice College - Birmingham,Birmingham,AL,,1995,0,https://www.collegeevaluator.com/institute/rice-college_closed-campuses/
+MAN-0127,Edmondson Junior College - Chattanooga,Chattanooga,TN,,1992,1,https://www.collegeevaluator.com/institute/edmondson-junior-college_closed-campuses/
+MAN-0127,Edmondson Junior College - Nashville,Nashville,TN,,1992,0,https://www.collegeevaluator.com/institute/edmondson-junior-college_closed-campuses/
+MAN-0127,Edmondson Junior College - Chattanooga (Northgate),Chattanooga,TN,,1992,0,https://www.collegeevaluator.com/institute/edmondson-junior-college_closed-campuses/
+MAN-0148,Phillips Business School - East Orange,East Orange,NJ,,1992,1,https://www.collegeevaluator.com/institute/phillips-business-school_closed-campuses/
+MAN-0148,Phillips Business School - Jersey City,Jersey City,NJ,,1992,0,https://www.collegeevaluator.com/institute/phillips-business-school_closed-campuses/
+MAN-0148,Phillips Business School - Paterson,Paterson,NJ,,1992,0,https://www.collegeevaluator.com/institute/phillips-business-school_closed-campuses/
+MAN-0174,Riley College - Dothan,Dothan,AL,,1993,1,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Eufaula,Eufaula,AL,,1990,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Troy,Troy,AL,,1991,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Tuskegee,Tuskegee,AL,,1991,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Montgomery,Montgomery,AL,,1991,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Columbus,Columbus,MS,,1992,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Selma,Selma,AL,,1993,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Valdosta,Valdosta,GA,,1992,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Americus,Americus,GA,,1991,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Albany,Albany,GA,,1993,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Brunswick,Brunswick,GA,,1991,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Waycross,Waycross,GA,,1991,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Savannah,Savannah,GA,,1992,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Cordele,Cordele,GA,,1991,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Greenville,Greenville,MS,,1992,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0174,Riley College - Pascagoula,Pascagoula,MS,,1991,0,https://www.collegeevaluator.com/institute/riley-college_closed-campuses/
+MAN-0175,Burdett College - Worcester,Worcester,MA,,1999,1,https://www.collegeevaluator.com/institute/burdett-college_closed-campuses/
+MAN-0175,Burdett College - Boston,Boston,MA,,1999,0,https://www.collegeevaluator.com/institute/burdett-college_closed-campuses/
+MAN-0176,Denver Technical College - Denver,Denver,CO,,2004,1,https://www.collegeevaluator.com/institute/denver-technical-college_closed-campuses/
+MAN-0176,Denver Technical College - Colorado Springs,Colorado Springs,CO,,2004,0,https://www.collegeevaluator.com/institute/denver-technical-college_closed-campuses/
+MAN-0177,Harding Business College - Youngstown,Youngstown,OH,,1992,1,https://www.collegeevaluator.com/institute/harding-business-college_closed-campuses/
+MAN-0177,Harding Business College - Cleveland,Cleveland,OH,,1988,0,https://www.collegeevaluator.com/institute/harding-business-college_closed-campuses/
+MAN-0177,Harding Business College - Maple Heights,Maple Heights,OH,,1988,0,https://www.collegeevaluator.com/institute/harding-business-college_closed-campuses/
+MAN-0177,Harding Business College - Marion,Marion,OH,,1988,0,https://www.collegeevaluator.com/institute/harding-business-college_closed-campuses/
+MAN-0186,Draughon Business College - Little Rock,Little Rock,AR,,1993,1,https://www.collegeevaluator.com/institute/draughon-business-college_closed-campuses/
+MAN-0186,Draughon Business College - Springfield,Springfield,MO,,1991,0,https://www.collegeevaluator.com/institute/draughon-business-college_closed-campuses/
+MAN-0186,Draughon Business College - Independence,Independence,MO,,1991,0,https://www.collegeevaluator.com/institute/draughon-business-college_closed-campuses/
+MAN-0187,Pacific Coast College - San Diego,San Diego,CA,,1987,1,https://www.collegeevaluator.com/institute/pacific-coast-college_closed-campuses/
+MAN-0187,Pacific Coast College - Lemon Grove,Lemon Grove,CA,,1989,0,https://www.collegeevaluator.com/institute/pacific-coast-college_closed-campuses/
+MAN-0187,Pacific Coast College - Los Angeles (Arizona Circle),Los Angeles,CA,,1989,0,https://www.collegeevaluator.com/institute/pacific-coast-college_closed-campuses/
+MAN-0187,Pacific Coast College - Los Angeles (Wilshire),Los Angeles,CA,,1989,0,https://www.collegeevaluator.com/institute/pacific-coast-college_closed-campuses/
+MAN-0187,Pacific Coast College - Garden Grove,Garden Grove,CA,,1989,0,https://www.collegeevaluator.com/institute/pacific-coast-college_closed-campuses/
+MAN-0187,Pacific Coast College - Santa Ana (Santa Ana Blvd),Santa Ana,CA,,1990,0,https://www.collegeevaluator.com/institute/pacific-coast-college_closed-campuses/
+MAN-0187,Pacific Coast College - Whittier,Whittier,CA,,1990,0,https://www.collegeevaluator.com/institute/pacific-coast-college_closed-campuses/
+MAN-0187,Pacific Coast College - Sacramento,Sacramento,CA,,1991,0,https://www.collegeevaluator.com/institute/pacific-coast-college_closed-campuses/
+MAN-0187,Pacific Coast College - Encino,Encino,CA,,1994,0,https://www.collegeevaluator.com/institute/pacific-coast-college_closed-campuses/
+MAN-0187,Pacific Coast College - Santa Ana (5th St),Santa Ana,CA,,1994,0,https://www.collegeevaluator.com/institute/pacific-coast-college_closed-campuses/
+MAN-0187,Pacific Coast College - Chula Vista,Chula Vista,CA,,1994,0,https://www.collegeevaluator.com/institute/pacific-coast-college_closed-campuses/
+MAN-0187,Pacific Coast College - Chula Vista (Extension),Chula Vista,CA,,1994,0,https://www.collegeevaluator.com/institute/pacific-coast-college_closed-campuses/
+MAN-0188,Concho Career Institute - San Angelo,San Angelo,TX,,1990,1,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0188,Concho Career Institute - Lubbock,Lubbock,TX,,1990,0,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0188,Concho Career Institute - Lubbock (2),Lubbock,TX,,1990,0,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0188,Concho Career Institute - Tampa,Tampa,FL,,1990,0,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0188,Concho Career Institute - Oklahoma City,Oklahoma City,OK,,1990,0,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0188,Concho Career Institute - Oklahoma City (2),Oklahoma City,OK,,1990,0,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0188,Concho Career Institute - Abilene,Abilene,TX,,1990,0,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0188,Concho Career Institute - Houston,Houston,TX,,1990,0,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0188,Concho Career Institute - Houston (2),Houston,TX,,1990,0,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0188,Concho Career Institute - Galveston,Galveston,TX,,1990,0,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0188,Concho Career Institute - El Paso,El Paso,TX,,1990,0,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0188,Concho Career Institute - St. Petersburg,St. Petersburg,FL,,1990,0,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0188,Concho Career Institute - Port Arthur,Port Arthur,TX,,1990,0,https://www.collegeevaluator.com/institute/concho-career-institute_closed-campuses/
+MAN-0189,Saint Vincent School of Nursing - Erie,Erie,PA,,1999,1,https://www.collegeevaluator.com/institute/saint-vincent-hospital-health-center-school-of-nursing/
+MAN-0189,Saint Vincent School of Nursing - Erie (2),Erie,PA,,1999,0,https://www.collegeevaluator.com/institute/saint-vincent-hospital-health-center-school-of-nursing/
+MAN-0190,Palmer Business Institute - Lancaster,Lancaster,PA,,1994,1,https://www.collegeevaluator.com/institute/palmer-business-institute_closed-campuses/
+MAN-0190,Palmer Business Institute - Harrisburg,Harrisburg,PA,,1989,0,https://www.collegeevaluator.com/institute/palmer-business-institute_closed-campuses/
+MAN-0190,Palmer Business Institute - Baltimore,Baltimore,MD,,1990,0,https://www.collegeevaluator.com/institute/palmer-business-institute_closed-campuses/
+MAN-0200,Virginia Farrell Beauty School - Lincoln Park,Lincoln Park,MI,,1995,1,https://www.collegeevaluator.com/institute/virginia-farrell-beauty-school_closed-campuses/
+MAN-0200,Virginia Farrell Beauty School - Detroit,Detroit,MI,,1999,0,https://www.collegeevaluator.com/institute/virginia-farrell-beauty-school_closed-campuses/
+MAN-0200,Virginia Farrell Beauty School - Livonia,Livonia,MI,,2011,0,https://www.collegeevaluator.com/institute/virginia-farrell-beauty-school_closed-campuses/
+MAN-0201,Classic Beauty Colleges - Miami,Miami,AZ,,1991,1,https://www.collegeevaluator.com/institute/classic-beauty-colleges/
+MAN-0201,Classic Beauty Colleges - Mesa,Mesa,AZ,,1999,0,https://www.collegeevaluator.com/institute/classic-beauty-colleges/
+MAN-0201,Classic Beauty Colleges - Phoenix,Phoenix,AZ,,1993,0,https://www.collegeevaluator.com/institute/classic-beauty-colleges/
+MAN-0201,Classic Beauty Colleges - Scottsdale,Scottsdale,AZ,,1990,0,https://www.collegeevaluator.com/institute/classic-beauty-colleges/
+MAN-0201,Classic Beauty Colleges - Casa Grande,Casa Grande,AZ,,1995,0,https://www.collegeevaluator.com/institute/classic-beauty-colleges/
+MAN-0201,Classic Beauty Colleges - Phoenix,Phoenix,AZ,,1991,0,https://www.collegeevaluator.com/institute/classic-beauty-colleges/
+MAN-0203,Technical Careers Institute - West Haven,West Haven,CT,,1995,1,https://www.collegeevaluator.com/institute/technical-careers-institute_closed-campuses/
+MAN-0203,Technical Careers Institute - Windsor,Windsor,CT,,1995,0,https://www.collegeevaluator.com/institute/technical-careers-institute_closed-campuses/
+MAN-0204,Cbm Education Center - San Antonio,San Antonio,TX,,1992,1,https://www.collegeevaluator.com/institute/cbm-education-center/
+MAN-0204,Cbm Education Center - Laramie,Laramie,WY,,1990,0,https://www.collegeevaluator.com/institute/cbm-education-center/
+MAN-0204,Cbm Education Center - Laredo,Laredo,TX,,1992,0,https://www.collegeevaluator.com/institute/cbm-education-center/
+MAN-0204,Cbm Education Center - Austin,Austin,TX,,1992,0,https://www.collegeevaluator.com/institute/cbm-education-center/
+MAN-0204,Cbm Education Center - Corpus Christi,Corpus Christi,TX,,1992,0,https://www.collegeevaluator.com/institute/cbm-education-center/
+MAN-0204,Cbm Education Center - Mcallen,Mcallen,TX,,1992,0,https://www.collegeevaluator.com/institute/cbm-education-center/
+MAN-0204,Cbm Education Center - San Benito,San Benito,TX,,1992,0,https://www.collegeevaluator.com/institute/cbm-education-center/
+MAN-0205,Mansfield Business School - San Antonio,San Antonio,TX,,1992,1,https://www.collegeevaluator.com/institute/mansfield-business-school_closed-campuses/
+MAN-0205,Mansfield Business School - San Antonio,San Antonio,TX,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-school_closed-campuses/
+MAN-0205,Mansfield Business School - Austin,Austin,TX,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-school_closed-campuses/
+MAN-0205,Mansfield Business School - Ft Worth,Ft Worth,TX,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-school_closed-campuses/
+MAN-0205,Mansfield Business School - Houston,Houston,TX,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-school_closed-campuses/
+MAN-0205,Mansfield Business School - El Paso,El Paso,TX,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-school_closed-campuses/
+MAN-0205,Mansfield Business School - Dallas,Dallas,TX,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-school_closed-campuses/
+MAN-0206,Griffin College - Seattle,Seattle,WA,,1993,1,https://www.collegeevaluator.com/institute/griffin-college_closed-campuses/
+MAN-0206,Griffin College - Tacoma,Tacoma,WA,,1993,0,https://www.collegeevaluator.com/institute/griffin-college_closed-campuses/
+MAN-0206,Griffin College - Bellevve,Bellevve,WA,,1992,0,https://www.collegeevaluator.com/institute/griffin-college_closed-campuses/
+MAN-0209,United College Of Business - Hollywood,Hollywood,CA,,1990,1,https://www.collegeevaluator.com/institute/united-college-of-business/
+MAN-0209,United College Of Business - Downey,Downey,CA,,1990,0,https://www.collegeevaluator.com/institute/united-college-of-business/
+MAN-0209,United College Of Business - Downey,Downey,CA,,1988,0,https://www.collegeevaluator.com/institute/united-college-of-business/
+MAN-0209,United College Of Business - Downey,Downey,CA,,1991,0,https://www.collegeevaluator.com/institute/united-college-of-business/
+MAN-0209,United College Of Business - Pico Rivera,Pico Rivera,CA,,1990,0,https://www.collegeevaluator.com/institute/united-college-of-business/
+MAN-0209,United College Of Business - Los Angeles,Los Angeles,CA,,1988,0,https://www.collegeevaluator.com/institute/united-college-of-business/
+MAN-0212,Computer Learning Center Of Alexandria - Alexandria,Alexandria,VA,,2001,1,https://www.collegeevaluator.com/institute/computer-learning-center-of-alexandria/
+MAN-0212,Computer Learning Center Of Alexandria - Westbury,Westbury,NY,,1988,0,https://www.collegeevaluator.com/institute/computer-learning-center-of-alexandria/
+MAN-0212,Computer Learning Center Of Alexandria - Schaumburg,Schaumburg,IL,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-center-of-alexandria/
+MAN-0212,Computer Learning Center Of Alexandria - Laurel,Laurel,MD,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-center-of-alexandria/
+MAN-0212,Computer Learning Center Of Alexandria - Manassas,Manassas,VA,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-center-of-alexandria/
+MAN-0214,Video Technical Institute - Irving,Irving,TX,,1990,1,https://www.collegeevaluator.com/institute/video-technical-institute_closed-campuses/
+MAN-0214,Video Technical Institute - Arlington,Arlington,TX,,1990,0,https://www.collegeevaluator.com/institute/video-technical-institute_closed-campuses/
+MAN-0214,Video Technical Institute - Houston,Houston,TX,,1990,0,https://www.collegeevaluator.com/institute/video-technical-institute_closed-campuses/
+MAN-0214,Video Technical Institute - Omaha,Omaha,NE,,1990,0,https://www.collegeevaluator.com/institute/video-technical-institute_closed-campuses/
+MAN-0214,Video Technical Institute - Signal Hill Long Beach,Signal Hill Long Beach,CA,,1990,0,https://www.collegeevaluator.com/institute/video-technical-institute_closed-campuses/
+MAN-0214,Video Technical Institute - Farmers Branch,Farmers Branch,TX,,1990,0,https://www.collegeevaluator.com/institute/video-technical-institute_closed-campuses/
+MAN-0214,Video Technical Institute - Dallas,Dallas,TX,,1990,0,https://www.collegeevaluator.com/institute/video-technical-institute_closed-campuses/
+MAN-0216,Computer Learning Centers Los Angeles - Los Angeles,Los Angeles,CA,,2001,1,https://www.collegeevaluator.com/institute/computer-learning-centers-los-angeles_closed-campuses/
+MAN-0216,Computer Learning Centers Los Angeles - Plymouth Meeting,Plymouth Meeting,PA,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-centers-los-angeles_closed-campuses/
+MAN-0216,Computer Learning Centers Los Angeles - Cherry Hill,Cherry Hill,NJ,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-centers-los-angeles_closed-campuses/
+MAN-0216,Computer Learning Centers Los Angeles - South Plainfield,South Plainfield,NJ,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-centers-los-angeles_closed-campuses/
+MAN-0217,Catherine College - Chicago,Chicago,IL,,1994,1,https://www.collegeevaluator.com/institute/catherine-college_closed-campuses/
+MAN-0217,Catherine College - Panorama City,Panorama City,CA,,1995,0,https://www.collegeevaluator.com/institute/catherine-college_closed-campuses/
+MAN-0218,Woodbridge Business Institute - Salisbury,Salisbury,MD,,1996,1,https://www.collegeevaluator.com/institute/woodbridge-business-institute_closed-campuses/
+MAN-0218,Woodbridge Business Institute - Woodbridge,Woodbridge,VA,,1994,0,https://www.collegeevaluator.com/institute/woodbridge-business-institute_closed-campuses/
+MAN-0218,Woodbridge Business Institute - Highland,Highland,IL,,1994,0,https://www.collegeevaluator.com/institute/woodbridge-business-institute_closed-campuses/
+MAN-0219,Diesel Institute Of America - Cheverly,Cheverly,MD,,1990,1,https://www.collegeevaluator.com/institute/diesel-institute-of-america/
+MAN-0219,Diesel Institute Of America - Baltimore,Baltimore,MD,,1990,0,https://www.collegeevaluator.com/institute/diesel-institute-of-america/
+MAN-0223,Trainco Bus School - Chicago,Chicago,IL,,1990,1,https://www.collegeevaluator.com/institute/trainco-bus-school_closed-campuses/
+MAN-0223,Trainco Bus School - Cicero,Cicero,IL,,1990,0,https://www.collegeevaluator.com/institute/trainco-bus-school_closed-campuses/
+MAN-0223,Trainco Bus School - Joliet,Joliet,IL,,1990,0,https://www.collegeevaluator.com/institute/trainco-bus-school_closed-campuses/
+MAN-0223,Trainco Bus School - Hammond,Hammond,IN,,1990,0,https://www.collegeevaluator.com/institute/trainco-bus-school_closed-campuses/
+MAN-0223,Trainco Bus School - Channahan,Channahan,IL,,1989,0,https://www.collegeevaluator.com/institute/trainco-bus-school_closed-campuses/
+MAN-0229,Lawton School For Medical And Dental Assistants - San Jose,San Jose,CA,,1991,1,https://www.collegeevaluator.com/institute/lawton-school-for-medical-and-dental-assistants/
+MAN-0229,Lawton School For Medical And Dental Assistants - Oakland,Oakland,CA,,1990,0,https://www.collegeevaluator.com/institute/lawton-school-for-medical-and-dental-assistants/
+MAN-0229,Lawton School For Medical And Dental Assistants - Columbus,Columbus,OH,,1990,0,https://www.collegeevaluator.com/institute/lawton-school-for-medical-and-dental-assistants/
+MAN-0229,Lawton School For Medical And Dental Assistants - New Orleans,New Orleans,LA,,1991,0,https://www.collegeevaluator.com/institute/lawton-school-for-medical-and-dental-assistants/
+MAN-0229,Lawton School For Medical And Dental Assistants - Cleveland,Cleveland,OH,,1990,0,https://www.collegeevaluator.com/institute/lawton-school-for-medical-and-dental-assistants/
+MAN-0231,Watterson College - Pasadena,Pasadena,CA,,2001,1,https://www.collegeevaluator.com/institute/watterson-college_closed-campuses/
+MAN-0231,Watterson College - Van Nuys,Van Nuys,CA,,1992,0,https://www.collegeevaluator.com/institute/watterson-college_closed-campuses/
+MAN-0231,Watterson College - Los Angeles,Los Angeles,CA,,1992,0,https://www.collegeevaluator.com/institute/watterson-college_closed-campuses/
+MAN-0231,Watterson College - Louisville,Louisville,KY,,1992,0,https://www.collegeevaluator.com/institute/watterson-college_closed-campuses/
+MAN-0231,Watterson College - Philadelphia,Philadelphia,PA,,1988,0,https://www.collegeevaluator.com/institute/watterson-college_closed-campuses/
+MAN-0231,Watterson College - Atlanta,Atlanta,GA,,1990,0,https://www.collegeevaluator.com/institute/watterson-college_closed-campuses/
+MAN-0231,Watterson College - Charleston,Charleston,SC,,1993,0,https://www.collegeevaluator.com/institute/watterson-college_closed-campuses/
+MAN-0231,Watterson College - Baltimore,Baltimore,MD,,1986,0,https://www.collegeevaluator.com/institute/watterson-college_closed-campuses/
+MAN-0231,Watterson College - Saint Louis,Saint Louis,MO,,1993,0,https://www.collegeevaluator.com/institute/watterson-college_closed-campuses/
+MAN-0231,Watterson College - West Covina,West Covina,CA,,1997,0,https://www.collegeevaluator.com/institute/watterson-college_closed-campuses/
+MAN-0235,Computer Learning Centers San Francisco - San Francisco,San Francisco,CA,,2001,1,https://www.collegeevaluator.com/institute/computer-learning-centers-san-francisco_closed-campuses/
+MAN-0235,Computer Learning Centers San Francisco - Madison Heights,Madison Heights,MI,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-centers-san-francisco_closed-campuses/
+MAN-0235,Computer Learning Centers San Francisco - Philadelphia,Philadelphia,PA,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-centers-san-francisco_closed-campuses/
+MAN-0250,Computer Learning Center - Houston,Houston,TX,,1990,1,https://www.collegeevaluator.com/institute/computer-learning-center/
+MAN-0250,Computer Learning Center - Raleigh,Raleigh,NC,,1990,0,https://www.collegeevaluator.com/institute/computer-learning-center/
+MAN-0250,Computer Learning Center - Philadelphia,Philadelphia,PA,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-center/
+MAN-0250,Computer Learning Center - Somerville,Somerville,MA,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-center/
+MAN-0250,Computer Learning Center - Lowell,Lowell,MA,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-center/
+MAN-0250,Computer Learning Center - Paramus,Paramus,NJ,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-center/
+MAN-0250,Computer Learning Center - Pittsburgh,Pittsburgh,PA,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-center/
+MAN-0250,Computer Learning Center - Houston,Houston,TX,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-center/
+MAN-0250,Computer Learning Center - Marietta,Marietta,GA,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-center/
+MAN-0250,Computer Learning Center - San Jose,San Jose,CA,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-center/
+MAN-0250,Computer Learning Center - Hurst,Hurst,TX,,2001,0,https://www.collegeevaluator.com/institute/computer-learning-center/
+MAN-0264,Moore Career College - Jackson,Jackson,MS,,1996,1,https://www.collegeevaluator.com/institute/moore-career-college_closed-campuses/
+MAN-0264,Moore Career College - Meridian,Meridian,MS,,1994,0,https://www.collegeevaluator.com/institute/moore-career-college_closed-campuses/
+MAN-0264,Moore Career College - Hattiesburg,Hattiesburg,MS,,1996,0,https://www.collegeevaluator.com/institute/moore-career-college_closed-campuses/
+MAN-0264,Moore Career College - Tupelo,Tupelo,MS,,1994,0,https://www.collegeevaluator.com/institute/moore-career-college_closed-campuses/
+MAN-0266,Esi Career Center - Euclid,Euclid,OH,,1994,1,https://www.collegeevaluator.com/institute/esi-career-center/
+MAN-0266,Esi Career Center - Lorain,Lorain,OH,,1994,0,https://www.collegeevaluator.com/institute/esi-career-center/
+MAN-0266,Esi Career Center - Lincoln Park,Lincoln Park,MI,,1993,0,https://www.collegeevaluator.com/institute/esi-career-center/
+MAN-0266,Esi Career Center - Southfield,Southfield,MI,,1992,0,https://www.collegeevaluator.com/institute/esi-career-center/
+MAN-0268,Bliss College - Columbus,Columbus,OH,,1993,1,https://www.collegeevaluator.com/institute/bliss-college_closed-campuses/
+MAN-0268,Bliss College - Mansfield,Mansfield,OH,,1993,0,https://www.collegeevaluator.com/institute/bliss-college_closed-campuses/
+MAN-0269,Pace Business School(the) - Yonkers,Yonkers,NY,,1994,1,https://www.collegeevaluator.com/institute/pace-business-school(the)/
+MAN-0269,Pace Business School(the) - Bronx,Bronx,NY,,1994,0,https://www.collegeevaluator.com/institute/pace-business-school(the)/
+MAN-0271,Mansfield Business College - Dallas,Dallas,TX,,1993,1,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - San Antonio,San Antonio,TX,,1992,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - Akron,Akron,OH,,1991,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - Columbia,Columbia,SC,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - San Antonio,San Antonio,TX,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - Mansfield,Mansfield,OH,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - Houston,Houston,TX,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - Ft Worth,Ft Worth,TX,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - St. Louis,St. Louis,MO,,1990,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - Denver,Denver,CO,,1992,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - Austin,Austin,TX,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - Charleston,Charleston,SC,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - El Pasa,El Pasa,TX,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0271,Mansfield Business College - Arlington,Arlington,TX,,1993,0,https://www.collegeevaluator.com/institute/mansfield-business-college_closed-campuses/
+MAN-0318,Heald College - San Francisco,San Francisco,CA,,2015,1,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Honolulu,Honolulu,HI,,2015,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Portland,Portland,OR,,2015,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Kaneohe,Kaneohe,HI,,2015,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Concord,Concord,CA,,2015,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Milpitas,Milpitas,CA,,2015,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Hayward,Hayward,CA,,2015,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Salida,Salida,CA,,2015,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Roseville,Roseville,CA,,2015,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Salinas,Salinas,CA,,2015,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Stockton,Stockton,CA,,2015,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Rancho Cordova,Rancho Cordova,CA,,2015,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Fresno,Fresno,CA,,2015,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Santa Rosa,Santa Rosa,CA,,2003,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0318,Heald College - Monterey,Monterey,CA,,1998,0,https://www.collegeevaluator.com/institute/heald-college_closed-campuses/
+MAN-0323,Psi Institute - New York,New York,NY,,1993,1,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0323,Psi Institute - Baltimore,Baltimore,MD,,1992,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0323,Psi Institute - Columbus,Columbus,OH,,1992,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0323,Psi Institute - Cleveland,Cleveland,OH,,1992,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0323,Psi Institute - Southfield,Southfield,MI,,1993,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0323,Psi Institute - Philadelphia,Philadelphia,PA,,1993,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0323,Psi Institute - Miami,Miami,FL,,1992,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0323,Psi Institute - Charlotte,Charlotte,NC,,1993,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0323,Psi Institute - Flint,Flint,MI,,1993,0,https://www.collegeevaluator.com/institute/psi-institute_closed-campuses/
+MAN-0324,Rasmussen College - Fort Pierce,Fort Pierce,FL,,1997,1,https://www.collegeevaluator.com/institute/rasmussen-college_closed-campuses/
+MAN-0324,Rasmussen College - Gainesville,Gainesville,FL,,1996,0,https://www.collegeevaluator.com/institute/rasmussen-college_closed-campuses/
+MAN-0324,Rasmussen College - Fairmont,Fairmont,WV,,2001,0,https://www.collegeevaluator.com/institute/rasmussen-college_closed-campuses/
+MAN-0324,Rasmussen College - Bismarck,Bismarck,ND,,2015,0,https://www.collegeevaluator.com/institute/rasmussen-college_closed-campuses/
+MAN-0324,Rasmussen College - Appleton,Appleton,WI,,2016,0,https://www.collegeevaluator.com/institute/rasmussen-college_closed-campuses/
+MAN-0325,Barclay College - Plainfield,Plainfield,IN,,2011,1,https://www.collegeevaluator.com/institute/barclay-college_closed-campuses/
+MAN-0325,Barclay College - Fresno,Fresno,CA,,1991,0,https://www.collegeevaluator.com/institute/barclay-college_closed-campuses/
+MAN-0325,Barclay College - San Bernardino,San Bernardino,CA,,1990,0,https://www.collegeevaluator.com/institute/barclay-college_closed-campuses/
+MAN-0325,Barclay College - St Ann,St Ann,MO,,1991,0,https://www.collegeevaluator.com/institute/barclay-college_closed-campuses/
+MAN-0325,Barclay College - Cypress,Cypress,CA,,1990,0,https://www.collegeevaluator.com/institute/barclay-college_closed-campuses/
+MAN-0325,Barclay College - Lawndale,Lawndale,CA,,1990,0,https://www.collegeevaluator.com/institute/barclay-college_closed-campuses/
+MAN-0325,Barclay College - Sacramento,Sacramento,CA,,1991,0,https://www.collegeevaluator.com/institute/barclay-college_closed-campuses/
+MAN-0328,Rutledge College - Atlanta,Atlanta,GA,,1989,1,https://www.collegeevaluator.com/institute/rutledge-college_closed-campuses/
+MAN-0328,Rutledge College - Iselin,Iselin,NJ,,1987,0,https://www.collegeevaluator.com/institute/rutledge-college_closed-campuses/
+MAN-0328,Rutledge College - Raleigh,Raleigh,NC,,1990,0,https://www.collegeevaluator.com/institute/rutledge-college_closed-campuses/
+MAN-0328,Rutledge College - New Orleans,New Orleans,LA,,1991,0,https://www.collegeevaluator.com/institute/rutledge-college_closed-campuses/
+MAN-0329,Southern Technical College - Oklahoma City,Oklahoma City,OK,,1991,1,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Wichita,Wichita,KS,,1991,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Nashville,Nashville,TN,,1989,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Birmingham,Birmingham,AL,,1990,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Texarkana,Texarkana,AR,,1990,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Montgomery,Montgomery,AL,,1992,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Las Vegas,Las Vegas,NV,,1990,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Columbia,Columbia,SC,,1992,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Bonita Springs,Bonita Springs,FL,,2017,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Jackson,Jackson,MS,,1992,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Hot Springs,Hot Springs,AR,,1992,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Shreveport,Shreveport,LA,,1992,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Monroe,Monroe,LA,,1992,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0329,Southern Technical College - Mt. Dora,Mt. Dora,FL,,2018,0,https://www.collegeevaluator.com/institute/southern-technical-college_closed-campuses/
+MAN-0331,Sawyer College - Ventura,Ventura,CA,,1996,1,https://www.collegeevaluator.com/institute/sawyer-college_closed-campuses/
+MAN-0331,Sawyer College - Sacramento,Sacramento,CA,,1998,0,https://www.collegeevaluator.com/institute/sawyer-college_closed-campuses/
+MAN-0331,Sawyer College - San Jose,San Jose,CA,,1998,0,https://www.collegeevaluator.com/institute/sawyer-college_closed-campuses/
+MAN-0331,Sawyer College - Oak Park,Oak Park,IL,,1989,0,https://www.collegeevaluator.com/institute/sawyer-college_closed-campuses/
+MAN-0331,Sawyer College - Dayton,Dayton,OH,,1992,0,https://www.collegeevaluator.com/institute/sawyer-college_closed-campuses/
+MAN-0331,Sawyer College - Springfield,Springfield,OH,,1992,0,https://www.collegeevaluator.com/institute/sawyer-college_closed-campuses/
+MAN-0331,Sawyer College - Cincinnati,Cincinnati,OH,,1992,0,https://www.collegeevaluator.com/institute/sawyer-college_closed-campuses/
+MAN-0380,Anthem College - Maryland Heights,Maryland Heights,MO,,2014,1,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0380,Anthem College - Saint Louis,Saint Louis,MO,,2014,0,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0380,Anthem College - Fenton,Fenton,MO,,2014,0,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0380,Anthem College - Beaverton,Beaverton,OR,,2014,0,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0380,Anthem College - Brookfield,Brookfield,WI,,2014,0,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0380,Anthem College - Phoenix,Phoenix,AZ,,2014,0,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0380,Anthem College - Rancho Cordova,Rancho Cordova,CA,,2014,0,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0380,Anthem College - St. Louis Park,St. Louis Park,MN,,2014,0,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0380,Anthem College - Nashville,Nashville,TN,,2014,0,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0380,Anthem College - Atlanta,Atlanta,GA,,2009,0,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0380,Anthem College - Kansas City,Kansas City,MO,,2014,0,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0380,Anthem College - Bellevue,Bellevue,WA,,2008,0,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0380,Anthem College - Atlanta,Atlanta,GA,,2014,0,https://www.collegeevaluator.com/institute/anthem-college_closed-campuses/
+MAN-0383,Adelphi Business College - Phoenix,Phoenix,AZ,,1987,1,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - Mesa,Mesa,AZ,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - San Bernardino,San Bernardino,CA,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - Long Beach,Long Beach,CA,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - Inglewood,Inglewood,CA,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - Anaheim,Anaheim,CA,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - Santa Ana,Santa Ana,CA,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - Chicago,Chicago,IL,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - Gary,Gary,IN,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - Brooklyn,Brooklyn,NY,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - Astoria,Astoria,NY,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - New York,New York,NY,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - Jamaica,Jamaica,NY,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - Los Angeles,Los Angeles,CA,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - San Diego,San Diego,CA,,1987,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0383,Adelphi Business College - Gary,Gary,IN,,1992,0,https://www.collegeevaluator.com/institute/adelphi-business-college_closed-campuses/
+MAN-0384,Stratford School - Rochester,Rochester,NY,,1989,1,https://www.collegeevaluator.com/institute/stratford-school_closed-campuses/
+MAN-0384,Stratford School - Hilton Head Island,Hilton Head Island,SC,,1989,0,https://www.collegeevaluator.com/institute/stratford-school_closed-campuses/
+MAN-0384,Stratford School - Syracuse,Syracuse,NY,,1989,0,https://www.collegeevaluator.com/institute/stratford-school_closed-campuses/
+MAN-0384,Stratford School - Buffalo,Buffalo,NY,,1989,0,https://www.collegeevaluator.com/institute/stratford-school_closed-campuses/
+MAN-0384,Stratford School - Albany,Albany,NY,,1989,0,https://www.collegeevaluator.com/institute/stratford-school_closed-campuses/
+MAN-0384,Stratford School - Greenwood,Greenwood,SC,,1989,0,https://www.collegeevaluator.com/institute/stratford-school_closed-campuses/
+MAN-0384,Stratford School - Greenville,Greenville,SC,,1989,0,https://www.collegeevaluator.com/institute/stratford-school_closed-campuses/
+MAN-0384,Stratford School - West Columbia,West Columbia,SC,,1989,0,https://www.collegeevaluator.com/institute/stratford-school_closed-campuses/
+MAN-0384,Stratford School - Columbia,Columbia,SC,,1989,0,https://www.collegeevaluator.com/institute/stratford-school_closed-campuses/
+MAN-0387,American Business Institute - Hawthorne,Hawthorne,CA,,1990,1,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - Los Angeles,Los Angeles,CA,,1989,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - Lawndale,Lawndale,CA,,1990,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - Long Beach,Long Beach,CA,,1989,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - Baldwin Park,Baldwin Park,CA,,1990,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - New York,New York,NY,,1994,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - Boston,Boston,MA,,1989,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - Los Angeles,Los Angeles,CA,,1990,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - Bronx,Bronx,NY,,1990,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - Flushing,Flushing,NY,,1989,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - Paramus,Paramus,NJ,,1991,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - Houston,Houston,TX,,1989,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - Brooklyn,Brooklyn,NY,,1990,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0387,American Business Institute - Newark,Newark,NJ,,1990,0,https://www.collegeevaluator.com/institute/american-business-institute_closed-campuses/
+MAN-0388,Miller - Motte Technical College - Clarksville,Clarksville,TN,,2018,1,https://www.collegeevaluator.com/institute/miller---motte-technical-college_closed-campuses/
+MAN-0388,Miller - Motte Technical College - Madison,Madison,TN,,2017,0,https://www.collegeevaluator.com/institute/miller---motte-technical-college_closed-campuses/
+MAN-0388,Miller - Motte Technical College - Greenville,Greenville,NC,,2018,0,https://www.collegeevaluator.com/institute/miller---motte-technical-college_closed-campuses/
+MAN-0390,Alpha Beauty School - Greenville,Greenville,SC,,1999,1,https://www.collegeevaluator.com/institute/alpha-beauty-school_closed-campuses/
+MAN-0390,Alpha Beauty School - Seneca,Seneca,SC,,1994,0,https://www.collegeevaluator.com/institute/alpha-beauty-school_closed-campuses/
+MAN-0390,Alpha Beauty School - Spartanburg,Spartanburg,SC,,1995,0,https://www.collegeevaluator.com/institute/alpha-beauty-school_closed-campuses/
+MAN-0390,Alpha Beauty School - Anderson,Anderson,SC,,1999,0,https://www.collegeevaluator.com/institute/alpha-beauty-school_closed-campuses/
+MAN-0390,Alpha Beauty School - Asheville,Asheville,NC,,1999,0,https://www.collegeevaluator.com/institute/alpha-beauty-school_closed-campuses/
+MAN-0404,Draughons Junior College - Knoxville,Knoxville,TN,,1991,1,https://www.collegeevaluator.com/institute/draughons-junior-college_closed-campuses/
+MAN-0404,Draughons Junior College - Chattanooga,Chattanooga,TN,,1991,0,https://www.collegeevaluator.com/institute/draughons-junior-college_closed-campuses/
+MAN-0404,Draughons Junior College - Bristol,Bristol,TN,,1991,0,https://www.collegeevaluator.com/institute/draughons-junior-college_closed-campuses/
+MAN-0404,Draughons Junior College - Kingsport,Kingsport,TN,,1991,0,https://www.collegeevaluator.com/institute/draughons-junior-college_closed-campuses/
+MAN-0404,Draughons Junior College - Johnson City,Johnson City,TN,,1991,0,https://www.collegeevaluator.com/institute/draughons-junior-college_closed-campuses/
+MAN-0404,Draughons Junior College - Greenville,Greenville,TN,,1991,0,https://www.collegeevaluator.com/institute/draughons-junior-college_closed-campuses/
