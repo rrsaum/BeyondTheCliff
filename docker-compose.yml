@@ -1,12 +1,20 @@
+# One stack per session. Nothing here is pinned to a fixed name, because two sessions running
+# this repo at once used to fight over both the container name and the host port.
+#
+# Compose derives the project name from the directory, so a git worktree at
+# ../BeyondTheCliff-<name> gets its own container automatically with no flag to remember. Only
+# the host port still has to be chosen, via TRACKER_PORT in that worktree's .env (gitignored,
+# and NOT carried into a new worktree: set it per worktree). See docs/technical/PARALLEL_SESSIONS.md.
 services:
   tracker:
     build: .
-    container_name: beyondthecliff
+    # No container_name on purpose: hardcoding one makes the second session's `up` fail with a
+    # name conflict. Compose names it <project>-tracker-1, which is unique per worktree.
     ports:
-      # Host 8002, container 8000. The host port is the one that has to be unique: this Mac
-      # runs other project containers (8000 and 8001 were already taken), so the tracker gets
-      # 8002 and uvicorn still listens on 8000 inside the container.
-      - "8002:8000"
+      # Host TRACKER_PORT (default 8002), container 8000. The host side is what must be unique
+      # per session; uvicorn always listens on 8000 inside the container. 8000 and 8001 are
+      # taken by other projects on this Mac.
+      - "${TRACKER_PORT:-8002}:8000"
     volumes:
       # The repo is mounted, not copied: /admin writes data/*.csv (the committed source of
       # truth) and rebuilds the DB, so those writes must land on the host where git sees
