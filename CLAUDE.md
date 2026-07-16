@@ -37,12 +37,40 @@ produce identical rows.
 Or run the whole thing in Docker, which rebuilds the DB and serves the app in one step:
 
 ```
-docker compose up      # tracker on http://localhost:8000 (-d to background it)
+docker compose up      # tracker on http://localhost:8002 (-d to background it)
 docker compose down    # stop it
 ```
 
 The compose service bind-mounts the repo, so `/admin` edits to `data/*.csv` land in the
-working tree where git sees them, and uvicorn `--reload` still picks up code edits.
+working tree where git sees them, and uvicorn `--reload` still picks up code edits. The host
+port is `TRACKER_PORT` (default 8002) and the container name is derived from the directory, so
+each worktree gets its own stack. Nothing is hardcoded; see "More than one session at once".
+
+## More than one session at once (binding)
+
+**Never run a second writing session in this checkout. Use a worktree.** Full procedure and the
+port table: `docs/technical/PARALLEL_SESSIONS.md`. Invoke the `parallel-sessions` skill when a
+session starts alongside another, or the moment a file changes under you mid-edit.
+
+```
+git worktree add ../BeyondTheCliff-<name> -b <name>
+cd ../BeyondTheCliff-<name> && printf 'TRACKER_PORT=8003\n' > .env   # .env is NOT carried over
+docker compose up -d
+```
+
+This is not a style preference. Two sessions shared this checkout once and one silently
+destroyed the other's curated data by regenerating a file they had both picked as an output
+name. Nothing failed loudly; the only symptom was an importer quietly matching nothing.
+
+Two rules that follow, and both are absolute:
+
+- **A generated file has one owner: its generator.** Never hand-edit a file an importer
+  rewrites whole (`data/institutions_open.csv`, `data/sector_size.csv`,
+  `data/composite_scores.csv`, `data/financials.csv`, `data/financial_line_items.csv`), and
+  never add a column to one expecting it to survive. It will not.
+- **A hand-curated fact needs its own hand-curated CSV.** `data/institution_eins.csv` is the
+  OPEID/EIN crosswalk precisely because IPEDS publishes no EIN, so it can never ride along on
+  the IPEDS-generated roster.
 
 The `data/*.csv` files are the source of truth (committed); `data/beyondthecliff.db` is a
 git-ignored build artifact, rebuilt in about half a second, so it is never backed up or
