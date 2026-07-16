@@ -1,0 +1,429 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Mockup 1, with every revenue source</title>
+<style>
+:root {
+  --ink:#1b2733; --ink-soft:#4a5866; --paper:#fbfaf7; --surface:#ffffff; --line:#e3e0d8;
+  --accent:#1f5c7a; --accent-soft:#dcebf1; --warn:#9a5b1d; --closed:#b23a48; --merged:#4a5866;
+  --good:#2f6f4f; --radius:8px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+body { margin:0; background:var(--paper); color:var(--ink); line-height:1.5; }
+.wrap { max-width:1040px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+h1 { font-size:1.5rem; margin:0 0 .3rem; }
+.lead { color:var(--ink-soft); max-width:74ch; margin:0 0 1.5rem; }
+.card { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:1.1rem 1.2rem; margin:0 0 1.5rem; }
+h2 { font-size:1.05rem; margin:0 0 .2rem; }
+.tag { font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--accent);
+  font-weight:700; margin:0; }
+.why { font-size:.85rem; color:var(--ink-soft); margin:.35rem 0 .9rem; max-width:80ch; }
+.tradeoff { font-size:.8rem; color:var(--ink-soft); margin:.7rem 0 0; padding-top:.6rem;
+  border-top:1px solid var(--line); }
+.tradeoff b { color:var(--ink); }
+.cv { width:100%; height:auto; display:block; }
+.grid { stroke:var(--line); stroke-width:1; }
+.ylab,.xlab { fill:var(--ink-soft); font-size:11px; }
+.xlab-full { fill:var(--ink-soft); font-size:11px; font-weight:600; }
+.ln { fill:none; stroke-width:2.2; }
+.ln-expense { stroke:var(--closed); }
+.ln-earned { stroke:var(--accent); }
+.dot { stroke:var(--surface); stroke-width:1.4; }
+.dot-expense { fill:var(--closed); } .dot-earned { fill:var(--accent); }
+.area-earned { fill:var(--accent); opacity:.85; }
+.area-tuition { fill:var(--accent); opacity:.9; }
+.area-aux { fill:var(--accent); opacity:.55; }
+.area-otherrev { fill:var(--accent); opacity:.3; }
+.area-private { fill:var(--good); opacity:.55; }
+.area-govt { fill:var(--warn); opacity:.75; }
+.hole { fill:var(--paper); opacity:.8; }
+.hole-lab { fill:var(--ink-soft); font-size:9.5px; font-style:italic; }
+.hit { fill:transparent; }
+.gut { font-size:10.5px; font-weight:600; }
+.gut-expense { fill:var(--closed); } .gut-earned { fill:var(--accent); }
+.gut-tuition { fill:var(--accent); } .gut-aux { fill:var(--accent); opacity:.8; }
+.gut-private { fill:var(--good); } .gut-govt { fill:var(--warn); }
+.note { font-size:.76rem; color:var(--ink-soft); margin:.6rem 0 0; }
+.decide { background:var(--accent-soft); border-left:3px solid var(--accent);
+  border-radius:var(--radius); padding:.9rem 1rem; margin:0 0 1.5rem; }
+.decide h2 { color:var(--accent); }
+.decide ol { margin:.4rem 0 0; padding-left:1.2rem; font-size:.88rem; }
+.decide li { margin:.3rem 0; }
+.new { background:#eef6f0; border-left:3px solid var(--good); border-radius:var(--radius);
+  padding:.7rem .9rem; margin:0 0 1.5rem; font-size:.86rem; }
+</style>
+<div class="wrap">
+<h1>Mockup 1, with every revenue source</h1>
+<p class="lead">Montreat College, IRS Form 990, FY2013 to FY2025. Three ways to add the
+sources to the gap chart. Every band is a figure from the filings, and the bands sum to total
+revenue exactly. Hover any year for the full breakdown.</p>
+
+<div class="new">
+  <b>Now includes the year you just added</b> (TY2020, fiscal year ending 30 June 2021).
+  Every year in the range is now filed, so no line breaks.
+</div>
+
+<div class="decide">
+  <h2>Two things worth knowing before you pick</h2>
+  <ol>
+    <li><b>"Private gifts" here means all giving that is not a government grant</b>, computed as
+      contributions minus government grants. The specific "all other contributions" line in the
+      990 does not add up: it misses federated campaigns, membership dues and fundraising events,
+      and using it would leave up to $539k a year unexplained inside a stack. This definition
+      reconciles exactly.</li>
+    <li><b>Investment income is folded into "other earned".</b> It goes negative in a bad market
+      year (FY2019), and a negative band inverts a stack.</li>
+  </ol>
+</div>
+
+<div class="card">
+  <p class="tag">Variant 1A</p>
+  <h2>Earned, then private gifts, then government</h2>
+  <p class="why">The school's own money is the base. Everything above it was given. The expense
+    line crossing the stack is the whole story: where the stack clears the line the year paid for
+    itself, and it is visible at a glance which colour did the clearing.</p>
+  <svg viewBox="0 0 940 320" class="cv" role="img" aria-label="Revenue by source against expenses"><line x1="62" y1="274.0" x2="808" y2="274.0" class="grid"/><text x="54" y="277.5" class="ylab" text-anchor="end">$0M</text><line x1="62" y1="210.5" x2="808" y2="210.5" class="grid"/><text x="54" y="214.0" class="ylab" text-anchor="end">$16M</text><line x1="62" y1="147.0" x2="808" y2="147.0" class="grid"/><text x="54" y="150.5" class="ylab" text-anchor="end">$32M</text><line x1="62" y1="83.5" x2="808" y2="83.5" class="grid"/><text x="54" y="87.0" class="ylab" text-anchor="end">$48M</text><line x1="62" y1="20.0" x2="808" y2="20.0" class="grid"/><text x="54" y="23.5" class="ylab" text-anchor="end">$64M</text><polygon points="62.0,206.3 124.2,205.7 186.3,207.2 248.5,199.9 310.7,195.8 372.8,191.3 435.0,187.9 497.2,179.4 559.3,167.5 621.5,153.4 683.7,149.3 745.8,146.3 808.0,134.2 808.0,274.0 745.8,274.0 683.7,274.0 621.5,274.0 559.3,274.0 497.2,274.0 435.0,274.0 372.8,274.0 310.7,274.0 248.5,274.0 186.3,274.0 124.2,274.0 62.0,274.0" class="area area-earned"/><polygon points="62.0,199.9 124.2,189.8 186.3,177.5 248.5,177.7 310.7,173.1 372.8,179.2 435.0,167.9 497.2,165.7 559.3,139.2 621.5,113.1 683.7,129.8 745.8,109.2 808.0,111.5 808.0,134.2 745.8,146.3 683.7,149.3 621.5,153.4 559.3,167.5 497.2,179.4 435.0,187.9 372.8,191.3 310.7,195.8 248.5,199.9 186.3,207.2 124.2,205.7 62.0,206.3" class="area area-private"/><polygon points="62.0,199.1 124.2,189.0 186.3,176.7 248.5,176.8 310.7,172.3 372.8,170.7 435.0,167.4 497.2,165.2 559.3,117.9 621.5,39.2 683.7,59.7 745.8,73.7 808.0,103.6 808.0,111.5 745.8,109.2 683.7,129.8 621.5,113.1 559.3,139.2 497.2,165.7 435.0,167.9 372.8,179.2 310.7,173.1 248.5,177.7 186.3,177.5 124.2,189.8 62.0,199.9" class="area area-govt"/><polyline points="62.0,188.7 124.2,189.2 186.3,182.7 248.5,178.8 310.7,176.0 372.8,174.1 435.0,166.7 497.2,162.9 559.3,144.1 621.5,114.8 683.7,107.4 745.8,114.8 808.0,100.2" class="ln ln-expense"/><circle cx="62.0" cy="188.7" r="3.2" class="dot dot-expense"><title>FY2013: expenses $21M</title></circle><circle cx="124.2" cy="189.2" r="3.2" class="dot dot-expense"><title>FY2014: expenses $21M</title></circle><circle cx="186.3" cy="182.7" r="3.2" class="dot dot-expense"><title>FY2015: expenses $23M</title></circle><circle cx="248.5" cy="178.8" r="3.2" class="dot dot-expense"><title>FY2016: expenses $24M</title></circle><circle cx="310.7" cy="176.0" r="3.2" class="dot dot-expense"><title>FY2017: expenses $25M</title></circle><circle cx="372.8" cy="174.1" r="3.2" class="dot dot-expense"><title>FY2018: expenses $25M</title></circle><circle cx="435.0" cy="166.7" r="3.2" class="dot dot-expense"><title>FY2019: expenses $27M</title></circle><circle cx="497.2" cy="162.9" r="3.2" class="dot dot-expense"><title>FY2020: expenses $28M</title></circle><circle cx="559.3" cy="144.1" r="3.2" class="dot dot-expense"><title>FY2021: expenses $33M</title></circle><circle cx="621.5" cy="114.8" r="3.2" class="dot dot-expense"><title>FY2022: expenses $40M</title></circle><circle cx="683.7" cy="107.4" r="3.2" class="dot dot-expense"><title>FY2023: expenses $42M</title></circle><circle cx="745.8" cy="114.8" r="3.2" class="dot dot-expense"><title>FY2024: expenses $40M</title></circle><circle cx="808.0" cy="100.2" r="3.2" class="dot dot-expense"><title>FY2025: expenses $44M</title></circle><text x="816" y="104.2" class="gut gut-expense">Expenses</text><text x="816" y="204.1" class="gut gut-earned">Earned</text><text x="816" y="122.9" class="gut gut-private">Private gifts</text><text x="816" y="105.6" class="gut gut-govt">Government</text><text x="62.0" y="290.0" class="xlab" text-anchor="middle">13</text><text x="124.2" y="290.0" class="xlab" text-anchor="middle">14</text><text x="186.3" y="290.0" class="xlab" text-anchor="middle">15</text><text x="248.5" y="290.0" class="xlab" text-anchor="middle">16</text><text x="310.7" y="290.0" class="xlab" text-anchor="middle">17</text><text x="372.8" y="290.0" class="xlab" text-anchor="middle">18</text><text x="435.0" y="290.0" class="xlab" text-anchor="middle">19</text><text x="497.2" y="290.0" class="xlab" text-anchor="middle">20</text><text x="559.3" y="290.0" class="xlab" text-anchor="middle">21</text><text x="621.5" y="290.0" class="xlab" text-anchor="middle">22</text><text x="683.7" y="290.0" class="xlab" text-anchor="middle">23</text><text x="745.8" y="290.0" class="xlab" text-anchor="middle">24</text><text x="808.0" y="290.0" class="xlab" text-anchor="middle">25</text><text x="62.0" y="306.0" class="xlab-full" text-anchor="middle">FY2013</text><text x="808.0" y="306.0" class="xlab-full" text-anchor="middle">FY2025</text><rect x="41.4" y="20" width="41.2" height="254.0" class="hit"><title>FY2013
+Tuition and fees $13M
+Auxiliaries $2M
+Other earned $2M
+Private giving $2M
+Government grants $0M
+Total revenue $19M
+Expenses $21M
+Result $-3M</title></rect><rect x="103.6" y="20" width="41.2" height="254.0" class="hit"><title>FY2014
+Tuition and fees $14M
+Auxiliaries $2M
+Other earned $1M
+Private giving $4M
+Government grants $0M
+Total revenue $21M
+Expenses $21M
+Result +$0M</title></rect><rect x="165.7" y="20" width="41.2" height="254.0" class="hit"><title>FY2015
+Tuition and fees $14M
+Auxiliaries $3M
+Other earned $0M
+Private giving $7M
+Government grants $0M
+Total revenue $25M
+Expenses $23M
+Result +$2M</title></rect><rect x="227.9" y="20" width="41.2" height="254.0" class="hit"><title>FY2016
+Tuition and fees $15M
+Auxiliaries $3M
+Other earned $1M
+Private giving $6M
+Government grants $0M
+Total revenue $24M
+Expenses $24M
+Result +$1M</title></rect><rect x="290.1" y="20" width="41.2" height="254.0" class="hit"><title>FY2017
+Tuition and fees $16M
+Auxiliaries $3M
+Other earned $1M
+Private giving $6M
+Government grants $0M
+Total revenue $26M
+Expenses $25M
+Result +$1M</title></rect><rect x="352.2" y="20" width="41.2" height="254.0" class="hit"><title>FY2018
+Tuition and fees $16M
+Auxiliaries $4M
+Other earned $1M
+Private giving $3M
+Government grants $2M
+Total revenue $26M
+Expenses $25M
+Result +$1M</title></rect><rect x="414.4" y="20" width="41.2" height="254.0" class="hit"><title>FY2019
+Tuition and fees $17M
+Auxiliaries $5M
+Other earned $0M
+Private giving $5M
+Government grants $0M
+Total revenue $27M
+Expenses $27M
+Result $-0M</title></rect><rect x="476.6" y="20" width="41.2" height="254.0" class="hit"><title>FY2020
+Tuition and fees $19M
+Auxiliaries $5M
+Other earned $1M
+Private giving $3M
+Government grants $0M
+Total revenue $27M
+Expenses $28M
+Result $-1M</title></rect><rect x="538.7" y="20" width="41.2" height="254.0" class="hit"><title>FY2021
+Tuition and fees $21M
+Auxiliaries $5M
+Other earned $1M
+Private giving $7M
+Government grants $5M
+Total revenue $39M
+Expenses $33M
+Result +$7M</title></rect><rect x="600.9" y="20" width="41.2" height="254.0" class="hit"><title>FY2022
+Tuition and fees $22M
+Auxiliaries $6M
+Other earned $2M
+Private giving $10M
+Government grants $19M
+Total revenue $59M
+Expenses $40M
+Result +$19M</title></rect><rect x="663.1" y="20" width="41.2" height="254.0" class="hit"><title>FY2023
+Tuition and fees $22M
+Auxiliaries $7M
+Other earned $2M
+Private giving $5M
+Government grants $18M
+Total revenue $54M
+Expenses $42M
+Result +$12M</title></rect><rect x="725.2" y="20" width="41.2" height="254.0" class="hit"><title>FY2024
+Tuition and fees $23M
+Auxiliaries $7M
+Other earned $2M
+Private giving $9M
+Government grants $9M
+Total revenue $50M
+Expenses $40M
+Result +$10M</title></rect><rect x="787.4" y="20" width="41.2" height="254.0" class="hit"><title>FY2025
+Tuition and fees $26M
+Auxiliaries $8M
+Other earned $1M
+Private giving $6M
+Government grants $2M
+Total revenue $43M
+Expenses $44M
+Result $-1M</title></rect></svg>
+  <p class="tradeoff"><b>Strength:</b> three bands is the most a stacked chart reads well with,
+    and the government slab from FY2021 is unmissable. <b>Cost:</b> "earned" hides that it is
+    almost all tuition.</p>
+</div>
+
+<div class="card">
+  <p class="tag">Variant 1B</p>
+  <h2>Every source named</h2>
+  <p class="why">Tuition and fees, auxiliaries, other earned, private gifts, government. The
+    complete picture with nothing folded together.</p>
+  <svg viewBox="0 0 940 320" class="cv" role="img" aria-label="Every revenue source against expenses"><line x1="62" y1="274.0" x2="808" y2="274.0" class="grid"/><text x="54" y="277.5" class="ylab" text-anchor="end">$0M</text><line x1="62" y1="210.5" x2="808" y2="210.5" class="grid"/><text x="54" y="214.0" class="ylab" text-anchor="end">$16M</text><line x1="62" y1="147.0" x2="808" y2="147.0" class="grid"/><text x="54" y="150.5" class="ylab" text-anchor="end">$32M</text><line x1="62" y1="83.5" x2="808" y2="83.5" class="grid"/><text x="54" y="87.0" class="ylab" text-anchor="end">$48M</text><line x1="62" y1="20.0" x2="808" y2="20.0" class="grid"/><text x="54" y="23.5" class="ylab" text-anchor="end">$64M</text><polygon points="62.0,223.3 124.2,218.5 186.3,219.5 248.5,215.1 310.7,212.2 372.8,211.0 435.0,208.0 497.2,200.5 559.3,192.1 621.5,186.4 683.7,185.7 745.8,181.3 808.0,169.7 808.0,274.0 745.8,274.0 683.7,274.0 621.5,274.0 559.3,274.0 497.2,274.0 435.0,274.0 372.8,274.0 310.7,274.0 248.5,274.0 186.3,274.0 124.2,274.0 62.0,274.0" class="area area-tuition"/><polygon points="62.0,213.6 124.2,209.0 186.3,208.9 248.5,202.0 310.7,198.8 372.8,194.7 435.0,189.8 497.2,181.8 559.3,172.6 621.5,161.4 683.7,158.6 745.8,154.9 808.0,139.9 808.0,169.7 745.8,181.3 683.7,185.7 621.5,186.4 559.3,192.1 497.2,200.5 435.0,208.0 372.8,211.0 310.7,212.2 248.5,215.1 186.3,219.5 124.2,218.5 62.0,223.3" class="area area-aux"/><polygon points="62.0,206.3 124.2,205.7 186.3,207.2 248.5,199.9 310.7,195.8 372.8,191.3 435.0,187.9 497.2,179.4 559.3,167.5 621.5,153.4 683.7,149.3 745.8,146.3 808.0,134.2 808.0,139.9 745.8,154.9 683.7,158.6 621.5,161.4 559.3,172.6 497.2,181.8 435.0,189.8 372.8,194.7 310.7,198.8 248.5,202.0 186.3,208.9 124.2,209.0 62.0,213.6" class="area area-otherrev"/><polygon points="62.0,199.9 124.2,189.8 186.3,177.5 248.5,177.7 310.7,173.1 372.8,179.2 435.0,167.9 497.2,165.7 559.3,139.2 621.5,113.1 683.7,129.8 745.8,109.2 808.0,111.5 808.0,134.2 745.8,146.3 683.7,149.3 621.5,153.4 559.3,167.5 497.2,179.4 435.0,187.9 372.8,191.3 310.7,195.8 248.5,199.9 186.3,207.2 124.2,205.7 62.0,206.3" class="area area-private"/><polygon points="62.0,199.1 124.2,189.0 186.3,176.7 248.5,176.8 310.7,172.3 372.8,170.7 435.0,167.4 497.2,165.2 559.3,117.9 621.5,39.2 683.7,59.7 745.8,73.7 808.0,103.6 808.0,111.5 745.8,109.2 683.7,129.8 621.5,113.1 559.3,139.2 497.2,165.7 435.0,167.9 372.8,179.2 310.7,173.1 248.5,177.7 186.3,177.5 124.2,189.8 62.0,199.9" class="area area-govt"/><polyline points="62.0,188.7 124.2,189.2 186.3,182.7 248.5,178.8 310.7,176.0 372.8,174.1 435.0,166.7 497.2,162.9 559.3,144.1 621.5,114.8 683.7,107.4 745.8,114.8 808.0,100.2" class="ln ln-expense"/><circle cx="62.0" cy="188.7" r="3.2" class="dot dot-expense"><title>FY2013: expenses $21M</title></circle><circle cx="124.2" cy="189.2" r="3.2" class="dot dot-expense"><title>FY2014: expenses $21M</title></circle><circle cx="186.3" cy="182.7" r="3.2" class="dot dot-expense"><title>FY2015: expenses $23M</title></circle><circle cx="248.5" cy="178.8" r="3.2" class="dot dot-expense"><title>FY2016: expenses $24M</title></circle><circle cx="310.7" cy="176.0" r="3.2" class="dot dot-expense"><title>FY2017: expenses $25M</title></circle><circle cx="372.8" cy="174.1" r="3.2" class="dot dot-expense"><title>FY2018: expenses $25M</title></circle><circle cx="435.0" cy="166.7" r="3.2" class="dot dot-expense"><title>FY2019: expenses $27M</title></circle><circle cx="497.2" cy="162.9" r="3.2" class="dot dot-expense"><title>FY2020: expenses $28M</title></circle><circle cx="559.3" cy="144.1" r="3.2" class="dot dot-expense"><title>FY2021: expenses $33M</title></circle><circle cx="621.5" cy="114.8" r="3.2" class="dot dot-expense"><title>FY2022: expenses $40M</title></circle><circle cx="683.7" cy="107.4" r="3.2" class="dot dot-expense"><title>FY2023: expenses $42M</title></circle><circle cx="745.8" cy="114.8" r="3.2" class="dot dot-expense"><title>FY2024: expenses $40M</title></circle><circle cx="808.0" cy="100.2" r="3.2" class="dot dot-expense"><title>FY2025: expenses $44M</title></circle><text x="816" y="104.2" class="gut gut-expense">Expenses</text><text x="816" y="221.8" class="gut gut-tuition">Tuition and fees</text><text x="816" y="154.8" class="gut gut-aux">Auxiliaries</text><text x="816" y="122.9" class="gut gut-private">Private gifts</text><text x="816" y="105.6" class="gut gut-govt">Government</text><text x="62.0" y="290.0" class="xlab" text-anchor="middle">13</text><text x="124.2" y="290.0" class="xlab" text-anchor="middle">14</text><text x="186.3" y="290.0" class="xlab" text-anchor="middle">15</text><text x="248.5" y="290.0" class="xlab" text-anchor="middle">16</text><text x="310.7" y="290.0" class="xlab" text-anchor="middle">17</text><text x="372.8" y="290.0" class="xlab" text-anchor="middle">18</text><text x="435.0" y="290.0" class="xlab" text-anchor="middle">19</text><text x="497.2" y="290.0" class="xlab" text-anchor="middle">20</text><text x="559.3" y="290.0" class="xlab" text-anchor="middle">21</text><text x="621.5" y="290.0" class="xlab" text-anchor="middle">22</text><text x="683.7" y="290.0" class="xlab" text-anchor="middle">23</text><text x="745.8" y="290.0" class="xlab" text-anchor="middle">24</text><text x="808.0" y="290.0" class="xlab" text-anchor="middle">25</text><text x="62.0" y="306.0" class="xlab-full" text-anchor="middle">FY2013</text><text x="808.0" y="306.0" class="xlab-full" text-anchor="middle">FY2025</text><rect x="41.4" y="20" width="41.2" height="254.0" class="hit"><title>FY2013
+Tuition and fees $13M
+Auxiliaries $2M
+Other earned $2M
+Private giving $2M
+Government grants $0M
+Total revenue $19M
+Expenses $21M
+Result $-3M</title></rect><rect x="103.6" y="20" width="41.2" height="254.0" class="hit"><title>FY2014
+Tuition and fees $14M
+Auxiliaries $2M
+Other earned $1M
+Private giving $4M
+Government grants $0M
+Total revenue $21M
+Expenses $21M
+Result +$0M</title></rect><rect x="165.7" y="20" width="41.2" height="254.0" class="hit"><title>FY2015
+Tuition and fees $14M
+Auxiliaries $3M
+Other earned $0M
+Private giving $7M
+Government grants $0M
+Total revenue $25M
+Expenses $23M
+Result +$2M</title></rect><rect x="227.9" y="20" width="41.2" height="254.0" class="hit"><title>FY2016
+Tuition and fees $15M
+Auxiliaries $3M
+Other earned $1M
+Private giving $6M
+Government grants $0M
+Total revenue $24M
+Expenses $24M
+Result +$1M</title></rect><rect x="290.1" y="20" width="41.2" height="254.0" class="hit"><title>FY2017
+Tuition and fees $16M
+Auxiliaries $3M
+Other earned $1M
+Private giving $6M
+Government grants $0M
+Total revenue $26M
+Expenses $25M
+Result +$1M</title></rect><rect x="352.2" y="20" width="41.2" height="254.0" class="hit"><title>FY2018
+Tuition and fees $16M
+Auxiliaries $4M
+Other earned $1M
+Private giving $3M
+Government grants $2M
+Total revenue $26M
+Expenses $25M
+Result +$1M</title></rect><rect x="414.4" y="20" width="41.2" height="254.0" class="hit"><title>FY2019
+Tuition and fees $17M
+Auxiliaries $5M
+Other earned $0M
+Private giving $5M
+Government grants $0M
+Total revenue $27M
+Expenses $27M
+Result $-0M</title></rect><rect x="476.6" y="20" width="41.2" height="254.0" class="hit"><title>FY2020
+Tuition and fees $19M
+Auxiliaries $5M
+Other earned $1M
+Private giving $3M
+Government grants $0M
+Total revenue $27M
+Expenses $28M
+Result $-1M</title></rect><rect x="538.7" y="20" width="41.2" height="254.0" class="hit"><title>FY2021
+Tuition and fees $21M
+Auxiliaries $5M
+Other earned $1M
+Private giving $7M
+Government grants $5M
+Total revenue $39M
+Expenses $33M
+Result +$7M</title></rect><rect x="600.9" y="20" width="41.2" height="254.0" class="hit"><title>FY2022
+Tuition and fees $22M
+Auxiliaries $6M
+Other earned $2M
+Private giving $10M
+Government grants $19M
+Total revenue $59M
+Expenses $40M
+Result +$19M</title></rect><rect x="663.1" y="20" width="41.2" height="254.0" class="hit"><title>FY2023
+Tuition and fees $22M
+Auxiliaries $7M
+Other earned $2M
+Private giving $5M
+Government grants $18M
+Total revenue $54M
+Expenses $42M
+Result +$12M</title></rect><rect x="725.2" y="20" width="41.2" height="254.0" class="hit"><title>FY2024
+Tuition and fees $23M
+Auxiliaries $7M
+Other earned $2M
+Private giving $9M
+Government grants $9M
+Total revenue $50M
+Expenses $40M
+Result +$10M</title></rect><rect x="787.4" y="20" width="41.2" height="254.0" class="hit"><title>FY2025
+Tuition and fees $26M
+Auxiliaries $8M
+Other earned $1M
+Private giving $6M
+Government grants $2M
+Total revenue $43M
+Expenses $44M
+Result $-1M</title></rect></svg>
+  <p class="tradeoff"><b>Strength:</b> answers every "what is in that band" without a hover.
+    <b>Cost:</b> five bands, two of them thin, and three shades of one colour. This is at the
+    limit of what a stack can carry honestly.</p>
+</div>
+
+<div class="card">
+  <p class="tag">Variant 1C</p>
+  <h2>The gap kept as the subject, sources inside it</h2>
+  <p class="why">Closest to the mockup 1 you liked. The earned line is still drawn as a line, so
+    the gap between it and expenses stays the thing you look at, and the bands above it show what
+    filled that gap rather than replacing the idea of it.</p>
+  <svg viewBox="0 0 940 320" class="cv" role="img" aria-label="The gap and what filled it"><line x1="62" y1="274.0" x2="808" y2="274.0" class="grid"/><text x="54" y="277.5" class="ylab" text-anchor="end">$0M</text><line x1="62" y1="210.5" x2="808" y2="210.5" class="grid"/><text x="54" y="214.0" class="ylab" text-anchor="end">$16M</text><line x1="62" y1="147.0" x2="808" y2="147.0" class="grid"/><text x="54" y="150.5" class="ylab" text-anchor="end">$32M</text><line x1="62" y1="83.5" x2="808" y2="83.5" class="grid"/><text x="54" y="87.0" class="ylab" text-anchor="end">$48M</text><line x1="62" y1="20.0" x2="808" y2="20.0" class="grid"/><text x="54" y="23.5" class="ylab" text-anchor="end">$64M</text><polygon points="62.0,206.3 124.2,205.7 186.3,207.2 248.5,199.9 310.7,195.8 372.8,191.3 435.0,187.9 497.2,179.4 559.3,167.5 621.5,153.4 683.7,149.3 745.8,146.3 808.0,134.2 808.0,274.0 745.8,274.0 683.7,274.0 621.5,274.0 559.3,274.0 497.2,274.0 435.0,274.0 372.8,274.0 310.7,274.0 248.5,274.0 186.3,274.0 124.2,274.0 62.0,274.0" class="area area-earned"/><polygon points="62.0,199.9 124.2,189.8 186.3,177.5 248.5,177.7 310.7,173.1 372.8,179.2 435.0,167.9 497.2,165.7 559.3,139.2 621.5,113.1 683.7,129.8 745.8,109.2 808.0,111.5 808.0,134.2 745.8,146.3 683.7,149.3 621.5,153.4 559.3,167.5 497.2,179.4 435.0,187.9 372.8,191.3 310.7,195.8 248.5,199.9 186.3,207.2 124.2,205.7 62.0,206.3" class="area area-private"/><polygon points="62.0,199.1 124.2,189.0 186.3,176.7 248.5,176.8 310.7,172.3 372.8,170.7 435.0,167.4 497.2,165.2 559.3,117.9 621.5,39.2 683.7,59.7 745.8,73.7 808.0,103.6 808.0,111.5 745.8,109.2 683.7,129.8 621.5,113.1 559.3,139.2 497.2,165.7 435.0,167.9 372.8,179.2 310.7,173.1 248.5,177.7 186.3,177.5 124.2,189.8 62.0,199.9" class="area area-govt"/><polyline points="62.0,206.3 124.2,205.7 186.3,207.2 248.5,199.9 310.7,195.8 372.8,191.3 435.0,187.9 497.2,179.4 559.3,167.5 621.5,153.4 683.7,149.3 745.8,146.3 808.0,134.2" class="ln ln-earned"/><polyline points="62.0,188.7 124.2,189.2 186.3,182.7 248.5,178.8 310.7,176.0 372.8,174.1 435.0,166.7 497.2,162.9 559.3,144.1 621.5,114.8 683.7,107.4 745.8,114.8 808.0,100.2" class="ln ln-expense"/><circle cx="62.0" cy="188.7" r="3.2" class="dot dot-expense"><title>FY2013: expenses $21M</title></circle><circle cx="124.2" cy="189.2" r="3.2" class="dot dot-expense"><title>FY2014: expenses $21M</title></circle><circle cx="186.3" cy="182.7" r="3.2" class="dot dot-expense"><title>FY2015: expenses $23M</title></circle><circle cx="248.5" cy="178.8" r="3.2" class="dot dot-expense"><title>FY2016: expenses $24M</title></circle><circle cx="310.7" cy="176.0" r="3.2" class="dot dot-expense"><title>FY2017: expenses $25M</title></circle><circle cx="372.8" cy="174.1" r="3.2" class="dot dot-expense"><title>FY2018: expenses $25M</title></circle><circle cx="435.0" cy="166.7" r="3.2" class="dot dot-expense"><title>FY2019: expenses $27M</title></circle><circle cx="497.2" cy="162.9" r="3.2" class="dot dot-expense"><title>FY2020: expenses $28M</title></circle><circle cx="559.3" cy="144.1" r="3.2" class="dot dot-expense"><title>FY2021: expenses $33M</title></circle><circle cx="621.5" cy="114.8" r="3.2" class="dot dot-expense"><title>FY2022: expenses $40M</title></circle><circle cx="683.7" cy="107.4" r="3.2" class="dot dot-expense"><title>FY2023: expenses $42M</title></circle><circle cx="745.8" cy="114.8" r="3.2" class="dot dot-expense"><title>FY2024: expenses $40M</title></circle><circle cx="808.0" cy="100.2" r="3.2" class="dot dot-expense"><title>FY2025: expenses $44M</title></circle><circle cx="62.0" cy="206.3" r="3.2" class="dot dot-earned"><title>FY2013: earned $17M (79% of expenses)</title></circle><circle cx="124.2" cy="205.7" r="3.2" class="dot dot-earned"><title>FY2014: earned $17M (81% of expenses)</title></circle><circle cx="186.3" cy="207.2" r="3.2" class="dot dot-earned"><title>FY2015: earned $17M (73% of expenses)</title></circle><circle cx="248.5" cy="199.9" r="3.2" class="dot dot-earned"><title>FY2016: earned $19M (78% of expenses)</title></circle><circle cx="310.7" cy="195.8" r="3.2" class="dot dot-earned"><title>FY2017: earned $20M (80% of expenses)</title></circle><circle cx="372.8" cy="191.3" r="3.2" class="dot dot-earned"><title>FY2018: earned $21M (83% of expenses)</title></circle><circle cx="435.0" cy="187.9" r="3.2" class="dot dot-earned"><title>FY2019: earned $22M (80% of expenses)</title></circle><circle cx="497.2" cy="179.4" r="3.2" class="dot dot-earned"><title>FY2020: earned $24M (85% of expenses)</title></circle><circle cx="559.3" cy="167.5" r="3.2" class="dot dot-earned"><title>FY2021: earned $27M (82% of expenses)</title></circle><circle cx="621.5" cy="153.4" r="3.2" class="dot dot-earned"><title>FY2022: earned $30M (76% of expenses)</title></circle><circle cx="683.7" cy="149.3" r="3.2" class="dot dot-earned"><title>FY2023: earned $31M (75% of expenses)</title></circle><circle cx="745.8" cy="146.3" r="3.2" class="dot dot-earned"><title>FY2024: earned $32M (80% of expenses)</title></circle><circle cx="808.0" cy="134.2" r="3.2" class="dot dot-earned"><title>FY2025: earned $35M (80% of expenses)</title></circle><text x="816" y="104.2" class="gut gut-expense">Expenses</text><text x="816" y="138.2" class="gut gut-earned">Earned 80%</text><text x="816" y="122.9" class="gut gut-private">Private gifts</text><text x="816" y="105.6" class="gut gut-govt">Government</text><text x="62.0" y="290.0" class="xlab" text-anchor="middle">13</text><text x="124.2" y="290.0" class="xlab" text-anchor="middle">14</text><text x="186.3" y="290.0" class="xlab" text-anchor="middle">15</text><text x="248.5" y="290.0" class="xlab" text-anchor="middle">16</text><text x="310.7" y="290.0" class="xlab" text-anchor="middle">17</text><text x="372.8" y="290.0" class="xlab" text-anchor="middle">18</text><text x="435.0" y="290.0" class="xlab" text-anchor="middle">19</text><text x="497.2" y="290.0" class="xlab" text-anchor="middle">20</text><text x="559.3" y="290.0" class="xlab" text-anchor="middle">21</text><text x="621.5" y="290.0" class="xlab" text-anchor="middle">22</text><text x="683.7" y="290.0" class="xlab" text-anchor="middle">23</text><text x="745.8" y="290.0" class="xlab" text-anchor="middle">24</text><text x="808.0" y="290.0" class="xlab" text-anchor="middle">25</text><text x="62.0" y="306.0" class="xlab-full" text-anchor="middle">FY2013</text><text x="808.0" y="306.0" class="xlab-full" text-anchor="middle">FY2025</text><rect x="41.4" y="20" width="41.2" height="254.0" class="hit"><title>FY2013
+Tuition and fees $13M
+Auxiliaries $2M
+Other earned $2M
+Private giving $2M
+Government grants $0M
+Total revenue $19M
+Expenses $21M
+Result $-3M</title></rect><rect x="103.6" y="20" width="41.2" height="254.0" class="hit"><title>FY2014
+Tuition and fees $14M
+Auxiliaries $2M
+Other earned $1M
+Private giving $4M
+Government grants $0M
+Total revenue $21M
+Expenses $21M
+Result +$0M</title></rect><rect x="165.7" y="20" width="41.2" height="254.0" class="hit"><title>FY2015
+Tuition and fees $14M
+Auxiliaries $3M
+Other earned $0M
+Private giving $7M
+Government grants $0M
+Total revenue $25M
+Expenses $23M
+Result +$2M</title></rect><rect x="227.9" y="20" width="41.2" height="254.0" class="hit"><title>FY2016
+Tuition and fees $15M
+Auxiliaries $3M
+Other earned $1M
+Private giving $6M
+Government grants $0M
+Total revenue $24M
+Expenses $24M
+Result +$1M</title></rect><rect x="290.1" y="20" width="41.2" height="254.0" class="hit"><title>FY2017
+Tuition and fees $16M
+Auxiliaries $3M
+Other earned $1M
+Private giving $6M
+Government grants $0M
+Total revenue $26M
+Expenses $25M
+Result +$1M</title></rect><rect x="352.2" y="20" width="41.2" height="254.0" class="hit"><title>FY2018
+Tuition and fees $16M
+Auxiliaries $4M
+Other earned $1M
+Private giving $3M
+Government grants $2M
+Total revenue $26M
+Expenses $25M
+Result +$1M</title></rect><rect x="414.4" y="20" width="41.2" height="254.0" class="hit"><title>FY2019
+Tuition and fees $17M
+Auxiliaries $5M
+Other earned $0M
+Private giving $5M
+Government grants $0M
+Total revenue $27M
+Expenses $27M
+Result $-0M</title></rect><rect x="476.6" y="20" width="41.2" height="254.0" class="hit"><title>FY2020
+Tuition and fees $19M
+Auxiliaries $5M
+Other earned $1M
+Private giving $3M
+Government grants $0M
+Total revenue $27M
+Expenses $28M
+Result $-1M</title></rect><rect x="538.7" y="20" width="41.2" height="254.0" class="hit"><title>FY2021
+Tuition and fees $21M
+Auxiliaries $5M
+Other earned $1M
+Private giving $7M
+Government grants $5M
+Total revenue $39M
+Expenses $33M
+Result +$7M</title></rect><rect x="600.9" y="20" width="41.2" height="254.0" class="hit"><title>FY2022
+Tuition and fees $22M
+Auxiliaries $6M
+Other earned $2M
+Private giving $10M
+Government grants $19M
+Total revenue $59M
+Expenses $40M
+Result +$19M</title></rect><rect x="663.1" y="20" width="41.2" height="254.0" class="hit"><title>FY2023
+Tuition and fees $22M
+Auxiliaries $7M
+Other earned $2M
+Private giving $5M
+Government grants $18M
+Total revenue $54M
+Expenses $42M
+Result +$12M</title></rect><rect x="725.2" y="20" width="41.2" height="254.0" class="hit"><title>FY2024
+Tuition and fees $23M
+Auxiliaries $7M
+Other earned $2M
+Private giving $9M
+Government grants $9M
+Total revenue $50M
+Expenses $40M
+Result +$10M</title></rect><rect x="787.4" y="20" width="41.2" height="254.0" class="hit"><title>FY2025
+Tuition and fees $26M
+Auxiliaries $8M
+Other earned $1M
+Private giving $6M
+Government grants $2M
+Total revenue $43M
+Expenses $44M
+Result $-1M</title></rect></svg>
+  <p class="tradeoff"><b>Strength:</b> keeps the argument of mockup 1 and adds the sources, with
+    the earned share direct-labelled. <b>Cost:</b> the busiest of the three; the earned line and
+    the top of the earned band are the same edge, which is either elegant or confusing.</p>
+</div>
+
+<p class="note">Bands sum to total revenue exactly, verified against the filings: contributions
+plus program service revenue plus investment income plus other revenue equals total revenue in
+every filed year. Source: IRS Form 990, as filed. </p>
+</div>
