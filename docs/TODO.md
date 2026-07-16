@@ -85,15 +85,53 @@ Montreat College only (OPEID 00294800, TY2012-TY2024, 11 filings).
   destroyed within the hour: `scripts/import_ipeds_roster.py` rewrites that file whole from
   IPEDS, and IPEDS does not publish EINs, so anything hand-added there is erased on the next
   roster run. The crosswalk is a separate table (`institution_ein`) for exactly that reason.
-- **What the government grants actually were is unverified.** Montreat's filings report government
-  grants of $18.6M / $17.7M / $9.0M in TY2021-TY2023 against roughly $200k in typical prior years.
-  The size and timing are consistent with federal pandemic relief, but the 990 says only
-  "government grants" and no primary source has been read. Do not name a programme in copy until
-  one is. Schedule A or the audited statements would settle it.
-- **The tuition figure's basis is unknown.** `aid_to_tuition` divides institutional aid by the
-  reported tuition line, but the 990 does not state whether that tuition is gross or net of aid,
-  so it is not a published discount rate and is not labelled as one. Confirm against an audited
-  statement before ever calling it one.
+- **What the big government grants actually were is STILL unverified.** Montreat's filings report
+  government grants of $5.4M / $18.6M / $17.7M / $9.0M in FY2021-FY2024 against roughly $200k in
+  typical prior years, $56.0M across the 13 filed years. The size and timing are consistent with
+  federal pandemic relief, but the 990 says only "government grants". The FY2025 Single Audit in
+  the source folder does NOT settle it: it covers FY2025 and FY2024 only, and its Schedule of
+  Expenditures of Federal Awards is a different measure again (see below). The FY2022 and FY2023
+  Single Audits would settle it. Until one is read, do not name a programme in copy.
+- **A Single Audit's federal total is not the 990's government grants, and must never be compared
+  to it.** Montreat's FY2025 SEFA totals $10,880,495, but $10,512,168 of that is the Student
+  Financial Assistance Cluster: $8.2M of Direct Loans and $2.2M of Pell, which are aid to students
+  passing through the school, not revenue to it. The 990's government grants line for the same
+  year is $1,982,924. Two different questions, two different numbers, both correct.
+- **`aid_to_tuition` is the tuition discount rate, and this is now sourced.** Settled against
+  Montreat's audited FY2025 statement, which reports tuition "net of discounts and scholarships of
+  $14,332,372" as $12,416,923. Gross is therefore $26,749,295 against the 990's TUITION AND FEES of
+  $26,285,908: the 990 line is gross, within $463k, and nowhere near the net figure. Rates agree,
+  53.2% computed against 53.6% audited. Verified on ONE school in ONE year: a school that reports
+  tuition net would make the ratio meaningless and nothing in its filing would say so.
+
+## The 990 is one entity; the audited statements are three
+
+Montreat's audited financials are CONSOLIDATED: Montreat College, Montreat College Foundation, and
+Carolina Cyber Center. The 990 loaded here (EIN 560543261) is the College alone. For FY2025 the gap
+is modest but real, and it is not a rounding difference:
+
+| Figure, FY ending 30 June 2025 | 990 (College) | Audit (consolidated) |
+|---|---|---|
+| Net assets | $64,793,216 | $68,702,500 |
+| Government grants | $1,982,924 | $1,982,924 (exact match) |
+| Government grants, FY2024 | $8,953,918 | $11,498,680 |
+| Result | -$871,466 | -$766,240 |
+
+The FY2024 government-grant gap of $2.5M is the clue: the Cyber Center draws federal cybersecurity
+grants (the FY2025 SEFA lists DoD awards under Assistance Listing 12.902 and 12.905) that never
+touch the College's own return. So this database understates the institution wherever a school
+runs a separate foundation or subsidiary, which most of them do. Two consequences:
+
+- **Never call a 990 figure "the school's finances" without checking whether a foundation exists.**
+  A tuition-dependent college with a large foundation will look far weaker on its 990 than it is.
+- The fix, if this matters later, is to load the foundation's own 990 under its own EIN and sum
+  them, which is exactly what `institution_ein` allows: it is deliberately not unique on
+  institution_id.
+
+Note also that the two bases are not comparable line by line. The 990 reports tuition gross with
+institutional aid as an expense; GAAP reports tuition net of it. Montreat's FY2025 revenue is
+$42.9M on the 990 and $31.0M audited, and both are right. The bottom line agrees (-$0.87M against
+-$0.77M), which is the useful check.
 - **Line-item labels are matched on substrings** (`app/queries.py:_LINE_BUCKETS`) because schools
   write their own. Montreat filed "TUITITION AND FEES" in TY2012 and TY2013 and "TUITION AND FEES"
   from TY2014, which is why the description is stored verbatim and matched at query time. Expect

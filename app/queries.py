@@ -503,9 +503,19 @@ def financial_series(inst_id: str) -> dict | None:
                 # donors. The distinction has a schedule attached: relief programs end on a date,
                 # donors can be asked again.
                 "govt_share_of_contributions": _ratio(r["government_grants"], r["contributions"]),
-                # Institutional aid measured against tuition revenue. NOT labelled a discount rate:
-                # that requires knowing whether the filing reports tuition gross or net of aid, and
-                # the 990 does not say. Stated as the ratio it is, on the basis it has.
+                # Institutional aid against tuition: the tuition discount rate.
+                #
+                # This was deliberately unlabelled, because the 990 never states whether its
+                # tuition line is gross or net of aid. Settled against Montreat's audited FY2025
+                # statement, which reports tuition "net of discounts and scholarships of
+                # $14,332,372" as $12,416,923. Gross is therefore $26,749,295 and the 990's
+                # TUITION AND FEES is $26,285,908: the 990 line is gross, within $463k, and
+                # nowhere near the $12.4M net figure. The rates agree too, 53.2% here against
+                # 53.6% audited.
+                #
+                # Verified on one school in one year, so this is not yet a claim about every
+                # filer. A school reporting tuition net would make this ratio meaningless rather
+                # than merely wrong, and nothing in the filing would say so.
                 "aid_to_tuition": _ratio(r["grants_paid"], tuition),
                 "debt_to_assets": _ratio(r["total_liabilities"], r["total_assets"]),
             }
