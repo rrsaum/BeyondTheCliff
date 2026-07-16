@@ -95,6 +95,34 @@ def latest_hd_year() -> int:
     raise SystemExit("no HD zip in data/ipeds_cache/; run scripts/enrich_ipeds.py first")
 
 
+def is_college(r: dict) -> bool:
+    """Is this IPEDS HD row a college in its own right, and operating?
+
+    Three tests, and the denominator is wrong without all three:
+
+    CYACTIVE = 1. NCES's own flag for currently active.
+
+    Not an administrative unit (SECTOR 0). "University of Alabama System Office" and
+    "California State University-Chancellors Office" are in HD, and they are offices, not
+    colleges. Counting them inflates the sector and puts a system headquarters on a map of
+    schools.
+
+    A main institution, not a branch (8-digit OPEID ending "00"). This is the same rule the
+    closure record uses, and it has to be the same rule: a denominator that counts every
+    University of Connecticut campus separately cannot be read against a numerator that counts
+    the institution once. Branch campuses share the institution's 6-digit prefix and differ only
+    in the suffix (SHEEO, A Dream Derailed?, 2022, p13 n3).
+    """
+    if r.get("CYACTIVE") != "1":
+        return False
+    if (r.get("SECTOR") or "").strip() == "0":
+        return False
+    opeid = (r.get("OPEID") or "").strip()
+    if opeid.isdigit() and len(opeid.zfill(8)) == 8 and opeid.zfill(8)[6:] != "00":
+        return False
+    return True
+
+
 @dataclass
 class Batch:
     hd_year: int
@@ -133,7 +161,7 @@ def build_batch(hd_year: int | None = None) -> Batch:
     by_opeid: dict[str, dict] = {}
 
     for r in upper_reader(lines):
-        if r.get("CYACTIVE") != "1":  # NCES: not currently active
+        if not is_college(r):
             continue
         opeid = (r.get("OPEID") or "").strip()
         unitid = (r.get("UNITID") or "").strip()
@@ -214,7 +242,10 @@ def sector_sizes() -> list[dict]:
             continue
         counts: dict[str, int] = {}
         for r in upper_reader(lines):
-            if r.get("CYACTIVE") != "1":
+            # Same is_college test as the roster above, deliberately. If the sector size counted
+            # branches or system offices while the roster did not, the two would disagree and
+            # neither could be read against the closure record.
+            if not is_college(r):
                 continue
             control = CONTROL.get((r.get("CONTROL") or "").strip())
             if control:

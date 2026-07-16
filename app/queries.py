@@ -693,37 +693,6 @@ def composite_years() -> dict[str, int]:
     return {r["award_year"]: r["n"] for r in rows}
 
 
-def sector_series() -> dict:
-    """How many institutions were actually operating, per year, per control (IPEDS HD). This is
-    the denominator: the closure record alone can say how many schools closed, never what share
-    of the sector that was.
-
-    Control is kept broken out because the aggregate is misleading on its own. Most of the
-    decline since the 2012 peak is for-profit; a single total line would tell a tuition-dependent
-    private nonprofit that its own sector collapsed by a fifth, which is not what IPEDS says."""
-    conn = connect()
-    rows = conn.execute("SELECT year, control, active FROM sector_size ORDER BY year").fetchall()
-    conn.close()
-    if not rows:
-        return {}
-    by_control: dict[str, list[tuple]] = {}
-    totals: dict[int, int] = {}
-    for r in rows:
-        by_control.setdefault(r["control"], []).append((r["year"], r["active"]))
-        totals[r["year"]] = totals.get(r["year"], 0) + r["active"]
-    years = sorted(totals)
-    peak_year = max(years, key=lambda y: totals[y])
-    return {
-        "by_control": by_control,
-        "total": sorted(totals.items()),
-        "peak_year": peak_year,
-        "peak": totals[peak_year],
-        "latest_year": years[-1],
-        "latest": totals[years[-1]],
-        "first_year": years[0],
-    }
-
-
 def hcm_summary() -> dict:
     """Headline signal: how many INSTITUTIONAL closures were on Heightened Cash Monitoring
     before they closed. Scoped to institutional closures (a campus closing is not a school

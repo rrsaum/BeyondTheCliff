@@ -106,40 +106,6 @@ def index(
             "Closures by primary cause (where recorded)", cause_data, label_width="22ch"
         )
 
-    # The sector's actual size over time, from IPEDS. Deliberately NOT filtered with the rest of
-    # the page: it is the fixed denominator the closure counts are read against, so it stays put
-    # while the reader filters the map. Broken out by control because the aggregate misleads.
-    sector = queries.sector_series()
-    sector_chart = ""
-    if sector:
-        by = sector["by_control"]
-        sector_chart = charts.series_lines(
-            "How many colleges are left",
-            [
-                (queries.CONTROL_LABELS[k], suffix, by.get(k, []))
-                for k, suffix in (
-                    ("private_nonprofit", "nonprofit"),
-                    ("public", "public"),
-                    ("private_forprofit", "forprofit"),
-                )
-            ],
-            subtitle=(
-                "Institutions still operating each year, counted from the federal directory. "
-                "The three lines move for different reasons, which is why they are drawn "
-                "separately: the steep fall is the for-profit sector contracting, and reading it "
-                "as the whole sector's decline would overstate what happened to everyone else."
-            ),
-            fmt_axis=lambda v: f"{v:,.0f}",
-            fmt_point=lambda y, v: f"{y}: {v:,.0f} operating",
-            note=(
-                f"Source: IPEDS HD directory files {sector['first_year']} to "
-                f"{sector['latest_year']} (NCES), institutions marked currently active. "
-                "A count per collection year, not a lifecycle: an institution leaving the "
-                "count has not necessarily closed."
-            ),
-            css="sector-chart",
-        )
-
     return templates.TemplateResponse(
         request,
         "index.html",
@@ -149,8 +115,6 @@ def index(
             "open_matches": open_matches,
             "open_total": open_total,
             "open_all_qs": open_all_qs,
-            "sector": sector,
-            "sector_chart": sector_chart,
             "grand_total": queries.total_count(),
             "page": page,
             "pages": pages,

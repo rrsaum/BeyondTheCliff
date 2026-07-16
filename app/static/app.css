@@ -277,16 +277,9 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
 .admin-grid .admin-wide { grid-column: 1 / -1; }
 @media (max-width: 620px) { .admin-grid { grid-template-columns: 1fr; } }
 
-/* --- Sector size (IPEDS) and composite score (ED) ------------------------------------- */
-/* The reader's own sector gets the brand accent; the other two are context, not the story. */
+/* --- Composite score (ED) -------------------------------------------------------------- */
 /* Colour only. See the note on .fin-line: a series class that sets `fill` fills the polyline. */
-.fin-nonprofit { color: var(--accent); }
-.fin-public    { color: var(--merged); }
-.fin-forprofit { color: var(--warn); }
 .fin-score     { color: var(--accent); }
-
-.sector { margin: 1.25rem 0; }
-.sector .scale { font-size: 1rem; color: var(--ink); margin: 0 0 .75rem; max-width: 68ch; }
 
 /* Only the trouble bands are shaded: passing is the unmarked default, so the eye goes to the
    thresholds that carry a federal consequence rather than to a wash of colour. */
