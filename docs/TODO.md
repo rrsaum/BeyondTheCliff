@@ -66,6 +66,58 @@ with `scripts/verify.sh` before marking anything done.
 - **Brand and marketing pages** named in CLAUDE.md are not built (the tracker ships as the feature;
   the umbrella brand pages, positioning, funnel entry points are TBD).
 
+## Financial layer (IRS Form 990)
+
+`scripts/import_990.py` ingests a folder of 990 XML filings into `data/financials.csv` and
+`data/financial_line_items.csv`; the tables are `financial_filing` and `financial_line_item`.
+Ratios are computed in `app/queries.py:financial_series()` and never stored. Currently loaded:
+Montreat College only (OPEID 00294800, TY2012-TY2024, 11 filings).
+
+- **A browser ingestion console for 990s is not built.** Filings are imported from the terminal
+  today, which does not match the browser-only workflow the `/admin` console exists to serve.
+  The `ce_ingest` drop-preview-approve pattern is the model to follow.
+- **A filing joins through `data/institution_eins.csv`, and only Montreat is in it.** Adding a
+  school means adding its OPEID/EIN pairing there first, with a source; the importer refuses to
+  guess which school an unmatched EIN belongs to and reports it instead. Backfilling EINs across
+  the closed institutions is the unlock for comparing the schools that closed against the ones
+  that did not.
+- **Do not put an EIN on an institution CSV.** It was on `institutions_open.csv` briefly and was
+  destroyed within the hour: `scripts/import_ipeds_roster.py` rewrites that file whole from
+  IPEDS, and IPEDS does not publish EINs, so anything hand-added there is erased on the next
+  roster run. The crosswalk is a separate table (`institution_ein`) for exactly that reason.
+- **What the government grants actually were is unverified.** Montreat's filings report government
+  grants of $18.6M / $17.7M / $9.0M in TY2021-TY2023 against roughly $200k in typical prior years.
+  The size and timing are consistent with federal pandemic relief, but the 990 says only
+  "government grants" and no primary source has been read. Do not name a programme in copy until
+  one is. Schedule A or the audited statements would settle it.
+- **The tuition figure's basis is unknown.** `aid_to_tuition` divides institutional aid by the
+  reported tuition line, but the 990 does not state whether that tuition is gross or net of aid,
+  so it is not a published discount rate and is not labelled as one. Confirm against an audited
+  statement before ever calling it one.
+- **Line-item labels are matched on substrings** (`app/queries.py:_LINE_BUCKETS`) because schools
+  write their own. Montreat filed "TUITITION AND FEES" in TY2012 and TY2013 and "TUITION AND FEES"
+  from TY2014, which is why the description is stored verbatim and matched at query time. Expect
+  new spellings with every new school, and widen the bucket rather than editing the stored text.
+- **No filings for TY2019 or TY2020** (fiscal years ending June 2020 and June 2021), the COVID
+  window. Charts break across the gap rather than joining over it. Worth chasing: those are the
+  two years the sector's story turns on.
+
+## Data quality: flagged, not yet fixed
+
+- **`Montreat College - North Carolina Wesleyan College` conflates two schools.** Rows `00294818`
+  (Rocky Mount) and `00294819` (Durham) in `data/institutions.csv` carry that name with
+  `unitid=199032`, which is Montreat's UnitID, and `unitid_match=prefix`. North Carolina Wesleyan
+  is a separate institution that is still open (OPEID `00295100`, UnitID `199209`, per
+  `data/ipeds_cache/_name_index.json`). These are Montreat's own branch campuses, closed 2017. The
+  name string's provenance is unknown, so it was left alone rather than rewritten.
+- **`style_lint.py` does not catch `&mdash;`.** The em-dash rule is total, but the linter matches
+  the literal U+2014 character, not the HTML entity, which renders identically to a reader.
+  `app/templates/institution.html:28` has one. Either widen the linter or fix the template.
+- **The repo has no ruff config.** With no `pyproject.toml`, `ruff format` defaults to an 88
+  character line and would reformat essentially every file away from the ~100 character style the
+  code actually uses. `ruff check` passes clean. Pin `line-length` before anyone runs
+  `ruff format`, or the first person to run it produces a repo-wide diff.
+
 ## Operations and repository
 
 - **Merge `tracker-build` into `main`** (or keep on the branch for review), and set up a remote /

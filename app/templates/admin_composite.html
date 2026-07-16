@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}Financial responsibility scores | Beyond the Cliff{% endblock %}
+{% block main %}
+<section class="admin">
+  <h1>Federal financial responsibility scores</h1>
+  <p class="breadcrumb"><a href="/admin">Back to the ingestion console</a></p>
+
+  {% if error %}<p class="admin-error">{{ error }}</p>{% endif %}
+  {% if db_error %}<p class="admin-error">Database rebuild failed: {{ db_error }}</p>{% endif %}
+
+  <p class="lead">Each award year is one spreadsheet the U.S. Dept. of Education publishes from
+  eZ-Audit, scoring every private nonprofit and for-profit college that takes federal student aid.
+  Load a year and the tracker downloads it, reads it, and attaches each score to the school it
+  belongs to. Nothing is saved until you approve the preview.</p>
+  <p class="muted">Holding <strong>{{ '{:,}'.format(total) }}</strong> scores across
+  {{ loaded_count }} of {{ known_count }} published award years. Public institutions are not in
+  this data at all: the Department does not score them, so they cannot appear here.</p>
+
+  {% if roster %}
+  <div class="admin-result">
+    <h2>Roster refreshed from IPEDS HD{{ roster.hd_year }}</h2>
+    <p><strong>{{ '{:,}'.format(roster.open) }}</strong> institutions currently operating &middot;
+    {{ roster.conflicts }} source conflicts &middot; {{ roster.review }} without an OPEID.
+    Conflicts and unkeyable rows are listed in <code>scripts/_roster_review.csv</code>.</p>
+  </div>
+  {% endif %}
+
+  {% if committed %}
+  <div class="admin-result">
+    <h2>Loaded {{ preview_year }}</h2>
+    <p><strong>{{ '{:,}'.format(committed.counts().scores) }}</strong> scores saved and the
+    database rebuilt.
+    {% if committed.review %}{{ committed.review|length }} schools in this file are not in the
+    roster and not tracked as closures; they are listed in
+    <code>scripts/_composite_review.csv</code> for you to adjudicate.{% endif %}</p>
+  </div>
+  {% endif %}
+
+  {% if preview %}
+  <div class="admin-preview">
+    <h2>Preview: {{ preview_year }}</h2>
+    <p><strong>{{ '{:,}'.format(preview.counts().scores) }}</strong> scores would be attached
+    {% if preview.meta.as_of %}(ED cut this file {{ preview.meta.as_of }}){% endif %}.
+    {{ preview.review|length }} schools in the file are not in the roster and not tracked as
+    closures: their fate is unknown, so they go to the review file rather than being guessed at.</p>
+    {% if preview.flags %}
+    <h3>Contradictions worth checking ({{ preview.flags|length }})</h3>
+    <ul class="admin-flags">
+      {% for f in preview.flags[:12] %}<li>{{ f }}</li>{% endfor %}
+    </ul>
+    {% if preview.flags|length > 12 %}<p class="muted">and {{ preview.flags|length - 12 }} more.</p>{% endif %}
+    {% endif %}
+    <form method="post" action="/admin/composite/commit">
+      <input type="hidden" name="award_year" value="{{ preview_year }}">
+      <div class="admin-actions">
+        <button type="submit">Save {{ preview_year }} and rebuild</button>
+        <span class="muted">Re-loading a year replaces that year's scores; it never duplicates them.</span>
+      </div>
+    </form>
+  </div>
+  {% endif %}
+
+  <h2>Award years</h2>
+  <table class="mini admin-years">
+    <thead><tr><th>Award year</th><th>Scores held</th><th>Source file</th><th></th></tr></thead>
+    <tbody>
+      {% for y in years | reverse %}
+      <tr>
+        <td>{{ y.award_year }}</td>
+        <td>{{ '{:,}'.format(y.scores) if y.scores else 'Not loaded' }}</td>
+        <td class="src-cell"><a href="{{ y.url }}" rel="nofollow noopener">{{ y.url.rsplit('/', 1)[1] }}</a></td>
+        <td>
+          <form method="post" action="/admin/composite/preview">
+            <input type="hidden" name="award_year" value="{{ y.award_year }}">
+            <button type="submit">{{ 'Reload' if y.scores else 'Load' }}</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="chart-note">Source: <a href="https://studentaid.gov/data-center/school/composite-scores"
+    rel="nofollow noopener">Financial Responsibility Composite Scores</a>, U.S. Dept. of Education.
+    2006-07 is the earliest year the Department publishes. Years after 2022-23 are not listed
+    because no file for them has been found; when one appears it has to be added by hand, since a
+    guessed URL is not a source.</p>
+
+  <h2>Open institution roster</h2>
+  <p class="lead">The roster of who is still operating comes from the IPEDS directory (NCES), not
+  from the score files, because the Department does not score public institutions. Refreshing it
+  rewrites the open roster and the sector-size series from the newest IPEDS file on disk.</p>
+  <form method="post" action="/admin/roster/commit">
+    <div class="admin-actions">
+      <button type="submit">Refresh roster from IPEDS</button>
+      <span class="muted">A school already tracked as closed is never overwritten; the conflict is
+      written to the review file instead.</span>
+    </div>
+  </form>
+</section>
+{% endblock %}

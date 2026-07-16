@@ -14,6 +14,18 @@
   {% endif %}
 </section>
 
+{% if sector_chart %}
+<section class="sector" aria-label="The size of the sector over time">
+  <p class="scale">There are <strong>{{ '{:,}'.format(sector.latest) }}</strong> colleges still
+    operating in the United States, down from <strong>{{ '{:,}'.format(sector.peak) }}</strong>
+    at the {{ sector.peak_year }} peak. That is the number this map counts against: closures are
+    not rare events at the edge of the sector, they are how it has been resizing for a decade.
+    Most of the fall is the for-profit sector contracting. The schools this project is written
+    for are in the top line, and their decline is slower, longer, and further from over.</p>
+  {{ sector_chart | safe }}
+</section>
+{% endif %}
+
 <section class="charts" aria-label="Charts for the current selection">
   {{ charts_html | safe }}
 </section>

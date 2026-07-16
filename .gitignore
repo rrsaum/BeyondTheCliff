@@ -59,5 +59,8 @@ data/ipeds_cache/
 
 # College Evaluator page cache (raw HTML for the browser ingestion console; re-fetchable)
 data/ce_cache/
+
+# ED composite-score spreadsheet cache (raw .xls per award year; re-downloadable)
+data/composite_cache/
 scripts/_hechinger_review.csv
 scripts/_*.csv

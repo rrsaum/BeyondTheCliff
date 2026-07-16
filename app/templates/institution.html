@@ -40,6 +40,14 @@
     <strong>Merger / consolidation.</strong> This institution
     {% if inst.parent_name %}merged into or was absorbed by <a href="/?parent={{ inst.parent_name | urlencode }}">{{ inst.parent_name }}</a>{% else %}merged or consolidated with another institution{% endif %}{% if inst.status_year %} in {{ inst.status_year }}{% endif %}.
   </aside>
+  {% elif inst.status == 'open' %}
+  <aside class="survivor-flag">
+    <strong>Operating. This school has not closed, and it is not on the map.</strong>
+    It is here for its financial record. A school that stayed open under pressure tells a
+    reader running one more than a school that did not, so the filings are tracked the same
+    way and read the same way{% if financials %}: {{ financials.year_range }}, from its own
+    Form 990 returns{% endif %}.
+  </aside>
   {% endif %}
 
   <dl class="bio">
@@ -86,6 +94,49 @@
       {% if scorecard.demographics %}<div class="wide"><dt>Undergraduate makeup</dt><dd>{{ scorecard.demographics }}</dd></div>{% endif %}
     </dl>
     <p class="chart-note">Source: College Scorecard (U.S. Dept. of Education), data {{ scorecard.year_range }}. Latest reported value shown per metric; risk signals are interpretive.</p>
+  </section>
+  {% endif %}
+
+  {% if composite %}
+  {% set reading = composite_reading(composite.latest) %}
+  <section class="composite">
+    <h2>Federal financial responsibility score</h2>
+    <p class="chart-sub">Every private nonprofit and for-profit college that takes federal
+      student aid files audited accounts with the U.S. Dept. of Education each year. The
+      Department turns them into one number, from -1.0 to 3.0, and uses it to decide whether the
+      school is sound enough to keep handling that aid. It is the closest thing to an official,
+      annual read on a school's finances.</p>
+    <p class="score-headline">
+      <span class="score-value score-{{ reading[0] }}">{{ '%.1f' | format(composite.latest) }}</span>
+      <span class="score-read">{{ reading[1] }}<span class="muted"> &middot; {{ composite.latest_award_year }}</span></span>
+    </p>
+    {% if composite_chart %}
+      {{ composite_chart | safe }}
+    {% else %}
+      <p class="muted">One award year on file so far ({{ composite.latest_award_year }}). The
+        chart appears once a second year is loaded.</p>
+    {% endif %}
+    <table class="mini">
+      <thead><tr><th>Award year</th><th>Score</th><th>Reading</th><th>Fiscal year end</th><th>Type</th></tr></thead>
+      <tbody>
+        {% for r in composite.rows | reverse %}
+        {% set rd = composite_reading(r.score) %}
+        <tr>
+          <td>{{ r.award_year }}</td>
+          <td class="score-{{ rd[0] }}">{{ '%.1f' | format(r.score) }}</td>
+          <td>{{ rd[1] }}</td>
+          <td>{{ r.fy_end or '' }}</td>
+          <td>{{ r.institution_type or '' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="chart-note">Source: <a href="{{ composite.source_url }}" rel="nofollow noopener">Financial
+      Responsibility Composite Scores</a>, U.S. Dept. of Education{% if composite.as_of %}, from
+      eZ-Audit as of {{ composite.as_of }}{% endif %}. A score of 1.5 or above is the
+      Department's threshold for financial responsibility (34 CFR 668.171); 1.0 to 1.4 brings
+      added federal oversight; below 1.0 the school must post a letter of credit to keep
+      participating. The readings are the Department's, not ours.</p>
   </section>
   {% endif %}
 
@@ -142,6 +193,98 @@
         {% endfor %}
       </tbody>
     </table>
+  </section>
+  {% endif %}
+
+  {% if financials %}
+  <section class="financials">
+    <h2>The financial record</h2>
+    <p class="chart-sub">
+      Every private nonprofit college files a Form 990 with the IRS, in public, every year. It is
+      the one place the same figures appear for every school on the same form, which makes it the
+      only outside vantage on how a year actually went. What follows is what
+      {{ inst.name | title }} filed{% if financials.gap_years %}, for the years it filed{% endif %}.
+    </p>
+
+    {% set l = financials.latest %}
+    {% set f = financials.first %}
+    <dl class="fin-metrics">
+      <div class="fin-metric">
+        <dt>Operating result, FY{{ l.fiscal_year }}</dt>
+        <dd class="{{ 'fin-neg' if l.net_income is not none and l.net_income < 0 }}">
+          {% if l.net_income is not none %}{{ '-' if l.net_income < 0 }}${{ '{:,.1f}'.format((l.net_income if l.net_income >= 0 else -l.net_income) / 1000000) }}M{% else %}Not reported{% endif %}
+          {% if l.operating_margin is not none %}<span class="fin-sub">{{ '{:.0f}'.format(l.operating_margin * 100) }}% of revenue</span>{% endif %}
+        </dd>
+      </div>
+      <div class="fin-metric">
+        <dt>Earned revenue against expenses</dt>
+        <dd>{% if l.self_funded_ratio is not none %}{{ '{:.0f}'.format(l.self_funded_ratio * 100) }}%{% else %}Not reported{% endif %}
+          {% if f.self_funded_ratio is not none and l.self_funded_ratio is not none %}<span class="fin-sub">{{ '{:.0f}'.format(f.self_funded_ratio * 100) }}% in FY{{ f.fiscal_year }}</span>{% endif %}
+        </dd>
+      </div>
+      <div class="fin-metric">
+        <dt>Revenue earned from students</dt>
+        <dd>{% if l.program_dependency is not none %}{{ '{:.0f}'.format(l.program_dependency * 100) }}%{% else %}Not reported{% endif %}
+          {% if f.program_dependency is not none %}<span class="fin-sub">{{ '{:.0f}'.format(f.program_dependency * 100) }}% in FY{{ f.fiscal_year }}</span>{% endif %}
+        </dd>
+      </div>
+      <div class="fin-metric">
+        <dt>Institutional aid against tuition</dt>
+        <dd>{% if l.aid_to_tuition is not none %}{{ '{:.0f}'.format(l.aid_to_tuition * 100) }}%{% else %}Not reported{% endif %}
+          {% if f.aid_to_tuition is not none %}<span class="fin-sub">{{ '{:.0f}'.format(f.aid_to_tuition * 100) }}% in FY{{ f.fiscal_year }}</span>{% endif %}
+        </dd>
+      </div>
+      <div class="fin-metric">
+        <dt>Net assets, FY{{ l.fiscal_year }}</dt>
+        <dd>{% if l.net_assets is not none %}${{ '{:,.1f}'.format(l.net_assets / 1000000) }}M{% else %}Not reported{% endif %}
+          {% if f.net_assets is not none %}<span class="fin-sub">${{ '{:,.1f}'.format(f.net_assets / 1000000) }}M in FY{{ f.fiscal_year }}</span>{% endif %}
+        </dd>
+      </div>
+    </dl>
+
+    <p class="chart-note">
+      Read these together, not one at a time. Net assets say what the school is worth; earned
+      revenue against expenses says whether a normal year pays for itself. The two can move in
+      opposite directions for a long time. Institutional aid against tuition is the ratio of aid
+      the school awarded to the tuition revenue it reported: the 990 does not state whether that
+      tuition figure is gross or net of aid, so treat it as a trend to watch rather than a
+      published discount rate.
+    </p>
+
+    {% for c in finance_charts %}{{ c | safe }}{% endfor %}
+
+    {% if financials.gap_years %}
+    <p class="chart-note">
+      No return is recorded for
+      {% for y in financials.gap_years %}FY{{ y + 1 }}{{ ', ' if not loop.last }}{% endfor %}.
+      The chart breaks rather than joining across the gap, because a line drawn through a year
+      nobody filed would show a trend that was never reported.
+    </p>
+    {% endif %}
+
+    <table class="mini fin-table">
+      <thead><tr>
+        <th>Fiscal year</th><th>Revenue</th><th>Gifts and grants</th><th>Expenses</th>
+        <th>Result</th><th>Net assets</th>
+      </tr></thead>
+      <tbody>
+        {% for r in financials.series %}
+        <tr>
+          <td>FY{{ r.fiscal_year }}</td>
+          <td>{% if r.total_revenue is not none %}${{ '{:,.1f}'.format(r.total_revenue / 1000000) }}M{% endif %}</td>
+          <td>{% if r.contributions is not none %}${{ '{:,.1f}'.format(r.contributions / 1000000) }}M{% endif %}{% if r.govt_share_of_contributions is not none and r.govt_share_of_contributions >= 0.4 %} <span class="muted">({{ '{:.0f}'.format(r.govt_share_of_contributions * 100) }}% government)</span>{% endif %}</td>
+          <td>{% if r.total_expenses is not none %}${{ '{:,.1f}'.format(r.total_expenses / 1000000) }}M{% endif %}</td>
+          <td class="{{ 'fin-neg' if r.net_income is not none and r.net_income < 0 }}">{% if r.net_income is not none %}{{ '-' if r.net_income < 0 }}${{ '{:,.1f}'.format((r.net_income if r.net_income >= 0 else -r.net_income) / 1000000) }}M{% endif %}</td>
+          <td>{% if r.net_assets is not none %}${{ '{:,.1f}'.format(r.net_assets / 1000000) }}M{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="chart-note">
+      Source: {{ financials.source }}, {{ financials.year_range }}, as filed.
+      {% if financials.source_url %}<a class="src" href="{{ financials.source_url }}" rel="nofollow noopener">Form 990 index</a>.{% endif %}
+      Figures are as reported and are not restated here. Ratios are computed from those figures.
+    </p>
   </section>
   {% endif %}
 

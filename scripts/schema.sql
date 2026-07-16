@@ -33,7 +33,12 @@ CREATE TABLE institution (
   city                  TEXT,
   state                 TEXT,                   -- 2-letter USPS code
   status                TEXT NOT NULL CHECK (status IN ('open','closed','merged','announced','at_risk')),
-  status_year           INTEGER,                -- year of the terminal (or announced/flag) event
+  status_year           INTEGER,                -- year of the terminal (or announced/flag) event.
+                                                -- For an 'open' row there is no such event, so it
+                                                -- carries the last year we hold positive evidence
+                                                -- the school was operating (e.g. it filed an audit
+                                                -- for that composite-score award year). Read it as
+                                                -- "confirmed open through", never as "open today".
   closure_type          TEXT CHECK (closure_type IN ('institutional','campus','program')),  -- for closed/announced rows
   parent_name           TEXT,                   -- for a campus/program closure: the surviving parent institution
   cause                 TEXT CHECK (cause IN (   -- primary sourced cause of failure; NULL = not coded
@@ -150,6 +155,154 @@ CREATE TABLE scorecard (
   curroper        INTEGER    -- currently operating flag (1/0)
 );
 CREATE INDEX idx_sc ON scorecard(institution_id, year);
+
+-- Financial history from IRS Form 990, the annual return every private nonprofit college files
+-- publicly (a U.S. government record, public domain). This is where "where things fall apart"
+-- becomes measurable: revenue, expenses, and balance sheet in the years before a closure, or in
+-- the years a school pulled out of one. Filings are keyed on EIN, so institution_ein is the join.
+--
+-- Raw filing facts ONLY. Tuition dependency, operating margin, and months of cash are ratios, and
+-- a ratio is an opinion about the numbers: those are computed in app/queries.py, so a definition
+-- can be revised without a reimport and every stored number traces to one line of one filing.
+--
+-- One row per institution per tax year per source. Note tax_year is the IRS tax year, which for a
+-- June fiscal-year-end school runs a year behind the fiscal year it closes: TaxYr 2024 ends
+-- 2025-06-30. Label a reader-facing chart from period_end, not tax_year.
+-- OPEID -> EIN crosswalk: the join between this database (keyed on OPEID) and IRS filings
+-- (keyed on EIN). Its own table, and its own hand-curated CSV, for one hard reason: IPEDS does
+-- not publish EINs, and data/institutions_open.csv is rewritten whole from IPEDS by
+-- scripts/import_ipeds_roster.py. An EIN kept on the institution row would be silently erased
+-- the next time that roster regenerates, which is exactly what happened once already.
+--
+-- One row per (institution, EIN). A school can legitimately have more than one over time
+-- (it reincorporates, or a merger moves the filer), so this is not unique on institution_id;
+-- source records where the number came from, because an unsourced EIN attaches a school's
+-- finances to the wrong entity and that error is invisible once it is in.
+CREATE TABLE institution_ein (
+  institution_id  TEXT NOT NULL REFERENCES institution(id),
+  ein             TEXT NOT NULL,
+  source          TEXT,                   -- how this pairing was established
+  source_url      TEXT,
+  UNIQUE (institution_id, ein)
+);
+CREATE INDEX idx_inst_ein ON institution_ein(ein);
+
+CREATE TABLE financial_filing (
+  institution_id       TEXT NOT NULL REFERENCES institution(id),
+  tax_year             INTEGER NOT NULL,
+  period_begin         TEXT,                -- ISO date
+  period_end           TEXT,                -- ISO date: the fiscal year end
+  return_type          TEXT,                -- '990', '990EZ', '990PF'
+  ein                  TEXT,
+  -- Part I summary and Part VIII revenue
+  total_revenue        INTEGER,
+  contributions        INTEGER,             -- Part I total: government grants AND private giving
+  -- The split inside contributions, and the reason it is stored rather than derived: a college
+  -- rebuilding on government money and one rebuilding on donors look identical in the headline
+  -- total, and only one of them keeps the money. Government relief arrives, then stops.
+  government_grants    INTEGER,
+  other_contributions  INTEGER,             -- private giving: everything that is not a govt grant
+  noncash_contributions INTEGER,            -- gifts in kind (property, securities), not cash in the door
+  program_svc_revenue  INTEGER,             -- tuition, fees, auxiliaries (broken out in financial_line_item)
+  investment_income    INTEGER,
+  other_revenue        INTEGER,
+  -- Part I and Part IX expenses
+  total_expenses       INTEGER,
+  program_svc_expenses INTEGER,
+  fundraising_expenses INTEGER,
+  salaries             INTEGER,             -- salaries, other compensation, employee benefits
+  grants_paid          INTEGER,             -- "grants and similar amounts paid": for a college this
+                                            -- is mostly institutional aid, i.e. the tuition discount
+
+  net_income           INTEGER,             -- revenue less expenses; negative is an operating loss
+  -- Part X balance sheet, end of year
+  total_assets         INTEGER,
+  total_liabilities    INTEGER,
+  net_assets           INTEGER,
+  employees            INTEGER,             -- Part I headcount; a 0 can mean "not reported", not "none"
+  source               TEXT,                -- e.g. 'IRS Form 990'
+  source_url           TEXT,
+  source_file          TEXT,                -- the filing XML this row was parsed from
+  UNIQUE (institution_id, tax_year, source)
+);
+CREATE INDEX idx_fin_inst ON financial_filing(institution_id, tax_year);
+
+-- The free-text breakout lines inside a filing (Part VIII program service revenue, for now).
+-- These are not fixed fields: each school writes its own labels, so tuition arrives as
+-- 'TUITION AND FEES' one year and the typo 'TUITITION AND FEES' another. Stored verbatim, typos
+-- included, so the raw record stays faithful to the filing and a label matcher can be corrected
+-- later without a reimport. Never clean up description to make it match.
+CREATE TABLE financial_line_item (
+  institution_id  TEXT NOT NULL REFERENCES institution(id),
+  tax_year        INTEGER NOT NULL,
+  part            TEXT,        -- which section the line came from, e.g. 'program_service_revenue'
+  description     TEXT,        -- verbatim from the filing
+  amount          INTEGER,
+  source_file     TEXT
+);
+CREATE INDEX idx_finline_inst ON financial_line_item(institution_id, tax_year);
+
+-- How many institutions were actually operating, per year, per sector: the denominator the
+-- closure record cannot supply on its own. Counted straight from the IPEDS HD directory files
+-- (NCES, public domain) by scripts/import_ipeds_roster.py, one row per (year, control), where
+-- the count is of institutions NCES marked CYACTIVE = currently active in that collection year.
+--
+-- This exists so the tracker can say what share of the sector closed instead of only how many
+-- did. Read it as a snapshot per collection year, not a lifecycle: an institution leaving the
+-- count is not necessarily a closure (it may have merged, or left Title IV), which is exactly
+-- why the closure record is curated separately and never derived from these counts.
+--
+-- Keep control broken out, and chart it broken out. The 2012 to 2024 decline is roughly 84%
+-- for-profit; presenting a single total line would tell a tuition-dependent private nonprofit
+-- that its sector collapsed by a fifth, which is not what this data says.
+CREATE TABLE sector_size (
+  year        INTEGER NOT NULL,   -- IPEDS HD collection year
+  control     TEXT,               -- public | private_nonprofit | private_forprofit
+  active      INTEGER,            -- institutions marked currently active
+  source      TEXT,
+  source_url  TEXT,
+  UNIQUE (year, control)
+);
+CREATE INDEX idx_sector_size ON sector_size(year);
+
+-- Financial Responsibility Composite Score (U.S. Dept. of Education, public domain), the
+-- single number ED itself uses to decide whether a school is financially responsible enough
+-- to keep handling Title IV money. Published per award year at
+-- https://studentaid.gov/data-center/school/composite-scores and sourced from eZ-Audit, the
+-- system schools file their audited financial statements into. This is the closest thing to
+-- an official, comparable, annual distress signal that exists across the whole sector.
+--
+-- Coverage is NOT the whole sector, and a rate computed off it must say so: ED only scores
+-- PRIVATE NON-PROFIT and PROPRIETARY institutions. Public institutions are absent, because
+-- they are backed by a state and are not required to demonstrate financial responsibility
+-- this way. Never present a denominator from this table as "all colleges".
+--
+-- One row per institution per award year. award_year is the label ED groups the file by
+-- ('2022-23' = fiscal years ending between 7/1/2022 and 6/30/2023) and year is its ending
+-- calendar year, for sorting and plotting: the same TEXT-label + INTEGER-year pattern
+-- hs_graduates uses. fy_end is the institution's own fiscal year end within that window,
+-- which varies school to school, so label a reader-facing chart from award_year, not fy_end.
+--
+-- score is stored exactly as ED published it and is never recomputed here: the pass/zone/fail
+-- thresholds are ED's interpretation of the number and live in app/queries.py, so a
+-- reading can be revised without a reimport. institution_type is verbatim ED text
+-- ('Non Profit' / 'Proprietary') and is per-year on purpose: schools do convert between the
+-- two, and this table records which they were in each year rather than flattening it.
+-- as_of is the eZ-Audit snapshot date printed in the file, because ED revises scores.
+CREATE TABLE composite_score (
+  institution_id   TEXT NOT NULL REFERENCES institution(id),
+  award_year       TEXT NOT NULL,        -- e.g. '2022-23'
+  year             INTEGER,              -- ending calendar year, for sorting/plotting
+  score            REAL,                 -- as published, -1.0 to 3.0
+  fy_end           TEXT,                 -- ISO date: this institution's fiscal year end
+  institution_type TEXT,                 -- verbatim ED text: 'Non Profit' | 'Proprietary'
+  as_of            TEXT,                 -- eZ-Audit snapshot date the file was cut from
+  source_url       TEXT,
+  source_file      TEXT,                 -- the ED spreadsheet this row was parsed from
+  UNIQUE (institution_id, award_year)
+);
+CREATE INDEX idx_cs_inst ON composite_score(institution_id, year);
+CREATE INDEX idx_cs_year ON composite_score(year, score);
 
 CREATE INDEX idx_inst_state    ON institution(state);
 CREATE INDEX idx_inst_control  ON institution(control);

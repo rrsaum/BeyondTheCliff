@@ -44,6 +44,35 @@ h2 { font-size: 1.15rem; margin: 1.6rem 0 .6rem; }
 .cl-line { stroke: var(--accent); stroke-width: 2.5; }
 .cl-peak { fill: var(--warn); }
 .cl-peaklab { fill: var(--warn); font-size: 11px; font-weight: 600; }
+/* Form 990 money charts. Series colours are tokens, not raw hex, and each series keeps the
+   same colour across every chart on the page so the eye can carry a series between them. */
+.fin-line { stroke-width: 2.4; fill: none; }
+.fin-dot { stroke: var(--surface); stroke-width: 1; }
+.fin-zero { stroke: var(--ink-soft); stroke-width: 1.2; stroke-dasharray: 2 3; }
+.fin-gap { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 4; }
+.fin-gaplab { fill: var(--ink-soft); font-size: 10.5px; font-style: italic; }
+.fin-earned  { stroke: var(--accent); fill: var(--accent); }
+.fin-expense { stroke: var(--closed); fill: var(--closed); }
+.fin-total   { stroke: var(--merged); fill: var(--merged); }
+.fin-govt    { stroke: var(--warn); fill: var(--warn); }
+.fin-legend { display: flex; gap: 1.1rem; flex-wrap: wrap; margin: 0 0 .5rem; font-size: .8rem; color: var(--ink-soft); }
+.fin-key { display: inline-flex; align-items: center; gap: .35rem; }
+.fin-swatch { width: .85rem; height: .2rem; border-radius: 1px; display: inline-block; }
+
+/* Survivor banner: this school is in the dataset for its financial record, not as a casualty.
+   Visually distinct from .hcm-flag (a distress signal) so the two never read as the same thing. */
+.survivor-flag { border-left: 3px solid var(--accent); background: var(--accent-soft);
+  padding: .7rem .9rem; border-radius: var(--radius); margin: 1rem 0; font-size: .9rem; }
+.survivor-flag strong { color: var(--accent); }
+
+.fin-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: .75rem; margin: 1rem 0; }
+.fin-metric { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: .65rem .8rem; }
+.fin-metric dt { font-size: .74rem; color: var(--ink-soft); margin: 0 0 .2rem; }
+.fin-metric dd { margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.fin-metric .fin-sub { font-size: .72rem; color: var(--ink-soft); font-weight: 400; display: block; margin-top: .15rem; }
+.fin-table td, .fin-table th { font-variant-numeric: tabular-nums; }
+.fin-neg { color: var(--closed); }
+
 .chart-sub { color: var(--ink-soft); font-size: .85rem; margin: 0 0 .6rem; max-width: 66ch; }
 .chart-note { font-size: .76rem; color: var(--ink-soft); margin-top: .4rem; font-weight: 400; }
 .cliff-lists { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1rem 0; }
@@ -198,3 +227,41 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
   padding: .45rem .6rem; border: 1px solid #c9c9c9; border-radius: 6px; box-sizing: border-box; }
 .admin-grid .admin-wide { grid-column: 1 / -1; }
 @media (max-width: 620px) { .admin-grid { grid-template-columns: 1fr; } }
+
+/* --- Sector size (IPEDS) and composite score (ED) ------------------------------------- */
+/* The reader's own sector gets the brand accent; the other two are context, not the story. */
+.fin-nonprofit { stroke: var(--accent); fill: var(--accent); }
+.fin-public    { stroke: var(--merged); fill: var(--merged); }
+.fin-forprofit { stroke: var(--warn); fill: var(--warn); }
+.fin-score     { stroke: var(--accent); fill: var(--accent); }
+
+.sector { margin: 1.25rem 0; }
+.sector .scale { font-size: 1rem; color: var(--ink); margin: 0 0 .75rem; max-width: 68ch; }
+
+/* Only the trouble bands are shaded: passing is the unmarked default, so the eye goes to the
+   thresholds that carry a federal consequence rather than to a wash of colour. */
+.band-zone { fill: var(--warn); opacity: .09; }
+.band-fail { fill: var(--closed); opacity: .09; }
+.band-lab  { fill: var(--ink-soft); font-size: 10px; }
+
+/* A methodology change is not a data trend. Mark it, and never join a line across it. */
+.chart-break    { stroke: var(--ink-soft); stroke-width: 1.2; stroke-dasharray: 4 3; }
+.chart-breaklab { fill: var(--ink-soft); font-size: 10px; font-style: italic; }
+
+.score-headline { display: flex; align-items: baseline; gap: .6rem; margin: .6rem 0 1rem; }
+.score-value {
+  font-size: 2.1rem; font-weight: 700; font-variant-numeric: tabular-nums;
+  padding: .1rem .5rem; border-radius: var(--radius); background: var(--surface);
+  border: 1px solid var(--line);
+}
+.score-read { font-size: .95rem; color: var(--ink-soft); }
+.score-pass { color: var(--accent); }
+.score-zone { color: var(--warn); }
+.score-fail { color: var(--closed); }
+
+/* --- Composite-score admin console ------------------------------------------------------ */
+.admin-years td { vertical-align: middle; }
+.admin-years form { margin: 0; }
+.admin-years .src-cell { font-size: .8rem; word-break: break-all; }
+.admin-flags { margin: .4rem 0 .8rem; padding-left: 1.1rem; font-size: .86rem; color: var(--ink-soft); }
+.admin-flags li { margin-bottom: .3rem; }

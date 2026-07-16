@@ -1,0 +1,22 @@
+services:
+  tracker:
+    build: .
+    container_name: beyondthecliff
+    ports:
+      # Host 8002, container 8000. The host port is the one that has to be unique: this Mac
+      # runs other project containers (8000 and 8001 were already taken), so the tracker gets
+      # 8002 and uvicorn still listens on 8000 inside the container.
+      - "8002:8000"
+    volumes:
+      # The repo is mounted, not copied: /admin writes data/*.csv (the committed source of
+      # truth) and rebuilds the DB, so those writes must land on the host where git sees
+      # them. This also gives uvicorn --reload real files to watch.
+      - .:/srv
+      # Keep the container's installed packages from being shadowed by the host .venv and
+      # by host bytecode caches built for a different interpreter path.
+      - /srv/.venv
+    # Measured on this repo: uvicorn idles at ~84 MiB and scripts/build_db.py peaks at
+    # ~30 MiB RSS. 512m is roughly 5x headroom and still bounds the container on a
+    # memory-limited host.
+    mem_limit: 512m
+    restart: unless-stopped

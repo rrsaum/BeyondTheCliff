@@ -2,6 +2,7 @@
 query string can never inject SQL. Every list/chart query shares the same _filters() clause,
 so the charts always reflect the same subset the table shows.
 """
+
 from __future__ import annotations
 
 from .db import connect
@@ -21,10 +22,64 @@ CONTROL_LABELS = {
     "private_nonprofit": "Private nonprofit",
     "private_forprofit": "Private for-profit",
 }
-STATUS_LABELS = {"closed": "Closed", "merged": "Merged/consolidated",
-                 "announced": "Announced (upcoming)", "at_risk": "At-risk (open)"}
-CLOSURE_TYPE_LABELS = {"institutional": "Institutional closure", "campus": "Campus closure",
-                       "program": "Program closure"}
+STATUS_LABELS = {
+    "closed": "Closed",
+    "merged": "Merged/consolidated",
+    "announced": "Announced (upcoming)",
+    "at_risk": "At-risk (open)",
+    "open": "Operating",
+}
+CLOSURE_TYPE_LABELS = {
+    "institutional": "Institutional closure",
+    "campus": "Campus closure",
+    "program": "Program closure",
+}
+
+# ED's own reading of the Financial Responsibility Composite Score, kept here rather than in the
+# composite_score table: the score is the published fact, these thresholds are the interpretation
+# ED applies to it, and separating them means a rule change never requires a reimport.
+#
+#   >= 1.5    financially responsible. 34 CFR 668.171(b)(1): the Department considers an
+#             institution financially responsible if its ratios "yield a composite score of at
+#             least 1.5".
+#   1.0 - 1.4 the "zone": still financially responsible, but ED imposes added oversight, and an
+#             institution may use the zone alternative "for no more than three consecutive
+#             years" (34 CFR 668.175(d)(1)).
+#   < 1.0     not financially responsible. To keep participating the school must post a letter
+#             of credit worth "not less than one-half of the title IV, HEA program funds" it
+#             received last fiscal year (34 CFR 668.175(c)).
+#
+# Scored on a scale of -1.0 to 3.0 (84 FR 49919, appendix A: strength factor scores are capped
+# at 3 and floored at -1). Only the trouble bands are shaded: passing is the unmarked default.
+COMPOSITE_MIN, COMPOSITE_MAX = -1.0, 3.0
+COMPOSITE_BANDS = [
+    (-1.0, 1.0, "fail", "Below 1.0: letter of credit required"),
+    (1.0, 1.5, "zone", "1.0 to 1.4: added federal oversight"),
+]
+
+# ED rewrote the ratio definitions in 84 FR 49788, effective 1 July 2020: leases moved onto the
+# balance sheet (FASB Topic 842), intangibles and unsecured related-party receivables came out.
+# Scores either side of that are computed from different formulas on the same -1.0 to 3.0 scale,
+# so a level shift across it is not necessarily a change in a school's finances. The award-year
+# files are fiscal-year windows, so the boundary falls between AY 2019-20 (fiscal years ending
+# by 30 June 2020, old formula) and AY 2020-21 (new). Drawn as a break, never joined across.
+# Inference, flagged as such: ED states the effective date, not the file-year mapping.
+COMPOSITE_BREAK = (2020.5, "ED changed the formula")
+
+COMPOSITE_SOURCE = "Financial Responsibility Composite Score, U.S. Dept. of Education (eZ-Audit)"
+
+
+def composite_reading(score: float | None) -> tuple[str, str]:
+    """ED's reading of a score: (css suffix, plain-language label). Interpretation, not data."""
+    if score is None:
+        return "", "Not reported"
+    if score >= 1.5:
+        return "pass", "Financially responsible"
+    if score >= 1.0:
+        return "zone", "Responsible, with added federal oversight"
+    return "fail", "Not financially responsible without a letter of credit"
+
+
 CAUSE_LABELS = {
     "financial": "Financial insolvency",
     "enrollment": "Enrollment / demographic decline",
@@ -78,7 +133,15 @@ def _filters(args: dict) -> tuple[str, list]:
     if args.get("has_profile"):
         where.append("EXISTS (SELECT 1 FROM scorecard s WHERE s.institution_id = i.id)")
     if args.get("abrupt"):
-        where.append("EXISTS (SELECT 1 FROM event e WHERE e.institution_id = i.id AND e.abrupt = 1)")
+        where.append(
+            "EXISTS (SELECT 1 FROM event e WHERE e.institution_id = i.id AND e.abrupt = 1)"
+        )
+    # A still-operating school is in this dataset for its financial record, as a survivor case
+    # (data/institutions_open.csv), and is NOT a closure. Excluded from every list row, chart
+    # bar, and count here, because listing a healthy school on a closure map misrepresents it.
+    # Only an explicit status=open filter surfaces one.
+    if args.get("status") != "open":
+        where.append("i.status <> 'open'")
     clause = (" WHERE " + " AND ".join(where)) if where else ""
     return clause, params
 
@@ -136,12 +199,20 @@ def by_state(args: dict, limit: int = 12) -> list[tuple]:
 
 def facets() -> dict:
     conn = connect()
-    states = [r[0] for r in conn.execute(
-        "SELECT DISTINCT state FROM institution WHERE state <> '' ORDER BY state"
-    )]
+    states = [
+        r[0]
+        for r in conn.execute(
+            "SELECT DISTINCT state FROM institution WHERE state <> '' ORDER BY state"
+        )
+    ]
     conn.close()
-    return {"states": states, "controls": CONTROL_LABELS, "statuses": STATUS_LABELS,
-            "closure_types": CLOSURE_TYPE_LABELS, "causes": CAUSE_LABELS}
+    return {
+        "states": states,
+        "controls": CONTROL_LABELS,
+        "statuses": STATUS_LABELS,
+        "closure_types": CLOSURE_TYPE_LABELS,
+        "causes": CAUSE_LABELS,
+    }
 
 
 def by_cause(args: dict) -> list[tuple]:
@@ -150,8 +221,11 @@ def by_cause(args: dict) -> list[tuple]:
 
 
 def total_count() -> int:
+    """How many closures/consolidations the tracker holds. Excludes surviving institutions,
+    which are here for their financials only: counting one as a closure would overstate the
+    record by exactly the schools the brand exists to help."""
     conn = connect()
-    n = conn.execute("SELECT count(*) FROM institution").fetchone()[0]
+    n = conn.execute("SELECT count(*) FROM institution WHERE status <> 'open'").fetchone()[0]
     conn.close()
     return n
 
@@ -163,19 +237,28 @@ def closure_summary() -> dict:
     distinctions are load-bearing: a campus or program closure is not a school dying, and an
     announced closure has not happened yet."""
     conn = connect()
-    rows = dict(conn.execute(
-        "SELECT closure_type, count(*) FROM institution "
-        "WHERE status = 'closed' AND closure_type IS NOT NULL GROUP BY closure_type"
-    ).fetchall())
+    rows = dict(
+        conn.execute(
+            "SELECT closure_type, count(*) FROM institution "
+            "WHERE status = 'closed' AND closure_type IS NOT NULL GROUP BY closure_type"
+        ).fetchall()
+    )
     merged = conn.execute("SELECT count(*) FROM institution WHERE status = 'merged'").fetchone()[0]
     announced = conn.execute(
-        "SELECT count(*) FROM institution WHERE status = 'announced'").fetchone()[0]
-    at_risk = conn.execute(
-        "SELECT count(*) FROM institution WHERE status = 'at_risk'").fetchone()[0]
+        "SELECT count(*) FROM institution WHERE status = 'announced'"
+    ).fetchone()[0]
+    at_risk = conn.execute("SELECT count(*) FROM institution WHERE status = 'at_risk'").fetchone()[
+        0
+    ]
     conn.close()
-    return {"institutional": rows.get("institutional", 0), "campus": rows.get("campus", 0),
-            "program": rows.get("program", 0), "merged": merged, "announced": announced,
-            "at_risk": at_risk}
+    return {
+        "institutional": rows.get("institutional", 0),
+        "campus": rows.get("campus", 0),
+        "program": rows.get("program", 0),
+        "merged": merged,
+        "announced": announced,
+        "at_risk": at_risk,
+    }
 
 
 def scorecard_profile(inst_id: str) -> dict | None:
@@ -194,8 +277,19 @@ def scorecard_profile(inst_id: str) -> dict | None:
     # marker like 'PS'), so a bad cell can never crash the page.
     latest: dict[str, tuple] = {}
     for r in rows:
-        for k in ("ugds", "adm_rate", "pct_pell", "tuitfte", "tuitionfee_in", "costt4_a",
-                  "pptug_ef", "ugds_white", "ugds_black", "ugds_hisp", "first_gen"):
+        for k in (
+            "ugds",
+            "adm_rate",
+            "pct_pell",
+            "tuitfte",
+            "tuitionfee_in",
+            "costt4_a",
+            "pptug_ef",
+            "ugds_white",
+            "ugds_black",
+            "ugds_hisp",
+            "first_gen",
+        ):
             if r[k] is not None:
                 try:
                     latest[k] = (float(r[k]), r["year"])
@@ -212,12 +306,24 @@ def scorecard_profile(inst_id: str) -> dict | None:
         return f"${int(x):,}" if x is not None else None
 
     metrics = [
-        ("Undergraduates", f"{int(val('ugds')):,}" if val("ugds") is not None else None, latest.get("ugds", (None, None))[1]),
+        (
+            "Undergraduates",
+            f"{int(val('ugds')):,}" if val("ugds") is not None else None,
+            latest.get("ugds", (None, None))[1],
+        ),
         ("Admission rate", pct(val("adm_rate")), latest.get("adm_rate", (None, None))[1]),
         ("On Pell grants", pct(val("pct_pell")), latest.get("pct_pell", (None, None))[1]),
         ("Net tuition / student", dollars(val("tuitfte")), latest.get("tuitfte", (None, None))[1]),
-        ("In-state tuition + fees", dollars(val("tuitionfee_in")), latest.get("tuitionfee_in", (None, None))[1]),
-        ("Avg cost of attendance", dollars(val("costt4_a")), latest.get("costt4_a", (None, None))[1]),
+        (
+            "In-state tuition + fees",
+            dollars(val("tuitionfee_in")),
+            latest.get("tuitionfee_in", (None, None))[1],
+        ),
+        (
+            "Avg cost of attendance",
+            dollars(val("costt4_a")),
+            latest.get("costt4_a", (None, None))[1],
+        ),
         ("Part-time undergrads", pct(val("pptug_ef")), latest.get("pptug_ef", (None, None))[1]),
         ("First-generation", pct(val("first_gen")), latest.get("first_gen", (None, None))[1]),
     ]
@@ -236,15 +342,147 @@ def scorecard_profile(inst_id: str) -> dict | None:
         flags.append(f"Small: {int(val('ugds')):,} undergraduates")
 
     years = [r["year"] for r in rows]
-    return {"metrics": metrics, "demographics": demo, "flags": flags,
-            "year_range": f"{min(years)} to {max(years)}"}
+    return {
+        "metrics": metrics,
+        "demographics": demo,
+        "flags": flags,
+        "year_range": f"{min(years)} to {max(years)}",
+    }
+
+
+# Substrings that fold a filing's free-text revenue labels into buckets. Substrings, not exact
+# matches, because each school writes its own labels and they drift year to year.
+_LINE_BUCKETS: dict[str, tuple[str, ...]] = {
+    # Both spellings are real: Montreat's TY2012 and TY2013 filings say "TUITITION AND FEES".
+    # This is why financial_line_item stores the label verbatim and matches here instead.
+    "tuition": ("TUIT",),
+    "auxiliary": ("AUXILIAR", "ROOM", "BOARD", "HOUSING", "DINING"),
+}
+
+
+def _line_totals(conn, inst_id: str) -> dict[int, dict[str, int]]:
+    """Program service revenue line items folded into buckets, per tax year.
+
+    The 990 lets each school write its own labels, so this matches on a substring of the
+    verbatim description. Anything unmatched is deliberately left out of the buckets rather
+    than forced into one.
+    """
+    out: dict[int, dict[str, int]] = {}
+    rows = conn.execute(
+        "SELECT tax_year, description, amount FROM financial_line_item "
+        "WHERE institution_id = ? AND amount IS NOT NULL",
+        (inst_id,),
+    ).fetchall()
+    for r in rows:
+        desc = (r["description"] or "").upper()
+        for bucket, needles in _LINE_BUCKETS.items():
+            if any(n in desc for n in needles):
+                year = out.setdefault(r["tax_year"], {})
+                year[bucket] = year.get(bucket, 0) + r["amount"]
+                break
+    return out
+
+
+def _ratio(numerator, denominator):
+    """Guarded division: None unless both sides are real numbers and the denominator is > 0."""
+    if numerator is None or not denominator:
+        return None
+    return numerator / denominator
+
+
+def financial_series(inst_id: str) -> dict | None:
+    """A school's Form 990 history plus the ratios computed from it.
+
+    Ratios are computed here, never stored (see scripts/schema.sql): the filing rows hold only
+    what the IRS record says, so a definition can change without a reimport and every number on
+    the page traces back to one line of one filing.
+
+    Each row carries its own tax year and fiscal period end. Missing years are reported rather
+    than interpolated: a gap in the filings is a fact about the record, and a chart that joins
+    across it would invent a trend that was never filed.
+    """
+    conn = connect()
+    rows = conn.execute(
+        "SELECT * FROM financial_filing WHERE institution_id = ? ORDER BY tax_year", (inst_id,)
+    ).fetchall()
+    if not rows:
+        conn.close()
+        return None
+    buckets = _line_totals(conn, inst_id)
+    conn.close()
+
+    series = []
+    for r in rows:
+        line = buckets.get(r["tax_year"], {})
+        tuition = line.get("tuition")
+        series.append(
+            {
+                "tax_year": r["tax_year"],
+                # Label from the fiscal year end, not the tax year: a TaxYr 2024 filing covers the
+                # year ending 30 June 2025, and "FY2025" is what the school's own CFO would call it.
+                "fiscal_year": int(r["period_end"][:4]) if r["period_end"] else r["tax_year"] + 1,
+                "period_end": r["period_end"],
+                "total_revenue": r["total_revenue"],
+                "contributions": r["contributions"],
+                "government_grants": r["government_grants"],
+                "other_contributions": r["other_contributions"],
+                "program_svc_revenue": r["program_svc_revenue"],
+                "total_expenses": r["total_expenses"],
+                "net_income": r["net_income"],
+                "total_assets": r["total_assets"],
+                "total_liabilities": r["total_liabilities"],
+                "net_assets": r["net_assets"],
+                "employees": r["employees"] or None,  # a filed 0 means "not reported", not "none"
+                "tuition": tuition,
+                "grants_paid": r["grants_paid"],
+                # Share of all revenue earned from students (tuition, fees, auxiliaries). The higher
+                # this runs, the more a demographic dip lands straight on the operating budget.
+                "program_dependency": _ratio(r["program_svc_revenue"], r["total_revenue"]),
+                "contribution_share": _ratio(r["contributions"], r["total_revenue"]),
+                "operating_margin": _ratio(r["net_income"], r["total_revenue"]),
+                # How much of the year's expenses the school covered from what it earned itself,
+                # setting contributions aside. This is NOT a pass/fail line: a private nonprofit
+                # college is built to run on gifts and endowment, so a value under 1 is ordinary
+                # rather than fatal. It answers a narrower question, and the useful one for a
+                # reader running a school: how much of this operation depends on money that has to
+                # be raised again next year.
+                "self_funded_ratio": _ratio(
+                    None
+                    if None in (r["total_revenue"], r["contributions"])
+                    else r["total_revenue"] - r["contributions"],
+                    r["total_expenses"],
+                ),
+                # Of the money given to the school, how much came from government rather than
+                # donors. The distinction has a schedule attached: relief programs end on a date,
+                # donors can be asked again.
+                "govt_share_of_contributions": _ratio(r["government_grants"], r["contributions"]),
+                # Institutional aid measured against tuition revenue. NOT labelled a discount rate:
+                # that requires knowing whether the filing reports tuition gross or net of aid, and
+                # the 990 does not say. Stated as the ratio it is, on the basis it has.
+                "aid_to_tuition": _ratio(r["grants_paid"], tuition),
+                "debt_to_assets": _ratio(r["total_liabilities"], r["total_assets"]),
+            }
+        )
+
+    years = [s["tax_year"] for s in series]
+    gaps = [y for y in range(min(years), max(years) + 1) if y not in years]
+    return {
+        "series": series,
+        "latest": series[-1],
+        "first": series[0],
+        "gap_years": gaps,
+        "source": rows[0]["source"],
+        "source_url": rows[0]["source_url"],
+        "year_range": f"FY{series[0]['fiscal_year']} to FY{series[-1]['fiscal_year']}",
+    }
 
 
 def hs_series(jurisdiction: str, measure: str = "total") -> list[tuple]:
     conn = connect()
     rows = conn.execute(
         "SELECT year, graduates FROM hs_graduates WHERE jurisdiction = ? AND measure = ? "
-        "ORDER BY year", (jurisdiction, measure),
+        "ORDER BY year",
+        (jurisdiction, measure),
     ).fetchall()
     conn.close()
     return [(r[0], r[1]) for r in rows]
@@ -252,10 +490,13 @@ def hs_series(jurisdiction: str, measure: str = "total") -> list[tuple]:
 
 def hs_states() -> list[str]:
     conn = connect()
-    rows = [r[0] for r in conn.execute(
-        "SELECT DISTINCT jurisdiction FROM hs_graduates WHERE jurisdiction_type = 'state' "
-        "ORDER BY jurisdiction"
-    )]
+    rows = [
+        r[0]
+        for r in conn.execute(
+            "SELECT DISTINCT jurisdiction FROM hs_graduates WHERE jurisdiction_type = 'state' "
+            "ORDER BY jurisdiction"
+        )
+    ]
     conn.close()
     return rows
 
@@ -264,13 +505,16 @@ def hs_recent_change(since: int = 2013) -> list[tuple]:
     """Per-state % change in public HS graduates from `since` to the latest year. Negative =
     the demographic pool is already shrinking there, a leading indicator of closure pressure."""
     conn = connect()
-    latest = conn.execute("SELECT max(year) FROM hs_graduates WHERE measure = 'public'").fetchone()[0]
+    latest = conn.execute("SELECT max(year) FROM hs_graduates WHERE measure = 'public'").fetchone()[
+        0
+    ]
     rows = conn.execute(
         "SELECT a.jurisdiction, b.graduates AS old, a.graduates AS new "
         "FROM hs_graduates a JOIN hs_graduates b "
         "  ON a.jurisdiction = b.jurisdiction AND a.measure = b.measure "
         "WHERE a.jurisdiction_type = 'state' AND a.measure = 'public' "
-        "  AND a.year = ? AND b.year = ?", (latest, since),
+        "  AND a.year = ? AND b.year = ?",
+        (latest, since),
     ).fetchall()
     conn.close()
     out = [(j, round(100 * (new - old) / old, 1)) for j, old, new in rows if old]
@@ -290,9 +534,12 @@ def get_institution(inst_id: str) -> dict | None:
     names = conn.execute(
         "SELECT * FROM institution_name WHERE institution_id = ? ORDER BY start_year", (inst_id,)
     ).fetchall()
-    tags = [r[0] for r in conn.execute(
-        "SELECT tag FROM characteristic WHERE institution_id = ? ORDER BY tag", (inst_id,)
-    )]
+    tags = [
+        r[0]
+        for r in conn.execute(
+            "SELECT tag FROM characteristic WHERE institution_id = ? ORDER BY tag", (inst_id,)
+        )
+    ]
     enrollment = conn.execute(
         "SELECT * FROM enrollment WHERE institution_id = ? ORDER BY year", (inst_id,)
     ).fetchall()
@@ -312,8 +559,87 @@ def get_institution(inst_id: str) -> dict | None:
             (inst["parent_name"], inst_id),
         ).fetchall()
     conn.close()
-    return {"inst": inst, "events": events, "names": names, "tags": tags,
-            "enrollment": enrollment, "hcm": hcm, "siblings": siblings, "campuses": campuses}
+    return {
+        "inst": inst,
+        "events": events,
+        "names": names,
+        "tags": tags,
+        "enrollment": enrollment,
+        "hcm": hcm,
+        "siblings": siblings,
+        "campuses": campuses,
+    }
+
+
+def composite_series(inst_id: str) -> dict | None:
+    """This institution's Financial Responsibility Composite Score history, as published by
+    ED. Returns the raw published scores and nothing derived: the pass/zone/fail reading is
+    ED's interpretation of the number and is applied in the template layer via COMPOSITE_BANDS,
+    so a threshold can be corrected without touching stored data."""
+    conn = connect()
+    rows = conn.execute(
+        "SELECT award_year, year, score, fy_end, institution_type, as_of, source_url "
+        "FROM composite_score WHERE institution_id = ? AND score IS NOT NULL "
+        "ORDER BY year",
+        (inst_id,),
+    ).fetchall()
+    conn.close()
+    if not rows:
+        return None
+    last = rows[-1]
+    return {
+        "points": [(r["year"], r["score"]) for r in rows],
+        "rows": [dict(r) for r in rows],
+        "latest": last["score"],
+        "latest_award_year": last["award_year"],
+        "as_of": last["as_of"],
+        "source_url": last["source_url"],
+        "span": (rows[0]["award_year"], last["award_year"]),
+        "count": len(rows),
+    }
+
+
+def composite_years() -> dict[str, int]:
+    """award_year -> how many scores we hold for it. Drives the admin console's loaded/not
+    state, so the console reports what is actually in the database rather than what it tried
+    to load."""
+    conn = connect()
+    rows = conn.execute(
+        "SELECT award_year, count(*) n FROM composite_score GROUP BY award_year"
+    ).fetchall()
+    conn.close()
+    return {r["award_year"]: r["n"] for r in rows}
+
+
+def sector_series() -> dict:
+    """How many institutions were actually operating, per year, per control (IPEDS HD). This is
+    the denominator: the closure record alone can say how many schools closed, never what share
+    of the sector that was.
+
+    Control is kept broken out because the aggregate is misleading on its own. Most of the
+    decline since the 2012 peak is for-profit; a single total line would tell a tuition-dependent
+    private nonprofit that its own sector collapsed by a fifth, which is not what IPEDS says."""
+    conn = connect()
+    rows = conn.execute("SELECT year, control, active FROM sector_size ORDER BY year").fetchall()
+    conn.close()
+    if not rows:
+        return {}
+    by_control: dict[str, list[tuple]] = {}
+    totals: dict[int, int] = {}
+    for r in rows:
+        by_control.setdefault(r["control"], []).append((r["year"], r["active"]))
+        totals[r["year"]] = totals.get(r["year"], 0) + r["active"]
+    years = sorted(totals)
+    peak_year = max(years, key=lambda y: totals[y])
+    return {
+        "by_control": by_control,
+        "total": sorted(totals.items()),
+        "peak_year": peak_year,
+        "peak": totals[peak_year],
+        "latest_year": years[-1],
+        "latest": totals[years[-1]],
+        "first_year": years[0],
+    }
 
 
 def hcm_summary() -> dict:

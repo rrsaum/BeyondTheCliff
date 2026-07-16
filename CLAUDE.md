@@ -23,19 +23,60 @@ curated dataset with one maintainer: simple, portable, no server to run. Data fl
 CSV -> SQLite:
 
 ```
-python3 scripts/import_sheeo.py   # (re)seed data/*.csv from the SHEEO source spreadsheet
-python3 scripts/build_db.py       # build data/beyondthecliff.db from data/*.csv
+python3 scripts/import_sheeo.py        # (re)seed data/*.csv from the SHEEO source spreadsheet
+python3 scripts/import_ipeds_roster.py --commit      # who is still open + sector size, from IPEDS
+python3 scripts/import_composite_scores.py --all --commit   # ED financial responsibility scores
+python3 scripts/build_db.py            # build data/beyondthecliff.db from data/*.csv
 .venv/bin/python -m uvicorn app.main:app --reload   # serve the tracker
 ```
 
+Both importers preview by default and write nothing without `--commit`, and both are wrapped
+by the browser console at `/admin/composite`, so a year loaded there and a year loaded here
+produce identical rows.
+
+Or run the whole thing in Docker, which rebuilds the DB and serves the app in one step:
+
+```
+docker compose up      # tracker on http://localhost:8000 (-d to background it)
+docker compose down    # stop it
+```
+
+The compose service bind-mounts the repo, so `/admin` edits to `data/*.csv` land in the
+working tree where git sees them, and uvicorn `--reload` still picks up code edits.
+
 The `data/*.csv` files are the source of truth (committed); `data/beyondthecliff.db` is a
-git-ignored build artifact. Full detail: `docs/technical/DATA_MODEL.md`. Charts are
+git-ignored build artifact, rebuilt in about half a second, so it is never backed up or
+restored: commit the CSVs and the DB follows. Full detail: `docs/technical/DATA_MODEL.md`. Charts are
 server-rendered (no JS/CDN dependency). The repo also holds the Claude working config and
 the writing/copy/design/style standards ported from the author's other projects.
 
 Still TBD and not yet built (do not assume they exist): IPEDS enrichment for founding year
 and enrollment, coverage beyond 2004 to 2020, and the marketing/brand pages. Verify before
 describing anything as present.
+
+## The denominator, and what it is not
+
+The database holds both closures and survivors, and they come from different sources and must
+never be conflated:
+
+- **Who is open** is the IPEDS HD roster (`data/institutions_open.csv`, `status = 'open'`), a
+  snapshot of the newest NCES collection year. `status_year` on an open row means "confirmed
+  open through", never "open today". Every list, chart, and count in `app/queries.py` excludes
+  open institutions unless `status=open` is asked for explicitly, because listing a healthy
+  school on a closure map misrepresents it. `total_count()` is closures only.
+- **How big the sector is** is `sector_size` (per year, per control, from IPEDS HD). Always
+  chart it broken out by control. Roughly 84% of the 2012 to 2024 decline is the for-profit
+  sector contracting; a single total line tells a tuition-dependent private nonprofit its
+  sector collapsed by a fifth, which is not what the data says.
+- **Composite scores** (`composite_score`) cover PRIVATE NONPROFIT AND PROPRIETARY SCHOOLS ONLY.
+  ED does not score public institutions (34 CFR 668.171(g)): they qualify on full faith and
+  credit instead. This is a structural limit, not a coverage gap, and any rate off this table
+  must say so. ED also rewrote the ratios effective 1 July 2020 (84 FR 49788), so scores either
+  side of the AY 2019-20 / 2020-21 boundary are not the same measurement: `COMPOSITE_BREAK` in
+  `app/queries.py` draws that break and no line is ever joined across it.
+
+Rows an importer cannot honestly resolve are never guessed into a status. They go to
+`scripts/_composite_review.csv` and `scripts/_roster_review.csv` for adjudication.
 
 ## Content and copy standards are MANDATORY
 

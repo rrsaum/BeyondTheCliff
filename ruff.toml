@@ -1,0 +1,16 @@
+# Ruff config. CLAUDE.md makes ruff the linter, and 100 is the line this code is written to
+# (the longest hand-wrapped lines in app/ and scripts/ sit just under it), so pinning it here
+# keeps any length-based rule agreeing with the codebase instead of with ruff's 88 default.
+#
+# A caution for whoever runs the formatter next. `ruff check` passes clean. `ruff format` does
+# NOT, and not because of line length: this codebase hand-aligns its dict literals and
+# continuation lines, and ruff's formatter has its own opinion about both. Measured at this
+# line length, `ruff format` rewrites about 2,886 lines across 26 files, nearly all of it
+# reflowing code that is already readable.
+#
+# So adopting the formatter is a real decision with a real one-time diff, not a no-op, and it
+# is not made here. scripts/verify.sh runs `ruff format --check` on changed files, which means
+# that gate currently fails on any file this project touches. Note also that the gate silently
+# skipped for a long time because ruff was not installed at all: a pass from it before ruff
+# existed in the venv was not evidence of anything.
+line-length = 100

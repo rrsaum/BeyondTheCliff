@@ -10,6 +10,7 @@ The rebuild recreates data/beyondthecliff.db from the CSVs (scripts/build_db.py)
 the DB read-only and opens a fresh connection per request, so a rebuild between requests is safe
 for this single-user local tool.
 """
+
 from __future__ import annotations
 
 import sys
@@ -50,10 +51,16 @@ async def _news_fields(request: Request) -> dict:
     ctype = one("closure_type") if one("closure_type") in news_ingest.TYPES else "institutional"
     cause = one("cause") if one("cause") in queries.CAUSE_LABELS else ""
     return {
-        "source_url": one("source_url"), "name": one("name"),
-        "state": one("state").upper(), "status": status, "closure_type": ctype,
-        "year": one("year"), "items": one("items"), "note": one("note"),
-        "acquirer": one("acquirer"), "cause": cause,
+        "source_url": one("source_url"),
+        "name": one("name"),
+        "state": one("state").upper(),
+        "status": status,
+        "closure_type": ctype,
+        "year": one("year"),
+        "items": one("items"),
+        "note": one("note"),
+        "acquirer": one("acquirer"),
+        "cause": cause,
     }
 
 
@@ -62,6 +69,7 @@ def rebuild_db() -> str:
     import importlib
 
     import build_db  # from scripts/, on sys.path above
+
     importlib.reload(build_db)  # pick up any CSV path changes cleanly
     try:
         build_db.main()
@@ -81,13 +89,21 @@ def admin_form(request: Request):
 async def admin_preview(request: Request):
     text, urls = await _urls_from_body(request)
     if not urls:
-        return templates.TemplateResponse(request, "admin.html",
-                                          {"error": "Paste at least one College Evaluator URL."})
+        return templates.TemplateResponse(
+            request, "admin.html", {"error": "Paste at least one College Evaluator URL."}
+        )
     batch = ce_ingest.build_batch(urls)
     return templates.TemplateResponse(
-        request, "admin_preview.html",
-        {"batch": batch, "counts": batch.counts(), "urls_text": text,
-         "ADD": ce_ingest.ADD, "SKIP": ce_ingest.SKIP, "HOLD": ce_ingest.HOLD},
+        request,
+        "admin_preview.html",
+        {
+            "batch": batch,
+            "counts": batch.counts(),
+            "urls_text": text,
+            "ADD": ce_ingest.ADD,
+            "SKIP": ce_ingest.SKIP,
+            "HOLD": ce_ingest.HOLD,
+        },
     )
 
 
@@ -95,13 +111,13 @@ async def admin_preview(request: Request):
 async def admin_commit(request: Request):
     _text, urls = await _urls_from_body(request)
     if not urls:
-        return templates.TemplateResponse(request, "admin.html",
-                                          {"error": "No URLs to commit."})
+        return templates.TemplateResponse(request, "admin.html", {"error": "No URLs to commit."})
     batch, counts = ce_ingest.commit(urls)
     db_error = rebuild_db()
     added = [r for p in batch.proposals for r in p.inst_rows]
     return templates.TemplateResponse(
-        request, "admin_result.html",
+        request,
+        "admin_result.html",
         {"counts": counts, "added": added, "db_error": db_error},
     )
 
@@ -110,11 +126,13 @@ async def admin_commit(request: Request):
 async def news_preview(request: Request):
     f = await _news_fields(request)
     if not f["source_url"] or not f["name"]:
-        return templates.TemplateResponse(request, "admin.html",
-                                          {"error": "A source URL and an institution name are required."})
+        return templates.TemplateResponse(
+            request, "admin.html", {"error": "A source URL and an institution name are required."}
+        )
     batch = news_ingest.build_batch(f)
     return templates.TemplateResponse(
-        request, "admin_news_preview.html",
+        request,
+        "admin_news_preview.html",
         {"batch": batch, "counts": batch.counts(), "f": f},
     )
 
@@ -123,28 +141,112 @@ async def news_preview(request: Request):
 async def news_commit(request: Request):
     f = await _news_fields(request)
     if not f["source_url"] or not f["name"]:
-        return templates.TemplateResponse(request, "admin.html",
-                                          {"error": "A source URL and an institution name are required."})
+        return templates.TemplateResponse(
+            request, "admin.html", {"error": "A source URL and an institution name are required."}
+        )
     batch, counts = news_ingest.commit(f)
     db_error = rebuild_db()
     added = [r for p in batch.proposals for r in p.inst_rows]
     return templates.TemplateResponse(
-        request, "admin_result.html",
+        request,
+        "admin_result.html",
         {"counts": counts, "added": added, "db_error": db_error},
     )
+
+
+def _composite_page(request: Request, **extra):
+    """The composite-score console: every award year ED publishes, and whether we hold it."""
+    import import_composite_scores as ics  # from scripts/, on sys.path above
+
+    loaded = queries.composite_years()
+    years = [
+        {"award_year": ay, "url": url, "scores": loaded.get(ay, 0)}
+        for ay, url in sorted(ics.SOURCES.items())
+    ]
+    return templates.TemplateResponse(
+        request,
+        "admin_composite.html",
+        {
+            "years": years,
+            "total": sum(loaded.values()),
+            "loaded_count": len(loaded),
+            "known_count": len(ics.SOURCES),
+            **extra,
+        },
+    )
+
+
+@router.get("/admin/composite", response_class=HTMLResponse)
+def composite_form(request: Request):
+    return _composite_page(request)
+
+
+async def _award_year(request: Request) -> str:
+    raw = (await request.body()).decode("utf-8", errors="replace")
+    return (parse_qs(raw, keep_blank_values=True).get("award_year", [""])[0]).strip()
+
+
+@router.post("/admin/composite/preview", response_class=HTMLResponse)
+async def composite_preview(request: Request):
+    import import_composite_scores as ics
+
+    ay = await _award_year(request)
+    if ay not in ics.SOURCES:
+        return _composite_page(request, error=f"Unknown award year {ay!r}.")
+    try:
+        batch = ics.build_batch(ics.fetch(ay))
+    except SystemExit as exc:  # a download or parse failure; show it rather than 500
+        return _composite_page(request, error=str(exc))
+    return _composite_page(request, preview=batch, preview_year=ay)
+
+
+@router.post("/admin/composite/commit", response_class=HTMLResponse)
+async def composite_commit(request: Request):
+    import import_composite_scores as ics
+
+    ay = await _award_year(request)
+    if ay not in ics.SOURCES:
+        return _composite_page(request, error=f"Unknown award year {ay!r}.")
+    try:
+        batch = ics.commit(ics.fetch(ay))
+    except SystemExit as exc:
+        return _composite_page(request, error=str(exc))
+    db_error = rebuild_db()
+    return _composite_page(request, committed=batch, preview_year=ay, db_error=db_error)
+
+
+@router.post("/admin/roster/commit", response_class=HTMLResponse)
+async def roster_commit(request: Request):
+    """Refresh the open-institution roster and the sector-size series from the newest cached
+    IPEDS HD file. This is what makes the closure counts a rate rather than a tally."""
+    import import_ipeds_roster as ipr
+
+    try:
+        batch = ipr.commit()
+    except SystemExit as exc:
+        return _composite_page(request, error=str(exc))
+    db_error = rebuild_db()
+    return _composite_page(request, roster=batch.counts(), db_error=db_error)
 
 
 @router.get("/admin/edit", response_class=HTMLResponse)
 def edit_form(request: Request, id: str = ""):
     record = edit_record.load(id.strip()) if id.strip() else None
     return templates.TemplateResponse(
-        request, "admin_edit.html",
-        {"id": id.strip(), "record": record,
-         "not_found": bool(id.strip()) and record is None,
-         "statuses": edit_record.STATUSES, "closure_types": edit_record.CLOSURE_TYPES,
-         "controls": edit_record.CONTROLS, "levels": edit_record.LEVELS,
-         "causes": edit_record.CAUSES, "cause_labels": queries.CAUSE_LABELS,
-         "status_labels": queries.STATUS_LABELS},
+        request,
+        "admin_edit.html",
+        {
+            "id": id.strip(),
+            "record": record,
+            "not_found": bool(id.strip()) and record is None,
+            "statuses": edit_record.STATUSES,
+            "closure_types": edit_record.CLOSURE_TYPES,
+            "controls": edit_record.CONTROLS,
+            "levels": edit_record.LEVELS,
+            "causes": edit_record.CAUSES,
+            "cause_labels": queries.CAUSE_LABELS,
+            "status_labels": queries.STATUS_LABELS,
+        },
     )
 
 
@@ -158,15 +260,25 @@ async def edit_commit(request: Request):
     if err:
         record = edit_record.load(inst_id)
         return templates.TemplateResponse(
-            request, "admin_edit.html",
-            {"id": inst_id, "record": record, "error": err, "not_found": record is None,
-             "statuses": edit_record.STATUSES, "closure_types": edit_record.CLOSURE_TYPES,
-             "controls": edit_record.CONTROLS, "levels": edit_record.LEVELS,
-             "causes": edit_record.CAUSES, "cause_labels": queries.CAUSE_LABELS,
-             "status_labels": queries.STATUS_LABELS},
+            request,
+            "admin_edit.html",
+            {
+                "id": inst_id,
+                "record": record,
+                "error": err,
+                "not_found": record is None,
+                "statuses": edit_record.STATUSES,
+                "closure_types": edit_record.CLOSURE_TYPES,
+                "controls": edit_record.CONTROLS,
+                "levels": edit_record.LEVELS,
+                "causes": edit_record.CAUSES,
+                "cause_labels": queries.CAUSE_LABELS,
+                "status_labels": queries.STATUS_LABELS,
+            },
         )
     db_error = rebuild_db()
     return templates.TemplateResponse(
-        request, "admin_edit_result.html",
+        request,
+        "admin_edit_result.html",
         {"id": inst_id, "record": edit_record.load(inst_id), "db_error": db_error},
     )

@@ -12,6 +12,7 @@ It validates as it loads (enum CHECKs, foreign keys, unique keys) and fails loud
 file:line, so a bad data edit cannot silently ship. Prints a row-count summary on success.
 Standard library only (sqlite3, csv): no dependencies to maintain.
 """
+
 from __future__ import annotations
 
 import csv
@@ -28,16 +29,54 @@ DB = DATA / "beyondthecliff.db"
 # institution first, then everything that references it. Note the id/opeid keys are TEXT
 # (OPEID with leading zeros), so they are NOT in the integer-column sets.
 TABLES = [
-    ("institutions.csv",    "institution",      {"unitid", "founding_year", "status_year"}),
-    ("manual_closures.csv", "institution",      {"unitid", "founding_year", "status_year"}),
-    ("names.csv",           "institution_name", {"start_year", "end_year"}),
-    ("campuses.csv",        "campus",           {"opened_year", "closed_year", "is_main"}),
-    ("enrollment.csv",      "enrollment",       {"year", "total_headcount", "undergrad", "graduate", "fte"}),
-    ("events.csv",          "event",            {"event_year", "abrupt"}),
-    ("characteristics.csv", "characteristic",   set()),
-    ("hcm.csv",             "hcm",              set()),
-    ("hs_graduates.csv",    "hs_graduates",     {"year", "graduates"}),
-    ("scorecard.csv",       "scorecard",        {"year", "ugds", "tuitfte", "tuitionfee_in", "costt4_a", "curroper"}),
+    ("institutions.csv", "institution", {"unitid", "founding_year", "status_year"}),
+    ("manual_closures.csv", "institution", {"unitid", "founding_year", "status_year"}),
+    # Surviving institutions, kept separate from the closure imports above: this dataset is a
+    # closure record, and a school that is still operating enters it only deliberately.
+    ("institutions_open.csv", "institution", {"unitid", "founding_year", "status_year"}),
+    # Hand-curated, and deliberately not part of any generated file: IPEDS has no EIN, and
+    # institutions_open.csv is rewritten whole by scripts/import_ipeds_roster.py.
+    ("institution_eins.csv", "institution_ein", set()),
+    ("names.csv", "institution_name", {"start_year", "end_year"}),
+    ("campuses.csv", "campus", {"opened_year", "closed_year", "is_main"}),
+    ("enrollment.csv", "enrollment", {"year", "total_headcount", "undergrad", "graduate", "fte"}),
+    ("events.csv", "event", {"event_year", "abrupt"}),
+    ("characteristics.csv", "characteristic", set()),
+    ("hcm.csv", "hcm", set()),
+    ("hs_graduates.csv", "hs_graduates", {"year", "graduates"}),
+    (
+        "scorecard.csv",
+        "scorecard",
+        {"year", "ugds", "tuitfte", "tuitionfee_in", "costt4_a", "curroper"},
+    ),
+    (
+        "financials.csv",
+        "financial_filing",
+        {
+            "tax_year",
+            "total_revenue",
+            "contributions",
+            "government_grants",
+            "other_contributions",
+            "noncash_contributions",
+            "program_svc_revenue",
+            "investment_income",
+            "other_revenue",
+            "total_expenses",
+            "program_svc_expenses",
+            "fundraising_expenses",
+            "salaries",
+            "grants_paid",
+            "net_income",
+            "total_assets",
+            "total_liabilities",
+            "net_assets",
+            "employees",
+        },
+    ),
+    ("financial_line_items.csv", "financial_line_item", {"tax_year", "amount"}),
+    ("composite_scores.csv", "composite_score", {"year"}),
+    ("sector_size.csv", "sector_size", {"year", "active"}),
 ]
 
 
@@ -72,9 +111,7 @@ def load_csv(conn: sqlite3.Connection, path: Path, table: str, int_cols: set[str
         placeholders = ",".join("?" for _ in cols)
         collist = ",".join(cols)
         try:
-            conn.executemany(
-                f"INSERT INTO {table} ({collist}) VALUES ({placeholders})", rows
-            )
+            conn.executemany(f"INSERT INTO {table} ({collist}) VALUES ({placeholders})", rows)
         except sqlite3.IntegrityError as exc:
             raise SystemExit(f"{path.name}: integrity error loading {table}: {exc}")
     return len(rows)
@@ -84,8 +121,7 @@ def build_search_index(conn: sqlite3.Connection) -> None:
     """Populate the FTS5 name index from current and historical names."""
     conn.execute("DELETE FROM institution_search")
     conn.execute(
-        "INSERT INTO institution_search (institution_id, name) "
-        "SELECT id, name FROM institution"
+        "INSERT INTO institution_search (institution_id, name) SELECT id, name FROM institution"
     )
     conn.execute(
         "INSERT INTO institution_search (institution_id, name) "
