@@ -26,6 +26,7 @@ CSV -> SQLite:
 python3 scripts/import_sheeo.py        # (re)seed data/*.csv from the SHEEO source spreadsheet
 python3 scripts/import_ipeds_roster.py --commit      # who is still open + sector size, from IPEDS
 python3 scripts/import_composite_scores.py --all --commit   # ED financial responsibility scores
+python3 scripts/import_990.py <dir>    # IRS Form 990 financial history for a school (--dry-run, --check)
 python3 scripts/build_db.py            # build data/beyondthecliff.db from data/*.csv
 .venv/bin/python -m uvicorn app.main:app --reload   # serve the tracker
 ```
@@ -81,6 +82,12 @@ the writing/copy/design/style standards ported from the author's other projects.
 Still TBD and not yet built (do not assume they exist): IPEDS enrichment for founding year
 and enrollment, coverage beyond 2004 to 2020, and the marketing/brand pages. Verify before
 describing anything as present.
+
+**The financial layer covers ONE school.** `financial_filing` holds Montreat College and nothing
+else (13 Form 990 filings, TY2012 to TY2024). Adding a school means adding its OPEID/EIN pairing
+to `data/institution_eins.csv` first, sourced, then pointing `import_990.py` at its filings. There
+is no browser console for this yet: it is the one part of the pipeline that still needs a
+terminal. Full detail and the traps: `docs/technical/DATA_MODEL.md`.
 
 ## The denominator, and what it is not
 

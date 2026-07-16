@@ -301,13 +301,20 @@ def main() -> None:
     for p in args.paths:
         path = Path(p).expanduser()
         if path.is_dir():
-            files.extend(sorted(path.glob("*.xml")))
+            # Both extensions, because the filing is XML regardless of what it is called and the
+            # IRS ships some of these as .txt. Globbing only *.xml skipped a real return that was
+            # sitting in the folder, and skipped it silently, which is the worst way to lose data.
+            # A directory also holds things that are not filings at all (audit PDFs), so anything
+            # that will not parse is reported and stepped over rather than crashing the run.
+            for ext in ("*.xml", "*.txt"):
+                files.extend(sorted(path.glob(ext)))
         elif path.is_file():
             files.append(path)
         else:
             raise SystemExit(f"no such file or directory: {path}")
+    files = sorted(set(files))
     if not files:
-        raise SystemExit("no .xml filings found")
+        raise SystemExit("no filings found (looked for *.xml and *.txt)")
 
     mapping = ein_to_institution()
     parsed, lines, unmatched = [], [], {}

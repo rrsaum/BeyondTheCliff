@@ -107,6 +107,196 @@ def _money_point(year: int, v: float) -> str:
     return f"FY{year}: ${v:,.0f}"
 
 
+def _declutter(items: list[tuple[float, object]], gap: float, floor: float) -> list[tuple]:
+    """Space labels so none overlap: sort, push down while closer than gap, push overflow up.
+
+    gap is the HEIGHT OF A LABEL, not a gap between anchor points. Spacing the anchors by less
+    than the label's own height still overlaps, because a two-line label occupies the space
+    under its own anchor: measure the box, not the point.
+    """
+    out = sorted(items, key=lambda t: t[0])
+    for i in range(1, len(out)):
+        if out[i][0] - out[i - 1][0] < gap:
+            out[i] = (out[i - 1][0] + gap, out[i][1])
+    over = out[-1][0] - floor
+    if over > 0:
+        for i in range(len(out) - 1, -1, -1):
+            out[i] = (out[i][0] - over, out[i][1])
+            if i and out[i][0] - out[i - 1][0] >= gap:
+                break
+    return out
+
+
+def stacked_money(
+    title: str,
+    bands: list[tuple[str, str, dict]],
+    line: tuple[str, str, dict],
+    *,
+    years: list[int],
+    subtitle: str = "",
+    note: str = "",
+    ymax: float | None = None,
+) -> str:
+    """Revenue by source (stacked bands) against a spending line, over fiscal years.
+
+    bands: [(css_suffix, label, {year: value})] bottom-up. line: (css_suffix, label, {year: v}).
+
+    Chosen from mockups over a plain two-line gap chart and a coverage ratio. Four decisions in
+    here are load-bearing and were each made because the alternative failed a check:
+
+      * Bands must sum to the line's own total for the stack to mean anything. The caller owns
+        that; app/queries.py:financial_series builds bands that reconcile exactly.
+      * A 2px surface-coloured separator between bands, or the eye reads two bands as one shape.
+      * The line is drawn twice, a surface-coloured halo under the real stroke, because for most
+        years it sits within a hair of the stack top and vanishes into that edge otherwise.
+      * A result strip under the axis states surplus or deficit per year outright. It is the
+        question the chart exists to answer, and it is exactly the question the line-against-
+        stack-edge geometry answers worst.
+    """
+    if len(years) < 2:
+        return (
+            f'<figure class="chart fin-chart"><figcaption>{escape(title)}</figcaption>'
+            '<p class="muted">Not enough filings to chart.</p></figure>'
+        )
+    w, h = 980, 360
+    padl, padr, padt, padb = 64, 208, 24, 66
+    top_total = {y: sum((b[2].get(y) or 0) for b in bands) for y in years}
+    hi = ymax or max(list(top_total.values()) + [line[2].get(y) or 0 for y in years]) * 1.08
+
+    def sx(x):
+        return padl + (x - years[0]) / ((years[-1] - years[0]) or 1) * (w - padl - padr)
+
+    def sy(v):
+        return h - padb - (v / hi) * (h - padt - padb)
+
+    # Runs of consecutive filed years: a year nobody filed is a hole, not a straight line.
+    runs, run = [], [years[0]]
+    for a, b in zip(years, years[1:]):
+        if b - a == 1:
+            run.append(b)
+        else:
+            runs.append(run)
+            run = [b]
+    runs.append(run)
+
+    out = []
+    for k in range(5):
+        gv = hi * k / 4
+        out.append(
+            f'<line x1="{padl}" y1="{sy(gv):.1f}" x2="{w - padr}" y2="{sy(gv):.1f}" class="cl-grid"/>'
+            f'<text x="{padl - 8}" y="{sy(gv) + 3.5:.1f}" class="cl-ylab" text-anchor="end">'
+            f"${gv / 1e6:.0f}M</text>"
+        )
+    base = {y: 0.0 for y in years}
+    for css, _lab, vals in bands:
+        for r in runs:
+            pts = [(y, base[y] + (vals.get(y) or 0)) for y in r] + [
+                (y, base[y]) for y in reversed(r)
+            ]
+            out.append(
+                f'<polygon points="{" ".join(f"{sx(y):.1f},{sy(v):.1f}" for y, v in pts)}" '
+                f'class="area area-{css}"/>'
+            )
+        for y in years:
+            base[y] += vals.get(y) or 0
+    run_top = {y: 0.0 for y in years}
+    for css, _lab, vals in bands[:-1]:
+        for y in years:
+            run_top[y] += vals.get(y) or 0
+        for r in runs:
+            out.append(
+                f'<polyline points="{" ".join(f"{sx(y):.1f},{sy(run_top[y]):.1f}" for y in r)}" '
+                f'class="area-sep"/>'
+            )
+    lcss, llab, lvals = line
+    for r in runs:
+        pts = " ".join(f"{sx(y):.1f},{sy(lvals.get(y) or 0):.1f}" for y in r)
+        out.append(f'<polyline points="{pts}" class="ln-halo"/>')
+        out.append(f'<polyline points="{pts}" class="fin-line fin-{lcss}"/>')
+    for y in years:
+        out.append(
+            f'<circle cx="{sx(y):.1f}" cy="{sy(lvals.get(y) or 0):.1f}" r="3.4" '
+            f'class="fin-dot fin-{lcss}"/>'
+        )
+
+    ly = years[-1]
+    total = top_total[ly] or 1
+    items = [(sy(lvals.get(ly) or 0), (lcss, llab, lvals.get(ly) or 0, None))]
+    prev = 0.0
+    for css, lab, vals in bands:
+        v = vals.get(ly) or 0
+        items.append((sy(prev + v / 2), (css, lab, v, v / total)))
+        prev += v
+    for (ypos, (css, lab, val, share)), (anchor, _) in zip(
+        _declutter(items, 26.0, h - padb), sorted(items, key=lambda t: t[0])
+    ):
+        if abs(ypos - anchor) > 4:
+            # A label pushed off its band points at the wrong band without a leader.
+            out.append(
+                f'<path d="M {w - padr + 1} {anchor:.1f} H {w - padr + 5} V {ypos - 3.5:.1f} '
+                f'H {w - padr + 8}" class="leader leader-{css}"/>'
+            )
+        sub = f"${val / 1e6:.1f}M" + (
+            f" · {share * 100:.0f}% of revenue" if share is not None else ""
+        )
+        out.append(
+            f'<text x="{w - padr + 10}" y="{ypos:.1f}" class="gut gut-{css}">{escape(lab)}</text>'
+            f'<text x="{w - padr + 10}" y="{ypos + 12:.1f}" class="gutsub">{escape(sub)}</text>'
+        )
+
+    sty = h - padb + 30
+    out.append(
+        f'<text x="{sx(years[0]) - 22:.1f}" y="{sty + 7.5:.1f}" class="striplab" '
+        f'text-anchor="end">Result</text>'
+    )
+    for y in years:
+        res = (top_total[y] or 0) - (lvals.get(y) or 0)
+        word = "surplus" if res >= 0 else "deficit"
+        out.append(
+            f'<rect x="{sx(y) - 15:.1f}" y="{sty:.1f}" width="30" height="9" rx="2" '
+            f'class="chip chip-{word}"><title>FY{y}: {word} ${abs(res) / 1e6:.1f}M</title></rect>'
+        )
+    for y in years:
+        out.append(
+            f'<text x="{sx(y):.1f}" y="{h - padb + 16:.1f}" class="cl-xlab" text-anchor="middle">'
+            f"{str(y)[2:]}</text>"
+        )
+    for y in (years[0], years[-1]):
+        out.append(
+            f'<text x="{sx(y):.1f}" y="{h - padb + 58:.1f}" class="cl-xlab-full" '
+            f'text-anchor="middle">FY{y}</text>'
+        )
+    wd = (w - padl - padr) / len(years) * 0.9
+    for y in years:
+        res = (top_total[y] or 0) - (lvals.get(y) or 0)
+        rows = [f"FY{y}"] + [f"{lab} ${(v.get(y) or 0) / 1e6:.1f}M" for _c, lab, v in bands]
+        rows += [
+            f"Total revenue ${(top_total[y] or 0) / 1e6:.1f}M",
+            f"{llab} ${(lvals.get(y) or 0) / 1e6:.1f}M",
+            f"{'Surplus' if res >= 0 else 'Deficit'} ${abs(res) / 1e6:.1f}M",
+        ]
+        out.append(
+            f'<rect x="{sx(y) - wd / 2:.1f}" y="{padt}" width="{wd:.1f}" height="{h - padb - padt:.1f}" '
+            f'class="hit"><title>{escape(chr(10).join(rows))}</title></rect>'
+        )
+
+    legend = (
+        "".join(
+            f'<span class="fin-key"><i class="fin-swatch sw-{css}"></i>{escape(lab)}</span>'
+            for css, lab, _v in bands
+        )
+        + f'<span class="fin-key"><i class="fin-swatch sw-line sw-{lcss}"></i>{escape(llab)}</span>'
+    )
+    sub_html = f'<p class="chart-sub">{escape(subtitle)}</p>' if subtitle else ""
+    note_html = f'<figcaption class="chart-note">{escape(note)}</figcaption>' if note else ""
+    return (
+        f'<figure class="chart fin-chart"><figcaption>{escape(title)}</figcaption>{sub_html}'
+        f'<div class="fin-legend">{legend}</div>'
+        f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="{escape(title)}" class="cl-svg">'
+        f"{''.join(out)}</svg>{note_html}</figure>"
+    )
+
+
 def _band_of(v: float, bands) -> str | None:
     """The css suffix of the band a value falls in, or 'pass' when it clears every band.
 
@@ -124,12 +314,6 @@ def _band_label(v: float, bands) -> str:
         if lo <= v < hi:
             return label
     return "above every threshold"
-
-
-def money_lines(title: str, series: list[tuple[str, str, list[tuple]]], **kw) -> str:
-    """Compare money series over fiscal years. See series_lines: this is that chart with the
-    dollar formatting Form 990 data wants."""
-    return series_lines(title, series, **kw)
 
 
 def series_lines(

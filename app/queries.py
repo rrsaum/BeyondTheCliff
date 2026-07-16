@@ -482,6 +482,31 @@ def financial_series(inst_id: str) -> dict | None:
                 "employees": r["employees"] or None,  # a filed 0 means "not reported", not "none"
                 "tuition": tuition,
                 "grants_paid": r["grants_paid"],
+                # The four bands of the revenue chart. They sum to total_revenue exactly, which
+                # is the only reason a stacked chart is allowed to exist: a stack whose parts do
+                # not reconcile is a picture of a number nobody reported.
+                #
+                # private_giving is contributions MINUS government grants, not the filing's
+                # "all other contributions" line. That line omits federated campaigns,
+                # membership dues and fundraising events, and using it left up to $539k a year
+                # unexplained inside the stack. This definition is exact by construction: it is
+                # every dollar given that did not come from a government.
+                "private_giving": (
+                    None
+                    if None in (r["contributions"], r["government_grants"])
+                    else r["contributions"] - r["government_grants"]
+                ),
+                # Everything earned that is not tuition: auxiliaries, room, investment income,
+                # other. Folded into one band because "other earned" alone is about 3% of
+                # revenue, and a band that thin fails the palette's lightness and contrast
+                # checks: nobody can see it or name it, so it is not more honest split out.
+                # Also absorbs investment income when it goes negative, which it does in a bad
+                # market year, and which would otherwise invert a band.
+                "aux_and_other": (
+                    None
+                    if None in (r["total_revenue"], r["contributions"]) or tuition is None
+                    else r["total_revenue"] - r["contributions"] - tuition
+                ),
                 # Share of all revenue earned from students (tuition, fees, auxiliaries). The higher
                 # this runs, the more a demographic dip lands straight on the operating budget.
                 "program_dependency": _ratio(r["program_svc_revenue"], r["total_revenue"]),
@@ -503,9 +528,19 @@ def financial_series(inst_id: str) -> dict | None:
                 # donors. The distinction has a schedule attached: relief programs end on a date,
                 # donors can be asked again.
                 "govt_share_of_contributions": _ratio(r["government_grants"], r["contributions"]),
-                # Institutional aid measured against tuition revenue. NOT labelled a discount rate:
-                # that requires knowing whether the filing reports tuition gross or net of aid, and
-                # the 990 does not say. Stated as the ratio it is, on the basis it has.
+                # Institutional aid against tuition: the tuition discount rate.
+                #
+                # This was deliberately unlabelled, because the 990 never states whether its
+                # tuition line is gross or net of aid. Settled against Montreat's audited FY2025
+                # statement, which reports tuition "net of discounts and scholarships of
+                # $14,332,372" as $12,416,923. Gross is therefore $26,749,295 and the 990's
+                # TUITION AND FEES is $26,285,908: the 990 line is gross, within $463k, and
+                # nowhere near the $12.4M net figure. The rates agree too, 53.2% here against
+                # 53.6% audited.
+                #
+                # Verified on one school in one year, so this is not yet a claim about every
+                # filer. A school reporting tuition net would make this ratio meaningless rather
+                # than merely wrong, and nothing in the filing would say so.
                 "aid_to_tuition": _ratio(r["grants_paid"], tuition),
                 "debt_to_assets": _ratio(r["total_liabilities"], r["total_assets"]),
             }

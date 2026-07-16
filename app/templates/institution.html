@@ -235,7 +235,7 @@
         </dd>
       </div>
       <div class="fin-metric">
-        <dt>Institutional aid against tuition</dt>
+        <dt>Tuition discount rate</dt>
         <dd>{% if l.aid_to_tuition is not none %}{{ '{:.0f}'.format(l.aid_to_tuition * 100) }}%{% else %}Not reported{% endif %}
           {% if f.aid_to_tuition is not none %}<span class="fin-sub">{{ '{:.0f}'.format(f.aid_to_tuition * 100) }}% in FY{{ f.fiscal_year }}</span>{% endif %}
         </dd>
@@ -251,10 +251,10 @@
     <p class="chart-note">
       Read these together, not one at a time. Net assets say what the school is worth; earned
       revenue against expenses says whether a normal year pays for itself. The two can move in
-      opposite directions for a long time. Institutional aid against tuition is the ratio of aid
-      the school awarded to the tuition revenue it reported: the 990 does not state whether that
-      tuition figure is gross or net of aid, so treat it as a trend to watch rather than a
-      published discount rate.
+      opposite directions for a long time. Institutional aid against tuition is the discount rate:
+      the share of published tuition the school hands back as its own aid to fill the class. The
+      990 reports tuition before that aid is deducted and the aid separately as an expense, which
+      is what makes the ratio readable at all.
     </p>
 
     {% for c in finance_charts %}{{ c | safe }}{% endfor %}
@@ -268,20 +268,28 @@
     </p>
     {% endif %}
 
+    {# The table is not a fallback for the chart, it is the chart's other half. The palette is
+       only legal because a second channel carries the same information (see app.css), and this
+       is that channel: every band, every year, as a number. #}
     <table class="mini fin-table">
       <thead><tr>
-        <th>Fiscal year</th><th>Revenue</th><th>Gifts and grants</th><th>Expenses</th>
-        <th>Result</th><th>Net assets</th>
+        <th>Fiscal year</th><th>Tuition</th><th>Aux and other</th><th>Private gifts</th>
+        <th>Government</th><th>Total revenue</th><th>Expenses</th><th>Result</th>
+        <th>Net assets</th>
       </tr></thead>
       <tbody>
         {% for r in financials.series %}
+        {% macro m(v) %}{% if v is not none %}${{ '{:,.1f}'.format(v / 1000000) }}M{% endif %}{% endmacro %}
         <tr>
           <td>FY{{ r.fiscal_year }}</td>
-          <td>{% if r.total_revenue is not none %}${{ '{:,.1f}'.format(r.total_revenue / 1000000) }}M{% endif %}</td>
-          <td>{% if r.contributions is not none %}${{ '{:,.1f}'.format(r.contributions / 1000000) }}M{% endif %}{% if r.govt_share_of_contributions is not none and r.govt_share_of_contributions >= 0.4 %} <span class="muted">({{ '{:.0f}'.format(r.govt_share_of_contributions * 100) }}% government)</span>{% endif %}</td>
-          <td>{% if r.total_expenses is not none %}${{ '{:,.1f}'.format(r.total_expenses / 1000000) }}M{% endif %}</td>
+          <td>{{ m(r.tuition) }}</td>
+          <td>{{ m(r.aux_and_other) }}</td>
+          <td>{{ m(r.private_giving) }}</td>
+          <td>{{ m(r.government_grants) }}</td>
+          <td>{{ m(r.total_revenue) }}</td>
+          <td>{{ m(r.total_expenses) }}</td>
           <td class="{{ 'fin-neg' if r.net_income is not none and r.net_income < 0 }}">{% if r.net_income is not none %}{{ '-' if r.net_income < 0 }}${{ '{:,.1f}'.format((r.net_income if r.net_income >= 0 else -r.net_income) / 1000000) }}M{% endif %}</td>
-          <td>{% if r.net_assets is not none %}${{ '{:,.1f}'.format(r.net_assets / 1000000) }}M{% endif %}</td>
+          <td>{{ m(r.net_assets) }}</td>
         </tr>
         {% endfor %}
       </tbody>
