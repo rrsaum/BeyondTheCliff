@@ -27,6 +27,7 @@ python3 scripts/enrich_wikidata.py         # founding year + background + histor
 python3 scripts/import_hcm.py              # Heightened Cash Monitoring history (data/hcm.csv)
 python3 scripts/import_hs_graduates.py     # NCES high-school-graduate counts (data/hs_graduates.csv)
 python3 scripts/import_scorecard.py        # College Scorecard slice for our institutions (data/scorecard.csv)
+python3 scripts/import_990.py <dir>        # IRS Form 990 financial history (data/financials.csv)
 python3 scripts/build_db.py                # rebuild data/beyondthecliff.db from all data/*.csv
 ```
 
@@ -78,6 +79,13 @@ source URL is extracted. Numbers are never originated: absent facts stay NULL.
 | `event` | one per lifecycle event | closed / merged / renamed / reopened, with `abrupt` flag and counterpart |
 | `characteristic` | one per (institution, tag) | audience/mission + closure tags (e.g. `abrupt_closure`, `merger_involved`, `hbcu`, `religious`) |
 | `hcm` | one per (institution, ED snapshot) | Heightened Cash Monitoring history; `level` 1 or 2; the leading distress signal |
+| `hs_graduates` | one per (jurisdiction, measure, year) | NCES high-school-graduate counts: the demographic pool behind the cliff. Not linked to institutions |
+| `scorecard` | one per (institution, year) | College Scorecard slice: enrolment, admit rate, Pell share, net tuition |
+| `composite_score` | one per (institution, award year) | ED Financial Responsibility Composite Score, -1.0 to 3.0 |
+| `sector_size` | one per (year, control) | how many institutions are still operating: the denominator |
+| `institution_ein` | one per (institution, EIN) | the OPEID -> EIN crosswalk, hand-curated, the join to IRS filings |
+| `financial_filing` | one per (institution, tax year, source) | Form 990 revenue, expenses, balance sheet; raw filing facts only |
+| `financial_line_item` | one per breakout line | the filing's free-text revenue lines, stored verbatim |
 | `institution_search` | FTS5 | full-text name search over current + historical names |
 
 The `institution` row also carries enriched columns: `unitid` + `unitid_match` (IPEDS
@@ -88,6 +96,71 @@ Key is **OPEID** (the federal Office of Postsecondary Education ID, what PEPS/SH
 stored as text `id` to preserve leading zeros; institutions with no OPEID get a synthetic
 `NOID-####`. `unitid` (IPEDS) is a nullable column for a later crosswalk join. Full column
 definitions and the CHECK constraints are in `scripts/schema.sql`.
+
+## Financial history (IRS Form 990)
+
+Every private nonprofit college files a Form 990 publicly every year. It is the only financial
+record that exists for all of them, on the same form, and it is a U.S. government record, so it
+is public domain. `scripts/import_990.py <dir>` reads a folder of filings and writes
+`data/financials.csv` and `data/financial_line_items.csv`. `--dry-run` parses without writing;
+`--check` runs the cross-check below. Reruns are idempotent per (institution, tax year).
+
+Currently loaded: **Montreat College only** (OPEID `00294800`, 13 filings, TY2012 to TY2024, no
+gaps).
+
+Six things here were learned by getting them wrong. Do not undo any of them without a reason:
+
+- **The filing joins through `data/institution_eins.csv`, never a column on an institution CSV.**
+  IPEDS publishes no EIN, and `data/institutions_open.csv` is rewritten whole from IPEDS by
+  `import_ipeds_roster.py`, so an EIN parked there is erased on the next roster run. That is not
+  hypothetical: it happened, and the only symptom was the importer silently matching nothing.
+- **An unknown EIN is reported and skipped, never guessed.** Attaching a school's finances to the
+  wrong entity is invisible once it is in.
+- **A filing is XML whatever it is called.** The IRS ships some as `.txt`; the importer globs both
+  and steps over anything that will not parse (the same folders hold audit PDFs). Globbing `*.xml`
+  alone silently skipped a real return.
+- **Identity comes from the `Filer` element only.** The first EIN and the first business name in
+  the document belong to the paid preparer. Montreat's TY2012 filing opens with its accountants.
+- **The tags were renamed wholesale after TY2012**, unpredictably (`GrantsAndSimilarAmntsCY` vs
+  `CYGrantsAndSimilarPaidAmt`), so `FIELDS` carries both spellings per field. Each filing restates
+  its prior year, so `--check` compares filing N's prior-year figures to filing N-1's current-year
+  ones. That check validates the mapping ACROSS the rename, and it passes on every field for all
+  13 Montreat filings.
+- **Line-item labels are stored verbatim, typos included.** Montreat filed "TUITITION AND FEES" in
+  TY2012 and TY2013. Matching the correct spelling would have silently dropped its two worst years,
+  so the label is matched at query time (`app/queries.py:_LINE_BUCKETS`) and never rewritten.
+
+### Ratios are computed, never stored
+
+`financial_filing` holds only what the filing says. Tuition dependency, operating margin, the
+discount rate and the rest are computed in `app/queries.py:financial_series()`, so a definition can
+be revised without a reimport and every number on the page traces to one line of one filing.
+
+The four chart bands (`tuition`, `aux_and_other`, `private_giving`, `government_grants`) sum to
+`total_revenue` exactly in every filed year, which is the only thing that entitles the page to draw
+a stack. Two definitions are deliberate:
+
+- `private_giving` = contributions MINUS government grants, not the filing's "all other
+  contributions" line. That line omits federated campaigns, membership dues and fundraising events,
+  and using it left up to $539k a year unexplained inside the stack.
+- `aux_and_other` absorbs investment income, which goes negative in a bad market year and would
+  otherwise invert a band.
+
+### Two traps when reading a 990 against an audited statement
+
+Both were confirmed against Montreat's FY2025 Single Audit, and both will recur for any school:
+
+- **A 990 is one filer; an audit is usually a group.** Montreat's audit consolidates the College,
+  the Montreat College Foundation and the Carolina Cyber Center. The 990 is the College alone.
+  FY2025 net assets: $64.8M on the return, $68.7M audited. This database understates any school
+  running a separate foundation, which is most of them. The fix is to load the foundation's own 990
+  under its own EIN, which is why `institution_ein` is not unique on `institution_id`.
+- **The 990 reports tuition GROSS with institutional aid as an expense; GAAP reports it net.**
+  Montreat FY2025: $42.9M total revenue on the return, $31.0M audited, both correct. Do not compare
+  them line by line. The bottom line is the useful check and it agrees (-$0.87M against -$0.77M).
+  This is also what makes `aid_to_tuition` a real discount rate: the audit's gross tuition
+  ($26,749,295) matches the 990's TUITION AND FEES ($26,285,908) within $463k, and the rates agree
+  at 53.2% computed against 53.6% audited. Verified on one school in one year.
 
 ## Maintenance playbook
 

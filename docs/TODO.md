@@ -71,7 +71,9 @@ with `scripts/verify.sh` before marking anything done.
 `scripts/import_990.py` ingests a folder of 990 XML filings into `data/financials.csv` and
 `data/financial_line_items.csv`; the tables are `financial_filing` and `financial_line_item`.
 Ratios are computed in `app/queries.py:financial_series()` and never stored. Currently loaded:
-Montreat College only (OPEID 00294800, TY2012-TY2024, 11 filings).
+Montreat College only (OPEID 00294800, TY2012-TY2024, 13 filings, no gaps). The reader-facing
+chart is `charts.stacked_money()`, chosen from mockups. Full detail and the traps:
+`docs/technical/DATA_MODEL.md`.
 
 - **A browser ingestion console for 990s is not built.** Filings are imported from the terminal
   today, which does not match the browser-only workflow the `/admin` console exists to serve.
@@ -136,9 +138,10 @@ $42.9M on the 990 and $31.0M audited, and both are right. The bottom line agrees
   write their own. Montreat filed "TUITITION AND FEES" in TY2012 and TY2013 and "TUITION AND FEES"
   from TY2014, which is why the description is stored verbatim and matched at query time. Expect
   new spellings with every new school, and widen the bucket rather than editing the stored text.
-- **No filings for TY2019 or TY2020** (fiscal years ending June 2020 and June 2021), the COVID
-  window. Charts break across the gap rather than joining over it. Worth chasing: those are the
-  two years the sector's story turns on.
+- **Montreat's record is complete: 13 filings, TY2012 to TY2024, no gaps.** The TY2019 and TY2020
+  returns (the COVID window) were added late and the prior-year cross-check now agrees end to end
+  across the whole unbroken chain, which is a stronger validation than either side of a hole. The
+  chart still breaks across a missing year by design; there just is not one any more.
 
 ## Data quality: flagged, not yet fixed
 
