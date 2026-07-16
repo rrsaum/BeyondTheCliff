@@ -482,6 +482,31 @@ def financial_series(inst_id: str) -> dict | None:
                 "employees": r["employees"] or None,  # a filed 0 means "not reported", not "none"
                 "tuition": tuition,
                 "grants_paid": r["grants_paid"],
+                # The four bands of the revenue chart. They sum to total_revenue exactly, which
+                # is the only reason a stacked chart is allowed to exist: a stack whose parts do
+                # not reconcile is a picture of a number nobody reported.
+                #
+                # private_giving is contributions MINUS government grants, not the filing's
+                # "all other contributions" line. That line omits federated campaigns,
+                # membership dues and fundraising events, and using it left up to $539k a year
+                # unexplained inside the stack. This definition is exact by construction: it is
+                # every dollar given that did not come from a government.
+                "private_giving": (
+                    None
+                    if None in (r["contributions"], r["government_grants"])
+                    else r["contributions"] - r["government_grants"]
+                ),
+                # Everything earned that is not tuition: auxiliaries, room, investment income,
+                # other. Folded into one band because "other earned" alone is about 3% of
+                # revenue, and a band that thin fails the palette's lightness and contrast
+                # checks: nobody can see it or name it, so it is not more honest split out.
+                # Also absorbs investment income when it goes negative, which it does in a bad
+                # market year, and which would otherwise invert a band.
+                "aux_and_other": (
+                    None
+                    if None in (r["total_revenue"], r["contributions"]) or tuition is None
+                    else r["total_revenue"] - r["contributions"] - tuition
+                ),
                 # Share of all revenue earned from students (tuition, fees, auxiliaries). The higher
                 # this runs, the more a demographic dip lands straight on the operating budget.
                 "program_dependency": _ratio(r["program_svc_revenue"], r["total_revenue"]),

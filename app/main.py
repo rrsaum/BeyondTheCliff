@@ -259,62 +259,44 @@ def institution(request: Request, inst_id: str):
     finance_charts = []
     if financials:
         s = financials["series"]
+        years = [r["fiscal_year"] for r in s]
+        by = {
+            k: {r["fiscal_year"]: r[k] for r in s}
+            for k in (
+                "tuition",
+                "aux_and_other",
+                "private_giving",
+                "government_grants",
+                "total_expenses",
+            )
+        }
         finance_charts.append(
-            charts.money_lines(
-                "What the school earned, and what it spent",
+            charts.stacked_money(
+                "Where every dollar came from, against what was spent",
+                # Bottom-up, ordered by how reliably the money comes back next year: tuition is
+                # the base because it is the thing the school controls, government grants sit on
+                # top because they are the thing that stops.
                 [
-                    ("Total revenue", "total", [(r["fiscal_year"], r["total_revenue"]) for r in s]),
-                    (
-                        "Earned revenue (tuition, fees, auxiliaries, investments)",
-                        "earned",
-                        [
-                            (
-                                r["fiscal_year"],
-                                None
-                                if None in (r["total_revenue"], r["contributions"])
-                                else r["total_revenue"] - r["contributions"],
-                            )
-                            for r in s
-                        ],
-                    ),
-                    (
-                        "Total expenses",
-                        "expense",
-                        [(r["fiscal_year"], r["total_expenses"]) for r in s],
-                    ),
+                    ("tuition", "Tuition and fees", by["tuition"]),
+                    ("auxother", "Auxiliaries and other earned", by["aux_and_other"]),
+                    ("private", "Private gifts", by["private_giving"]),
+                    ("govt", "Government grants", by["government_grants"]),
                 ],
+                ("expense", "Expenses", by["total_expenses"]),
+                years=years,
                 subtitle=(
-                    "The distance between earned revenue and expenses is the part of the year that "
-                    "gifts and grants have to cover. Where the two lines sit relative to each other, "
-                    "and whether that distance is closing, is the question this page exists to answer."
+                    "Every band is money the school took in that year, and they stack to its total "
+                    "revenue. The line is what it spent. Read the strip under the axis for the "
+                    "answer to each year, and the bands for what produced it."
                 ),
-                note=f"Source: {financials['source']}, {financials['year_range']}. Fiscal years end 30 June.",
+                note=(
+                    f"Source: {financials['source']}, {financials['year_range']}, as filed. Fiscal "
+                    "years end 30 June. Private gifts is all giving that was not a government "
+                    "grant. Auxiliaries and other earned carries room, board, investment income "
+                    "and other revenue."
+                ),
             )
         )
-        if any(r["government_grants"] is not None for r in s):
-            finance_charts.append(
-                charts.money_lines(
-                    "Who the money came from",
-                    [
-                        (
-                            "Government grants",
-                            "govt",
-                            [(r["fiscal_year"], r["government_grants"]) for r in s],
-                        ),
-                        (
-                            "Private giving",
-                            "earned",
-                            [(r["fiscal_year"], r["other_contributions"]) for r in s],
-                        ),
-                    ],
-                    subtitle=(
-                        "Gifts and government grants land in the same line on the summary page, but "
-                        "they behave differently: a relief programme ends on a date somebody else set, "
-                        "while a donor can be asked again."
-                    ),
-                    note=f"Source: {financials['source']}, Part VIII lines 1e and 1f.",
-                )
-            )
     # HCM banner: when did the distress signal first appear relative to closure?
     hcm_first = data["hcm"][0]["as_of_date"] if data["hcm"] else None
     hcm_lead_years = None

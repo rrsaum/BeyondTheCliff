@@ -262,20 +262,28 @@
     </p>
     {% endif %}
 
+    {# The table is not a fallback for the chart, it is the chart's other half. The palette is
+       only legal because a second channel carries the same information (see app.css), and this
+       is that channel: every band, every year, as a number. #}
     <table class="mini fin-table">
       <thead><tr>
-        <th>Fiscal year</th><th>Revenue</th><th>Gifts and grants</th><th>Expenses</th>
-        <th>Result</th><th>Net assets</th>
+        <th>Fiscal year</th><th>Tuition</th><th>Aux and other</th><th>Private gifts</th>
+        <th>Government</th><th>Total revenue</th><th>Expenses</th><th>Result</th>
+        <th>Net assets</th>
       </tr></thead>
       <tbody>
         {% for r in financials.series %}
+        {% macro m(v) %}{% if v is not none %}${{ '{:,.1f}'.format(v / 1000000) }}M{% endif %}{% endmacro %}
         <tr>
           <td>FY{{ r.fiscal_year }}</td>
-          <td>{% if r.total_revenue is not none %}${{ '{:,.1f}'.format(r.total_revenue / 1000000) }}M{% endif %}</td>
-          <td>{% if r.contributions is not none %}${{ '{:,.1f}'.format(r.contributions / 1000000) }}M{% endif %}{% if r.govt_share_of_contributions is not none and r.govt_share_of_contributions >= 0.4 %} <span class="muted">({{ '{:.0f}'.format(r.govt_share_of_contributions * 100) }}% government)</span>{% endif %}</td>
-          <td>{% if r.total_expenses is not none %}${{ '{:,.1f}'.format(r.total_expenses / 1000000) }}M{% endif %}</td>
+          <td>{{ m(r.tuition) }}</td>
+          <td>{{ m(r.aux_and_other) }}</td>
+          <td>{{ m(r.private_giving) }}</td>
+          <td>{{ m(r.government_grants) }}</td>
+          <td>{{ m(r.total_revenue) }}</td>
+          <td>{{ m(r.total_expenses) }}</td>
           <td class="{{ 'fin-neg' if r.net_income is not none and r.net_income < 0 }}">{% if r.net_income is not none %}{{ '-' if r.net_income < 0 }}${{ '{:,.1f}'.format((r.net_income if r.net_income >= 0 else -r.net_income) / 1000000) }}M{% endif %}</td>
-          <td>{% if r.net_assets is not none %}${{ '{:,.1f}'.format(r.net_assets / 1000000) }}M{% endif %}</td>
+          <td>{{ m(r.net_assets) }}</td>
         </tr>
         {% endfor %}
       </tbody>
