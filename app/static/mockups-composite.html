@@ -1,0 +1,140 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Composite score: three mockups</title>
+<style>
+:root {
+  --ink:#1b2733; --ink-soft:#4a5866; --paper:#fbfaf7; --surface:#ffffff; --line:#e3e0d8;
+  --accent:#1f5c7a; --accent-soft:#dcebf1; --warn:#9a5b1d; --closed:#b23a48; --merged:#4a5866;
+  --good:#2f6f4f; --radius:8px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+body { margin:0; background:var(--paper); color:var(--ink); line-height:1.5; }
+.wrap { max-width:1040px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+h1 { font-size:1.5rem; margin:0 0 .3rem; }
+.lead { color:var(--ink-soft); max-width:70ch; margin:0 0 1.5rem; }
+.card { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:1.1rem 1.2rem; margin:0 0 1.5rem; }
+h2 { font-size:1.05rem; margin:0 0 .2rem; }
+.tag { font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--accent);
+  font-weight:700; }
+.why { font-size:.85rem; color:var(--ink-soft); margin:.35rem 0 .9rem; max-width:78ch; }
+.tradeoff { font-size:.8rem; color:var(--ink-soft); margin:.7rem 0 0; padding-top:.6rem;
+  border-top:1px solid var(--line); }
+.tradeoff b { color:var(--ink); }
+.cv { width:100%; height:auto; display:block; }
+.grid { stroke:var(--line); stroke-width:1; }
+.ylab,.xlab { fill:var(--ink-soft); font-size:11px; }
+.xlab-full { fill:var(--ink-soft); font-size:11px; font-weight:600; }
+.ln { fill:none; stroke:var(--accent); stroke-width:2; }
+.ln-faint { stroke:var(--line); stroke-width:1.5; }
+.dot { stroke:var(--surface); stroke-width:1.5; }
+.dot-pass { fill:var(--good); } .dot-zone { fill:var(--warn); } .dot-fail { fill:var(--closed); }
+.stem { stroke-width:1.5; }
+.stem-pass { stroke:var(--good); opacity:.35; }
+.stem-zone { stroke:var(--warn); opacity:.35; }
+.stem-fail { stroke:var(--closed); opacity:.35; }
+.bar-pass { fill:var(--good); } .bar-zone { fill:var(--warn); } .bar-fail { fill:var(--closed); }
+.barlab { fill:var(--ink-soft); font-size:10px; font-variant-numeric:tabular-nums; }
+.band-pass { fill:var(--good); opacity:.07; }
+.band-zone { fill:var(--warn); opacity:.10; }
+.band-fail { fill:var(--closed); opacity:.10; }
+.thr { stroke-dasharray:4 3; stroke-width:1.2; }
+.thr-pass { stroke:var(--good); } .thr-oversight { stroke:var(--warn); }
+.thr-lab { fill:var(--ink-soft); font-size:10px; }
+.zn { font-size:10px; font-weight:600; }
+.zn-pass { fill:var(--good); } .zn-zone { fill:var(--warn); } .zn-fail { fill:var(--closed); }
+.brk { stroke:var(--ink-soft); stroke-width:1; stroke-dasharray:3 3; }
+.brk-lab { fill:var(--ink-soft); font-size:9.5px; font-style:italic; }
+.direct { fill:var(--ink); font-size:12px; font-weight:700; }
+.chip { } .chip-pass { fill:var(--good); } .chip-zone { fill:var(--warn); }
+.chip-fail { fill:var(--closed); }
+.note { font-size:.76rem; color:var(--ink-soft); margin:.6rem 0 0; }
+.legend { display:flex; gap:1rem; flex-wrap:wrap; font-size:.78rem; color:var(--ink-soft);
+  margin:0 0 .6rem; }
+.key { display:inline-flex; align-items:center; gap:.35rem; }
+.sw { width:.7rem; height:.7rem; border-radius:2px; display:inline-block; }
+.sw-pass { background:var(--good); } .sw-zone { background:var(--warn); }
+.sw-fail { background:var(--closed); }
+.decide { background:var(--accent-soft); border-left:3px solid var(--accent);
+  border-radius:var(--radius); padding:.9rem 1rem; margin:0 0 1.5rem; }
+.decide h2 { color:var(--accent); }
+.decide ol { margin:.4rem 0 0; padding-left:1.2rem; font-size:.88rem; }
+.decide li { margin:.3rem 0; }
+</style>
+<div class="wrap">
+<h1>Composite score chart: three mockups</h1>
+<p class="lead">Same data every time: Montreat College, Financial Responsibility Composite Score,
+award years 2006-07 to 2022-23 (U.S. Dept. of Education, eZ-Audit). Pick one, or tell me what to
+take from each.</p>
+
+<div class="decide">
+  <h2>What I need you to decide</h2>
+  <ol>
+    <li><b>Which form.</b> A reads the trend, B reads each year's verdict, C is a compromise.</li>
+    <li><b>The y axis.</b> All three cut it at 0.5 or 0. ED publishes the scale as -1.0 to 3.0.
+      The old chart showed the full scale, which left 40% of the plot empty and squashed the
+      data. Cutting it reads better but stops this school's chart being directly comparable to
+      one that scored below zero. My recommendation: cut it, and let the shared thresholds do the
+      comparison work.</li>
+    <li><b>Colour by zone, or one colour?</b> A, B and C all colour by federal zone (green /
+      amber / red). It is legible but it makes a bad year look like a verdict. One accent colour
+      throughout is more sober and more on-brand.</li>
+  </ol>
+</div>
+
+<div class="card">
+  <p class="tag">Mockup A</p>
+  <h2>Line with zone bands</h2>
+  <p class="why">The trend is the subject: the line carries it, and the shaded bands say what
+    territory it was in without you reading numbers. Threshold names sit in the right margin
+    instead of on top of the data, which is what made the old one unreadable.</p>
+  <div class="legend">
+    <span class="key"><i class="sw sw-pass"></i>1.5 and above: responsible</span>
+    <span class="key"><i class="sw sw-zone"></i>1.0 to 1.4: added oversight</span>
+    <span class="key"><i class="sw sw-fail"></i>Below 1.0: letter of credit</span>
+  </div>
+  <svg viewBox="0 0 940 300" class="cv" role="img" aria-label="Composite score 2007 to 2023, line with zone bands"><rect x="52" y="208.4" width="772" height="47.6" class="band band-fail"/><rect x="52" y="160.8" width="772" height="47.6" class="band band-zone"/><rect x="52" y="18.0" width="772" height="142.8" class="band band-pass"/><line x1="52" y1="256.0" x2="824" y2="256.0" class="grid"/><text x="44" y="259.5" class="ylab" text-anchor="end">0.5</text><line x1="52" y1="208.4" x2="824" y2="208.4" class="grid"/><text x="44" y="211.9" class="ylab" text-anchor="end">1.0</text><line x1="52" y1="160.8" x2="824" y2="160.8" class="grid"/><text x="44" y="164.3" class="ylab" text-anchor="end">1.5</text><line x1="52" y1="113.2" x2="824" y2="113.2" class="grid"/><text x="44" y="116.7" class="ylab" text-anchor="end">2.0</text><line x1="52" y1="65.6" x2="824" y2="65.6" class="grid"/><text x="44" y="69.1" class="ylab" text-anchor="end">2.5</text><line x1="52" y1="18.0" x2="824" y2="18.0" class="grid"/><text x="44" y="21.5" class="ylab" text-anchor="end">3.0</text><line x1="703.4" y1="18" x2="703.4" y2="256" class="brk"/><text x="698.4" y="28" class="brk-lab" text-anchor="end">old formula</text><text x="708.4" y="28" class="brk-lab" text-anchor="start">new formula</text><polyline points="52.0,151.3 100.2,198.9 148.5,198.9 196.8,189.4 245.0,94.2 293.2,141.8 341.5,189.4 389.8,122.7 438.0,103.7 486.2,141.8 534.5,141.8 582.8,237.0 631.0,198.9 679.2,227.4" class="ln"/><circle cx="52.0" cy="151.3" r="4" class="dot dot-pass"><title>2007: 1.6 (Financially responsible)</title></circle><circle cx="100.2" cy="198.9" r="4" class="dot dot-zone"><title>2008: 1.1 (Added federal oversight)</title></circle><circle cx="148.5" cy="198.9" r="4" class="dot dot-zone"><title>2009: 1.1 (Added federal oversight)</title></circle><circle cx="196.8" cy="189.4" r="4" class="dot dot-zone"><title>2010: 1.2 (Added federal oversight)</title></circle><circle cx="245.0" cy="94.2" r="4" class="dot dot-pass"><title>2011: 2.2 (Financially responsible)</title></circle><circle cx="293.2" cy="141.8" r="4" class="dot dot-pass"><title>2012: 1.7 (Financially responsible)</title></circle><circle cx="341.5" cy="189.4" r="4" class="dot dot-zone"><title>2013: 1.2 (Added federal oversight)</title></circle><circle cx="389.8" cy="122.7" r="4" class="dot dot-pass"><title>2014: 1.9 (Financially responsible)</title></circle><circle cx="438.0" cy="103.7" r="4" class="dot dot-pass"><title>2015: 2.1 (Financially responsible)</title></circle><circle cx="486.2" cy="141.8" r="4" class="dot dot-pass"><title>2016: 1.7 (Financially responsible)</title></circle><circle cx="534.5" cy="141.8" r="4" class="dot dot-pass"><title>2017: 1.7 (Financially responsible)</title></circle><circle cx="582.8" cy="237.0" r="4" class="dot dot-fail"><title>2018: 0.7 (Letter of credit required)</title></circle><circle cx="631.0" cy="198.9" r="4" class="dot dot-zone"><title>2019: 1.1 (Added federal oversight)</title></circle><circle cx="679.2" cy="227.4" r="4" class="dot dot-fail"><title>2020: 0.8 (Letter of credit required)</title></circle><polyline points="727.5,84.6 775.8,18.0 824.0,94.2" class="ln"/><circle cx="727.5" cy="84.6" r="4" class="dot dot-pass"><title>2021: 2.3 (Financially responsible)</title></circle><circle cx="775.8" cy="18.0" r="4" class="dot dot-pass"><title>2022: 3.0 (Financially responsible)</title></circle><circle cx="824.0" cy="94.2" r="4" class="dot dot-pass"><title>2023: 2.2 (Financially responsible)</title></circle><text x="824.0" y="82.2" class="direct" text-anchor="end">2.2</text><text x="52.0" y="272.0" class="xlab" text-anchor="middle">07</text><text x="100.2" y="272.0" class="xlab" text-anchor="middle">08</text><text x="148.5" y="272.0" class="xlab" text-anchor="middle">09</text><text x="196.8" y="272.0" class="xlab" text-anchor="middle">10</text><text x="245.0" y="272.0" class="xlab" text-anchor="middle">11</text><text x="293.2" y="272.0" class="xlab" text-anchor="middle">12</text><text x="341.5" y="272.0" class="xlab" text-anchor="middle">13</text><text x="389.8" y="272.0" class="xlab" text-anchor="middle">14</text><text x="438.0" y="272.0" class="xlab" text-anchor="middle">15</text><text x="486.2" y="272.0" class="xlab" text-anchor="middle">16</text><text x="534.5" y="272.0" class="xlab" text-anchor="middle">17</text><text x="582.8" y="272.0" class="xlab" text-anchor="middle">18</text><text x="631.0" y="272.0" class="xlab" text-anchor="middle">19</text><text x="679.2" y="272.0" class="xlab" text-anchor="middle">20</text><text x="727.5" y="272.0" class="xlab" text-anchor="middle">21</text><text x="775.8" y="272.0" class="xlab" text-anchor="middle">22</text><text x="824.0" y="272.0" class="xlab" text-anchor="middle">23</text><text x="52.0" y="288.0" class="xlab-full" text-anchor="middle">2007</text><text x="824.0" y="288.0" class="xlab-full" text-anchor="middle">2023</text><text x="832" y="89.4" class="zn zn-pass">pass</text><text x="832" y="184.6" class="zn zn-zone">oversight</text><text x="832" y="232.2" class="zn zn-fail">letter of credit</text></svg>
+  <p class="tradeoff"><b>Strength:</b> the shape of the story is instant, and the 2018 and 2020
+    dips read as events. <b>Cost:</b> a line implies continuity between what are actually
+    discrete annual audits.</p>
+</div>
+
+<div class="card">
+  <p class="tag">Mockup B</p>
+  <h2>One column per award year</h2>
+  <p class="why">Treats each year as what it is: a separate audit with a separate verdict. No line
+    implies anything between them. Every value is labelled, so the table underneath becomes
+    optional.</p>
+  <div class="legend">
+    <span class="key"><i class="sw sw-pass"></i>Responsible</span>
+    <span class="key"><i class="sw sw-zone"></i>Added oversight</span>
+    <span class="key"><i class="sw sw-fail"></i>Letter of credit</span>
+  </div>
+  <svg viewBox="0 0 940 300" class="cv" role="img" aria-label="Composite score by award year, columns coloured by federal zone"><line x1="52" y1="256.0" x2="824" y2="256.0" class="grid"/><text x="44" y="259.5" class="ylab" text-anchor="end">0.0</text><line x1="52" y1="216.3" x2="824" y2="216.3" class="grid"/><text x="44" y="219.8" class="ylab" text-anchor="end">0.5</text><line x1="52" y1="176.7" x2="824" y2="176.7" class="grid"/><text x="44" y="180.2" class="ylab" text-anchor="end">1.0</text><line x1="52" y1="137.0" x2="824" y2="137.0" class="grid"/><text x="44" y="140.5" class="ylab" text-anchor="end">1.5</text><line x1="52" y1="97.3" x2="824" y2="97.3" class="grid"/><text x="44" y="100.8" class="ylab" text-anchor="end">2.0</text><line x1="52" y1="57.7" x2="824" y2="57.7" class="grid"/><text x="44" y="61.2" class="ylab" text-anchor="end">2.5</text><line x1="52" y1="18.0" x2="824" y2="18.0" class="grid"/><text x="44" y="21.5" class="ylab" text-anchor="end">3.0</text><rect x="37.0" y="129.1" width="30" height="126.9" rx="3" class="bar bar-pass"><title>2007: 1.6 (Financially responsible)</title></rect><text x="52.0" y="123.1" class="barlab" text-anchor="middle">1.6</text><rect x="85.2" y="168.7" width="30" height="87.3" rx="3" class="bar bar-zone"><title>2008: 1.1 (Added federal oversight)</title></rect><text x="100.2" y="162.7" class="barlab" text-anchor="middle">1.1</text><rect x="133.5" y="168.7" width="30" height="87.3" rx="3" class="bar bar-zone"><title>2009: 1.1 (Added federal oversight)</title></rect><text x="148.5" y="162.7" class="barlab" text-anchor="middle">1.1</text><rect x="181.8" y="160.8" width="30" height="95.2" rx="3" class="bar bar-zone"><title>2010: 1.2 (Added federal oversight)</title></rect><text x="196.8" y="154.8" class="barlab" text-anchor="middle">1.2</text><rect x="230.0" y="81.5" width="30" height="174.5" rx="3" class="bar bar-pass"><title>2011: 2.2 (Financially responsible)</title></rect><text x="245.0" y="75.5" class="barlab" text-anchor="middle">2.2</text><rect x="278.2" y="121.1" width="30" height="134.9" rx="3" class="bar bar-pass"><title>2012: 1.7 (Financially responsible)</title></rect><text x="293.2" y="115.1" class="barlab" text-anchor="middle">1.7</text><rect x="326.5" y="160.8" width="30" height="95.2" rx="3" class="bar bar-zone"><title>2013: 1.2 (Added federal oversight)</title></rect><text x="341.5" y="154.8" class="barlab" text-anchor="middle">1.2</text><rect x="374.8" y="105.3" width="30" height="150.7" rx="3" class="bar bar-pass"><title>2014: 1.9 (Financially responsible)</title></rect><text x="389.8" y="99.3" class="barlab" text-anchor="middle">1.9</text><rect x="423.0" y="89.4" width="30" height="166.6" rx="3" class="bar bar-pass"><title>2015: 2.1 (Financially responsible)</title></rect><text x="438.0" y="83.4" class="barlab" text-anchor="middle">2.1</text><rect x="471.2" y="121.1" width="30" height="134.9" rx="3" class="bar bar-pass"><title>2016: 1.7 (Financially responsible)</title></rect><text x="486.2" y="115.1" class="barlab" text-anchor="middle">1.7</text><rect x="519.5" y="121.1" width="30" height="134.9" rx="3" class="bar bar-pass"><title>2017: 1.7 (Financially responsible)</title></rect><text x="534.5" y="115.1" class="barlab" text-anchor="middle">1.7</text><rect x="567.8" y="200.5" width="30" height="55.5" rx="3" class="bar bar-fail"><title>2018: 0.7 (Letter of credit required)</title></rect><text x="582.8" y="194.5" class="barlab" text-anchor="middle">0.7</text><rect x="616.0" y="168.7" width="30" height="87.3" rx="3" class="bar bar-zone"><title>2019: 1.1 (Added federal oversight)</title></rect><text x="631.0" y="162.7" class="barlab" text-anchor="middle">1.1</text><rect x="664.2" y="192.5" width="30" height="63.5" rx="3" class="bar bar-fail"><title>2020: 0.8 (Letter of credit required)</title></rect><text x="679.2" y="186.5" class="barlab" text-anchor="middle">0.8</text><rect x="712.5" y="73.5" width="30" height="182.5" rx="3" class="bar bar-pass"><title>2021: 2.3 (Financially responsible)</title></rect><text x="727.5" y="67.5" class="barlab" text-anchor="middle">2.3</text><rect x="760.8" y="18.0" width="30" height="238.0" rx="3" class="bar bar-pass"><title>2022: 3.0 (Financially responsible)</title></rect><text x="775.8" y="12.0" class="barlab" text-anchor="middle">3.0</text><rect x="809.0" y="81.5" width="30" height="174.5" rx="3" class="bar bar-pass"><title>2023: 2.2 (Financially responsible)</title></rect><text x="824.0" y="75.5" class="barlab" text-anchor="middle">2.2</text><line x1="52" y1="137.0" x2="824" y2="137.0" class="thr thr-pass"/><text x="832" y="140.5" class="thr-lab">1.5 pass</text><line x1="52" y1="176.7" x2="824" y2="176.7" class="thr thr-oversight"/><text x="832" y="180.2" class="thr-lab">1.0 oversight</text><line x1="703.4" y1="18" x2="703.4" y2="256" class="brk"/><text x="698.4" y="28" class="brk-lab" text-anchor="end">old formula</text><text x="708.4" y="28" class="brk-lab" text-anchor="start">new formula</text><text x="52.0" y="272.0" class="xlab" text-anchor="middle">07</text><text x="100.2" y="272.0" class="xlab" text-anchor="middle">08</text><text x="148.5" y="272.0" class="xlab" text-anchor="middle">09</text><text x="196.8" y="272.0" class="xlab" text-anchor="middle">10</text><text x="245.0" y="272.0" class="xlab" text-anchor="middle">11</text><text x="293.2" y="272.0" class="xlab" text-anchor="middle">12</text><text x="341.5" y="272.0" class="xlab" text-anchor="middle">13</text><text x="389.8" y="272.0" class="xlab" text-anchor="middle">14</text><text x="438.0" y="272.0" class="xlab" text-anchor="middle">15</text><text x="486.2" y="272.0" class="xlab" text-anchor="middle">16</text><text x="534.5" y="272.0" class="xlab" text-anchor="middle">17</text><text x="582.8" y="272.0" class="xlab" text-anchor="middle">18</text><text x="631.0" y="272.0" class="xlab" text-anchor="middle">19</text><text x="679.2" y="272.0" class="xlab" text-anchor="middle">20</text><text x="727.5" y="272.0" class="xlab" text-anchor="middle">21</text><text x="775.8" y="272.0" class="xlab" text-anchor="middle">22</text><text x="824.0" y="272.0" class="xlab" text-anchor="middle">23</text><text x="52.0" y="288.0" class="xlab-full" text-anchor="middle">2007</text><text x="824.0" y="288.0" class="xlab-full" text-anchor="middle">2023</text></svg>
+  <p class="tradeoff"><b>Strength:</b> the most honest about the data's grain, and the easiest to
+    read a single year off. <b>Cost:</b> 17 bars is a lot of ink, and the trend is harder to see
+    than in A.</p>
+</div>
+
+<div class="card">
+  <p class="tag">Mockup C</p>
+  <h2>Dot plot with a status strip</h2>
+  <p class="why">Least ink. Dots are the annual audits, the faint line is there only to guide the
+    eye and never claims to be data, and the strip along the bottom answers "which years was this
+    school in trouble" at a glance without reading the plot at all.</p>
+  <div class="legend">
+    <span class="key"><i class="sw sw-pass"></i>Responsible</span>
+    <span class="key"><i class="sw sw-zone"></i>Added oversight</span>
+    <span class="key"><i class="sw sw-fail"></i>Letter of credit</span>
+  </div>
+  <svg viewBox="0 0 940 318" class="cv" role="img" aria-label="Composite score by award year, dot plot with a status strip"><line x1="52" y1="256.0" x2="824" y2="256.0" class="grid"/><text x="44" y="259.5" class="ylab" text-anchor="end">0.5</text><line x1="52" y1="208.4" x2="824" y2="208.4" class="grid"/><text x="44" y="211.9" class="ylab" text-anchor="end">1.0</text><line x1="52" y1="160.8" x2="824" y2="160.8" class="grid"/><text x="44" y="164.3" class="ylab" text-anchor="end">1.5</text><line x1="52" y1="113.2" x2="824" y2="113.2" class="grid"/><text x="44" y="116.7" class="ylab" text-anchor="end">2.0</text><line x1="52" y1="65.6" x2="824" y2="65.6" class="grid"/><text x="44" y="69.1" class="ylab" text-anchor="end">2.5</text><line x1="52" y1="18.0" x2="824" y2="18.0" class="grid"/><text x="44" y="21.5" class="ylab" text-anchor="end">3.0</text><line x1="52" y1="160.8" x2="824" y2="160.8" class="thr thr-pass"/><text x="832" y="164.3" class="thr-lab">1.5 pass</text><line x1="52" y1="208.4" x2="824" y2="208.4" class="thr thr-oversight"/><text x="832" y="211.9" class="thr-lab">1.0 oversight</text><line x1="703.4" y1="18" x2="703.4" y2="256" class="brk"/><text x="698.4" y="28" class="brk-lab" text-anchor="end">old formula</text><text x="708.4" y="28" class="brk-lab" text-anchor="start">new formula</text><polyline points="52.0,151.3 100.2,198.9 148.5,198.9 196.8,189.4 245.0,94.2 293.2,141.8 341.5,189.4 389.8,122.7 438.0,103.7 486.2,141.8 534.5,141.8 582.8,237.0 631.0,198.9 679.2,227.4" class="ln ln-faint"/><polyline points="727.5,84.6 775.8,18.0 824.0,94.2" class="ln ln-faint"/><line x1="52.0" y1="256.0" x2="52.0" y2="151.3" class="stem stem-pass"/><circle cx="52.0" cy="151.3" r="5.5" class="dot dot-pass"><title>2007: 1.6 (Financially responsible)</title></circle><line x1="100.2" y1="256.0" x2="100.2" y2="198.9" class="stem stem-zone"/><circle cx="100.2" cy="198.9" r="5.5" class="dot dot-zone"><title>2008: 1.1 (Added federal oversight)</title></circle><line x1="148.5" y1="256.0" x2="148.5" y2="198.9" class="stem stem-zone"/><circle cx="148.5" cy="198.9" r="5.5" class="dot dot-zone"><title>2009: 1.1 (Added federal oversight)</title></circle><line x1="196.8" y1="256.0" x2="196.8" y2="189.4" class="stem stem-zone"/><circle cx="196.8" cy="189.4" r="5.5" class="dot dot-zone"><title>2010: 1.2 (Added federal oversight)</title></circle><line x1="245.0" y1="256.0" x2="245.0" y2="94.2" class="stem stem-pass"/><circle cx="245.0" cy="94.2" r="5.5" class="dot dot-pass"><title>2011: 2.2 (Financially responsible)</title></circle><line x1="293.2" y1="256.0" x2="293.2" y2="141.8" class="stem stem-pass"/><circle cx="293.2" cy="141.8" r="5.5" class="dot dot-pass"><title>2012: 1.7 (Financially responsible)</title></circle><line x1="341.5" y1="256.0" x2="341.5" y2="189.4" class="stem stem-zone"/><circle cx="341.5" cy="189.4" r="5.5" class="dot dot-zone"><title>2013: 1.2 (Added federal oversight)</title></circle><line x1="389.8" y1="256.0" x2="389.8" y2="122.7" class="stem stem-pass"/><circle cx="389.8" cy="122.7" r="5.5" class="dot dot-pass"><title>2014: 1.9 (Financially responsible)</title></circle><line x1="438.0" y1="256.0" x2="438.0" y2="103.7" class="stem stem-pass"/><circle cx="438.0" cy="103.7" r="5.5" class="dot dot-pass"><title>2015: 2.1 (Financially responsible)</title></circle><line x1="486.2" y1="256.0" x2="486.2" y2="141.8" class="stem stem-pass"/><circle cx="486.2" cy="141.8" r="5.5" class="dot dot-pass"><title>2016: 1.7 (Financially responsible)</title></circle><line x1="534.5" y1="256.0" x2="534.5" y2="141.8" class="stem stem-pass"/><circle cx="534.5" cy="141.8" r="5.5" class="dot dot-pass"><title>2017: 1.7 (Financially responsible)</title></circle><line x1="582.8" y1="256.0" x2="582.8" y2="237.0" class="stem stem-fail"/><circle cx="582.8" cy="237.0" r="5.5" class="dot dot-fail"><title>2018: 0.7 (Letter of credit required)</title></circle><line x1="631.0" y1="256.0" x2="631.0" y2="198.9" class="stem stem-zone"/><circle cx="631.0" cy="198.9" r="5.5" class="dot dot-zone"><title>2019: 1.1 (Added federal oversight)</title></circle><line x1="679.2" y1="256.0" x2="679.2" y2="227.4" class="stem stem-fail"/><circle cx="679.2" cy="227.4" r="5.5" class="dot dot-fail"><title>2020: 0.8 (Letter of credit required)</title></circle><line x1="727.5" y1="256.0" x2="727.5" y2="84.6" class="stem stem-pass"/><circle cx="727.5" cy="84.6" r="5.5" class="dot dot-pass"><title>2021: 2.3 (Financially responsible)</title></circle><line x1="775.8" y1="256.0" x2="775.8" y2="18.0" class="stem stem-pass"/><circle cx="775.8" cy="18.0" r="5.5" class="dot dot-pass"><title>2022: 3.0 (Financially responsible)</title></circle><line x1="824.0" y1="256.0" x2="824.0" y2="94.2" class="stem stem-pass"/><circle cx="824.0" cy="94.2" r="5.5" class="dot dot-pass"><title>2023: 2.2 (Financially responsible)</title></circle><text x="52.0" y="272.0" class="xlab" text-anchor="middle">07</text><text x="100.2" y="272.0" class="xlab" text-anchor="middle">08</text><text x="148.5" y="272.0" class="xlab" text-anchor="middle">09</text><text x="196.8" y="272.0" class="xlab" text-anchor="middle">10</text><text x="245.0" y="272.0" class="xlab" text-anchor="middle">11</text><text x="293.2" y="272.0" class="xlab" text-anchor="middle">12</text><text x="341.5" y="272.0" class="xlab" text-anchor="middle">13</text><text x="389.8" y="272.0" class="xlab" text-anchor="middle">14</text><text x="438.0" y="272.0" class="xlab" text-anchor="middle">15</text><text x="486.2" y="272.0" class="xlab" text-anchor="middle">16</text><text x="534.5" y="272.0" class="xlab" text-anchor="middle">17</text><text x="582.8" y="272.0" class="xlab" text-anchor="middle">18</text><text x="631.0" y="272.0" class="xlab" text-anchor="middle">19</text><text x="679.2" y="272.0" class="xlab" text-anchor="middle">20</text><text x="727.5" y="272.0" class="xlab" text-anchor="middle">21</text><text x="775.8" y="272.0" class="xlab" text-anchor="middle">22</text><text x="824.0" y="272.0" class="xlab" text-anchor="middle">23</text><text x="52.0" y="288.0" class="xlab-full" text-anchor="middle">2007</text><text x="824.0" y="288.0" class="xlab-full" text-anchor="middle">2023</text><rect x="39.0" y="278" width="26" height="6" rx="2" class="chip chip-pass"><title>2007: Financially responsible</title></rect><rect x="87.2" y="278" width="26" height="6" rx="2" class="chip chip-zone"><title>2008: Added federal oversight</title></rect><rect x="135.5" y="278" width="26" height="6" rx="2" class="chip chip-zone"><title>2009: Added federal oversight</title></rect><rect x="183.8" y="278" width="26" height="6" rx="2" class="chip chip-zone"><title>2010: Added federal oversight</title></rect><rect x="232.0" y="278" width="26" height="6" rx="2" class="chip chip-pass"><title>2011: Financially responsible</title></rect><rect x="280.2" y="278" width="26" height="6" rx="2" class="chip chip-pass"><title>2012: Financially responsible</title></rect><rect x="328.5" y="278" width="26" height="6" rx="2" class="chip chip-zone"><title>2013: Added federal oversight</title></rect><rect x="376.8" y="278" width="26" height="6" rx="2" class="chip chip-pass"><title>2014: Financially responsible</title></rect><rect x="425.0" y="278" width="26" height="6" rx="2" class="chip chip-pass"><title>2015: Financially responsible</title></rect><rect x="473.2" y="278" width="26" height="6" rx="2" class="chip chip-pass"><title>2016: Financially responsible</title></rect><rect x="521.5" y="278" width="26" height="6" rx="2" class="chip chip-pass"><title>2017: Financially responsible</title></rect><rect x="569.8" y="278" width="26" height="6" rx="2" class="chip chip-fail"><title>2018: Letter of credit required</title></rect><rect x="618.0" y="278" width="26" height="6" rx="2" class="chip chip-zone"><title>2019: Added federal oversight</title></rect><rect x="666.2" y="278" width="26" height="6" rx="2" class="chip chip-fail"><title>2020: Letter of credit required</title></rect><rect x="714.5" y="278" width="26" height="6" rx="2" class="chip chip-pass"><title>2021: Financially responsible</title></rect><rect x="762.8" y="278" width="26" height="6" rx="2" class="chip chip-pass"><title>2022: Financially responsible</title></rect><rect x="811.0" y="278" width="26" height="6" rx="2" class="chip chip-pass"><title>2023: Financially responsible</title></rect></svg>
+  <p class="tradeoff"><b>Strength:</b> carries trend and per-year verdict together, and the strip
+    is scannable. <b>Cost:</b> the faint line is a judgement call; some readers will still read it
+    as interpolation.</p>
+</div>
+
+<p class="note">All three: hover any mark for the year, score, and what it meant. The formula
+break is drawn and never joined across, since ED rewrote the ratios effective 1 July 2020 and the
+two sides are not the same measurement. Source: Financial Responsibility Composite Score, U.S.
+Dept. of Education (eZ-Audit).</p>
+</div>

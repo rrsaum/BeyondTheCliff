@@ -127,6 +127,31 @@ The `.claude/skills/` library carries the craft: `writing-style`, `writing-guide
 `persuasion-psychology`, `manipulation-detection`, `design-system`, and `ux-review`.
 Use them.
 
+## No interface ships without mockups (binding)
+
+**Any interface change, and any chart, goes to design first. Design proposes THREE visual
+mockups, in the browser, to select from or refine. Nothing is implemented until one is chosen.**
+This applies to a new chart, a redesigned one, a new page or panel, and any non-trivial layout
+change. It does not apply to a defect fix that restores intended behaviour (a chart rendering
+wrong is a bug, fix it), or to copy edits inside an approved layout.
+
+How to run it:
+
+1. **Load `dataviz` BEFORE the first line of chart code**, not after. Its own instruction says
+   so, and its `references/anti-patterns.md` is the checklist the result gets held to. Load
+   `design-system` for UI structure and `ux-review` to evaluate a surface.
+2. **Build three mockups on one page**, with the real data, served from `app/static/` so it opens
+   in the browser like everything else. Do not describe them in prose: a mockup is a thing you
+   look at.
+3. **Say what each one costs**, not just what it does, and name the decisions that are genuinely
+   the reader's to make (axis domain, colour meaning, form). One recommendation each, stated.
+4. **Implement the chosen one**, matching what was actually on screen when it was chosen.
+
+Why this is a rule and not a preference: a chart shipped straight to the page shipped with the
+threshold labels printed across the data, an axis 40% empty, and every line rendered as a filled
+polygon. It reached the reader because there was no gate between writing it and serving it. The
+review page is the gate.
+
 ## Factual honesty (enforced)
 
 Accuracy is the whole basis of the authority position. Never fabricate. The standard is

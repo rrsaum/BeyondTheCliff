@@ -107,6 +107,25 @@ def _money_point(year: int, v: float) -> str:
     return f"FY{year}: ${v:,.0f}"
 
 
+def _band_of(v: float, bands) -> str | None:
+    """The css suffix of the band a value falls in, or 'pass' when it clears every band.
+
+    Bands are the regions a value is in TROUBLE in (for composite scores: below 1.5). Anything
+    above them all is the healthy case, which has no band drawn and so needs a name here.
+    """
+    for lo, hi, suffix, _ in bands or []:
+        if lo <= v < hi:
+            return suffix
+    return "pass" if bands else None
+
+
+def _band_label(v: float, bands) -> str:
+    for lo, hi, _, label in bands or []:
+        if lo <= v < hi:
+            return label
+    return "above every threshold"
+
+
 def money_lines(title: str, series: list[tuple[str, str, list[tuple]]], **kw) -> str:
     """Compare money series over fiscal years. See series_lines: this is that chart with the
     dollar formatting Form 990 data wants."""
@@ -127,6 +146,11 @@ def series_lines(
     break_at: tuple[float, str] | None = None,
     empty_msg: str = "Not enough filings to chart.",
     css: str = "fin-chart",
+    label_gutter: int = 0,
+    x_all_years: bool = False,
+    color_by_band: bool = False,
+    direct_last: bool = False,
+    y_step: float | None = None,
 ) -> str:
     """Compare value series over years. series: (label, css_suffix, [(year, value)]).
 
@@ -144,6 +168,18 @@ def series_lines(
     ymin_fixed/ymax_fixed pin the y axis to a published domain (composite scores run -1.0 to
     3.0) so one school's chart is comparable to another's rather than being auto-scaled to its
     own data. bands shade named regions: (lo, hi, css_suffix, label).
+
+    The last four arguments all default to off, so a caller that does not ask keeps the plain
+    chart. They exist because band labels drawn inside the plot print straight across the data:
+
+      label_gutter   reserve N px of right margin and put the band labels in it, outside the
+                     plot, instead of on top of the line.
+      x_all_years    label every year, not just the first and last. Two labels on a 17-year
+                     axis means no reader can tell which year a point is.
+      color_by_band  colour each marker by the band its value falls in, so a reader sees which
+                     side of a threshold a year landed on without tracing it to the axis.
+      direct_last    print the latest value next to its marker: the one number most readers
+                     came for, rather than making them read it off the grid.
     """
     clean = [
         (label, suffix, sorted((int(y), float(v)) for y, v in pts if v is not None))
@@ -156,7 +192,7 @@ def series_lines(
             f'<p class="muted">{escape(empty_msg)}</p></figure>'
         )
 
-    w, h, padl, padr, padt, padb = 720, 330, 64, 16, 16, 46
+    w, h, padl, padr, padt, padb = 720, 330, 64, 16 + label_gutter, 16, 46
     all_years = sorted({y for _, _, pts in clean for y, _ in pts})
     all_vals = [v for _, _, pts in clean for _, v in pts]
     xmin, xmax = min(all_years), max(all_years)
@@ -181,11 +217,30 @@ def series_lines(
         grid.append(
             f'<rect x="{padl}" y="{y_hi:.1f}" width="{w - padl - padr}" '
             f'height="{y_lo - y_hi:.1f}" class="band band-{suffix}"><title>{escape(blabel)}</title></rect>'
-            f'<text x="{w - padr - 4}" y="{y_hi + 12:.1f}" class="band-lab" text-anchor="end">'
-            f"{escape(blabel)}</text>"
         )
-    for k in range(5):
-        gv = ymin + yspan * k / 4
+        if label_gutter:
+            # In the gutter, vertically centred on the band, reading left to right off the plot.
+            grid.append(
+                f'<text x="{w - padr + 8}" y="{(y_hi + y_lo) / 2 + 3.5:.1f}" '
+                f'class="band-lab band-lab-{suffix}">{escape(blabel)}</text>'
+            )
+        else:
+            grid.append(
+                f'<text x="{w - padr - 4}" y="{y_hi + 12:.1f}" class="band-lab" text-anchor="end">'
+                f"{escape(blabel)}</text>"
+            )
+    # Gridlines. Quartered by default, which is fine for money. y_step puts them on round
+    # numbers instead, which matters when a threshold IS the subject: gridlines at 1.1 and 1.8
+    # on a chart about clearing 1.0 and 1.5 make the reader do arithmetic to find the only two
+    # lines that mean anything.
+    if y_step:
+        steps, gv = [], ymin
+        while gv <= ymax + 1e-9:
+            steps.append(gv)
+            gv += y_step
+    else:
+        steps = [ymin + yspan * k / 4 for k in range(5)]
+    for gv in steps:
         gy = sy(gv)
         grid.append(
             f'<line x1="{padl}" y1="{gy:.1f}" x2="{w - padr}" y2="{gy:.1f}" class="cl-grid"/>'
@@ -219,18 +274,46 @@ def series_lines(
                     f'<polyline points="{poly}" class="fin-line fin-{suffix}" fill="none"/>'
                 )
         for y, v in pts:
+            zone = _band_of(v, bands) if color_by_band else None
+            cls = f"dot-{zone}" if zone else f"fin-{suffix}"
+            tip = escape(fmt_point(y, v))
+            if zone:
+                tip += f" ({escape(_band_label(v, bands))})"
             body.append(
-                f'<circle cx="{sx(y):.1f}" cy="{sy(v):.1f}" r="2.6" class="fin-dot fin-{suffix}">'
-                f"<title>{escape(fmt_point(y, v))}</title></circle>"
+                f'<circle cx="{sx(y):.1f}" cy="{sy(v):.1f}" '
+                f'r="{4.0 if color_by_band else 2.6}" class="fin-dot {cls}">'
+                f"<title>{tip}</title></circle>"
+            )
+        if direct_last and pts:
+            ly, lv = pts[-1]
+            body.append(
+                f'<text x="{sx(ly):.1f}" y="{sy(lv) - 11:.1f}" class="direct-lab" '
+                f'text-anchor="end">{escape(fmt_axis(lv))}</text>'
             )
         legend.append(
             f'<span class="fin-key"><i class="fin-swatch fin-{suffix}"></i>{escape(label)}</span>'
         )
 
-    xlabs = "".join(
-        f'<text x="{sx(y):.1f}" y="{h - 26}" class="cl-xlab" text-anchor="middle">{y}</text>'
-        for y in (xmin, xmax)
-    )
+    if x_all_years:
+        # Two-digit ticks for every year, with the full year spelled out at each end so the
+        # century is never in doubt. Ticks thin out if the range would crowd them.
+        step = 1 if (xmax - xmin) <= 20 else 2
+        ticks = [y for y in all_years if (y - xmin) % step == 0]
+        xlabs = "".join(
+            f'<text x="{sx(y):.1f}" y="{h - 26}" class="cl-xlab" text-anchor="middle">'
+            f"{str(y)[2:]}</text>"
+            for y in ticks
+        )
+        xlabs += "".join(
+            f'<text x="{sx(y):.1f}" y="{h - 12}" class="cl-xlab-full" text-anchor="middle">'
+            f"{y}</text>"
+            for y in (xmin, xmax)
+        )
+    else:
+        xlabs = "".join(
+            f'<text x="{sx(y):.1f}" y="{h - 26}" class="cl-xlab" text-anchor="middle">{y}</text>'
+            for y in (xmin, xmax)
+        )
     if break_at is not None and xmin < break_at[0] < xmax:
         bx = sx(break_at[0])
         body.append(

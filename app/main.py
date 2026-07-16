@@ -233,10 +233,19 @@ def institution(request: Request, inst_id: str):
             ),
             fmt_axis=lambda v: f"{v:.1f}",
             fmt_point=lambda y, v: f"{y}: {v:.1f}",
-            ymin_fixed=queries.COMPOSITE_MIN,
+            # Floor at COMPOSITE_PLOT_MIN, not the published COMPOSITE_MIN of -1.0. The full
+            # scale left roughly 40% of the plot empty and squashed the line into the top half.
+            # The thresholds are identical on every school's chart, so they carry the
+            # cross-school comparison the fixed floor was there to provide. Chosen from mockups.
+            ymin_fixed=queries.COMPOSITE_PLOT_MIN,
             ymax_fixed=queries.COMPOSITE_MAX,
             bands=queries.COMPOSITE_BANDS,
             break_at=queries.COMPOSITE_BREAK,
+            label_gutter=118,
+            x_all_years=True,
+            color_by_band=True,
+            direct_last=True,
+            y_step=0.5,  # so gridlines land on 1.0 and 1.5, the two lines that decide anything
             note=(
                 f"Source: {queries.COMPOSITE_SOURCE}, {composite['span'][0]} to "
                 f"{composite['span'][1]}. Scored -1.0 to 3.0. The Department rewrote the "

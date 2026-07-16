@@ -11,6 +11,7 @@
   --accent-soft: #dcebf1;
   --warn: #9a5b1d;         /* muted amber for abrupt */
   --closed: #b23a48;       /* muted red */
+  --good: #2f6f4f;         /* muted green: a school clearing a federal threshold */
   --merged: #4a5866;       /* slate */
   --radius: 8px;
   --wrap: 1080px;
@@ -46,18 +47,27 @@ h2 { font-size: 1.15rem; margin: 1.6rem 0 .6rem; }
 .cl-peaklab { fill: var(--warn); font-size: 11px; font-weight: 600; }
 /* Form 990 money charts. Series colours are tokens, not raw hex, and each series keeps the
    same colour across every chart on the page so the eye can carry a series between them. */
-.fin-line { stroke-width: 2.4; fill: none; }
-.fin-dot { stroke: var(--surface); stroke-width: 1; }
+/* A series class sets `color` and NOTHING else. Each element then decides what to do with it
+   via currentColor: a line strokes, a dot fills, a legend swatch takes a background.
+
+   This is not a style preference, it is a bug fix. These classes used to set `fill` directly so
+   the legend swatch and dots would take a colour. But the same class is on the <polyline>, it
+   is later in this file than `.fin-line { fill: none }` at equal specificity, and a
+   presentation attribute (fill="none") loses to any rule. So every line chart in the app
+   rendered as a filled polygon: solid triangles where the trend should be. Keeping colour and
+   geometry apart makes that failure unrepresentable rather than merely fixed. */
+.fin-line { stroke: currentColor; fill: none; stroke-width: 2.4; }
+.fin-dot { fill: currentColor; stroke: var(--surface); stroke-width: 1; }
+.fin-swatch { background: currentColor; width: .85rem; height: .2rem; border-radius: 1px; display: inline-block; }
 .fin-zero { stroke: var(--ink-soft); stroke-width: 1.2; stroke-dasharray: 2 3; }
 .fin-gap { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 4; }
 .fin-gaplab { fill: var(--ink-soft); font-size: 10.5px; font-style: italic; }
-.fin-earned  { stroke: var(--accent); fill: var(--accent); }
-.fin-expense { stroke: var(--closed); fill: var(--closed); }
-.fin-total   { stroke: var(--merged); fill: var(--merged); }
-.fin-govt    { stroke: var(--warn); fill: var(--warn); }
+.fin-earned  { color: var(--accent); }
+.fin-expense { color: var(--closed); }
+.fin-total   { color: var(--merged); }
+.fin-govt    { color: var(--warn); }
 .fin-legend { display: flex; gap: 1.1rem; flex-wrap: wrap; margin: 0 0 .5rem; font-size: .8rem; color: var(--ink-soft); }
 .fin-key { display: inline-flex; align-items: center; gap: .35rem; }
-.fin-swatch { width: .85rem; height: .2rem; border-radius: 1px; display: inline-block; }
 
 /* Search hits that are still operating. Deliberately does NOT look like a results table row:
    it is the accent (open) colour, not the closed red, and it sits outside the table so a
@@ -91,7 +101,7 @@ h2 { font-size: 1.15rem; margin: 1.6rem 0 .6rem; }
 .cliff-lists ul { list-style: none; padding: 0; margin: .3rem 0; }
 .cliff-lists li { padding: .15rem 0; font-size: .9rem; }
 .neg { color: var(--closed); }
-.pos { color: #2f7d4f; }
+.pos { color: var(--good); }
 
 /* Scorecard profile panel */
 .scorecard .risk-flags { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .2rem 0 1rem; }
@@ -242,19 +252,33 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
 
 /* --- Sector size (IPEDS) and composite score (ED) ------------------------------------- */
 /* The reader's own sector gets the brand accent; the other two are context, not the story. */
-.fin-nonprofit { stroke: var(--accent); fill: var(--accent); }
-.fin-public    { stroke: var(--merged); fill: var(--merged); }
-.fin-forprofit { stroke: var(--warn); fill: var(--warn); }
-.fin-score     { stroke: var(--accent); fill: var(--accent); }
+/* Colour only. See the note on .fin-line: a series class that sets `fill` fills the polyline. */
+.fin-nonprofit { color: var(--accent); }
+.fin-public    { color: var(--merged); }
+.fin-forprofit { color: var(--warn); }
+.fin-score     { color: var(--accent); }
 
 .sector { margin: 1.25rem 0; }
 .sector .scale { font-size: 1rem; color: var(--ink); margin: 0 0 .75rem; max-width: 68ch; }
 
 /* Only the trouble bands are shaded: passing is the unmarked default, so the eye goes to the
    thresholds that carry a federal consequence rather than to a wash of colour. */
-.band-zone { fill: var(--warn); opacity: .09; }
-.band-fail { fill: var(--closed); opacity: .09; }
+/* Threshold zones. Chosen from mockup A: the band says what territory a year was in, and its
+   label lives in the right-hand gutter because a label inside the plot prints over the data. */
+.band-pass { fill: var(--good); opacity: .07; }
+.band-zone { fill: var(--warn); opacity: .10; }
+.band-fail { fill: var(--closed); opacity: .10; }
 .band-lab  { fill: var(--ink-soft); font-size: 10px; }
+.band-lab-pass { fill: var(--good); font-weight: 600; }
+.band-lab-zone { fill: var(--warn); font-weight: 600; }
+.band-lab-fail { fill: var(--closed); font-weight: 600; }
+/* Markers coloured by the zone the value landed in, so a reader sees the verdict without
+   tracing the point back to the axis. Ringed in the surface colour to stay legible on a band. */
+.dot-pass { fill: var(--good); stroke: var(--surface); stroke-width: 1.5; }
+.dot-zone { fill: var(--warn); stroke: var(--surface); stroke-width: 1.5; }
+.dot-fail { fill: var(--closed); stroke: var(--surface); stroke-width: 1.5; }
+.direct-lab { fill: var(--ink); font-size: 12px; font-weight: 700; }
+.cl-xlab-full { fill: var(--ink-soft); font-size: 11px; font-weight: 600; }
 
 /* A methodology change is not a data trend. Mark it, and never join a line across it. */
 .chart-break    { stroke: var(--ink-soft); stroke-width: 1.2; stroke-dasharray: 4 3; }

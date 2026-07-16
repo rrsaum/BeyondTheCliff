@@ -51,10 +51,17 @@ CLOSURE_TYPE_LABELS = {
 #
 # Scored on a scale of -1.0 to 3.0 (84 FR 49919, appendix A: strength factor scores are capped
 # at 3 and floored at -1). Only the trouble bands are shaded: passing is the unmarked default.
+# The published scale is -1.0 to 3.0 and COMPOSITE_MIN records that, because it is a fact about
+# ED's measure and belongs in the copy. COMPOSITE_PLOT_MIN is what the chart floors at, and it is
+# a separate number on purpose: plotting the full scale left about 40% of the panel empty and
+# compressed every real score into the top half. Scores below 0.5 are rare and would clip, so
+# raise this floor only after checking the school actually charts (see charts.series_lines).
 COMPOSITE_MIN, COMPOSITE_MAX = -1.0, 3.0
+COMPOSITE_PLOT_MIN = 0.5
 COMPOSITE_BANDS = [
-    (-1.0, 1.0, "fail", "Below 1.0: letter of credit required"),
-    (1.0, 1.5, "zone", "1.0 to 1.4: added federal oversight"),
+    (-1.0, 1.0, "fail", "Below 1.0: letter of credit"),
+    (1.0, 1.5, "zone", "1.0 to 1.4: added oversight"),
+    (1.5, 3.0, "pass", "1.5 and above: responsible"),
 ]
 
 # ED rewrote the ratio definitions in 84 FR 49788, effective 1 July 2020: leases moved onto the

@@ -1,0 +1,116 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>The financial record: three mockups</title>
+<style>
+:root {
+  --ink:#1b2733; --ink-soft:#4a5866; --paper:#fbfaf7; --surface:#ffffff; --line:#e3e0d8;
+  --accent:#1f5c7a; --accent-soft:#dcebf1; --warn:#9a5b1d; --closed:#b23a48; --merged:#4a5866;
+  --good:#2f6f4f; --radius:8px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+body { margin:0; background:var(--paper); color:var(--ink); line-height:1.5; }
+.wrap { max-width:1040px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+h1 { font-size:1.5rem; margin:0 0 .3rem; }
+.lead { color:var(--ink-soft); max-width:72ch; margin:0 0 1.5rem; }
+.card { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:1.1rem 1.2rem; margin:0 0 1.5rem; }
+h2 { font-size:1.05rem; margin:0 0 .2rem; }
+.tag { font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--accent);
+  font-weight:700; margin:0; }
+.why { font-size:.85rem; color:var(--ink-soft); margin:.35rem 0 .9rem; max-width:80ch; }
+.tradeoff { font-size:.8rem; color:var(--ink-soft); margin:.7rem 0 0; padding-top:.6rem;
+  border-top:1px solid var(--line); }
+.tradeoff b { color:var(--ink); }
+.cv { width:100%; height:auto; display:block; }
+.grid { stroke:var(--line); stroke-width:1; }
+.ylab,.xlab { fill:var(--ink-soft); font-size:11px; }
+.xlab-full { fill:var(--ink-soft); font-size:11px; font-weight:600; }
+.ln { fill:none; stroke-width:2.2; }
+.ln-earned { stroke:var(--accent); }
+.ln-expense { stroke:var(--closed); }
+.dot { stroke:var(--surface); stroke-width:1.5; }
+.dot-earned { fill:var(--accent); } .dot-expense { fill:var(--closed); }
+.dot-zone { fill:var(--warn); }
+.gapfill { fill:var(--warn); opacity:.13; }
+.area-earned { fill:var(--accent); opacity:.85; }
+.area-private { fill:var(--accent); opacity:.42; }
+.area-govt { fill:var(--warn); opacity:.72; }
+.band-pass { fill:var(--good); opacity:.09; }
+.band-zone { fill:var(--warn); opacity:.09; }
+.thr { stroke:var(--good); stroke-width:1.4; stroke-dasharray:4 3; }
+.hole { fill:var(--paper); opacity:.75; }
+.hole-lab { fill:var(--ink-soft); font-size:9.5px; font-style:italic; }
+.gut { font-size:10.5px; font-weight:600; }
+.gut-earned { fill:var(--accent); } .gut-expense { fill:var(--closed); }
+.gut-gap { fill:var(--warn); } .gut-govt { fill:var(--warn); }
+.gut-private { fill:var(--accent); } .gut-pass { fill:var(--good); }
+.gut-zone { fill:var(--warn); }
+.direct { fill:var(--ink); font-size:12px; font-weight:700; }
+.note { font-size:.76rem; color:var(--ink-soft); margin:.6rem 0 0; }
+.decide { background:var(--accent-soft); border-left:3px solid var(--accent);
+  border-radius:var(--radius); padding:.9rem 1rem; margin:0 0 1.5rem; }
+.decide h2 { color:var(--accent); }
+.decide ol { margin:.4rem 0 0; padding-left:1.2rem; font-size:.88rem; }
+.decide li { margin:.3rem 0; }
+</style>
+<div class="wrap">
+<h1>The financial record: three mockups</h1>
+<p class="lead">Same data every time: Montreat College, IRS Form 990, FY2013 to FY2025. Same
+visual language as the composite chart you picked. Each replaces BOTH charts in the current
+section. Pick one, or tell me what to take from each.</p>
+
+<div class="decide">
+  <h2>What changed in all three, and what I need you to decide</h2>
+  <ol>
+    <li><b>"Total revenue" is gone.</b> It was the third line on the old chart and it is just
+      earned plus gifts, so it added a line without adding a fact. Say if you want it back.</li>
+    <li><b>Which form.</b> 1 shows the gap in dollars, 2 shows it as one ratio, 3 shows the whole
+      composition. My recommendation is 2, because the finding is that the ratio barely moved in
+      thirteen years, and only 2 shows that.</li>
+    <li><b>Whether the FY2022-24 spike should dominate.</b> Money charts (1 and 3) are ruled by
+      it: government grants tripled the scale, so the first seven years get squashed. The ratio
+      (2) is immune. That is a real trade, not a detail.</li>
+  </ol>
+</div>
+
+<div class="card">
+  <p class="tag">Mockup 1</p>
+  <h2>The gap, in dollars</h2>
+  <p class="why">Two lines and the shaded distance between them. That distance is the subject:
+    the part of every year that gifts and grants had to cover. The old chart drew this and never
+    named it.</p>
+  <svg viewBox="0 0 940 300" class="cv" role="img" aria-label="Earned revenue against expenses"><line x1="62" y1="254.0" x2="812" y2="254.0" class="grid"/><text x="54" y="257.5" class="ylab" text-anchor="end">$0M</text><line x1="62" y1="195.5" x2="812" y2="195.5" class="grid"/><text x="54" y="199.0" class="ylab" text-anchor="end">$12M</text><line x1="62" y1="137.0" x2="812" y2="137.0" class="grid"/><text x="54" y="140.5" class="ylab" text-anchor="end">$24M</text><line x1="62" y1="78.5" x2="812" y2="78.5" class="grid"/><text x="54" y="82.0" class="ylab" text-anchor="end">$36M</text><line x1="62" y1="20.0" x2="812" y2="20.0" class="grid"/><text x="54" y="23.5" class="ylab" text-anchor="end">$48M</text><rect x="437.0" y="20" width="187.5" height="234.0" class="hole"/><text x="530.8" y="31" class="hole-lab" text-anchor="middle">no filing FY2020-FY2021</text><polygon points="62.0,170.8 124.5,170.1 187.0,171.9 249.5,162.9 312.0,157.9 374.5,152.4 437.0,148.2 437.0,122.1 374.5,131.3 312.0,133.7 249.5,137.1 187.0,141.9 124.5,149.8 62.0,149.3" class="gapfill"/><polygon points="624.5,105.8 687.0,100.8 749.5,97.1 812.0,82.3 812.0,40.5 749.5,58.5 687.0,49.4 624.5,58.5" class="gapfill"/><polyline points="62.0,149.3 124.5,149.8 187.0,141.9 249.5,137.1 312.0,133.7 374.5,131.3 437.0,122.1" class="ln ln-expense"/><polyline points="624.5,58.5 687.0,49.4 749.5,58.5 812.0,40.5" class="ln ln-expense"/><circle cx="62.0" cy="149.3" r="3.4" class="dot dot-expense"><title>FY2013: $21M</title></circle><circle cx="124.5" cy="149.8" r="3.4" class="dot dot-expense"><title>FY2014: $21M</title></circle><circle cx="187.0" cy="141.9" r="3.4" class="dot dot-expense"><title>FY2015: $23M</title></circle><circle cx="249.5" cy="137.1" r="3.4" class="dot dot-expense"><title>FY2016: $24M</title></circle><circle cx="312.0" cy="133.7" r="3.4" class="dot dot-expense"><title>FY2017: $25M</title></circle><circle cx="374.5" cy="131.3" r="3.4" class="dot dot-expense"><title>FY2018: $25M</title></circle><circle cx="437.0" cy="122.1" r="3.4" class="dot dot-expense"><title>FY2019: $27M</title></circle><circle cx="624.5" cy="58.5" r="3.4" class="dot dot-expense"><title>FY2022: $40M</title></circle><circle cx="687.0" cy="49.4" r="3.4" class="dot dot-expense"><title>FY2023: $42M</title></circle><circle cx="749.5" cy="58.5" r="3.4" class="dot dot-expense"><title>FY2024: $40M</title></circle><circle cx="812.0" cy="40.5" r="3.4" class="dot dot-expense"><title>FY2025: $44M</title></circle><polyline points="62.0,170.8 124.5,170.1 187.0,171.9 249.5,162.9 312.0,157.9 374.5,152.4 437.0,148.2" class="ln ln-earned"/><polyline points="624.5,105.8 687.0,100.8 749.5,97.1 812.0,82.3" class="ln ln-earned"/><circle cx="62.0" cy="170.8" r="3.4" class="dot dot-earned"><title>FY2013: $17M</title></circle><circle cx="124.5" cy="170.1" r="3.4" class="dot dot-earned"><title>FY2014: $17M</title></circle><circle cx="187.0" cy="171.9" r="3.4" class="dot dot-earned"><title>FY2015: $17M</title></circle><circle cx="249.5" cy="162.9" r="3.4" class="dot dot-earned"><title>FY2016: $19M</title></circle><circle cx="312.0" cy="157.9" r="3.4" class="dot dot-earned"><title>FY2017: $20M</title></circle><circle cx="374.5" cy="152.4" r="3.4" class="dot dot-earned"><title>FY2018: $21M</title></circle><circle cx="437.0" cy="148.2" r="3.4" class="dot dot-earned"><title>FY2019: $22M</title></circle><circle cx="624.5" cy="105.8" r="3.4" class="dot dot-earned"><title>FY2022: $30M</title></circle><circle cx="687.0" cy="100.8" r="3.4" class="dot dot-earned"><title>FY2023: $31M</title></circle><circle cx="749.5" cy="97.1" r="3.4" class="dot dot-earned"><title>FY2024: $32M</title></circle><circle cx="812.0" cy="82.3" r="3.4" class="dot dot-earned"><title>FY2025: $35M</title></circle><text x="820" y="44.5" class="gut gut-expense">Expenses $44M</text><text x="820" y="86.3" class="gut gut-earned">Earned $35M</text><text x="820" y="65.4" class="gut gut-gap">gap $9M</text><text x="62.0" y="270.0" class="xlab" text-anchor="middle">13</text><text x="124.5" y="270.0" class="xlab" text-anchor="middle">14</text><text x="187.0" y="270.0" class="xlab" text-anchor="middle">15</text><text x="249.5" y="270.0" class="xlab" text-anchor="middle">16</text><text x="312.0" y="270.0" class="xlab" text-anchor="middle">17</text><text x="374.5" y="270.0" class="xlab" text-anchor="middle">18</text><text x="437.0" y="270.0" class="xlab" text-anchor="middle">19</text><text x="624.5" y="270.0" class="xlab" text-anchor="middle">22</text><text x="687.0" y="270.0" class="xlab" text-anchor="middle">23</text><text x="749.5" y="270.0" class="xlab" text-anchor="middle">24</text><text x="812.0" y="270.0" class="xlab" text-anchor="middle">25</text><text x="62.0" y="286.0" class="xlab-full" text-anchor="middle">2013</text><text x="812.0" y="286.0" class="xlab-full" text-anchor="middle">2025</text></svg>
+  <p class="tradeoff"><b>Strength:</b> concrete, in dollars, and the gap is impossible to miss.
+    <b>Cost:</b> the FY2022 jump compresses FY2013-19 into the bottom third, which is exactly
+    where the school was in the most trouble.</p>
+</div>
+
+<div class="card">
+  <p class="tag">Mockup 2</p>
+  <h2>Share of expenses the school covered itself</h2>
+  <p class="why">One line: earned revenue divided by expenses. The green line at 100% is the year
+    paying for itself. Everything below it is the gap, expressed as the number a CFO would use.
+    This is the only version where the actual finding is visible: the line is flat.</p>
+  <svg viewBox="0 0 940 300" class="cv" role="img" aria-label="Share of expenses covered by earned revenue"><rect x="62" y="20.0" width="746" height="39.0" class="band band-pass"/><rect x="62" y="59.0" width="746" height="195.0" class="band band-zone"/><line x1="62" y1="254.0" x2="808" y2="254.0" class="grid"/><text x="54" y="257.5" class="ylab" text-anchor="end">50%</text><line x1="62" y1="215.0" x2="808" y2="215.0" class="grid"/><text x="54" y="218.5" class="ylab" text-anchor="end">60%</text><line x1="62" y1="176.0" x2="808" y2="176.0" class="grid"/><text x="54" y="179.5" class="ylab" text-anchor="end">70%</text><line x1="62" y1="137.0" x2="808" y2="137.0" class="grid"/><text x="54" y="140.5" class="ylab" text-anchor="end">80%</text><line x1="62" y1="98.0" x2="808" y2="98.0" class="grid"/><text x="54" y="101.5" class="ylab" text-anchor="end">90%</text><line x1="62" y1="59.0" x2="808" y2="59.0" class="grid"/><text x="54" y="62.5" class="ylab" text-anchor="end">100%</text><line x1="62" y1="20.0" x2="808" y2="20.0" class="grid"/><text x="54" y="23.5" class="ylab" text-anchor="end">110%</text><rect x="435.0" y="20" width="186.5" height="234.0" class="hole"/><text x="528.2" y="31" class="hole-lab" text-anchor="middle">no filing FY2020-FY2021</text><line x1="62" y1="59.0" x2="808" y2="59.0" class="thr"/><polyline points="62.0,139.3 124.2,134.9 186.3,163.5 248.5,145.2 310.7,137.7 372.8,126.3 435.0,136.1" class="ln ln-earned"/><polyline points="621.5,153.4 683.7,157.0 745.8,136.1 808.0,135.4" class="ln ln-earned"/><circle cx="62.0" cy="139.3" r="4" class="dot dot-zone"><title>FY2013: earned revenue covered 79% of expenses</title></circle><circle cx="124.2" cy="134.9" r="4" class="dot dot-zone"><title>FY2014: earned revenue covered 81% of expenses</title></circle><circle cx="186.3" cy="163.5" r="4" class="dot dot-zone"><title>FY2015: earned revenue covered 73% of expenses</title></circle><circle cx="248.5" cy="145.2" r="4" class="dot dot-zone"><title>FY2016: earned revenue covered 78% of expenses</title></circle><circle cx="310.7" cy="137.7" r="4" class="dot dot-zone"><title>FY2017: earned revenue covered 80% of expenses</title></circle><circle cx="372.8" cy="126.3" r="4" class="dot dot-zone"><title>FY2018: earned revenue covered 83% of expenses</title></circle><circle cx="435.0" cy="136.1" r="4" class="dot dot-zone"><title>FY2019: earned revenue covered 80% of expenses</title></circle><circle cx="621.5" cy="153.4" r="4" class="dot dot-zone"><title>FY2022: earned revenue covered 76% of expenses</title></circle><circle cx="683.7" cy="157.0" r="4" class="dot dot-zone"><title>FY2023: earned revenue covered 75% of expenses</title></circle><circle cx="745.8" cy="136.1" r="4" class="dot dot-zone"><title>FY2024: earned revenue covered 80% of expenses</title></circle><circle cx="808.0" cy="135.4" r="4" class="dot dot-zone"><title>FY2025: earned revenue covered 80% of expenses</title></circle><text x="808.0" y="124.4" class="direct" text-anchor="end">80%</text><text x="816" y="39.5" class="gut gut-pass">pays for itself</text><text x="816" y="156.5" class="gut gut-zone">the part gifts</text><text x="816" y="169.5" class="gut gut-zone">must cover</text><text x="62.0" y="270.0" class="xlab" text-anchor="middle">13</text><text x="124.2" y="270.0" class="xlab" text-anchor="middle">14</text><text x="186.3" y="270.0" class="xlab" text-anchor="middle">15</text><text x="248.5" y="270.0" class="xlab" text-anchor="middle">16</text><text x="310.7" y="270.0" class="xlab" text-anchor="middle">17</text><text x="372.8" y="270.0" class="xlab" text-anchor="middle">18</text><text x="435.0" y="270.0" class="xlab" text-anchor="middle">19</text><text x="621.5" y="270.0" class="xlab" text-anchor="middle">22</text><text x="683.7" y="270.0" class="xlab" text-anchor="middle">23</text><text x="745.8" y="270.0" class="xlab" text-anchor="middle">24</text><text x="808.0" y="270.0" class="xlab" text-anchor="middle">25</text><text x="62.0" y="286.0" class="xlab-full" text-anchor="middle">2013</text><text x="808.0" y="286.0" class="xlab-full" text-anchor="middle">2025</text></svg>
+  <p class="tradeoff"><b>Strength:</b> immune to the scale jump, and it says the thing worth
+    saying, that thirteen years of change left this ratio where it started. It also matches the
+    composite chart's grammar exactly: a line, a threshold, zones. <b>Cost:</b> a ratio is one
+    step removed from the money, and it hides that the school doubled in size.</p>
+</div>
+
+<div class="card">
+  <p class="tag">Mockup 3</p>
+  <h2>Where every dollar came from, against what was spent</h2>
+  <p class="why">Revenue stacked into what the school earned, what donors gave, and what
+    government gave, with the expense line laid over it. One chart instead of two: the mix and
+    the shortfall in the same frame.</p>
+  <svg viewBox="0 0 940 300" class="cv" role="img" aria-label="Revenue composition against expenses"><line x1="62" y1="254.0" x2="812" y2="254.0" class="grid"/><text x="54" y="257.5" class="ylab" text-anchor="end">$0M</text><line x1="62" y1="195.5" x2="812" y2="195.5" class="grid"/><text x="54" y="199.0" class="ylab" text-anchor="end">$16M</text><line x1="62" y1="137.0" x2="812" y2="137.0" class="grid"/><text x="54" y="140.5" class="ylab" text-anchor="end">$32M</text><line x1="62" y1="78.5" x2="812" y2="78.5" class="grid"/><text x="54" y="82.0" class="ylab" text-anchor="end">$48M</text><line x1="62" y1="20.0" x2="812" y2="20.0" class="grid"/><text x="54" y="23.5" class="ylab" text-anchor="end">$64M</text><rect x="437.0" y="20" width="187.5" height="234.0" class="hole"/><text x="530.8" y="31" class="hole-lab" text-anchor="middle">no filing FY2020-FY2021</text><polygon points="62.0,191.6 124.5,191.1 187.0,192.4 249.5,185.7 312.0,182.0 374.5,177.8 437.0,174.7 437.0,254.0 374.5,254.0 312.0,254.0 249.5,254.0 187.0,254.0 124.5,254.0 62.0,254.0" class="area area-earned"/><polygon points="624.5,142.9 687.0,139.1 749.5,136.4 812.0,125.2 812.0,254.0 749.5,254.0 687.0,254.0 624.5,254.0" class="area area-earned"/><polygon points="62.0,186.2 124.5,178.4 187.0,165.4 249.5,165.2 312.0,161.7 374.5,167.0 437.0,156.6 437.0,174.7 374.5,177.8 312.0,182.0 249.5,185.7 187.0,192.4 124.5,191.1 62.0,191.6" class="area area-private"/><polygon points="624.5,106.1 687.0,121.1 749.5,102.2 812.0,104.3 812.0,125.2 749.5,136.4 687.0,139.1 624.5,142.9" class="area area-private"/><polygon points="62.0,185.5 124.5,177.7 187.0,164.7 249.5,164.5 312.0,161.1 374.5,159.2 437.0,156.1 437.0,156.6 374.5,167.0 312.0,161.7 249.5,165.2 187.0,165.4 124.5,178.4 62.0,186.2" class="area area-govt"/><polygon points="624.5,38.0 687.0,56.5 749.5,69.5 812.0,97.1 812.0,104.3 749.5,102.2 687.0,121.1 624.5,106.1" class="area area-govt"/><polyline points="62.0,175.4 124.5,175.9 187.0,169.9 249.5,166.3 312.0,163.7 374.5,161.9 437.0,155.1" class="ln ln-expense"/><polyline points="624.5,107.4 687.0,100.5 749.5,107.4 812.0,93.9" class="ln ln-expense"/><circle cx="62.0" cy="175.4" r="3.4" class="dot dot-expense"><title>FY2013: expenses $21M</title></circle><circle cx="124.5" cy="175.9" r="3.4" class="dot dot-expense"><title>FY2014: expenses $21M</title></circle><circle cx="187.0" cy="169.9" r="3.4" class="dot dot-expense"><title>FY2015: expenses $23M</title></circle><circle cx="249.5" cy="166.3" r="3.4" class="dot dot-expense"><title>FY2016: expenses $24M</title></circle><circle cx="312.0" cy="163.7" r="3.4" class="dot dot-expense"><title>FY2017: expenses $25M</title></circle><circle cx="374.5" cy="161.9" r="3.4" class="dot dot-expense"><title>FY2018: expenses $25M</title></circle><circle cx="437.0" cy="155.1" r="3.4" class="dot dot-expense"><title>FY2019: expenses $27M</title></circle><circle cx="624.5" cy="107.4" r="3.4" class="dot dot-expense"><title>FY2022: expenses $40M</title></circle><circle cx="687.0" cy="100.5" r="3.4" class="dot dot-expense"><title>FY2023: expenses $42M</title></circle><circle cx="749.5" cy="107.4" r="3.4" class="dot dot-expense"><title>FY2024: expenses $40M</title></circle><circle cx="812.0" cy="93.9" r="3.4" class="dot dot-expense"><title>FY2025: expenses $44M</title></circle><text x="820" y="97.9" class="gut gut-expense">Expenses</text><text x="820" y="189.6" class="gut gut-earned">Earned</text><text x="820" y="114.8" class="gut gut-private">Private gifts</text><text x="820" y="96.7" class="gut gut-govt">Government</text><text x="62.0" y="270.0" class="xlab" text-anchor="middle">13</text><text x="124.5" y="270.0" class="xlab" text-anchor="middle">14</text><text x="187.0" y="270.0" class="xlab" text-anchor="middle">15</text><text x="249.5" y="270.0" class="xlab" text-anchor="middle">16</text><text x="312.0" y="270.0" class="xlab" text-anchor="middle">17</text><text x="374.5" y="270.0" class="xlab" text-anchor="middle">18</text><text x="437.0" y="270.0" class="xlab" text-anchor="middle">19</text><text x="624.5" y="270.0" class="xlab" text-anchor="middle">22</text><text x="687.0" y="270.0" class="xlab" text-anchor="middle">23</text><text x="749.5" y="270.0" class="xlab" text-anchor="middle">24</text><text x="812.0" y="270.0" class="xlab" text-anchor="middle">25</text><text x="62.0" y="286.0" class="xlab-full" text-anchor="middle">2013</text><text x="812.0" y="286.0" class="xlab-full" text-anchor="middle">2025</text></svg>
+  <p class="tradeoff"><b>Strength:</b> the government-grant story tells itself, and it replaces
+    both existing charts honestly. <b>Cost:</b> the densest of the three, stacked bands are hard
+    to read a value off, and it inherits the same scale-jump problem as 1.</p>
+</div>
+
+<p class="note">All three: hover any mark for the year and value. No return was filed for FY2020
+or FY2021, so every line breaks there rather than joining across a year nobody reported. Source:
+IRS Form 990, FY2013 to FY2025, as filed.</p>
+</div>
