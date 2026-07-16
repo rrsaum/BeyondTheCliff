@@ -64,3 +64,7 @@ data/ce_cache/
 data/composite_cache/
 scripts/_hechinger_review.csv
 scripts/_*.csv
+
+# Mockup generators are scratch: they hardcode a snapshot of data for a review page and
+# must never be mistaken for an importer. They live in the session scratchpad.
+scripts/_*.py
