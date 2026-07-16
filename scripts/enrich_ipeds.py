@@ -166,6 +166,60 @@ def write_csv(path: Path, fields: list[str], rows: list[dict]) -> None:
         w.writerows(rows)
 
 
+# Both closure CSVs, because a branch is a branch wherever the row came from. This mirrors
+# scripts/backfill_cause.py, which coded `cause` across the same two files for the same reason:
+# the SHEEO-derived spine and the hand-curated rows are one record to a reader.
+CLOSURE_FILES = [DATA / "institutions.csv", DATA / "manual_closures.csv"]
+
+
+def classify_closures(open_opeids: set, opeid_name: dict) -> None:
+    """Set closure_type / parent_name / parent_survives from the OPEID, across both closure CSVs.
+
+    The 8-digit OPEID is a campus-level identifier: branch campuses of one institution share its
+    6-digit prefix and differ only in the 2-digit suffix, where "00" is the institution proper.
+    SHEEO states this directly: "The 8-digit OPEID is a distinct campus-level institution
+    identifier. Branch campuses in a multi-campus system have the same 6-digit OPEID."
+    (A Dream Derailed?, 2022, p13 n3.) So a suffix other than "00" is a campus, always.
+
+    This used to ask whether the PARENT was still open, and call the branch an institutional
+    closure when it was not. That inflated the count badly: when a chain died, every one of its
+    branches was counted as another college closing, so ITT Tech and Altierus alone put hundreds
+    of duplicate closures on the map. A campus is a campus whether or not its institution
+    outlived it. Whether it did is a separate fact, and parent_survives carries it so no page
+    has to guess: most of our campus closures are branches of chains that died outright.
+
+    Rows with no federal OPEID (the hand-curated MAN-#### entries) are left exactly as they are.
+    Nothing here can tell whether one is a branch, so their curated value stands.
+    """
+    for path in CLOSURE_FILES:
+        if not path.exists():
+            continue
+        fields, rows = read_csv(path)
+        for col in ("closure_type", "parent_name", "parent_survives"):
+            if col not in fields:
+                fields.append(col)
+        campus = institutional = skipped = 0
+        for inst in rows:
+            opeid = (inst.get("opeid") or "").strip()
+            if inst.get("status") != "closed":
+                continue
+            if not (opeid.isdigit() and len(opeid) == 8):
+                skipped += 1
+                continue
+            if opeid[6:] != "00":
+                inst["closure_type"] = "campus"
+                inst["parent_name"] = opeid_name.get(opeid[:6] + "00", "")
+                inst["parent_survives"] = "1" if opeid[:6] + "00" in open_opeids else "0"
+                campus += 1
+            else:
+                inst["closure_type"] = "institutional"
+                inst["parent_survives"] = ""
+                institutional += 1
+        write_csv(path, fields, rows)
+        print(f"{path.name}: {institutional} institutional, {campus} campus (branch OPEID), "
+              f"{skipped} left alone (no federal OPEID)")
+
+
 def main() -> None:
     CACHE.mkdir(parents=True, exist_ok=True)
     crosswalk, prefix, hbcu, hloffer, open_opeids, opeid_name = build_crosswalk()
@@ -188,7 +242,7 @@ def main() -> None:
     # attribute the parent's system-wide headcount to one branch. We keep the prefix link for
     # reference (the unitid column) but never source enrollment or flags through it.
     unit2inst: dict[str, str] = {}
-    exact = prefixed = campus = institutional = 0
+    exact = prefixed = 0
     for inst in institutions:
         opeid = (inst.get("opeid") or "").strip()
         uid, conf = resolve_unitid(opeid, crosswalk, prefix)
@@ -202,34 +256,10 @@ def main() -> None:
                 exact += 1
             else:
                 prefixed += 1
-        # Campus vs institutional closure, decided by the OPEID itself. The 8-digit OPEID is a
-        # campus-level identifier: branch campuses of one institution share its 6-digit prefix
-        # and differ only in the 2-digit suffix, where "00" is the institution proper. (SHEEO
-        # states this directly: "The 8-digit OPEID is a distinct campus-level institution
-        # identifier. Branch campuses in a multi-campus system have the same 6-digit OPEID."
-        # A Dream Derailed?, 2022, p13 n3.) So a suffix other than "00" is a campus, always.
-        #
-        # This used to ask whether the PARENT was still open, and call the branch an
-        # institutional closure when it was not. That inflated the count badly: when a chain
-        # died, every one of its branches was counted as another college closing. ITT Tech and
-        # Altierus alone put hundreds of duplicate "institutional closures" on the map. A
-        # campus is a campus whether or not its institution outlived it; whether it did is a
-        # separate fact, and parent_survives carries it so no page has to guess.
-        if inst.get("status") == "closed" and opeid:
-            parent = opeid[:6] + "00"
-            if opeid[6:] != "00":
-                inst["closure_type"] = "campus"
-                inst["parent_name"] = opeid_name.get(parent, "")
-                inst["parent_survives"] = "1" if parent in open_opeids else "0"
-                campus += 1
-            else:
-                inst["closure_type"] = "institutional"
-                inst["parent_survives"] = ""
-                institutional += 1
     write_csv(DATA / "institutions.csv", fields, institutions)
     print(f"institutions linked to a UnitID: {exact + prefixed}/{len(institutions)} "
           f"[exact {exact}, prefix {prefixed}]. Enrollment/flags attributed to exact only.")
-    print(f"closure type: {institutional} institutional, {campus} campus (branch OPEID)")
+    classify_closures(open_opeids, opeid_name)
 
     # 2) HBCU / religious tags for matched institutions (merge, do not duplicate).
     cfields, chars = read_csv(DATA / "characteristics.csv")

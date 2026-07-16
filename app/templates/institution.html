@@ -26,8 +26,10 @@
   <aside class="closure-banner campus">
     {% if inst.parent_survives == 1 %}
     <strong>Campus closure, not an institutional closure.</strong> This location closed{% if inst.status_year %} in {{ inst.status_year }}{% endif %}, but the parent institution{% if inst.parent_name %}, <a href="/?parent={{ inst.parent_name | urlencode }}">{{ inst.parent_name }}</a>,{% endif %} remains open and operating.
-    {% else %}
+    {% elif inst.parent_survives == 0 %}
     <strong>One campus of a closed institution.</strong> This location closed{% if inst.status_year %} in {{ inst.status_year }}{% endif %}. It was a branch{% if inst.parent_name %} of <a href="/?parent={{ inst.parent_name | urlencode }}">{{ inst.parent_name }}</a>, which closed too{% else %}, and the institution it belonged to closed too{% endif %}: this record is one location, not a college of its own, so it is not counted as a separate closure.
+    {% else %}
+    <strong>Campus closure, not an institutional closure.</strong> This location closed{% if inst.status_year %} in {{ inst.status_year }}{% endif %}. It was one campus{% if inst.parent_name %} of <a href="/?parent={{ inst.parent_name | urlencode }}">{{ inst.parent_name }}</a>{% endif %}, so it is not counted as a college closing. Whether the institution itself is still operating is not recorded here: this row carries no federal OPEID, which is what the check reads.
     {% endif %}
     {% if siblings %}<br>This is one of {{ siblings|length + 1 }} closures under this institution &mdash; <a href="/?parent={{ inst.parent_name | urlencode }}">see all of them</a>.{% endif %}
   </aside>
