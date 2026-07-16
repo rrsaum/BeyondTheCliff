@@ -92,7 +92,40 @@
   </div>
 </form>
 
-<p class="result-count">{{ total }} institution{{ '' if total == 1 else 's' }} match. Showing page {{ page }} of {{ pages }}. <span class="legend"><span class="has-profile">&#9679;</span> = financial and demographic profile available</span></p>
+{% if open_matches %}
+<aside class="open-matches">
+  <p class="open-matches-head">Still operating, so not on this map:</p>
+  <ul>
+    {% for r in open_matches %}
+    <li>
+      <a href="/institution/{{ r.id }}">{{ r.name | title }}</a>
+      <span class="muted">{{ r.city | title if r.city else '' }}{{ ', ' + r.state if r.state }}</span>
+      {% if r.has_financials %}<span class="open-tag">financial record</span>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% if open_total > open_matches|length %}
+  <p class="open-matches-note">
+    Showing {{ open_matches|length }} of {{ open_total }} operating schools that match.
+    <a href="/{{ open_all_qs }}">See all {{ open_total }}</a>.
+    None of them have closed, so none are counted below.
+  </p>
+  {% else %}
+  <p class="open-matches-note">
+    {{ 'These schools match' if open_matches|length != 1 else 'This school matches' }} your search
+    and {{ 'are' if open_matches|length != 1 else 'is' }} in the database, but
+    {{ 'they have' if open_matches|length != 1 else 'it has' }} not closed, so
+    {{ 'they are' if open_matches|length != 1 else 'it is' }} counted nowhere below.
+  </p>
+  {% endif %}
+</aside>
+{% endif %}
+
+{# Say "institutions", not "closures". This list is not all closures: unfiltered it also holds
+   announced (not closed yet) and at-risk (open) rows, and with status=open it is entirely
+   schools that never closed. Naming the count after the map rather than after its contents is
+   how 1,499 operating schools got labelled closures once already. #}
+<p class="result-count">{{ total }}{{ ' operating' if args.status == 'open' }} institution{{ '' if total == 1 else 's' }} match{{ 'es' if total == 1 else '' }}.{% if args.status == 'open' %} None of these have closed.{% endif %} Showing page {{ page }} of {{ pages }}. <span class="legend"><span class="has-profile">&#9679;</span> = financial and demographic profile available</span></p>
 
 <div class="table-scroll">
 <table class="results">

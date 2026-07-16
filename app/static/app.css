@@ -59,6 +59,18 @@ h2 { font-size: 1.15rem; margin: 1.6rem 0 .6rem; }
 .fin-key { display: inline-flex; align-items: center; gap: .35rem; }
 .fin-swatch { width: .85rem; height: .2rem; border-radius: 1px; display: inline-block; }
 
+/* Search hits that are still operating. Deliberately does NOT look like a results table row:
+   it is the accent (open) colour, not the closed red, and it sits outside the table so a
+   survivor can never be misread as one of the closures counted below it. */
+.open-matches { border-left: 3px solid var(--accent); background: var(--accent-soft);
+  padding: .7rem .9rem; border-radius: var(--radius); margin: 1rem 0 .5rem; }
+.open-matches-head { margin: 0 0 .4rem; font-weight: 700; font-size: .85rem; color: var(--accent); }
+.open-matches ul { list-style: none; padding: 0; margin: 0; }
+.open-matches li { padding: .2rem 0; font-size: .92rem; display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
+.open-matches-note { margin: .5rem 0 0; font-size: .78rem; color: var(--ink-soft); }
+.open-tag { font-size: .7rem; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 4px; padding: .05rem .4rem; color: var(--ink-soft); }
+
 /* Survivor banner: this school is in the dataset for its financial record, not as a casualty.
    Visually distinct from .hcm-flag (a distress signal) so the two never read as the same thing. */
 .survivor-flag { border-left: 3px solid var(--accent); background: var(--accent-soft);

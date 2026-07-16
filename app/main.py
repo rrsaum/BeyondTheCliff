@@ -71,6 +71,11 @@ def index(
 
     rows, total = queries.search(args, sort=sort, order=order, page=page, per_page=PER_PAGE)
     pages = max(1, ceil(total / PER_PAGE))
+    # Operating schools that match the same search. Kept out of `rows` and out of `total`, which
+    # are a closure record and a count of closures, and shown in their own band instead.
+    open_matches, open_total = queries.search_open(args)
+    # Link to the full operating list when the band is only showing a slice of the matches.
+    open_all_qs = _qs(**{**{k: v for k, v in args.items() if v}, "status": "open"})
 
     base = {k: v for k, v in {**args, "sort": sort, "order": order}.items() if v}
     # For each sortable column: the link toggles asc/desc if it is the active sort.
@@ -141,6 +146,9 @@ def index(
         {
             "rows": rows,
             "total": total,
+            "open_matches": open_matches,
+            "open_total": open_total,
+            "open_all_qs": open_all_qs,
             "sector": sector,
             "sector_chart": sector_chart,
             "grand_total": queries.total_count(),

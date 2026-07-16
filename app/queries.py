@@ -168,6 +168,46 @@ def search(args: dict, sort: str, order: str, page: int, per_page: int) -> tuple
     return rows, total
 
 
+def search_open(args: dict, limit: int = 6) -> tuple[list, int]:
+    """(rows, total) for operating schools matching a name search, SEPARATE from the closures.
+
+    _filters() keeps operating schools out of every list, chart, and count, which is right when
+    someone is browsing a closure map and wrong when they type a school's name into it. A search
+    for "montreat" that returns two closed Montreat campuses and not Montreat College is not
+    protecting anyone: the school is in the database, and hiding it reads as an empty result, not
+    as a careful distinction.
+
+    So this runs only when there is an actual query, and the caller renders the rows in their own
+    band. They are never merged into the closure table or added to its count, because the count
+    is a claim about how many schools closed.
+
+    Skipped when the reader has already picked a status: they asked for one thing, so answer it.
+
+    Returns a total alongside a capped list because the open roster is the whole IPEDS
+    directory, thousands of schools. A precise search ("montreat") matches one and the list is
+    the answer. A loose one ("university") matches hundreds, where listing an arbitrary handful
+    is noise pretending to be a result: the caller shows the count and a link instead.
+    """
+    if not args.get("q") or args.get("status"):
+        return [], 0
+    open_args = {k: args[k] for k in ("q", "state", "control") if args.get(k)}
+    open_args["status"] = "open"
+    clause, params = _filters(open_args)
+    conn = connect()
+    total = conn.execute(f"SELECT count(*) FROM institution i{clause}", params).fetchone()[0]
+    rows = conn.execute(
+        f"""SELECT i.id, i.name, i.city, i.state, i.control, i.level,
+                   EXISTS (SELECT 1 FROM financial_filing f WHERE f.institution_id = i.id)
+                       AS has_financials
+            FROM institution i{clause}
+            ORDER BY i.name ASC
+            LIMIT ?""",
+        params + [limit],
+    ).fetchall()
+    conn.close()
+    return rows, total
+
+
 def _group_count(args: dict, col_sql: str, *, by_label: bool, limit: int | None) -> list[tuple]:
     clause, params = _filters(args)
     # Exclude rows where the grouped column is NULL/blank, whether or not filters exist.
