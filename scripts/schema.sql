@@ -40,7 +40,20 @@ CREATE TABLE institution (
                                                 -- for that composite-score award year). Read it as
                                                 -- "confirmed open through", never as "open today".
   closure_type          TEXT CHECK (closure_type IN ('institutional','campus','program')),  -- for closed/announced rows
-  parent_name           TEXT,                   -- for a campus/program closure: the surviving parent institution
+                                                -- 'campus' is decided by the OPEID: an 8-digit
+                                                -- OPEID is campus-level, so any suffix other
+                                                -- than '00' is a branch, never a college in its
+                                                -- own right. Counting branches as institutional
+                                                -- closures once put every ITT Tech location on
+                                                -- the map as a separate school dying.
+  parent_name           TEXT,                   -- for a campus/program closure: the parent institution
+  parent_survives       INTEGER,                -- campus rows only: 1 = the parent institution is
+                                                -- still open, 0 = it closed or merged too, NULL =
+                                                -- not applicable/unknown. A campus closure is not
+                                                -- proof the school survived: most of ours are
+                                                -- branches of chains that died outright, so no
+                                                -- page may claim "the parent remains open"
+                                                -- without checking this.
   cause                 TEXT CHECK (cause IN (   -- primary sourced cause of failure; NULL = not coded
                           'financial','enrollment','accreditation','sponsor','misconduct',
                           'disaster','restructuring','external','benefactor')),

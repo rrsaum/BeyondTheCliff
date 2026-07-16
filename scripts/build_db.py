@@ -29,8 +29,16 @@ DB = DATA / "beyondthecliff.db"
 # institution first, then everything that references it. Note the id/opeid keys are TEXT
 # (OPEID with leading zeros), so they are NOT in the integer-column sets.
 TABLES = [
-    ("institutions.csv", "institution", {"unitid", "founding_year", "status_year"}),
-    ("manual_closures.csv", "institution", {"unitid", "founding_year", "status_year"}),
+    (
+        "institutions.csv",
+        "institution",
+        {"unitid", "founding_year", "status_year", "parent_survives"},
+    ),
+    (
+        "manual_closures.csv",
+        "institution",
+        {"unitid", "founding_year", "status_year", "parent_survives"},
+    ),
     # Surviving institutions, kept separate from the closure imports above: this dataset is a
     # closure record, and a school that is still operating enters it only deliberately.
     ("institutions_open.csv", "institution", {"unitid", "founding_year", "status_year"}),
