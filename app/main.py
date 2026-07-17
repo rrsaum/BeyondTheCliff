@@ -9,7 +9,7 @@ per-institution detail page. Run:
 
 from __future__ import annotations
 
-from math import ceil
+from math import ceil, floor
 from pathlib import Path
 from urllib.parse import urlencode
 
@@ -129,17 +129,26 @@ def index(
         if panels:
             first_year = min(y for _, _, pts in panels for y, _ in pts)
             last_year = max(y for _, _, pts in panels for y, _ in pts)
+            # Derive the shared scale from the data, never hardcode it. A fixed -35 to +5 window
+            # clipped the for-profit line straight off the top of its frame for a decade: that
+            # sector grew 12% before it fell, and an axis written from the assumption that every
+            # line only falls cannot draw it.
+            vals = [v for _, _, pts in panels for _, v in pts]
+            ylo = floor((min(vals) - 2) / 5) * 5
+            yhi = ceil((max(vals) + 2) / 5) * 5
+            ticks = [t for t in range(int(yhi), int(ylo) - 1, -10) if ylo <= t <= yhi]
             sector_chart = charts.small_multiples(
-                "What each sector has lost",
+                "How each sector has changed since 2004",
                 panels,
                 subtitle=(
                     "Colleges still operating each year, against where that sector started. "
-                    "Every frame starts at zero and shares one scale, so the three are read "
-                    "against each other rather than against their own size."
+                    "Every frame shares one scale, so the three read against each other rather "
+                    "than against their own size. For-profit grew by an eighth before it fell. "
+                    "The other two only fell."
                 ),
-                ylo=-35,
-                yhi=5,
-                ticks=[0, -15, -30],
+                ylo=ylo,
+                yhi=yhi,
+                ticks=ticks,
                 fmt_axis=lambda t: f"{t:+.0f}%" if t else "0%",
                 fmt_value=lambda v: f"{v:+.1f}%",
                 note=(
