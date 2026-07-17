@@ -30,6 +30,25 @@ templates = Jinja2Templates(directory=str(BASE / "templates"))
 app.include_router(admin.router)  # browser closure-ingestion console at /admin
 
 
+def asset_version(name: str) -> str:
+    """Stamp a static file's modification time onto its URL so a browser cannot serve a stale
+    copy of it.
+
+    Without this the stylesheet is requested as a bare /static/app.css, StaticFiles sends no
+    Cache-Control, and the browser is free to reuse whatever it already has. Change the CSS and
+    the reader keeps the old file against the new markup, which does not fail: it renders. A
+    chart whose classes are all missing draws as black polygons with every tooltip stuck open,
+    and it looks like the chart is broken rather than the cache. Shipped exactly that once.
+    """
+    try:
+        return str(int((BASE / "static" / name).stat().st_mtime))
+    except OSError:
+        return "0"
+
+
+templates.env.globals["asset_version"] = asset_version
+
+
 def _qs(**overrides) -> str:
     """Build a query string, dropping empties. Used for sort links and pagination so the
     active filters carry across."""
