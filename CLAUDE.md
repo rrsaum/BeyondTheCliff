@@ -22,14 +22,29 @@ The closure tracker is a **FastAPI + Jinja app over SQLite** (`app/`), chosen fo
 curated dataset with one maintainer: simple, portable, no server to run. Data flows
 CSV -> SQLite:
 
+The normal loop is just build-and-serve. The `data/*.csv` files are the committed source of
+truth, so a day-to-day rebuild only regenerates the database from them:
+
 ```
-python3 scripts/import_sheeo.py        # (re)seed data/*.csv from the SHEEO source spreadsheet
-python3 scripts/import_ipeds_roster.py --commit      # who is still open + sector size, from IPEDS
-python3 scripts/import_composite_scores.py --all --commit   # ED financial responsibility scores
-python3 scripts/import_990.py <dir>    # IRS Form 990 financial history for a school (--dry-run, --check)
 python3 scripts/build_db.py            # build data/beyondthecliff.db from data/*.csv
 .venv/bin/python -m uvicorn app.main:app --reload   # serve the tracker
 ```
+
+The importers add or refresh data in the CSVs; run one only when you have new source data for it,
+never as a routine rebuild step:
+
+```
+python3 scripts/import_ipeds_roster.py --commit      # refresh who is open + sector size, from IPEDS
+python3 scripts/import_composite_scores.py --all --commit   # load ED financial responsibility scores
+python3 scripts/import_990.py <dir>    # add IRS Form 990 history for a school (--dry-run, --check)
+```
+
+`scripts/import_sheeo.py` is a **one-time bootstrap that is NOT in the loop above**. It seeds an
+empty `institutions.csv` from the SHEEO spreadsheet with bare rows, and overwrites the file
+wholesale. Everything since (unitid, the campus/institutional split, founding years, causes, the
+2021+ closures appended by `import_recent_closures.py`) is enrichment layered on top that it
+cannot reproduce, so it refuses to run against an already-enriched file and only proceeds with
+`--reseed`. Do not run it to "rebuild"; a rebuild is `build_db.py` alone.
 
 Both importers preview by default and write nothing without `--commit`, and both are wrapped
 by the browser console at `/admin/composite`, so a year loaded there and a year loaded here
