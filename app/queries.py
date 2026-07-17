@@ -693,6 +693,24 @@ def composite_years() -> dict[str, int]:
     return {r["award_year"]: r["n"] for r in rows}
 
 
+def sector_series() -> dict[str, list[tuple]]:
+    """How many colleges were operating each year, per control (IPEDS HD). control -> [(year,
+    count)]. The denominator: a closure record alone says how many schools closed, never what
+    share of the sector that was.
+
+    Counted by scripts/import_ipeds_roster.py under the same is_college() rule the closure
+    record uses, so each college is counted once and branch campuses and system offices are out.
+    Raw counts only: the change-since-first-year the chart draws is arithmetic on top, done at
+    the point of display, so the stored number stays the number NCES published."""
+    conn = connect()
+    rows = conn.execute("SELECT year, control, active FROM sector_size ORDER BY year").fetchall()
+    conn.close()
+    out: dict[str, list[tuple]] = {}
+    for r in rows:
+        out.setdefault(r["control"], []).append((r["year"], r["active"]))
+    return out
+
+
 def hcm_summary() -> dict:
     """Headline signal: how many INSTITUTIONAL closures were on Heightened Cash Monitoring
     before they closed. Scoped to institutional closures (a campus closing is not a school

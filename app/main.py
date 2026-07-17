@@ -106,12 +106,58 @@ def index(
             "Closures by primary cause (where recorded)", cause_data, label_width="22ch"
         )
 
+    # The sector's own size over time, one frame per sector. Deliberately NOT filtered with the
+    # rest of the page: it is the fixed denominator the closure counts are read against, so it
+    # stays put while the reader filters the map.
+    #
+    # Plotted as change since the first year rather than as counts, so the three frames compare
+    # directly and the biggest sector does not simply look like the worst one. Zero means "no
+    # change", so the axis genuinely starts at zero and nothing is truncated to dramatise a move.
+    sector = queries.sector_series()
+    sector_chart = ""
+    if sector:
+        panels = []
+        for key in ("private_nonprofit", "public", "private_forprofit"):
+            pts = sector.get(key) or []
+            if len(pts) < 2:
+                continue
+            first = pts[0][1]
+            change = [(y, 100 * (v - first) / first) for y, v in pts]
+            panels.append(
+                (queries.CONTROL_LABELS[key], f"{change[-1][1]:+.1f}% since {pts[0][0]}", change)
+            )
+        if panels:
+            first_year = min(y for _, _, pts in panels for y, _ in pts)
+            last_year = max(y for _, _, pts in panels for y, _ in pts)
+            sector_chart = charts.small_multiples(
+                "What each sector has lost",
+                panels,
+                subtitle=(
+                    "Colleges still operating each year, against where that sector started. "
+                    "Every frame starts at zero and shares one scale, so the three are read "
+                    "against each other rather than against their own size."
+                ),
+                ylo=-35,
+                yhi=5,
+                ticks=[0, -15, -30],
+                fmt_axis=lambda t: f"{t:+.0f}%" if t else "0%",
+                fmt_value=lambda v: f"{v:+.1f}%",
+                note=(
+                    f"Source: IPEDS HD directory files {first_year} to {last_year} (NCES). "
+                    "Institutions NCES marks currently active, counting each college once: "
+                    "branch campuses and system offices are excluded, the same rule the "
+                    "closure record uses. A count per collection year, not a lifecycle: an "
+                    "institution leaving the count has not necessarily closed."
+                ),
+            )
+
     return templates.TemplateResponse(
         request,
         "index.html",
         {
             "rows": rows,
             "total": total,
+            "sector_chart": sector_chart,
             "open_matches": open_matches,
             "open_total": open_total,
             "open_all_qs": open_all_qs,

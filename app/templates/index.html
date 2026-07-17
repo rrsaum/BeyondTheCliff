@@ -14,6 +14,12 @@
   {% endif %}
 </section>
 
+{% if sector_chart %}
+<section class="sector" aria-label="How each sector has changed">
+  {{ sector_chart | safe }}
+</section>
+{% endif %}
+
 <section class="charts" aria-label="Charts for the current selection">
   {{ charts_html | safe }}
 </section>

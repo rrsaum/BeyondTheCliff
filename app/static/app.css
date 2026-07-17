@@ -321,3 +321,27 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
 .admin-years .src-cell { font-size: .8rem; word-break: break-all; }
 .admin-flags { margin: .4rem 0 .8rem; padding-left: 1.1rem; font-size: .86rem; color: var(--ink-soft); }
 .admin-flags li { margin-bottom: .3rem; }
+
+/* --- Small multiples (sector size, IPEDS) ---------------------------------------------- */
+/* One frame per sector, one hue. There is no series palette here on purpose: the brand's three
+   colours fail the CVD/normal-vision check, so the chart facets instead of recolouring, and the
+   panel label is the only identity channel. Nothing below encodes meaning in colour. */
+.sm-pan { margin: 0 0 .3rem; }
+.sm-h { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  border-bottom: 1px solid var(--line); padding-bottom: .15rem; }
+.sm-name { font-weight: 600; font-size: .88rem; }
+.sm-d { color: var(--ink-soft); font-size: .78rem; font-variant-numeric: tabular-nums; }
+.sm-area { fill: var(--accent); opacity: .09; }
+.sm-line { stroke: var(--accent); stroke-width: 2.2; stroke-linejoin: round; }
+.sm-end { font-size: 13px; font-weight: 700; fill: var(--accent); font-variant-numeric: tabular-nums; }
+.sm-dot { fill: var(--accent); stroke: var(--surface); stroke-width: 1.5; }
+.sm-pt { cursor: pointer; }
+.sm-pt:focus { outline: none; }
+.sm-pt:focus .sm-dot { stroke: var(--ink); stroke-width: 2; }
+/* CSS-only callout: no JavaScript, so it survives in the server-rendered page. */
+.sm-tip { opacity: 0; pointer-events: none; transition: opacity .08s ease-out; }
+.sm-pt:hover .sm-tip, .sm-pt:focus .sm-tip { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .sm-tip { transition: none; } }
+.sm-tip rect { fill: var(--ink); }
+.sm-tv { fill: var(--surface); font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.sm-tl { fill: var(--line); font-size: 10px; }

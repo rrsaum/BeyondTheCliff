@@ -539,6 +539,97 @@ def series_lines(
     )
 
 
+def small_multiples(
+    title: str,
+    panels: list[tuple[str, str, list[tuple]]],
+    *,
+    subtitle: str = "",
+    note: str = "",
+    ylo: float,
+    yhi: float,
+    ticks: list[float],
+    fmt_axis,
+    fmt_value,
+    css: str = "sm-chart",
+) -> str:
+    """One frame repeated per category, same scale, one hue. panels: (label, sublabel, points).
+
+    Why this and not three coloured lines on one chart: the brand's three series colours fail
+    the palette check outright (the two closest sit dE 5.1 apart on a floor of 15), and the rule
+    for a hard normal-vision failure is to cut series or facet, not to lean on labels to rescue
+    an unreadable palette. Faceting removes the problem rather than mitigating it: with one
+    series per frame, hue carries no meaning at all and the panel label is the only identity.
+
+    Every panel shares ylo/yhi so the frames are honestly comparable, which is the whole point
+    of a small multiple: the eye compares shape against a fixed frame, not against a legend.
+    """
+    if not panels:
+        return (
+            f'<figure class="chart {css}"><figcaption>{escape(title)}</figcaption>'
+            '<p class="muted">No data.</p></figure>'
+        )
+    w, h, padl, padr, padt, padb = 700, 132, 54, 92, 12, 24
+    years = [y for _, _, pts in panels for y, _ in pts]
+    xmin, xmax = min(years), max(years)
+
+    def sx(x):
+        return padl + (x - xmin) / ((xmax - xmin) or 1) * (w - padl - padr)
+
+    def sy(v):
+        return h - padb - ((v - ylo) / ((yhi - ylo) or 1)) * (h - padt - padb)
+
+    out = [f'<figure class="chart {css}"><figcaption>{escape(title)}</figcaption>']
+    if subtitle:
+        out.append(f'<p class="chart-sub">{escape(subtitle)}</p>')
+    for label, sub, pts in panels:
+        pts = sorted(pts)
+        grid = "".join(
+            f'<line x1="{padl}" y1="{sy(t):.1f}" x2="{w - padr}" y2="{sy(t):.1f}" class="cl-grid"/>'
+            f'<text x="{padl - 8}" y="{sy(t) + 3.5:.1f}" class="cl-ylab" text-anchor="end">'
+            f"{escape(fmt_axis(t))}</text>"
+            for t in ticks
+        )
+        poly = " ".join(f"{sx(y):.1f},{sy(v):.1f}" for y, v in pts)
+        area = f"{sx(xmin):.1f},{sy(ylo):.1f} {poly} {sx(xmax):.1f},{sy(ylo):.1f}"
+        # A dot per year, each its own hover/focus target. The callout is CSS only, so it works
+        # in a server-rendered page with no script; the table under the chart is the
+        # non-hover route to the same numbers, because a tooltip may enhance access, never gate it.
+        marks = []
+        for yr, v in pts:
+            cx, cy = sx(yr), sy(v)
+            tw, th = 78, 34
+            tx = min(max(cx - tw / 2, 2), w - tw)
+            marks.append(
+                f'<g class="sm-pt" tabindex="0" role="img" '
+                f'aria-label="{yr}: {escape(fmt_value(v))}">'
+                f'<circle class="hit" cx="{cx:.1f}" cy="{cy:.1f}" r="11"/>'
+                f'<circle class="sm-dot" cx="{cx:.1f}" cy="{cy:.1f}" r="3.2"/>'
+                f'<g class="sm-tip"><rect x="{tx:.1f}" y="{cy - th - 10:.1f}" width="{tw}" '
+                f'height="{th}" rx="4"/>'
+                f'<text x="{tx + tw / 2:.1f}" y="{cy - th + 5:.1f}" class="sm-tv" '
+                f'text-anchor="middle">{escape(fmt_value(v))}</text>'
+                f'<text x="{tx + tw / 2:.1f}" y="{cy - th + 17:.1f}" class="sm-tl" '
+                f'text-anchor="middle">{yr}</text></g></g>'
+            )
+        out.append(
+            f'<div class="sm-pan"><div class="sm-h"><span class="sm-name">{escape(label)}</span>'
+            f'<span class="sm-d">{escape(sub)}</span></div>'
+            f'<svg viewBox="0 0 {w} {h}" class="cl-svg" role="img" '
+            f'aria-label="{escape(label)}: {escape(sub)}">{grid}'
+            f'<polygon points="{area}" class="sm-area"/>'
+            f'<polyline points="{poly}" class="sm-line" fill="none"/>'
+            f'<text x="{sx(xmax) + 8:.1f}" y="{sy(pts[-1][1]) + 4:.1f}" class="sm-end">'
+            f"{escape(fmt_value(pts[-1][1]))}</text>{''.join(marks)}"
+            f'<text x="{padl}" y="{h - 6}" class="cl-xlab">{xmin}</text>'
+            f'<text x="{sx(xmax):.1f}" y="{h - 6}" class="cl-xlab" text-anchor="middle">{xmax}</text>'
+            f"</svg></div>"
+        )
+    if note:
+        out.append(f'<figcaption class="chart-note">{escape(note)}</figcaption>')
+    out.append("</figure>")
+    return "".join(out)
+
+
 def trend(title: str, points: list[tuple]) -> str:
     """Inline SVG line chart of a value over years (e.g. enrollment). points: (year, value);
     None/blank values are dropped. Returns '' if there are fewer than two usable points."""
