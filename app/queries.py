@@ -580,6 +580,35 @@ def timeline_markers(series: str) -> list[dict]:
     return [dict(r) for r in rows]
 
 
+def national_turns(series: str) -> list[dict]:
+    """The 'what drove the turns' rows for a national chart, in CSV (rowid) order: each is an era
+    with what the data shows, the sourced likely cause, a category, and whether the cause is our
+    inference. Analysis, so the copy and the is_inference flag both say so."""
+    conn = connect()
+    rows = conn.execute(
+        "SELECT era, shows, cause, category, is_inference, source_url "
+        "FROM national_turn WHERE series = ? ORDER BY rowid",
+        (series,),
+    ).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+
+def national_growth(series: str, eras: list[tuple[int, int, str]]) -> list[dict]:
+    """Compound annual growth rate for named spans of a national series, computed live from the
+    stored values so a quoted rate can never drift from the data. eras: (start_year, end_year,
+    label). Returns {label, start, end, v0, v1, cagr} for each span both endpoints exist for."""
+    pts = dict(national_series(series))
+    out = []
+    for y0, y1, label in eras:
+        if y0 in pts and y1 in pts and pts[y0] > 0 and y1 > y0:
+            cagr = ((pts[y1] / pts[y0]) ** (1 / (y1 - y0)) - 1) * 100
+            out.append(
+                {"label": label, "start": y0, "end": y1, "v0": pts[y0], "v1": pts[y1], "cagr": cagr}
+            )
+    return out
+
+
 def hs_series(jurisdiction: str, measure: str = "total") -> list[tuple]:
     conn = connect()
     rows = conn.execute(
