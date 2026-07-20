@@ -477,7 +477,7 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 00252200,closed,2017,2017-05-10,1,,"The article states students are having a hard time gathering their student records, however the FOIA states the records are held at Wentworth Military Academy and College.",http://web.archive.org/web/20170508154146/https://www.kansascity.com/news/state/missouri/article149007529.html
 00254700,closed,2018,2018-05-11,0,,University of Nebraska-Lincoln,http://web.archive.org/web/20190324025134/https://www.graceuniversity.edu/an-important-announcement-from-grace-university/
 00264900,closed,2018,2018-05-11,0,,Walden University,https://www.santafenewmexican.com/news/local_news/santa-fe-university-of-art-and-design-to-close-in-2018/article_57adac92-1fb3-11e7-a116-d78535d012ce.html
-00266700,closed,2016,2016-08-05,1,,Long Island University,http://web.archive.org/web/20210420051012/https://www.newsday.com/long-island/education/dowling-college-in-oakdale-closes-its-doors-after-48-years-1.11861115
+00266700,closed,2016,2016-08-31,1,,"Closed Aug 31, 2016 after financial trouble, leadership turnover, declining enrollment, and loss of Middle States accreditation; filed for bankruptcy that November.",https://en.wikipedia.org/wiki/Dowling_College
 00270400,closed,2019,2019-09-20,0,,"Announced closure Feb 22, 2019 after failing to pay roughly $20M in federal payroll taxes; a former controller was charged by the SEC with concealing the finances. Filed Chapter 11 in Sept 2019 with about $80M in liabilities; programs absorbed by Mercy College.",https://en.wikipedia.org/wiki/College_of_New_Rochelle
 00318300,closed,2018,2018-01-31,0,,Other (I could not find anything online regarding a retention agreement).,https://www.crisismagazine.com/2017/st-gregorys-university-closing-doors
 00349800,closed,2011,2011-06-30,0,,"The FOIA report mentions Lambuth University as the record holder, but University of Memphis has an option for students to access their records.",https://www.cardinalandcream.info/2011/lambuth-university-closes-discusses-future-for-students-campus/
@@ -777,9 +777,9 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 00267000,closed,2024,2024-08-09,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00267400,closed,2024,2024-06-12,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00268500,closed,2023,2023-06-30,,,"Defaulted on a $25 million bond in September 2022 after a failed refinancing, then announced permanent closure that December. Campus became a New York State Police training academy.",https://en.wikipedia.org/wiki/Cazenovia_College
-00270900,closed,2021,2021-08-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
+00270900,closed,2021,2021-08,,,"Announced Jan 28, 2021 it would stop offering classes after Fall 2021, amid financial decline worsened by COVID-19 and a 2019 Middle States accreditation probation; Iona College took the campus via teach-out.",https://en.wikipedia.org/wiki/Concordia_College_(New_York)
 00275102,closed,2016,2016-08-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-00277700,closed,2023,2023-08-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
+00277700,closed,2023,2023-08-31,,,"Announced May 15, 2023 it would close; ceased operations Aug 31, 2023 after a failed Trocaire College acquisition and ongoing financial and enrollment challenges.",https://en.wikipedia.org/wiki/Medaille_University
 00279000,closed,2023,2023-08-31,,,"Ceased operations on August 31, 2023 after years of financial struggles; Middle States revoked accreditation in December 2023.",https://en.wikipedia.org/wiki/Alliance_University_(New_York_City)
 00280301,closed,2023,2023-12-22,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00282200,closed,2021,2021-06-01,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
@@ -1235,7 +1235,7 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 01195000,closed,2014,2014-11-30,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 01202700,closed,2013,2013-06-10,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 01202704,closed,2008,2008-10-01,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-01210700,closed,2015,2015-07-10,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
+01210700,closed,2015,2015-07,,,Voluntarily ceased operations in July 2015 amid declining enrollment and accreditation concerns raised by the NY Board of Regents.,https://en.wikipedia.org/wiki/Institute_of_Design_and_Construction
 01212800,closed,2013,2013-12-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 01212802,closed,2012,2012-12-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 01212803,closed,2012,2012-12-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
@@ -1331,7 +1331,7 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 02105300,closed,2018,2018-09-29,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02106100,closed,2022,2022-12-23,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02106700,closed,2016,2016-05-07,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-02106800,closed,2017,2017-02-20,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
+02106800,closed,2017,2017-02-20,,,"Lost accreditation Jan 10, 2017 and ceased operations as a degree-granting institution Feb 20, 2017 after the NY Board of Regents denied renewal.",https://en.wikipedia.org/wiki/Bramson_ORT_College
 02108801,closed,2014,2014-12-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02110800,closed,2021,2021-08-01,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02110802,closed,2021,2021-08-01,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
@@ -2243,3 +2243,50 @@ MAN-0948,closed,1980,,,,"Catholic college (Franciscan Sisters of Peekskill) adja
 MAN-0949,closed,1990,,,,"Catholic junior college for women, Syracuse (founded c.1934); closed 1990 per Wikipedia, though a cited source gives 1988. No successor named.",https://en.wikipedia.org/wiki/Maria_Regina_College
 MAN-0950,closed,2007,,,,"Catholic women's college (Religious of the Sacred Heart of Mary, 1907); consolidated into Fordham University in 2000 but closed after the 2007 class, campus sold in 2008 for $27M.","https://en.wikipedia.org/wiki/Marymount_College,_Tarrytown"
 MAN-0951,closed,1984,,,,Catholic minor seminary of the Diocese of Rockville Centre (founded 1961); its junior college closed in 1968 and its high school in 1984.,https://en.wikipedia.org/wiki/St._Pius_X_Preparatory_Seminary
+00270900,founded,1881,,,,Founded in Manhattan (Lutheran Church-Missouri Synod); moved to Bronxville in 1910.,https://en.wikipedia.org/wiki/Concordia_College_(New_York)
+00266700,founded,1968,,,,"Founded in Oakdale, New York.",https://en.wikipedia.org/wiki/Dowling_College
+00277700,founded,1937,,,,Founded by the Sisters of St. Joseph in Buffalo; later nonsectarian.,https://en.wikipedia.org/wiki/Medaille_University
+00907700,founded,1896,,,,"Founded as a business college in Utica, New York.",https://en.wikipedia.org/wiki/Utica_School_of_Commerce
+MAN-0776,founded,1859,,,,"Founded by Harvey G. Eastman in Poughkeepsie, New York.",https://en.wikipedia.org/wiki/Eastman_Business_College
+02106800,founded,1979,,,,Founded as Bramson ORT Technical Institute (World ORT); a Jewish-affiliated NYC school.,https://en.wikipedia.org/wiki/Bramson_ORT_College
+02540800,founded,1985,,,,A for-profit college founded in New York City.,https://en.wikipedia.org/wiki/Globe_Institute_of_Technology
+01210700,founded,1947,,,,A nonprofit technical college founded in Brooklyn.,https://en.wikipedia.org/wiki/Institute_of_Design_and_Construction
+00276900,founded,1936,,,,Founded in New York City; formerly Catholic.,https://en.wikipedia.org/wiki/Marymount_Manhattan_College
+MAN-0952,closed,1903,,,,"New York's first state forestry college, a public statutory college at Cornell (1898); lost its state appropriation to a gubernatorial pocket veto amid the Adir",https://en.wikipedia.org/wiki/New_York_State_College_of_Forestry_at_Cornell_University
+MAN-0953,closed,1903,,,,"A Presbyterian college in Dodge City, Kansas that operated 1888-1903; its property later passed to St. Mary of the Plains College.",https://en.wikipedia.org/wiki/Soule_College
+MAN-0954,closed,1860,,,,"An abolitionist Baptist liberal-arts college in McGrawville, NY (1848); closed in 1860 after a smallpox epidemic combined with financial difficulties and politi",https://en.wikipedia.org/wiki/New_York_Central_College
+MAN-0955,closed,1862,,,,"A Methodist four-year college in Troy, NY (1858); failed financially in the early 1860s, was foreclosed on, and sent its remaining 13 students to Wesleyan Unive",https://en.wikipedia.org/wiki/Troy_University_(New_York)
+MAN-0956,closed,1892,,,,"A pioneering women's college in Le Roy, NY (chartered as a university 1857, rooted in an 1835 seminary); closed in 1892 after financial difficulties, its proper",https://en.wikipedia.org/wiki/Ingham_University
+MAN-0957,closed,1894,,,,"An independent New York City women's college (chartered 1838/founded 1839, unrelated to Rutgers University); ceased operations in 1894.",https://en.wikipedia.org/wiki/Rutgers_Female_College
+MAN-0958,closed,1865,,,,"A law school founded 1849 in Ballston Spa, later Poughkeepsie, NY; closed in 1865 amid Civil War-driven enrollment decline.",https://en.wikipedia.org/wiki/State_and_National_Law_School
+MAN-0959,closed,1941,,,,"A Methodist Episcopal seminary in Lima, NY (1831); closed as a seminary in 1941. Its distinct college arm had earlier become the nucleus of Syracuse University.",https://en.wikipedia.org/wiki/Genesee_Wesleyan_Seminary
+MAN-0960,closed,1843,,,,"An 1827 Presbyterian manual-labor college in Whitesboro, NY, noted for interracial admission and abolitionism; closed in 1843 amid financial failure and hostili",https://en.wikipedia.org/wiki/Oneida_Institute
+MAN-0961,closed,1982,,,,"A private liberal-arts college in Seneca Falls, NY (founded 1965, opened 1968); acquired by RIT in March 1979 and closed by RIT on July 22, 1982 after major ope",https://en.wikipedia.org/wiki/Eisenhower_College
+MAN-0962,closed,1976,,,,"A private Manhattan women's college founded 1900 (baccalaureate from 1952); closed in 1976 after a small endowment and falling enrollment, records transferred t",https://en.wikipedia.org/wiki/Finch_College
+MAN-0963,closed,1987,,,,A Roman Catholic seminary college founded in Brooklyn in 1914 (restructured as a four-year college seminary in 1967); the college closed in 1987.,https://en.wikipedia.org/wiki/Cathedral_College_of_the_Immaculate_Conception
+MAN-0964,closed,1977,,,,"A public hospital-based nursing diploma school founded Jan 3, 1923, the first nursing school for African-American women in New York City; closed in 1977 partly ",https://en.wikipedia.org/wiki/Harlem_Hospital_School_of_Nursing
+MAN-0965,closed,1961,,,,"A hospital-based diploma nursing school in the Bronx (1898), the first nursing school for African-American women in New York City; closed September 5, 1961 afte",https://en.wikipedia.org/wiki/Lincoln_School_for_Nurses
+MAN-0966,closed,1875,,,,A 19th-century New York City medical/hydropathy school (1853) that conferred the M.D. degree; closed in 1875 when it was offered for sale.,https://en.wikipedia.org/wiki/New_York_Hydropathic_and_Physiological_School
+MAN-0967,closed,2023,,,,A private non-denominational Christian liberal-arts college in New York City (founded 1938; not the colonial Columbia predecessor); did not open for fall 2023 a,https://en.wikipedia.org/wiki/King%27s_College_(New_York_City)
+MAN-0968,closed,1954,,,,"A New York City for-profit business college founded 1858; closed by 1954, after which its building was bought by Stern College for Women.",https://en.wikipedia.org/wiki/Packard_Business_College
+MAN-0969,closed,2017,,,,"A New York City for-profit two-year college founded 1909 as the Marconi Institute; closed September 1, 2017 citing economic factors.",https://en.wikipedia.org/wiki/TCI_College_of_Technology
+MAN-0970,closed,2017,,,,"A New York City for-profit career college descending from the 1937 Tobe-Coburn School (merged with the Wood School in 1992, renamed 1993); closed in 2017.",https://en.wikipedia.org/wiki/Wood_Tob%C3%A9%E2%80%93Coburn_School
+MAN-0971,closed,1991,,,,A New York City fashion and design school founded 1923 by Ethel Traphagen Leigh; closed in 1991 after 68 years.,https://en.wikipedia.org/wiki/Traphagen_School_of_Fashion
+MAN-0972,closed,1944,,,,A New York City art school run by the Grand Central Art Galleries cooperative (1922); closed in 1944 after nearly 20 years. Non-degree.,https://en.wikipedia.org/wiki/Grand_Central_School_of_Art
+MAN-0973,closed,1967,,,,"A New York City acting school founded 1940, initially housed at The New School; sustained by Saul C. Colin until his death in 1967, when it ended. Non-degree; a",https://en.wikipedia.org/wiki/Dramatic_Workshop
+MAN-0974,closed,1935,,,,"A non-degree art academy, noted as the first art school for African Americans in New York City when it opened there in 1929; closed in 1935.",https://en.wikipedia.org/wiki/Boykin%27s_School_of_Art
+MAN-0975,closed,1998,,,,A New York City actor-training conservatory founded 1974; lost federal student-aid eligibility in 1996 and fully closed in late 1998.,https://en.wikipedia.org/wiki/National_Shakespeare_Conservatory
+MAN-0976,closed,2021,,,,"A for-profit massage-therapy school with Syracuse and Rochester campuses (1997); closed December 10, 2021.",https://en.wikipedia.org/wiki/Onondaga_School_of_Therapeutic_Massage
+MAN-0977,closed,1898,,,,"A Presbyterian women's college in Granville, Ohio; closed in 1898.",https://en.wikipedia.org/wiki/Granville_Female_College
+MAN-0978,closed,1898,,,,"A Christian missionary trade school in Springfield, Massachusetts (founded 1887, twice renamed); discontinued in 1898, its building leased to a high school.",https://en.wikipedia.org/wiki/Springfield_Industrial_Institute
+MAN-0979,consolidated,1978,,,,Merged into Hamilton College.,https://en.wikipedia.org/wiki/Kirkland_College
+MAN-0980,consolidated,2016,,,,Merged into Clarkson University.,https://en.wikipedia.org/wiki/Union_Graduate_College
+MAN-0981,consolidated,1875,,,,Merged into Syracuse University.,https://en.wikipedia.org/wiki/Genesee_College
+MAN-0982,consolidated,1872,,,,Merged into Syracuse University.,https://en.wikipedia.org/wiki/Geneva_Medical_College
+MAN-0983,consolidated,2020,,,,Merged into Russell Sage College.,https://en.wikipedia.org/wiki/Sage_College_of_Albany
+MAN-0984,consolidated,2001,,,,Merged into St. John's University.,https://en.wikipedia.org/wiki/College_of_Insurance
+MAN-0985,consolidated,1950,,,,Merged into Hebrew Union College.,https://en.wikipedia.org/wiki/Jewish_Institute_of_Religion
+MAN-0986,consolidated,1971,,,,Merged into St. John's University.,https://en.wikipedia.org/wiki/Notre_Dame_College_(Staten_Island)
+MAN-0987,closed,1992,,,,Program/division closed; parent Columbia University continues.,https://en.wikipedia.org/wiki/Columbia_University_School_of_Library_Service
+MAN-0988,closed,1965,,,,Program/division closed; parent St. Lawrence University continues.,https://en.wikipedia.org/wiki/Theological_School_of_St._Lawrence_University
+MAN-0989,closed,2025,,,,Program/division closed; parent The New School continues.,https://en.wikipedia.org/wiki/Schools_of_Public_Engagement
