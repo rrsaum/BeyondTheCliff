@@ -345,3 +345,18 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
 .sm-tip rect { fill: var(--ink); }
 .sm-tv { fill: var(--surface); font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .sm-tl { fill: var(--line); font-size: 10px; }
+
+/* Timeline markers under the national history charts (charts.line markers=). Faint guide + a
+   small recessive tag, so a few read as a timeline and never as the dashed-line noise we cut. */
+.cl-mark { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 2 3; opacity: .35; }
+.cl-mark-yr { fill: var(--ink-soft); font-size: 10px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.cl-mark-lab { fill: var(--ink-soft); font-size: 9.5px; }
+
+/* The enrollment-cliff finding callout on /cliff: a sober analytic note, not an alarm. Accent
+   border like the survivor/open flags, never closed-red, because this is analysis not distress. */
+.finding { border-left: 3px solid var(--accent); background: var(--accent-soft);
+  padding: .9rem 1.1rem; border-radius: var(--radius); margin: 1rem 0 0; }
+.finding h3 { margin: 0 0 .5rem; font-size: 1rem; }
+.finding p { margin: 0 0 .6rem; font-size: .9rem; }
+.finding ul { margin: 0 0 .6rem; padding-left: 1.1rem; font-size: .9rem; }
+.finding li { margin-bottom: .35rem; }

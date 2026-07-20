@@ -559,6 +559,27 @@ def financial_series(inst_id: str) -> dict | None:
     }
 
 
+def national_series(series: str) -> list[tuple]:
+    """The long-run national line for 'institutions' or 'enrollment', 1869 to latest (NCES)."""
+    conn = connect()
+    rows = conn.execute(
+        "SELECT year, value FROM national_series WHERE series = ? ORDER BY year", (series,)
+    ).fetchall()
+    conn.close()
+    return [(r[0], r[1]) for r in rows]
+
+
+def timeline_markers(series: str) -> list[dict]:
+    """Key dates under a national chart: (year, label, detail) likely causes of an inflection."""
+    conn = connect()
+    rows = conn.execute(
+        "SELECT year, label, detail, source_url FROM timeline_marker WHERE series = ? ORDER BY year",
+        (series,),
+    ).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+
 def hs_series(jurisdiction: str, measure: str = "total") -> list[tuple]:
     conn = connect()
     rows = conn.execute(

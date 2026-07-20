@@ -45,29 +45,44 @@ def _fmt(v: float) -> str:
     return str(int(v))
 
 
-def line(title: str, points: list[tuple], *, subtitle: str = "", note: str = "") -> str:
+def line(
+    title: str,
+    points: list[tuple],
+    *,
+    subtitle: str = "",
+    note: str = "",
+    markers: list[dict] | None = None,
+) -> str:
     """Filled area + line chart of a value over years, with a y axis, x-year labels, and a
-    peak marker. points: (year, value). Baseline at zero so the scale is honest."""
+    peak marker. points: (year, value). Baseline at zero so the scale is honest.
+
+    markers, when given, are key dates drawn along the BOTTOM as a timeline: each is
+    {'year', 'label', 'detail'?} and renders as a faint full-height guide plus a year-and-label
+    tag under the axis. They are the likely cause of an inflection in the line, so the tag stays
+    small and recessive: three of them read as a timeline, a dozen dashed lines read as noise.
+    """
     pts = sorted((int(y), int(v)) for y, v in points if str(v).strip() not in ("", "None"))
     if len(pts) < 2:
         return (
             f'<figure class="chart cliff-chart"><figcaption>{escape(title)}</figcaption>'
             '<p class="muted">No data.</p></figure>'
         )
-    w, h, padl, padr, padt, padb = 720, 340, 60, 18, 34, 30
+    marks = [m for m in (markers or []) if pts[0][0] <= int(m["year"]) <= pts[-1][0]]
+    w, h, padl, padr, padt, padb = 720, 340, 60, 18, 34, (54 if marks else 30)
     years = [p[0] for p in pts]
     vals = [p[1] for p in pts]
     xmin, xmax, ymax = min(years), max(years), max(vals) * 1.06
     peak_x, peak_y = max(pts, key=lambda p: p[1])
+    axis_y = h - padb
 
     def sx(x):
         return padl + (x - xmin) / ((xmax - xmin) or 1) * (w - padl - padr)
 
     def sy(v):
-        return h - padb - (v / ymax) * (h - padt - padb)
+        return axis_y - (v / ymax) * (axis_y - padt)
 
     line_pts = " ".join(f"{sx(y):.1f},{sy(v):.1f}" for y, v in pts)
-    area = f"{padl},{h - padb} {line_pts} {sx(xmax):.1f},{h - padb}"
+    area = f"{padl},{axis_y} {line_pts} {sx(xmax):.1f},{axis_y}"
     # y gridlines at ~4 steps
     grid = []
     for k in range(1, 5):
@@ -77,19 +92,39 @@ def line(title: str, points: list[tuple], *, subtitle: str = "", note: str = "")
             f'<line x1="{padl}" y1="{gy:.1f}" x2="{w - padr}" y2="{gy:.1f}" class="cl-grid"/>'
             f'<text x="{padl - 6}" y="{gy + 3:.1f}" class="cl-ylab" text-anchor="end">{_fmt(gv)}</text>'
         )
-    # x labels: first, peak, last
-    xlabs = []
-    for xv in sorted({xmin, peak_x, xmax}):
-        xlabs.append(
-            f'<text x="{sx(xv):.1f}" y="{h - 10}" class="cl-xlab" text-anchor="middle">{xv}</text>'
+    # Timeline markers along the bottom: a faint guide up to the curve, and a small tag under
+    # the axis (year over a short label) so a reader can tie the inflection to its likely cause.
+    # Tags for dates close together (e.g. 1965 and 1972) would overprint, so the second of a
+    # too-near pair drops one line lower instead of colliding.
+    mark_svg = []
+    prev_mx = None
+    for m in sorted(marks, key=lambda d: int(d["year"])):
+        mx = sx(int(m["year"]))
+        drop = prev_mx is not None and (mx - prev_mx) < 62
+        yr_y = axis_y + (28 if drop else 14)
+        prev_mx = mx
+        mark_svg.append(
+            f'<line x1="{mx:.1f}" y1="{padt}" x2="{mx:.1f}" y2="{axis_y:.1f}" class="cl-mark"/>'
+            f'<text x="{mx:.1f}" y="{yr_y:.1f}" class="cl-mark-yr" text-anchor="middle">{int(m["year"])}</text>'
+            f'<text x="{mx:.1f}" y="{yr_y + 10:.1f}" class="cl-mark-lab" text-anchor="middle">{escape(m["label"])}</text>'
         )
+    # x endpoints: first and last only (the peak and markers carry the interior labels)
+    xlabs = [
+        f'<text x="{sx(xmin):.1f}" y="{h - 4}" class="cl-xlab" text-anchor="start">{xmin}</text>',
+        f'<text x="{sx(xmax):.1f}" y="{h - 4}" class="cl-xlab" text-anchor="end">{xmax}</text>',
+    ]
+    if not marks:  # without a timeline, keep the original first/peak/last labels
+        xlabs = [
+            f'<text x="{sx(xv):.1f}" y="{h - 10}" class="cl-xlab" text-anchor="middle">{xv}</text>'
+            for xv in sorted({xmin, peak_x, xmax})
+        ]
     label = escape(title)
     sub = f'<p class="chart-sub">{escape(subtitle)}</p>' if subtitle else ""
     footnote = f'<figcaption class="chart-note">{escape(note)}</figcaption>' if note else ""
     return (
         f'<figure class="chart cliff-chart"><figcaption>{label}</figcaption>{sub}'
         f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="{label}" class="cl-svg">'
-        f"{''.join(grid)}"
+        f"{''.join(grid)}{''.join(mark_svg)}"
         f'<polygon points="{area}" class="cl-area"/>'
         f'<polyline points="{line_pts}" class="cl-line" fill="none"/>'
         f'<circle cx="{sx(peak_x):.1f}" cy="{sy(peak_y):.1f}" r="4" class="cl-peak"/>'

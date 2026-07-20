@@ -148,6 +148,37 @@ CREATE TABLE hs_graduates (
 );
 CREATE INDEX idx_hsg ON hs_graduates(jurisdiction, measure, year);
 
+-- The national long run: how many colleges the country has had, and how many students they have
+-- enrolled, back to 1869. Context for the closure record: the tracker shows a sector contracting
+-- from a peak, and this is the peak it contracted from. Sourced entirely from the NCES Digest of
+-- Education Statistics (public domain); every row carries its source and the counting basis,
+-- because the basis changes across the span. The institutions line splices decennial pre-1974
+-- (branch campuses excluded) onto annual 1974+ (branches included); the enrollment line splices
+-- decennial pre-1947 onto annual 1947+. Those are different definitions, so `basis` records which
+-- each row is on and a reader-facing chart marks the seam. One row per (series, year).
+CREATE TABLE national_series (
+  series  TEXT NOT NULL,      -- 'institutions' | 'enrollment'
+  year    INTEGER NOT NULL,
+  value   INTEGER NOT NULL,
+  basis   TEXT,               -- the counting definition this row is on (see note above)
+  source  TEXT,               -- the exact NCES Digest table
+  UNIQUE (series, year)
+);
+CREATE INDEX idx_natser ON national_series(series, year);
+
+-- Key dates for the timeline under the national charts: the policy or demographic events that are
+-- the LIKELY cause of an inflection in the line above. Editorial attributions, not data readings,
+-- so each carries a primary source and the copy frames them as likely causes, never as proven.
+-- One row per (series, year).
+CREATE TABLE timeline_marker (
+  series      TEXT NOT NULL,  -- which chart it annotates
+  year        INTEGER NOT NULL,
+  label       TEXT NOT NULL,  -- short bottom-axis label
+  detail      TEXT,           -- the one-line likely cause
+  source_url  TEXT,
+  UNIQUE (series, year)
+);
+
 -- College Scorecard slice (U.S. Dept. of Education, public domain): a focused set of
 -- closure-risk and student-profile fields per institution per year, filtered to our
 -- institutions only (raw Scorecard stays in uploads/, never loaded whole).

@@ -210,6 +210,42 @@ def index(
 
 @app.get("/cliff", response_class=HTMLResponse)
 def cliff(request: Request, state: str = ""):
+    # The long run first: how many colleges the country has had, and how many students, back to
+    # 1869. The closure map shows a sector contracting from a peak; this is the peak. Key policy
+    # dates run along the bottom as the likely cause of each inflection.
+    institutions_chart = charts.line(
+        "The number of US colleges, 1869 to 2022",
+        queries.national_series("institutions"),
+        subtitle=(
+            "Every degree-granting institution, counted each period. From 563 colleges after the "
+            "Civil War to a peak of 4,726 in 2012, then the decline the closure map tracks. The "
+            "GI Bill and Title IV filled existing colleges more than they built new ones, so the "
+            "count rose steadily rather than in jumps. The 1974 step is where branch campuses "
+            "enter the count, a change in the counting, not a real surge."
+        ),
+        note=(
+            "Source: NCES Digest of Education Statistics. 1869 to 1969 (decennial): 2022 Table "
+            "301.20, branch campuses excluded. 1974 to 2022 (annual): 2023 Table 317.10, branches "
+            "included."
+        ),
+        markers=queries.timeline_markers("institutions"),
+    )
+    enrollment_chart = charts.line(
+        "US college enrollment, 1869 to 2023",
+        queries.national_series("enrollment"),
+        subtitle=(
+            "Students, not colleges. This is where policy shows: the GI Bill lifted enrollment in "
+            "the late 1940s, and the baby boom with Title IV aid drove the climb from 2.4 million "
+            "in 1949 to a peak of 21 million in 2010. Enrollment fell 11.6 percent to 2022, then "
+            "ticked up in 2023. The line stops at the last actual year and draws no projection."
+        ),
+        note=(
+            "Source: NCES Digest of Education Statistics. 1869 to 1939 (decennial): 2022 Table "
+            "301.20. 1947 to 2023 (annual): 2023/2024 Table 303.10; 2023 provisional. Total "
+            "enrollment, all institutions, 50 states + DC."
+        ),
+        markers=queries.timeline_markers("enrollment"),
+    )
     national = charts.line(
         "U.S. high school graduates, 1990 to 2024",
         [(y, v) for y, v in queries.hs_series("United States", "total") if y >= 1990],
@@ -235,6 +271,8 @@ def cliff(request: Request, state: str = ""):
         request,
         "cliff.html",
         {
+            "institutions_chart": institutions_chart,
+            "enrollment_chart": enrollment_chart,
             "national_chart": national,
             "state_chart": state_chart,
             "decliners": decliners,
