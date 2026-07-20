@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Autopsy queue | Beyond the Cliff{% endblock %}
+{% block main %}
+<section class="admin">
+  <h1>Closure-autopsy queue</h1>
+  <p class="breadcrumb"><a href="/admin">Ingest closures</a></p>
+
+  {% if error %}<p class="admin-error">{{ error }}</p>{% endif %}
+  {% if added %}<p class="admin-added"><strong>Queued {{ added|length }}:</strong> {{ added|join(', ') }}.{% if skipped %} Already in the queue, skipped: {{ skipped|join(', ') }}.{% endif %}</p>{% endif %}
+
+  <p class="lead">A worklist of closed schools to profile. Paste one school per line: the name
+  followed by its Wikipedia URL and any other source URLs (news, an archived college site, a
+  filing). This only <em>collects</em> the pointers; the profile itself is built by reading each
+  source and verifying every fact, so nothing is auto-parsed and no number is invented.</p>
+
+  <form method="post" action="/admin/autopsy/add">
+    <label class="admin-wide">Schools and source URLs (one school per line)
+      <textarea name="entries" rows="8" placeholder="Wells College https://en.wikipedia.org/wiki/Wells_College https://www.example.com/news&#10;Saint Joseph's College (Indiana) https://en.wikipedia.org/wiki/Saint_Joseph%27s_College_(Indiana)&#10;Cazenovia College https://en.wikipedia.org/wiki/Cazenovia_College"></textarea>
+    </label>
+    <div class="admin-actions">
+      <button type="submit">Add to queue</button>
+      <span class="muted">Everything before the first http on a line is the school name; the rest are its source URLs. Duplicate names are skipped.</span>
+    </div>
+  </form>
+
+  <h2>Queue ({{ queue|length }})</h2>
+  {% if queue %}
+  <table class="results autopsy-queue">
+    <thead><tr><th>Added</th><th>School</th><th>Sources</th><th>Status</th><th>Notes</th></tr></thead>
+    <tbody>
+      {% for r in queue %}
+      <tr>
+        <td class="muted">{{ r.added }}</td>
+        <td>{{ r.school }}</td>
+        <td>{% for u in r.urls.split() %}<a href="{{ u }}" rel="nofollow noopener">{{ u.split('/')[2] if '//' in u else u }}</a>{{ ' ' }}{% endfor %}</td>
+        <td><span class="pill pill-q-{{ r.status }}">{{ r.status | replace('_', ' ') }}</span></td>
+        <td class="muted">{{ r.notes }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">The queue is empty. Add schools above.</p>
+  {% endif %}
+</section>
+{% endblock %}

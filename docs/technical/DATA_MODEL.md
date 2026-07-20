@@ -89,6 +89,7 @@ source URL is extracted. Numbers are never originated: absent facts stay NULL.
 | `institution_ein` | one per (institution, EIN) | the OPEID -> EIN crosswalk, hand-curated, the join to IRS filings |
 | `financial_filing` | one per (institution, tax year, source) | Form 990 revenue, expenses, balance sheet; raw filing facts only |
 | `financial_line_item` | one per breakout line | the filing's free-text revenue lines, stored verbatim |
+| `closure_metric` | one per (institution, figure) | the closure autopsy's headline numbers (cash, obligations, debt, rescue, headcounts), hand-sourced; drives the "Anatomy of the closure" panel |
 | `institution_search` | FTS5 | full-text name search over current + historical names |
 
 The `institution` row also carries enriched columns: `unitid` + `unitid_match` (IPEDS
@@ -179,7 +180,40 @@ Both were confirmed against Montreat's FY2025 Single Audit, and both will recur 
 - **Record a campus closure:** add the campus to `campuses.csv` with a `closed_year`; the
   institution stays `open`.
 - **Add enrollment:** append rows to `enrollment.csv` with the `source` and `source_url`.
-  Never enter a number you cannot cite.
+  Never enter a number you cannot cite. For pre-1985 schools the productive sources are the
+  federal "Education Directory, Colleges and Universities" and the HEGIS "Fall Enrollment"
+  institutional volumes, both digitized on archive.org (a directory dated N/N+1 reports fall
+  N-1). Record the exact measurement in `source` (fall headcount vs FTE vs cumulative), and
+  DISAMBIGUATE by FICE/OPEID: multiple colleges can share a city (Yankton College is FICE
+  003476; Mount Marty in the same city is 003465).
+- **Add closure-autopsy figures:** append rows to `data/closure_metrics.csv`, one per figure
+  (`cash_on_hand`, `near_term_obligations`, `debt_prior_year`, `projected_deficit`,
+  `rescue_needed`, `rescue_raised`, `endowment`, `employees`, `students_displaced`,
+  `closure_warning_days`), each with its `unit`, `as_of_year`, and `source_url`; a figure with
+  no number carries a sourced word in `qualitative` (e.g. `depleted`). Then `build_db.py`. These
+  drive the "Anatomy of the closure" panel; see the closure-autopsy note below.
+
+## The closure autopsy (`closure_metric`, and the two panels)
+
+Each closed institution's page leads with two server-rendered panels, both templates driven by
+data, not by a one-off per school:
+
+- **"The evolution"** (`charts.enrollment_evolution`): enrollment as one line, solid across
+  consecutive sourced years and dashed where it interpolates across a gap, with dots at every
+  measured year, the peak marked, and the closing point in the closed colour. Fed by the
+  `enrollment` table, so it renders for any school; lifecycle events stay in the timeline, so each
+  fact appears once.
+- **"Anatomy of the closure"** (`charts.anatomy` from `queries.closure_anatomy`): three
+  diagnostic layers (liquidity, solvency, rescue gap) plus a human-toll strip, from the
+  `closure_metric` figures. Like the financial layer, only raw sourced figures are stored; the
+  readings (the runway ratio, the rescue gap) are COMPUTED in `queries.py`. The sign-and-colour
+  convention is financial and deliberate: money OWED or LOST is a negative shown in red (payroll
+  owed, debt, the projected loss); money HELD or the rescue target is positive and neutral; red is
+  otherwise reserved for the fatal readings and the verdicts. For a Form-990 school these figures
+  can instead derive from `financial_filing`.
+
+`data/closure_metrics.csv` is hand-curated and, like `data/institution_eins.csv`, is deliberately
+its own file (never a column on a generated roster), so a re-generated IPEDS file can never erase it.
 
 ## Browser ingestion console (`/admin`)
 

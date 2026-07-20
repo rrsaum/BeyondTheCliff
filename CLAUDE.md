@@ -86,7 +86,8 @@ Two rules that follow, and both are absolute:
   never add a column to one expecting it to survive. It will not.
 - **A hand-curated fact needs its own hand-curated CSV.** `data/institution_eins.csv` is the
   OPEID/EIN crosswalk precisely because IPEDS publishes no EIN, so it can never ride along on
-  the IPEDS-generated roster.
+  the IPEDS-generated roster. `data/closure_metrics.csv` (the closure-autopsy figures behind the
+  "Anatomy of the closure" panel) is hand-curated for the same reason; see `docs/technical/DATA_MODEL.md`.
 
 The `data/*.csv` files are the source of truth (committed); `data/beyondthecliff.db` is a
 git-ignored build artifact, rebuilt in about half a second, so it is never backed up or

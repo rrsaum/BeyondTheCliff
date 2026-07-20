@@ -284,7 +284,7 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 03064400,closed,2016,2016-09-28,1,,,https://studentaid.gov/announcements-events/regency
 03700300,closed,2016,2016-09-28,1,,,https://studentaid.gov/announcements-events/regency
 03064401,closed,2016,2016-01-11,1,,,https://mhec.maryland.gov/About/Documents/CommissionMeetings/042716/CBook4-27-16.pdf
-00183300,closed,2017,2017-06-30,0,,,https://apnews.com/article/2b43bcba9bd94e13937adc60e9bd6dc0
+00183300,closed,2017,2017-05-31,0,,"Suspended operations after the 2016-17 year; administrators said $100 million was needed to continue ($27M debt, $35M in repairs, $38M to re-engineer the college). About 1,100 students. Some certificate and trades programs have since been restored on campus.",https://en.wikipedia.org/wiki/Saint_Joseph%27s_College_(Indiana)
 00373900,merged_into,2013,2013-05-02,0,,Merged/consolidated per PEPS. ,https://www.diverseeducation.com/faculty-staff/article/15093222/after-125-years-of-service-st-pauls-college-shutting-down-june-30
 00748100,merged_into,2014,2014-05-02,0,,Merged/consolidated per PEPS. Career Education Corporation holds records for closed Sanford-Brown Colleges.,https://www.sec.gov/Archives/edgar/data/1046568/000119312513083541/d455233d10k.htm
 02205203,merged_into,2014,2014-06-06,0,,Merged/consolidated per PEPS. Career Education Corporation holds records for closed Sanford-Brown Colleges.,https://www2.ed.gov/offices/OSFAP/PEPS/docs/closedschoolsearch.xlsx
@@ -748,7 +748,7 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 00290304,merged_into,2019,2019-03-01,0,,Merged/consolidated per PEPS. ,https://www.newswise.com/articles/albert-einstein-college-of-medicine-achieves-independent-degree-granting-authority
 00190001,closed,2013,2013-07-27,0,,,
 -2,closed,2016,2016-09-01,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-00101200,closed,2024,2024-07-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
+00101200,closed,2024,2024-05-31,,,"Closed after the Alabama treasurer denied a $30 million state bridge loan, its last option; the endowment had fallen from over $110M to about $51M (FY2022) amid deficits in eight of the prior ten years. Campus later sold to the U.S. Dept. of Homeland Security for $126.5M for a Coast Guard training center.",https://www.insidehighered.com/news/business/financial-health/2024/03/27/birmingham-southern-announces-abrupt-closure
 00102300,closed,2021,2021-07-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00118300,closed,2023,2023-05-15,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00143300,closed,2022,2022-01-01,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
@@ -776,14 +776,14 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 002530A1,closed,2010,2010-10-14,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00267000,closed,2024,2024-08-09,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00267400,closed,2024,2024-06-12,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-00268500,closed,2023,2023-06-30,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
+00268500,closed,2023,2023-06-30,,,"Defaulted on a $25 million bond in September 2022 after a failed refinancing, then announced permanent closure that December. Campus became a New York State Police training academy.",https://en.wikipedia.org/wiki/Cazenovia_College
 00270900,closed,2021,2021-08-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00275102,closed,2016,2016-08-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00277700,closed,2023,2023-08-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00279000,closed,2023,2023-08-25,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00280301,closed,2023,2023-12-22,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00282200,closed,2021,2021-06-01,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-00290100,closed,2024,2024-05-10,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
+00290100,closed,2024,2024-06-30,,,Closed under financial pressure and enrollment decline (574 students in 2007 to 357 in 2023-24; endowment $28.8M in 2022); accreditation expired the same day. Had served as a teach-out partner for Cazenovia and Medaille the prior year.,https://en.wikipedia.org/wiki/Wells_College
 00293500,closed,2018,2018-05-11,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00293700,closed,2018,2018-12-21,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00301015,closed,2008,2008-06-30,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
@@ -2214,3 +2214,8 @@ MAN-0850,closed,1984,1984-12-21,1,,"Trustees announced closure on Dec 17, 1984 a
 MAN-0850,absorbed,1931,,,,Absorbed Fargo College (a Congregational college in North Dakota).,https://yanktoncollege.org/wp-content/uploads/2020/10/A-Quick-Glance-of-the-Historical-Timeline.pdf
 MAN-0850,absorbed,1932,,,,"Absorbed Redfield College, which became the Yankton College School of Theology.",https://yanktoncollege.org/wp-content/uploads/2020/10/A-Quick-Glance-of-the-Historical-Timeline.pdf
 MAN-0850,consolidated,1962,,,,"The School of Theology closed; its program consolidated with Mission House Seminary to form United Theological Seminary (New Brighton, MN).",https://yanktoncollege.org/wp-content/uploads/2020/10/A-Quick-Glance-of-the-Historical-Timeline.pdf
+00101200,founded,1856,,,,"Founded as Southern University in Greensboro, Alabama.",https://en.wikipedia.org/wiki/Birmingham%E2%80%93Southern_College
+00101200,consolidated,1918,1918-05-30,,,Southern University merged with Birmingham College to form Birmingham-Southern College.,https://en.wikipedia.org/wiki/Birmingham%E2%80%93Southern_College
+00290100,founded,1868,,,,"Founded in Aurora, New York; a women's college until it became coeducational in 2005.",https://en.wikipedia.org/wiki/Wells_College
+00268500,founded,1824,,,,"Founded as the Genesee Seminary (Methodist-sponsored, later non-sectarian); a degree-granting college from 1988.",https://en.wikipedia.org/wiki/Cazenovia_College
+00183300,founded,1889,,,,"Founded in Rensselaer, Indiana; Catholic, affiliated with the Missionaries of the Precious Blood.",https://en.wikipedia.org/wiki/Saint_Joseph%27s_College_(Indiana)

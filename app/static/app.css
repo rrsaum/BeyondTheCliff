@@ -256,6 +256,11 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
   background: #1f3a5f; color: #fff; cursor: pointer; }
 .admin button[disabled] { background: #9aa6b2; cursor: not-allowed; }
 .admin-error { color: #8a1f1f; }
+.admin-added { background: #eef4ee; border-left: 3px solid var(--good); border-radius: 0 6px 6px 0;
+  padding: .55rem .8rem; margin: .8rem 0; font-size: .9rem; }
+.autopsy-queue td a { display: inline-block; margin-right: .4rem; font-size: .82rem; }
+.pill-q-pending { background: #6b7480; } .pill-q-in_progress { background: var(--warn); }
+.pill-q-done { background: var(--good); }
 .admin-list { list-style: none; padding: 0; margin: 1rem 0; }
 .admin-item { border: 1px solid #e2e2e2; border-left-width: 4px; border-radius: 6px;
   padding: .6rem .8rem; margin: .5rem 0; }

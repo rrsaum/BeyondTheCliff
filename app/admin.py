@@ -21,7 +21,7 @@ from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from . import ce_ingest, edit_record, news_ingest, queries
+from . import autopsy_queue, ce_ingest, edit_record, news_ingest, queries
 
 BASE = Path(__file__).resolve().parent
 SCRIPTS = BASE.parent / "scripts"
@@ -227,6 +227,33 @@ async def roster_commit(request: Request):
         return _composite_page(request, error=str(exc))
     db_error = rebuild_db()
     return _composite_page(request, roster=batch.counts(), db_error=db_error)
+
+
+@router.get("/admin/autopsy", response_class=HTMLResponse)
+def autopsy_form(request: Request):
+    """The closure-autopsy work queue: a browser worklist of schools to profile. Bulk-add school
+    names and their source URLs; the list is worked through by hand (verified reads), not parsed."""
+    return templates.TemplateResponse(
+        request, "admin_autopsy.html", {"queue": autopsy_queue.load()}
+    )
+
+
+@router.post("/admin/autopsy/add", response_class=HTMLResponse)
+async def autopsy_add(request: Request):
+    raw = (await request.body()).decode("utf-8", errors="replace")
+    text = (parse_qs(raw, keep_blank_values=True).get("entries", [""])[0]).strip()
+    if not text:
+        return templates.TemplateResponse(
+            request,
+            "admin_autopsy.html",
+            {"queue": autopsy_queue.load(), "error": "Paste at least one school (one per line)."},
+        )
+    added, skipped = autopsy_queue.add(text)
+    return templates.TemplateResponse(
+        request,
+        "admin_autopsy.html",
+        {"queue": autopsy_queue.load(), "added": added, "skipped": skipped},
+    )
 
 
 @router.get("/admin/edit", response_class=HTMLResponse)

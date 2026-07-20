@@ -47,6 +47,9 @@ def asset_version(name: str) -> str:
 
 
 templates.env.globals["asset_version"] = asset_version
+# The admin router builds its own Jinja2Templates instance, so it needs the same global or every
+# /admin page 500s on base.html's asset_version() call. Register it here, at the composition root.
+admin.templates.env.globals["asset_version"] = asset_version
 
 
 def _qs(**overrides) -> str:

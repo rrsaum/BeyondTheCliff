@@ -68,3 +68,6 @@ scripts/_*.csv
 # Mockup generators are scratch: they hardcode a snapshot of data for a review page and
 # must never be mistaken for an importer. They live in the session scratchpad.
 scripts/_*.py
+
+# Runtime worklist managed by the /admin autopsy queue form (not a loaded table)
+data/autopsy_queue.csv
