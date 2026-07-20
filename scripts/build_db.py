@@ -50,6 +50,8 @@ TABLES = [
     ("enrollment.csv", "enrollment", {"year", "total_headcount", "undergrad", "graduate", "fte"}),
     ("events.csv", "event", {"event_year", "abrupt"}),
     ("characteristics.csv", "characteristic", set()),
+    # Hand-curated, one sourced row per closure-autopsy figure. Not part of any generated file.
+    ("closure_metrics.csv", "closure_metric", {"amount", "as_of_year"}),
     ("hcm.csv", "hcm", set()),
     ("hs_graduates.csv", "hs_graduates", {"year", "graduates"}),
     ("national_series.csv", "national_series", {"year", "value"}),

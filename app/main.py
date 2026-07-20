@@ -289,9 +289,24 @@ def institution(request: Request, inst_id: str):
     data = queries.get_institution(inst_id)
     if data is None:
         return HTMLResponse("<h1>Not found</h1>", status_code=404)
-    trend_html = charts.trend(
-        "Enrollment (12-month headcount)",
+    inst = data["inst"]
+    # Enrollment as one honest trajectory: a line across consecutive sourced years, dashed across
+    # gaps, driven by the enrollment table so it renders for any school, dense or sparse.
+    evolution_html = charts.enrollment_evolution(
+        "The evolution",
         [(r["year"], r["total_headcount"]) for r in data["enrollment"]],
+        terminal=inst["status"] in ("closed", "merged"),
+        note=(
+            "Dots mark the years with a sourced figure; a solid line joins consecutive years, a "
+            "dashed line interpolates across the gaps between them. Historical counts can be "
+            "whole-institution or cumulative and are not always comparable to a modern headcount: "
+            "read the source column below."
+        ),
+    )
+    # The anatomy panel: how the closure happened, from sourced closure_metric figures.
+    anatomy_html = charts.anatomy(
+        queries.closure_anatomy(data["closure_metrics"]),
+        note="Each figure is one sourced record; the readings and signs are computed from them.",
     )
     # ED's Financial Responsibility Composite Score history. One score is a number; the series
     # is the story, so the chart appears as soon as there are two award years to draw.
@@ -385,7 +400,8 @@ def institution(request: Request, inst_id: str):
             "control_labels": queries.CONTROL_LABELS,
             "status_labels": queries.STATUS_LABELS,
             "cause_labels": queries.CAUSE_LABELS,
-            "trend_html": trend_html,
+            "evolution_html": evolution_html,
+            "anatomy_html": anatomy_html,
             "hcm_first": hcm_first,
             "hcm_lead_years": hcm_lead_years,
             "hcm_has_severe": any(r["level"] == "2" for r in data["hcm"]),

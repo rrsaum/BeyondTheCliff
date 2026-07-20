@@ -360,3 +360,36 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
 .finding p { margin: 0 0 .6rem; font-size: .9rem; }
 .finding ul { margin: 0 0 .6rem; padding-left: 1.1rem; font-size: .9rem; }
 .finding li { margin-bottom: .35rem; }
+
+/* Enrollment evolution line (charts.enrollment_evolution). Solid across consecutive years,
+   dashed across the gaps it interpolates; peak in warn, the closing point in the closed colour. */
+.ev-axtitle { fill: var(--ink-soft); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+.ev-line { stroke: var(--accent); stroke-width: 2.5; fill: none; }
+.ev-gapline { stroke: var(--accent); stroke-width: 1.4; fill: none; stroke-dasharray: 4 4; opacity: .5; }
+.ev-dot { fill: var(--accent); }
+.ev-dot-last { fill: var(--closed); }
+.ev-peak { fill: var(--warn); }
+.ev-lab { fill: var(--ink); font-size: 11px; font-weight: 600; }
+.ev-peaklab { fill: var(--warn); font-size: 11px; font-weight: 700; }
+.ev-tick { stroke: var(--line); stroke-width: 1; }
+
+/* Anatomy of the closure (charts.anatomy). Magnitude bars are neutral; money owed or lost is a
+   negative shown red; red is otherwise reserved for the fatal readings and the verdicts. */
+.anatomy .an-diag { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: .5rem 0 .2rem; }
+.an-layer { border: 1px solid var(--line); border-radius: 6px; padding: .8rem .9rem; }
+.an-layer h3 { margin: 0 0 .1rem; font-size: .96rem; }
+.an-q { font-size: .77rem; color: var(--ink-soft); margin: 0 0 .7rem; }
+.an-row { display: flex; align-items: center; gap: .5rem; margin: .28rem 0; font-size: .8rem; }
+.an-lab { width: 7.5rem; flex: none; color: var(--ink); }
+.an-track { flex: 1; background: #f0eee8; border-radius: 4px; overflow: hidden; height: 15px; }
+.an-bar { display: block; height: 15px; border-radius: 4px; min-width: 2px; }
+.an-base { background: #6b7480; }
+.an-crit { background: var(--closed); }
+.an-amt { flex: none; font-weight: 700; }
+.an-amt-crit { color: var(--closed); }
+.an-na { flex: 1; font-size: .8rem; color: var(--closed); font-weight: 700; }
+.an-verdict { font-size: .82rem; font-weight: 700; color: var(--closed); margin-top: .55rem; }
+.an-toll { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; border-top: 1px dashed var(--line); padding-top: .8rem; }
+.an-toll div { font-size: .82rem; color: var(--ink-soft); }
+.an-toll b { display: block; font-size: 1.35rem; color: var(--ink); }
+@media (max-width: 700px) { .anatomy .an-diag { grid-template-columns: 1fr; } }

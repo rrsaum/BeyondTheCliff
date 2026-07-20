@@ -15913,3 +15913,20 @@ institution_id,year,total_headcount,undergrad,graduate,fte,source,source_url
 82098880,2018,121,121,,,IPEDS EFFY,https://nces.ed.gov/ipeds/datacenter/data/EFFY2018.zip
 82098880,2019,53,53,,,IPEDS EFFY,https://nces.ed.gov/ipeds/datacenter/data/EFFY2019.zip
 82098880,2020,32,32,,,IPEDS EFFY,https://nces.ed.gov/ipeds/datacenter/data/EFFY2020.zip
+MAN-0850,1882,5,,,,Yankton College official historical timeline (first classes began with five students),https://yanktoncollege.org/wp-content/uploads/2020/10/A-Quick-Glance-of-the-Historical-Timeline.pdf
+MAN-0850,1883,43,,,,Yankton College official historical timeline (43 students by end of the first year),https://yanktoncollege.org/wp-content/uploads/2020/10/A-Quick-Glance-of-the-Historical-Timeline.pdf
+MAN-0850,1884,103,,,,"Yankton College official historical timeline (103 enrolled, taught by seven teachers)",https://yanktoncollege.org/wp-content/uploads/2020/10/A-Quick-Glance-of-the-Historical-Timeline.pdf
+MAN-0850,1925,300,,,,Yankton College official historical timeline (enrollment tops 300),https://yanktoncollege.org/wp-content/uploads/2020/10/A-Quick-Glance-of-the-Historical-Timeline.pdf
+MAN-0850,1984,240,,,,"Yankton Press & Dakotan closure account (enrollment at closing, Dec 1984)",https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
+MAN-0850,1885,150,,,,"Yankton College: A Historical Sketch (1907): total attendance for the year, all departments (cumulative)",https://archive.org/details/yanktoncollegehi00mcmurich
+MAN-0850,1888,109,,,,"Yankton College: A Historical Sketch (1907): students present in October, all departments (point-in-time)",https://archive.org/details/yanktoncollegehi00mcmurich
+MAN-0850,1895,231,,,,"Yankton College: A Historical Sketch (1907): total enrollment, all departments (faculty of 14)",https://archive.org/details/yanktoncollegehi00mcmurich
+MAN-0850,1905,358,,,,"Yankton College: A Historical Sketch (1907): total attendance AY 1905-06, all departments incl. Summer School (cumulative)",https://archive.org/details/yanktoncollegehi00mcmurich
+MAN-0850,1959,283,,,,"Education Directory 1960-61 (U.S. Office of Education): total fall enrollment, students of college grade",https://archive.org/details/educationdirecto00unse_9
+MAN-0850,1962,350,,,,"Education Directory 1963-64 (U.S. Office of Education): total fall enrollment, students of college grade",https://archive.org/details/educationdirecto00unse_12
+MAN-0850,1969,634,,,,HEGIS Fall Enrollment 1969 (NCES): opening-fall grand total (degree-credit 614),https://archive.org/details/micro_IA41153121_0070
+MAN-0850,1970,557,,,,HEGIS Fall Enrollment 1970 (NCES): opening-fall grand total (degree-credit 500); matches Education Directory 1971-72,https://archive.org/details/micro_IA41153121_0076
+MAN-0850,1971,502,,,,HEGIS Fall Enrollment 1971 (NCES): opening-fall total (full-time 466 + part-time 36); matches Education Directory 1972-73,https://archive.org/details/micro_IA41152913_0413
+MAN-0850,1972,478,,,,Education Directory 1973-74 (NCES): total fall enrollment; HEGIS 1972 corroborates (men 152 + women 326),https://archive.org/details/micro_IA41153117_0917
+MAN-0850,1973,394,,,,HEGIS Fall Enrollment 1973 (NCES): opening-fall total (full-time 365 + part-time 29); degree-credit table shows 388,https://archive.org/details/micro_IA41153032_0029
+MAN-0850,1974,334,,,,"Education Directory 1975-76 (NCES): total fall enrollment, undergraduate",https://archive.org/details/micro_IA41153028_0139

@@ -77,6 +77,13 @@
   </aside>
   {% endif %}
 
+  {% if anatomy_html %}
+  <section class="autopsy">
+    <h2>Anatomy of the closure</h2>
+    {{ anatomy_html | safe }}
+  </section>
+  {% endif %}
+
   {% if inst.history %}
   <section>
     <h2>History</h2>
@@ -187,10 +194,11 @@
     {% else %}<p class="muted">No timeline events recorded.</p>{% endif %}
   </section>
 
-  {% if enrollment %}
+  {% if evolution_html %}
   <section>
-    <h2>Enrollment</h2>
-    {{ trend_html | safe }}
+    <h2>The evolution</h2>
+    {{ evolution_html | safe }}
+    {% if enrollment %}
     <table class="mini">
       <thead><tr><th>Year</th><th>Total</th><th>Source</th></tr></thead>
       <tbody>
@@ -199,6 +207,7 @@
         {% endfor %}
       </tbody>
     </table>
+    {% endif %}
   </section>
   {% endif %}
 

@@ -123,6 +123,31 @@ CREATE TABLE characteristic (
   UNIQUE (institution_id, tag)
 );
 
+-- The closure autopsy's headline figures: the small set of numbers that explain HOW a school
+-- failed, one sourced row per figure. Storage template behind the "Anatomy of the closure" panel,
+-- deliberately generic (a metric key + a value) so any closure's crisis can be recorded without a
+-- schema change: cash_on_hand, near_term_obligations, debt_prior_year, projected_deficit,
+-- rescue_needed, rescue_raised, endowment, employees, students_displaced, closure_warning_days.
+--
+-- Raw sourced facts ONLY, like financial_filing: the panel COMPUTES the readings (runway, the
+-- rescue gap) in app/queries.py, so a definition can change without re-entering data and every
+-- number traces to one sourced row. For a Form-990 school these can derive from financial_filing;
+-- for a pre-federal school like Yankton they are hand-sourced here. amount is the number when
+-- there is one; qualitative carries a sourced word ('depleted') when there is no figure. Its own
+-- hand-curated CSV (data/closure_metrics.csv), never a column on a generated file.
+CREATE TABLE closure_metric (
+  institution_id  TEXT NOT NULL REFERENCES institution(id),
+  metric          TEXT NOT NULL,   -- the figure's key (see list above)
+  amount          INTEGER,         -- the value, when there is one; NULL for a qualitative-only fact
+  unit            TEXT,            -- 'usd' | 'count' | 'days'
+  qualitative     TEXT,            -- a sourced word when there is no number (e.g. 'depleted')
+  as_of_year      INTEGER,         -- the year the figure describes
+  note            TEXT,
+  source_url      TEXT,
+  UNIQUE (institution_id, metric)
+);
+CREATE INDEX idx_closure_metric_inst ON closure_metric(institution_id);
+
 -- Heightened Cash Monitoring history: one row per institution per ED snapshot it appears
 -- in. level '1' = HCM1 (added oversight), '2' = HCM2 (reimbursement, most severe). Appearing
 -- on HCM before the closure year is a leading distress signal for the resilience model.

@@ -1,0 +1,11 @@
+institution_id,metric,amount,unit,qualitative,as_of_year,note,source_url
+MAN-0850,cash_on_hand,37000,usd,,1984,In its checking account when the board voted to close,https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
+MAN-0850,near_term_obligations,120000,usd,,1984,December 1984 payroll due,https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
+MAN-0850,debt_prior_year,526000,usd,,1984,Debt carried over from the previous school year,https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
+MAN-0850,projected_deficit,424000,usd,,1984,Projected additional deficit for the 1984-85 year,https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
+MAN-0850,rescue_needed,2300000,usd,,1984,"Trustees' estimate to clear debt, make repairs and keep the school open",https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
+MAN-0850,rescue_raised,0,usd,,1984,No loans or gifts available; the trustees filed Chapter 11,https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
+MAN-0850,endowment,,usd,depleted,1984,Endowments described as depleted at closure,https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
+MAN-0850,employees,118,count,,1984,Full- and part-time employees on the December payroll,https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
+MAN-0850,students_displaced,240,count,,1984,"Students enrolled at closing, forced to transfer mid-year",https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
+MAN-0850,closure_warning_days,4,days,,1984,Announced Monday Dec 17 1984; closed Friday Dec 21 1984,https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html

@@ -2209,3 +2209,8 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 82098875,closed,2020,2020-06-19,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 82098876,closed,2021,2021-05-11,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 82098880,closed,2021,2021-08-09,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
+MAN-0850,founded,1881,1881-08-30,,,Chartered as a private corporation under the laws of Dakota Territory; first college in the Territory.,https://web.archive.org/web/20110927004724/http://www.yanktoncollege.org/AboutUs/History.aspx
+MAN-0850,closed,1984,1984-12-21,1,,"Trustees announced closure on Dec 17, 1984 amid a roughly $1M debt and depleted endowment and filed Chapter 11; 240 students transferred. Campus became Federal Prison Camp, Yankton (1988).",https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
+MAN-0850,absorbed,1931,,,,Absorbed Fargo College (a Congregational college in North Dakota).,https://yanktoncollege.org/wp-content/uploads/2020/10/A-Quick-Glance-of-the-Historical-Timeline.pdf
+MAN-0850,absorbed,1932,,,,"Absorbed Redfield College, which became the Yankton College School of Theology.",https://yanktoncollege.org/wp-content/uploads/2020/10/A-Quick-Glance-of-the-Historical-Timeline.pdf
+MAN-0850,consolidated,1962,,,,"The School of Theology closed; its program consolidated with Mission House Seminary to form United Theological Seminary (New Brighton, MN).",https://yanktoncollege.org/wp-content/uploads/2020/10/A-Quick-Glance-of-the-Historical-Timeline.pdf

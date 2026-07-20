@@ -671,6 +671,153 @@ def small_multiples(
     return "".join(out)
 
 
+def enrollment_evolution(
+    title: str,
+    points: list[tuple],
+    *,
+    terminal: bool = False,
+    subtitle: str = "",
+    note: str = "",
+) -> str:
+    """Enrollment as one readable trajectory: a solid line across consecutive sourced years and a
+    dashed line interpolating across the gaps we have not sourced, dots at every measured year, the
+    peak in the warn colour and (for a closed school) the final point in the closed colour. Trend
+    over time wants a line; the dashed segments keep it honest about which years are interpolated.
+
+    points: (year, headcount). terminal marks the last point as the closure. Lifecycle events are
+    NOT drawn here: they live in the timeline, so each fact appears once."""
+    pts = sorted((int(y), int(v)) for y, v in points if str(v).strip() not in ("", "None"))
+    if len(pts) < 2:
+        return ""
+    w, h, padl, padr, padt, padb = 940, 300, 56, 20, 40, 44
+    axis_y = h - padb
+    years, vals = [p[0] for p in pts], [p[1] for p in pts]
+    xmin = (min(years) // 10) * 10
+    xmax = -(-max(years) // 10) * 10  # ceil to the next decade
+    if xmax <= xmin:
+        xmax = xmin + 10
+    ymax = max(vals) * 1.08
+    gstep = next(
+        (c for c in (10, 20, 25, 50, 100, 200, 250, 500, 1000, 2000, 5000) if ymax / c <= 5), 10000
+    )
+
+    def sx(x):
+        return padl + (x - xmin) / (xmax - xmin) * (w - padl - padr)
+
+    def sy(v):
+        return axis_y - (v / ymax) * (axis_y - padt)
+
+    out = [
+        f'<text x="{padl}" y="{padt - 16}" class="ev-axtitle">Enrollment (sourced headcount)</text>'
+    ]
+    g = 0
+    while g < ymax:
+        gy = sy(g)
+        out.append(
+            f'<line x1="{padl}" y1="{gy:.1f}" x2="{w - padr}" y2="{gy:.1f}" class="cl-grid"/>'
+            f'<text x="{padl - 6}" y="{gy + 3:.1f}" class="cl-ylab" text-anchor="end">{g}</text>'
+        )
+        g += gstep
+    # Full dashed trajectory (interpolates across gaps), then solid over consecutive-year runs.
+    out.append(
+        f'<polyline points="{" ".join(f"{sx(y):.1f},{sy(v):.1f}" for y, v in pts)}" class="ev-gapline"/>'
+    )
+    runs, run = [], [pts[0]]
+    for a, b in zip(pts, pts[1:]):
+        if b[0] - a[0] == 1:
+            run.append(b)
+        else:
+            runs.append(run)
+            run = [b]
+    runs.append(run)
+    for r in runs:
+        if len(r) >= 2:
+            out.append(
+                f'<polyline points="{" ".join(f"{sx(y):.1f},{sy(v):.1f}" for y, v in r)}" class="ev-line"/>'
+            )
+    peak, last = max(pts, key=lambda p: p[1]), pts[-1]
+    for y, v in pts:
+        if (y, v) == peak:
+            cls, rad = "ev-peak", 5
+        elif (y, v) == last and terminal:
+            cls, rad = "ev-dot-last", 5
+        else:
+            cls, rad = "ev-dot", 3.6
+        out.append(
+            f'<circle cx="{sx(y):.1f}" cy="{sy(v):.1f}" r="{rad}" class="{cls}"><title>{y}: {v:,}</title></circle>'
+        )
+    out.append(
+        f'<text x="{sx(pts[0][0]):.1f}" y="{sy(pts[0][1]) - 8:.1f}" class="ev-lab" text-anchor="middle">'
+        f"{pts[0][1]:,} ({pts[0][0]})</text>"
+    )
+    out.append(
+        f'<text x="{sx(peak[0]):.1f}" y="{sy(peak[1]) - 8:.1f}" class="ev-peaklab" text-anchor="middle">'
+        f"peak {peak[1]:,} ({peak[0]})</text>"
+    )
+    lx = sx(last[0])
+    lab = f"{last[1]:,} at close ({last[0]})" if terminal else f"{last[1]:,} ({last[0]})"
+    out.append(
+        f'<text x="{min(lx, w - padr - 4):.1f}" y="{sy(last[1]) - 8:.1f}" class="ev-lab" '
+        f'text-anchor="{"end" if lx > w - 90 else "middle"}">{lab}</text>'
+    )
+    tickstep = 20 if (xmax - xmin) > 60 else 10
+    t = xmin
+    while t <= xmax:
+        tx = sx(t)
+        out.append(
+            f'<line x1="{tx:.1f}" y1="{axis_y}" x2="{tx:.1f}" y2="{axis_y + 5}" class="ev-tick"/>'
+            f'<text x="{tx:.1f}" y="{axis_y + 20}" class="cl-xlab" text-anchor="middle">{t}</text>'
+        )
+        t += tickstep
+    label = escape(title)
+    sub = f'<p class="chart-sub">{escape(subtitle)}</p>' if subtitle else ""
+    foot = f'<figcaption class="chart-note">{escape(note)}</figcaption>' if note else ""
+    return (
+        f'<figure class="chart evolution"><figcaption>{label}</figcaption>{sub}'
+        f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="{label}" class="cl-svg">{"".join(out)}</svg>{foot}</figure>'
+    )
+
+
+def anatomy(struct: dict | None, *, note: str = "") -> str:
+    """The 'Anatomy of the closure' panel from queries.closure_anatomy. Accessible HTML bars, no
+    script; the readings and the sign/colour are computed in queries.py, this only lays them out."""
+    if not struct:
+        return ""
+    layers = []
+    for layer in struct["layers"]:
+        rows = []
+        for b in layer["bars"]:
+            if b["tone"] == "na":
+                rows.append(
+                    f'<div class="an-row"><span class="an-lab">{escape(b["label"])}</span>'
+                    f'<span class="an-na">{escape(b["display"])}</span></div>'
+                )
+            else:
+                amt_cls = " an-amt-crit" if b.get("amt_crit") else ""
+                rows.append(
+                    f'<div class="an-row"><span class="an-lab">{escape(b["label"])}</span>'
+                    f'<span class="an-track"><span class="an-bar an-{b["tone"]}" '
+                    f'style="width:{b["pct"]}%"></span></span>'
+                    f'<span class="an-amt{amt_cls}">{escape(b["display"])}</span></div>'
+                )
+        layers.append(
+            f'<div class="an-layer"><h3>{layer["n"]} &middot; {escape(layer["title"])}</h3>'
+            f'<p class="an-q">{escape(layer["question"])}</p>{"".join(rows)}'
+            f'<p class="an-verdict">{escape(layer["verdict"])}</p></div>'
+        )
+    toll = "".join(
+        f"<div><b>{escape(t['value'])}</b>{escape(t['label'])}</div>" for t in struct["toll"]
+    )
+    toll_html = f'<div class="an-toll">{toll}</div>' if toll else ""
+    footnote = f'<figcaption class="chart-note">{escape(note)}</figcaption>' if note else ""
+    return (
+        '<figure class="chart anatomy">'
+        '<p class="chart-sub">The three questions every closure answers: could it make payroll, '
+        "did it owe more than it held, and could it be saved.</p>"
+        f'<div class="an-diag">{"".join(layers)}</div>{toll_html}{footnote}</figure>'
+    )
+
+
 def trend(title: str, points: list[tuple]) -> str:
     """Inline SVG line chart of a value over years (e.g. enrollment). points: (year, value);
     None/blank values are dropped. Returns '' if there are fewer than two usable points."""

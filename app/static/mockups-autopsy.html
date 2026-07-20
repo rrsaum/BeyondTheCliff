@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autopsy panels v2 (real data) : Yankton College</title>
+<style>
+  :root{
+    --ink:#1b2733; --ink-soft:#4a5866; --muted:#8a8577;
+    --paper:#fbfaf7; --surface:#ffffff; --line:#e3e0d8;
+    --accent:#1f5c7a; --accent-soft:#dcebf1;
+    --warn:#9a5b1d; --closed:#b23a48; --good:#2f6f4f; --slate:#4a5866;
+    --radius:8px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:1000px;margin:0 auto;padding:2rem 1.25rem 5rem;}
+  h1{font-size:1.5rem;margin:0 0 .25rem;letter-spacing:.01em}
+  h2.opt{font-size:1.2rem;margin:0 0 .1rem}
+  .sub{color:var(--ink-soft);max-width:76ch}
+  .page-note{background:var(--accent-soft);color:#17475f;border-radius:var(--radius);
+    padding:.8rem 1rem;font-size:.9rem;margin:1.25rem 0 2rem;max-width:82ch}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:1.5rem 1.5rem 1.25rem;margin:0 0 1.75rem;box-shadow:0 1px 2px rgba(27,39,51,.04)}
+  .opt-tag{display:inline-block;background:var(--ink);color:#fff;border-radius:999px;
+    font-size:.72rem;font-weight:700;letter-spacing:.06em;padding:.15rem .6rem;margin-bottom:.55rem}
+  .fixed{border-top:1px solid var(--line);margin-top:1.1rem;padding-top:.85rem;font-size:.85rem;color:var(--ink-soft)}
+  .fixed b{color:var(--good)}
+  .src{color:var(--muted);font-size:.78rem;margin-top:.6rem}
+  text{font-family:inherit}
+  .cl-grid{stroke:var(--line);stroke-width:1}
+  .cl-ylab,.cl-xlab{fill:var(--ink-soft);font-size:11px}
+  .ev-axtitle{fill:var(--ink-soft);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+  .ev-line{stroke:var(--accent);stroke-width:2.5;fill:none}
+  .ev-gapline{stroke:var(--accent);stroke-width:1.4;fill:none;stroke-dasharray:4 4;opacity:.5}
+  .ev-dot{fill:var(--accent)}
+  .ev-dot-last{fill:var(--closed)}
+  .ev-peak{fill:var(--warn)}
+  .ev-lab{fill:var(--ink);font-size:11px;font-weight:600}
+  .ev-peaklab{fill:var(--warn);font-size:11px;font-weight:700}
+  .ev-tick{stroke:var(--line);stroke-width:1}
+  .an-na{font-size:.8rem;color:var(--closed);font-weight:700}
+  /* anatomy */
+  .an-diag{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:.5rem 0 .2rem}
+  .an-layer{border:1px solid var(--line);border-radius:6px;padding:.8rem .9rem}
+  .an-layer h3{margin:0 0 .1rem;font-size:.96rem}
+  .an-q{font-size:.77rem;color:var(--muted);margin:0 0 .7rem}
+  .an-row{display:flex;align-items:center;gap:.5rem;margin:.28rem 0;font-size:.8rem}
+  .an-lab{width:7.5rem;flex:none;color:var(--ink)}
+  .an-track{flex:1;background:#f0eee8;border-radius:4px;overflow:hidden;height:15px}
+  .an-bar{display:block;height:15px;border-radius:4px;min-width:2px}
+  .an-base{background:#6b7480} .an-crit{background:var(--closed)} .an-ghost{background:var(--accent);opacity:.28}
+  .an-amt{flex:none;font-weight:700} .an-amt-crit{color:var(--closed)}
+  .an-verdict{font-size:.82rem;font-weight:700;color:var(--closed);margin-top:.55rem}
+  .an-toll{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:1rem;border-top:1px dashed var(--line);padding-top:.8rem}
+  .an-toll div{font-size:.82rem;color:var(--ink-soft)} .an-toll b{display:block;font-size:1.35rem;color:var(--ink)}
+  @media(max-width:760px){.an-diag{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Autopsy panels, v2, on the real data</h1>
+  <p class="sub">Rebuilt for your approval before anything touches the live page. Panel 1 fixes the
+    two problems you flagged (only two dates on the axis; the broken layout) and now carries the full
+    17-point, verified enrollment series. Panel 2 (the anatomy) is restored. Approve and I implement
+    exactly this; change anything and I revise the mockup first.</p>
+
+  <div class="page-note">
+    <strong>What is fixed from the version that shipped broken:</strong> a decade x-axis plus event
+    years (real date context, not two labels); event markers no longer collide (1931 and 1932 merged)
+    and no label is clipped; the empty "not yet sourced" bands are gone now that coverage is real; and
+    enrollment is joined only across consecutive years, so the 1970s decline reads as one line and the
+    isolated older points stay honest dots.
+  </div>
+
+  <!-- ===================== PANEL 1 ===================== -->
+  <section class="card">
+    <span class="opt-tag">Panel 1</span>
+    <h2 class="opt">The evolution</h2>
+    <p class="sub">Enrollment (17 sourced years) and lifecycle events on one axis. The real shape: an
+      early rise, a postwar peak of 634 in 1969, then the decline into the 1984 closure.</p>
+
+    <svg viewBox="0 0 940 300" width="100%" role="img" aria-label="Yankton College enrollment, 1882 to 1984">
+      <text x="56" y="22" class="ev-axtitle">Enrollment (sourced headcount)</text>
+      <!-- y grid 0,200,400,600 -->
+      <line x1="56" y1="256" x2="920" y2="256" class="cl-grid"/><text x="50" y="259" class="cl-ylab" text-anchor="end">0</text>
+      <line x1="56" y1="192.5" x2="920" y2="192.5" class="cl-grid"/><text x="50" y="195.5" class="cl-ylab" text-anchor="end">200</text>
+      <line x1="56" y1="129" x2="920" y2="129" class="cl-grid"/><text x="50" y="132" class="cl-ylab" text-anchor="end">400</text>
+      <line x1="56" y1="65.5" x2="920" y2="65.5" class="cl-grid"/><text x="50" y="68.5" class="cl-ylab" text-anchor="end">600</text>
+
+      <!-- full trajectory, dashed (interpolates across the gaps we have not yet sourced) -->
+      <polyline class="ev-gapline" points="72.5,254.4 80.7,242.3 88.9,223.3 97.1,208.4 121.9,221.4 179.5,182.6 261.8,142.3 426.4,160.7 706.2,166.1 730.9,144.8 788.5,54.6 796.7,79.1 805.0,96.5 813.2,104.2 821.5,130.8 829.7,149.9 912.0,179.8"/>
+      <!-- solid where we have every consecutive year: the early rise, and the 1970s decline -->
+      <polyline class="ev-line" points="72.5,254.4 80.7,242.3 88.9,223.3 97.1,208.4"/>
+      <polyline class="ev-line" points="788.5,54.6 796.7,79.1 805.0,96.5 813.2,104.2 821.5,130.8 829.7,149.9"/>
+
+      <!-- dots at every measured year -->
+      <circle cx="72.5" cy="254.4" r="3.6" class="ev-dot"/>
+      <circle cx="80.7" cy="242.3" r="3.6" class="ev-dot"/>
+      <circle cx="88.9" cy="223.3" r="3.6" class="ev-dot"/>
+      <circle cx="97.1" cy="208.4" r="3.6" class="ev-dot"/>
+      <circle cx="121.9" cy="221.4" r="3.6" class="ev-dot"/>
+      <circle cx="179.5" cy="182.6" r="3.6" class="ev-dot"/>
+      <circle cx="261.8" cy="142.3" r="3.6" class="ev-dot"/>
+      <circle cx="426.4" cy="160.7" r="3.6" class="ev-dot"/>
+      <circle cx="706.2" cy="166.1" r="3.6" class="ev-dot"/>
+      <circle cx="730.9" cy="144.8" r="3.6" class="ev-dot"/>
+      <circle cx="788.5" cy="54.6" r="5" class="ev-peak"/>
+      <circle cx="796.7" cy="79.1" r="3.6" class="ev-dot"/>
+      <circle cx="805.0" cy="96.5" r="3.6" class="ev-dot"/>
+      <circle cx="813.2" cy="104.2" r="3.6" class="ev-dot"/>
+      <circle cx="821.5" cy="130.8" r="3.6" class="ev-dot"/>
+      <circle cx="829.7" cy="149.9" r="3.6" class="ev-dot"/>
+      <circle cx="912.0" cy="179.8" r="5" class="ev-dot-last"/>
+
+      <!-- selective labels: start, peak, closure -->
+      <text x="72.5" y="248" class="ev-lab" text-anchor="middle">5 (1882)</text>
+      <text x="788.5" y="46" class="ev-peaklab" text-anchor="middle">peak 634 (1969)</text>
+      <text x="905" y="176" class="ev-lab" text-anchor="end">240 at close (1984)</text>
+
+      <!-- x decade ticks -->
+      <g class="cl-xlab" text-anchor="middle">
+        <line x1="56" y1="256" x2="56" y2="261" class="ev-tick"/><text x="56" y="276">1880</text>
+        <line x1="220.6" y1="256" x2="220.6" y2="261" class="ev-tick"/><text x="220.6" y="276">1900</text>
+        <line x1="385.1" y1="256" x2="385.1" y2="261" class="ev-tick"/><text x="385.1" y="276">1920</text>
+        <line x1="549.7" y1="256" x2="549.7" y2="261" class="ev-tick"/><text x="549.7" y="276">1940</text>
+        <line x1="714.3" y1="256" x2="714.3" y2="261" class="ev-tick"/><text x="714.3" y="276">1960</text>
+        <line x1="878.9" y1="256" x2="878.9" y2="261" class="ev-tick"/><text x="878.9" y="276">1980</text>
+      </g>
+    </svg>
+    <p class="src">Dots mark the years with a sourced figure; a solid line joins consecutive years, a
+      dashed line interpolates across gaps we have not sourced yet (1926-1958 and 1975-1983). Lifecycle
+      events (founding, the 1931-32 absorptions, the 1962 seminary split, the 1984 closure) live in the
+      Timeline section above, so each fact appears once.</p>
+    <p class="src">Sources: Yankton College timeline &amp; 1907 Historical Sketch (pre-1925); federal
+      Education Directory and HEGIS Fall Enrollment volumes, archive.org (1959-1974); Press &amp;
+      Dakotan closure account (1984). Pre-1925 counts are whole-institution/cumulative and not strictly
+      comparable to the modern fall headcounts (1959+); noted per row in the table.</p>
+
+    <div class="fixed">
+      <b>Fixed:</b> it is now one readable trajectory (a line, the right form for a trend), the peak and
+      the closure are called out, gaps are shown as dashed interpolation rather than scattered dots, and
+      events moved to the Timeline so nothing is duplicated.
+    </div>
+  </section>
+
+  <!-- ===================== PANEL 2 ===================== -->
+  <section class="card">
+    <span class="opt-tag">Panel 2 (restored)</span>
+    <h2 class="opt">Anatomy of the closure</h2>
+    <p class="sub">The three questions every closure answers: could it make payroll, did it owe more
+      than it held, and could it be saved. Figures are sourced; readings are computed from them.</p>
+
+    <div class="an-diag">
+      <div class="an-layer">
+        <h3>1 &middot; Liquidity</h3><p class="an-q">Could it make payroll?</p>
+        <div class="an-row"><span class="an-lab">Cash in bank</span><span class="an-track"><span class="an-bar an-base" style="width:31%"></span></span><span class="an-amt">$37k</span></div>
+        <div class="an-row"><span class="an-lab">Payroll owed</span><span class="an-track"><span class="an-bar an-crit" style="width:100%"></span></span><span class="an-amt an-amt-crit">-$120k</span></div>
+        <p class="an-verdict">0.3 payrolls of cash on hand.</p>
+      </div>
+      <div class="an-layer">
+        <h3>2 &middot; Solvency</h3><p class="an-q">Did it owe more than it held?</p>
+        <div class="an-row"><span class="an-lab">Debt carried</span><span class="an-track"><span class="an-bar an-crit" style="width:100%"></span></span><span class="an-amt an-amt-crit">-$526k</span></div>
+        <div class="an-row"><span class="an-lab">1984-85 loss</span><span class="an-track"><span class="an-bar an-crit" style="width:81%"></span></span><span class="an-amt an-amt-crit">-$424k</span></div>
+        <div class="an-row"><span class="an-lab">Endowment</span><span class="an-na">depleted (no reserve reported)</span></div>
+        <p class="an-verdict">Debt and coming shortfall, no reserve behind it.</p>
+      </div>
+      <div class="an-layer">
+        <h3>3 &middot; Rescue gap</h3><p class="an-q">Could it be saved?</p>
+        <div class="an-row"><span class="an-lab">Needed to survive</span><span class="an-track"><span class="an-bar an-base" style="width:100%"></span></span><span class="an-amt">$2.3M</span></div>
+        <div class="an-row"><span class="an-lab">Raised or lent</span><span class="an-track"><span class="an-bar an-base" style="width:1%"></span></span><span class="an-amt an-amt-crit">$0</span></div>
+        <p class="an-verdict">No donors, no loans. Chapter 11.</p>
+      </div>
+    </div>
+    <div class="an-toll">
+      <div><b>118</b>employees on the December payroll</div>
+      <div><b>240</b>students transferred mid-year</div>
+      <div><b>4 days</b>from announcement to close</div>
+    </div>
+    <p class="src">Source: Yankton Press &amp; Dakotan, "Closure Of YC Ended An Era," 14 Sep 1999 (figures as stated).</p>
+  </section>
+
+  <p class="src" style="margin-top:1.5rem">These are the two panels for the top of the institution
+    page. Both are templates: Panel 1 reads the enrollment and event tables (any school), Panel 2 reads
+    the sourced closure figures. Say "ship it" and I implement exactly this; otherwise tell me what to
+    change and I revise the mockup, not the live page.</p>
+</div>
+</body>
+</html>

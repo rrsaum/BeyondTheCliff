@@ -653,6 +653,10 @@ def get_institution(inst_id: str) -> dict | None:
         "SELECT * FROM campus WHERE institution_id = ? ORDER BY (closed_year IS NULL), closed_year, name",
         (inst_id,),
     ).fetchall()
+    closure_metrics = {
+        r["metric"]: r
+        for r in conn.execute("SELECT * FROM closure_metric WHERE institution_id = ?", (inst_id,))
+    }
     # Sibling campuses: other closures sharing this one's surviving parent institution.
     siblings = []
     if inst["parent_name"]:
@@ -671,7 +675,138 @@ def get_institution(inst_id: str) -> dict | None:
         "hcm": hcm,
         "siblings": siblings,
         "campuses": campuses,
+        "closure_metrics": closure_metrics,
     }
+
+
+def _usd(v) -> str:
+    """A closure figure as a compact dollar string: $37k, $2.3M, $0. Sign is added by the caller."""
+    if v is None:
+        return ""
+    a = abs(v)
+    if a >= 1_000_000:
+        return f"${v / 1_000_000:.1f}M"
+    if a >= 1_000:
+        return f"${v / 1_000:.0f}k"
+    return f"${v:,.0f}"
+
+
+def closure_anatomy(m: dict) -> dict | None:
+    """The three-question closure diagnostic, built from raw closure_metric rows.
+
+    Every reading is COMPUTED, never stored, so a definition can change without re-entering data.
+    The sign-and-colour convention is deliberate and financial: money the school OWED or LOST is a
+    negative shown in red (payroll owed, debt, the projected loss); money it HAD or the rescue
+    target is positive and neutral (cash, the amount needed, what was raised). Per-layer bar widths
+    are relative to that layer's own largest figure, because $37k and $2.3M on one axis makes the
+    small bar vanish. Returns None when a school has no autopsy figures, so the panel just does not
+    render."""
+    if not m:
+        return None
+
+    def amt(k):
+        r = m.get(k)
+        return r["amount"] if r and r["amount"] is not None else None
+
+    def bar(label, key, top, *, negative=False):
+        v = amt(key)
+        if v is None:
+            return None
+        return {
+            "label": label,
+            "display": ("-" if negative and v else "") + _usd(v),
+            "pct": round(100 * abs(v) / top, 1) if top else 0.0,
+            "tone": "crit" if negative else "base",
+            "amt_crit": bool(negative and v) or v == 0,
+        }
+
+    layers = []
+    cash, payroll = amt("cash_on_hand"), amt("near_term_obligations")
+    if cash is not None and payroll is not None:
+        top = max(abs(cash), abs(payroll)) or 1
+        ratio = cash / payroll if payroll else None
+        layers.append(
+            {
+                "n": 1,
+                "title": "Liquidity",
+                "question": "Could it make payroll?",
+                "bars": [
+                    bar("Cash in bank", "cash_on_hand", top),
+                    bar("Payroll owed", "near_term_obligations", top, negative=True),
+                ],
+                "verdict": f"{ratio:.1f} payrolls of cash on hand." if ratio is not None else "",
+            }
+        )
+
+    debt, loss = amt("debt_prior_year"), amt("projected_deficit")
+    endow = m.get("endowment")
+    if debt is not None or loss is not None:
+        top = max([abs(x) for x in (debt, loss) if x is not None]) or 1
+        bars = []
+        if debt is not None:
+            bars.append(bar("Debt carried", "debt_prior_year", top, negative=True))
+        if loss is not None:
+            dy = m["projected_deficit"]["as_of_year"]
+            loss_label = f"{dy}-{str(dy + 1)[-2:]} loss" if dy else "Projected loss"
+            bars.append(bar(loss_label, "projected_deficit", top, negative=True))
+        depleted = endow is not None and endow["qualitative"]
+        if endow is not None:
+            word = endow["qualitative"] or _usd(endow["amount"])
+            bars.append(
+                {
+                    "label": "Endowment",
+                    "display": f"{word} (no reserve reported)" if depleted else word,
+                    "pct": 0.0,
+                    "tone": "na",
+                    "amt_crit": True,
+                }
+            )
+        verdict = (
+            "Debt and coming shortfall, no reserve behind it."
+            if depleted
+            else "More owed than it held."
+        )
+        layers.append(
+            {
+                "n": 2,
+                "title": "Solvency",
+                "question": "Did it owe more than it held?",
+                "bars": bars,
+                "verdict": verdict,
+            }
+        )
+
+    needed, raised = amt("rescue_needed"), amt("rescue_raised")
+    if needed is not None:
+        top = needed or 1
+        bars = [bar("Needed to survive", "rescue_needed", top)]
+        if raised is not None:
+            b = bar("Raised or lent", "rescue_raised", top)
+            b["pct"] = max(b["pct"], 1.0)
+            bars.append(b)
+        layers.append(
+            {
+                "n": 3,
+                "title": "Rescue gap",
+                "question": "Could it be saved?",
+                "bars": bars,
+                "verdict": "No donors, no loans came." if raised == 0 else "The rescue fell short.",
+            }
+        )
+
+    toll_labels = {
+        "employees": "employees on the payroll",
+        "students_displaced": "students displaced",
+        "closure_warning_days": "days from announcement to close",
+    }
+    toll = []
+    for k, lab in toll_labels.items():
+        v = amt(k)
+        if v is not None:
+            value = f"{v:,} days" if m[k]["unit"] == "days" else f"{v:,}"
+            toll.append({"value": value, "label": lab})
+
+    return {"layers": layers, "toll": toll} if layers else None
 
 
 def composite_series(inst_id: str) -> dict | None:
