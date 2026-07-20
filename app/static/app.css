@@ -380,8 +380,8 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
 
 /* Anatomy of the closure (charts.anatomy). Magnitude bars are neutral; money owed or lost is a
    negative shown red; red is otherwise reserved for the fatal readings and the verdicts. */
-.anatomy .an-diag { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: .5rem 0 .2rem; }
-.an-layer { border: 1px solid var(--line); border-radius: 6px; padding: .8rem .9rem; }
+.anatomy .an-diag { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin: .5rem 0 .2rem; }
+.an-layer { border: 1px solid var(--line); border-radius: 6px; padding: .8rem .9rem; max-width: 340px; }
 .an-layer h3 { margin: 0 0 .1rem; font-size: .96rem; }
 .an-q { font-size: .77rem; color: var(--ink-soft); margin: 0 0 .7rem; }
 .an-row { display: flex; align-items: center; gap: .5rem; margin: .28rem 0; font-size: .8rem; }

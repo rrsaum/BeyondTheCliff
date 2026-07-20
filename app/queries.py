@@ -756,7 +756,6 @@ def closure_anatomy(m: dict) -> dict | None:
         ratio = cash / payroll if payroll else None
         layers.append(
             {
-                "n": 1,
                 "title": "Liquidity",
                 "question": "Could it make payroll?",
                 "bars": [
@@ -769,8 +768,10 @@ def closure_anatomy(m: dict) -> dict | None:
 
     debt, loss = amt("debt_prior_year"), amt("projected_deficit")
     endow = m.get("endowment")
-    if debt is not None or loss is not None:
-        top = max([abs(x) for x in (debt, loss) if x is not None]) or 1
+    endow_amt = endow["amount"] if endow and endow["amount"] is not None else None
+    depleted = bool(endow is not None and endow["qualitative"])
+    if debt is not None or loss is not None or endow is not None:
+        top = max([abs(x) for x in (debt, loss, endow_amt) if x is not None] or [1])
         bars = []
         if debt is not None:
             bars.append(bar("Debt carried", "debt_prior_year", top, negative=True))
@@ -778,26 +779,35 @@ def closure_anatomy(m: dict) -> dict | None:
             dy = m["projected_deficit"]["as_of_year"]
             loss_label = f"{dy}-{str(dy + 1)[-2:]} loss" if dy else "Projected loss"
             bars.append(bar(loss_label, "projected_deficit", top, negative=True))
-        depleted = endow is not None and endow["qualitative"]
-        if endow is not None:
-            word = endow["qualitative"] or _usd(endow["amount"])
+        if endow is not None and depleted:
             bars.append(
                 {
                     "label": "Endowment",
-                    "display": f"{word} (no reserve reported)" if depleted else word,
+                    "display": f"{endow['qualitative']} (no reserve reported)",
                     "pct": 0.0,
                     "tone": "na",
                     "amt_crit": True,
                 }
             )
-        verdict = (
-            "Debt and coming shortfall, no reserve behind it."
-            if depleted
-            else "More owed than it held."
-        )
+        elif endow_amt is not None:
+            # The reserve it still held: a neutral resource shown alongside what it owed.
+            bars.append(
+                {
+                    "label": "Endowment",
+                    "display": _usd(endow_amt),
+                    "pct": round(100 * abs(endow_amt) / top, 1) if top else 0.0,
+                    "tone": "base",
+                    "amt_crit": False,
+                }
+            )
+        if depleted and (debt is not None or loss is not None):
+            verdict = "Debt and coming shortfall, no reserve behind it."
+        elif debt is not None or loss is not None:
+            verdict = "More owed than it could cover."
+        else:
+            verdict = ""  # endowment only: show the reserve, make no unsourced claim
         layers.append(
             {
-                "n": 2,
                 "title": "Solvency",
                 "question": "Did it owe more than it held?",
                 "bars": bars,
@@ -815,13 +825,15 @@ def closure_anatomy(m: dict) -> dict | None:
             bars.append(b)
         layers.append(
             {
-                "n": 3,
                 "title": "Rescue gap",
                 "question": "Could it be saved?",
                 "bars": bars,
                 "verdict": "No donors, no loans came." if raised == 0 else "The rescue fell short.",
             }
         )
+
+    for i, layer in enumerate(layers, 1):  # renumber to what actually rendered (1..k)
+        layer["n"] = i
 
     toll_labels = {
         "employees": "employees on the payroll",

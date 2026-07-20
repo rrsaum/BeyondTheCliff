@@ -9,3 +9,12 @@ MAN-0850,endowment,,usd,depleted,1984,Endowments described as depleted at closur
 MAN-0850,employees,118,count,,1984,Full- and part-time employees on the December payroll,https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
 MAN-0850,students_displaced,240,count,,1984,"Students enrolled at closing, forced to transfer mid-year",https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
 MAN-0850,closure_warning_days,4,days,,1984,Announced Monday Dec 17 1984; closed Friday Dec 21 1984,https://www.yankton.net/archives/article_be3d13b6-7efe-5ae9-8b49-dc083035a76e.html
+00101200,rescue_needed,30000000,usd,,2024,State bridge loan sought from the Alabama treasurer,https://www.insidehighered.com/news/business/financial-health/2024/03/27/birmingham-southern-announces-abrupt-closure
+00101200,rescue_raised,0,usd,,2024,Denied by the state treasurer; the college's last option,https://www.insidehighered.com/news/business/financial-health/2024/03/27/birmingham-southern-announces-abrupt-closure
+00101200,students_displaced,975,count,,2024,Approximately 975 students when it closed (Wikipedia),https://en.wikipedia.org/wiki/Birmingham%E2%80%93Southern_College
+00290100,endowment,28800000,usd,,2022,"Endowment as of June 30, 2022 (Wikipedia)",https://en.wikipedia.org/wiki/Wells_College
+00290100,students_displaced,357,count,,2024,"Final enrollment, 2023-24 (Wikipedia)",https://en.wikipedia.org/wiki/Wells_College
+00183300,rescue_needed,100000000,usd,,2017,Administrators said $100M was needed to continue (Wikipedia),https://en.wikipedia.org/wiki/Saint_Joseph%27s_College_(Indiana)
+00183300,debt_prior_year,27000000,usd,,2017,"$27M in debt, part of the $100M needed (Wikipedia)",https://en.wikipedia.org/wiki/Saint_Joseph%27s_College_(Indiana)
+00183300,students_displaced,1100,count,,2017,"About 1,100 students at the 2017 closure (Wikipedia)",https://en.wikipedia.org/wiki/Saint_Joseph%27s_College_(Indiana)
+00268500,debt_prior_year,25000000,usd,,2022,Defaulted on a $25M bond in Sept 2022 after a failed refinance (Wikipedia),https://en.wikipedia.org/wiki/Cazenovia_College

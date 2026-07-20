@@ -820,10 +820,12 @@ def anatomy(struct: dict | None, *, note: str = "") -> str:
                     f'style="width:{b["pct"]}%"></span></span>'
                     f'<span class="an-amt{amt_cls}">{escape(b["display"])}</span></div>'
                 )
+        verdict = (
+            f'<p class="an-verdict">{escape(layer["verdict"])}</p>' if layer.get("verdict") else ""
+        )
         layers.append(
             f'<div class="an-layer"><h3>{layer["n"]} &middot; {escape(layer["title"])}</h3>'
-            f'<p class="an-q">{escape(layer["question"])}</p>{"".join(rows)}'
-            f'<p class="an-verdict">{escape(layer["verdict"])}</p></div>'
+            f'<p class="an-q">{escape(layer["question"])}</p>{"".join(rows)}{verdict}</div>'
         )
     toll = "".join(
         f"<div><b>{escape(t['value'])}</b>{escape(t['label'])}</div>" for t in struct["toll"]
@@ -832,8 +834,8 @@ def anatomy(struct: dict | None, *, note: str = "") -> str:
     footnote = f'<figcaption class="chart-note">{escape(note)}</figcaption>' if note else ""
     return (
         '<figure class="chart anatomy">'
-        '<p class="chart-sub">The three questions every closure answers: could it make payroll, '
-        "did it owe more than it held, and could it be saved.</p>"
+        '<p class="chart-sub">How the closure came apart, in sourced figures. Money owed or lost is '
+        "shown as a negative; each bar is scaled within its own layer. Figures fill in as we source them.</p>"
         f'<div class="an-diag">{"".join(layers)}</div>{toll_html}{footnote}</figure>'
     )
 
