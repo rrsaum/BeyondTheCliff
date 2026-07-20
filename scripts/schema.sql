@@ -204,6 +204,26 @@ CREATE TABLE timeline_marker (
   UNIQUE (series, year)
 );
 
+-- The richer "what drove the turns" reading under each national chart: one row per inflection a
+-- reader can see (an era of fast growth, a plateau, a peak or valley), with the sourced likely
+-- cause and a category (policy / demographic / economic / war / pandemic / artifact). This is
+-- analysis, not a data reading, so is_inference marks the rows where the cause is our inference
+-- from timing rather than a source that states it outright, and the copy is written to match. The
+-- growth rates the chart quotes are NOT stored here: they are computed live from national_series
+-- (app/queries.national_growth), so the numbers can never drift from the underlying data.
+-- Display order within a series is the CSV row order, read back via rowid, so the file is the
+-- single place the order is set.
+CREATE TABLE national_turn (
+  series        TEXT NOT NULL,  -- 'institutions' | 'enrollment'
+  era           TEXT NOT NULL,  -- the span, e.g. '1869-1889' or '2010 onward'
+  shows         TEXT,           -- what the data shows in that span
+  cause         TEXT,           -- the sourced likely cause
+  category      TEXT,           -- policy | demographic | economic | war | pandemic | artifact
+  is_inference  INTEGER,        -- 1 = the cause is our inference from timing, not a stated source
+  source_url    TEXT
+);
+CREATE INDEX idx_turn ON national_turn(series);
+
 -- College Scorecard slice (U.S. Dept. of Education, public domain): a focused set of
 -- closure-risk and student-profile fields per institution per year, filtered to our
 -- institutions only (raw Scorecard stays in uploads/, never loaded whole).

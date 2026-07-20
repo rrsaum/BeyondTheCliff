@@ -108,16 +108,36 @@ def line(
             f'<text x="{mx:.1f}" y="{yr_y:.1f}" class="cl-mark-yr" text-anchor="middle">{int(m["year"])}</text>'
             f'<text x="{mx:.1f}" y="{yr_y + 10:.1f}" class="cl-mark-lab" text-anchor="middle">{escape(m["label"])}</text>'
         )
-    # x endpoints: first and last only (the peak and markers carry the interior labels)
-    xlabs = [
-        f'<text x="{sx(xmin):.1f}" y="{h - 4}" class="cl-xlab" text-anchor="start">{xmin}</text>',
-        f'<text x="{sx(xmax):.1f}" y="{h - 4}" class="cl-xlab" text-anchor="end">{xmax}</text>',
-    ]
-    if not marks:  # without a timeline, keep the original first/peak/last labels
+    if marks:
+        # With a bottom timeline, the markers carry the interior; just label the two endpoints.
         xlabs = [
-            f'<text x="{sx(xv):.1f}" y="{h - 10}" class="cl-xlab" text-anchor="middle">{xv}</text>'
-            for xv in sorted({xmin, peak_x, xmax})
+            f'<text x="{sx(xmin):.1f}" y="{h - 4}" class="cl-xlab" text-anchor="start">{xmin}</text>',
+            f'<text x="{sx(xmax):.1f}" y="{h - 4}" class="cl-xlab" text-anchor="end">{xmax}</text>',
         ]
+    else:
+        # Proportional decade axis: a tick every decade, a label every `step` years, so time reads
+        # evenly across the span instead of only at the ends. A decade label within `step` years of
+        # an endpoint is dropped so it cannot overprint the always-drawn endpoint label.
+        step = 20 if (xmax - xmin) > 80 else 10
+        parts = []
+        for yr in range((xmin // 10 + 1) * 10, xmax, 10):
+            tx = sx(yr)
+            parts.append(
+                f'<line x1="{tx:.1f}" y1="{h - padb:.1f}" x2="{tx:.1f}" '
+                f'y2="{h - padb + 4:.1f}" class="cl-dtick"/>'
+            )
+            if yr % step == 0 and abs(yr - xmin) >= step / 2 and abs(yr - xmax) >= step / 2:
+                parts.append(
+                    f'<text x="{tx:.1f}" y="{h - 10}" class="cl-xlab" '
+                    f'text-anchor="middle">{yr}</text>'
+                )
+        parts.append(
+            f'<text x="{sx(xmin):.1f}" y="{h - 10}" class="cl-xlab" text-anchor="start">{xmin}</text>'
+        )
+        parts.append(
+            f'<text x="{sx(xmax):.1f}" y="{h - 10}" class="cl-xlab" text-anchor="end">{xmax}</text>'
+        )
+        xlabs = parts
     label = escape(title)
     sub = f'<p class="chart-sub">{escape(subtitle)}</p>' if subtitle else ""
     footnote = f'<figcaption class="chart-note">{escape(note)}</figcaption>' if note else ""

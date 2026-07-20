@@ -393,3 +393,29 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
 .an-toll div { font-size: .82rem; color: var(--ink-soft); }
 .an-toll b { display: block; font-size: 1.35rem; color: var(--ink); }
 @media (max-width: 700px) { .anatomy .an-diag { grid-template-columns: 1fr; } }
+
+/* National history charts: proportional decade tick, the growth-rate callout, and the
+   "what drove the turns" table with sourced causes and category tags. */
+.cl-dtick { stroke: var(--ink-soft); stroke-width: 1; opacity: .4; }
+.cagr { background: var(--accent-soft); border-radius: var(--radius); padding: .6rem .9rem;
+  margin: .6rem 0 0; font-size: .9rem; }
+.cagr b { font-variant-numeric: tabular-nums; }
+.turns-h { font-size: .95rem; margin: 1.1rem 0 .3rem; }
+.turns { width: 100%; border-collapse: collapse; font-size: .84rem; }
+.turns th { text-align: left; color: var(--ink-soft); font-weight: 600;
+  border-bottom: 1px solid var(--line); padding: .3rem .7rem .3rem 0; }
+.turns td { border-bottom: 1px solid var(--line); padding: .45rem .7rem .45rem 0; vertical-align: top; }
+.turns .tw { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--ink); }
+.turns .src { font-size: .74rem; }
+.inf { font-size: .7rem; font-style: italic; color: var(--ink-soft); }
+/* Cause categories. Each is a tint of an existing token, so the palette stays the house one.
+   Text and background are the same hue family for legibility; the tag is a label, not a data mark. */
+.cat { display: inline-block; font-size: .68rem; text-transform: uppercase; letter-spacing: .04em;
+  padding: .1rem .45rem; border-radius: 4px; white-space: nowrap; }
+.cat-policy      { background: var(--accent-soft); color: var(--accent); }
+.cat-demographic { background: #e6efe9; color: var(--good); }
+.cat-economic    { background: #f3e6d6; color: var(--warn); }
+.cat-war         { background: #efdfe0; color: var(--closed); }
+.cat-pandemic    { background: #e9e4ef; color: #5b3a8a; }
+.cat-artifact    { background: #eceae4; color: var(--ink-soft); }
+@media (prefers-color-scheme: dark) { .cat { filter: brightness(1.35); } }

@@ -56,6 +56,7 @@ TABLES = [
     ("hs_graduates.csv", "hs_graduates", {"year", "graduates"}),
     ("national_series.csv", "national_series", {"year", "value"}),
     ("timeline_markers.csv", "timeline_marker", {"year"}),
+    ("national_turns.csv", "national_turn", {"is_inference"}),
     (
         "scorecard.csv",
         "scorecard",

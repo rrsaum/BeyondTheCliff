@@ -1,5 +1,31 @@
 {% extends "base.html" %}
 {% block title %}The Demographic Cliff | Beyond the Cliff{% endblock %}
+
+{% macro growth_line(rows) %}
+<p class="cagr">Growth rate:
+  {% for g in rows %}<b>{{ '%+.1f' | format(g.cagr) }}%/yr</b> {{ g.label }} ({{ g.start }} to {{ g.end }}){{ '; ' if not loop.last else '.' }}{% endfor %}
+</p>
+{% endmacro %}
+
+{% macro turns_table(rows) %}
+<h3 class="turns-h">What drove the turns</h3>
+<div class="table-scroll">
+<table class="turns">
+  <thead><tr><th>When</th><th>What the data shows</th><th>Likely cause</th><th>Kind</th></tr></thead>
+  <tbody>
+    {% for t in rows %}
+    <tr>
+      <td class="tw">{{ t.era }}</td>
+      <td>{{ t.shows }}</td>
+      <td>{{ t.cause }}{% if t.is_inference %} <span class="inf">inference</span>{% endif %}{% if t.source_url %} <a class="src" href="{{ t.source_url }}" rel="nofollow noopener">source</a>{% endif %}</td>
+      <td><span class="cat cat-{{ t.category }}">{{ t.category }}</span></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endmacro %}
+
 {% block main %}
 
 <section class="intro">
@@ -9,12 +35,16 @@
 
 <section>
   <h2>The long view</h2>
-  <p class="lead">Before the decline, the rise. American higher education grew for a century and a half. These two lines are the peak the sector is now contracting from, and the dates along the bottom are the policies that most likely drove each turn.</p>
+  <p class="lead">Before the decline, the rise. American higher education grew for a century and a half. These two lines are the peak the sector is now contracting from. Under each is what most likely drove every turn: policy, demographics, the economy, war, each sourced, with our inferences labelled.</p>
   {{ institutions_chart | safe }}
+  {{ growth_line(inst_growth) }}
+  {{ turns_table(inst_turns) }}
 </section>
 
 <section>
   {{ enrollment_chart | safe }}
+  {{ growth_line(enr_growth) }}
+  {{ turns_table(enr_turns) }}
   <aside class="finding">
     <h3>The finding: the cliff is not in the enrollment numbers yet</h3>
     <p>We asked the data whether the enrollment cliff is real. The answer is mixed, and honesty requires stating it plainly.</p>

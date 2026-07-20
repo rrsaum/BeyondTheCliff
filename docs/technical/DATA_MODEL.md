@@ -83,6 +83,9 @@ source URL is extracted. Numbers are never originated: absent facts stay NULL.
 | `scorecard` | one per (institution, year) | College Scorecard slice: enrolment, admit rate, Pell share, net tuition |
 | `composite_score` | one per (institution, award year) | ED Financial Responsibility Composite Score, -1.0 to 3.0 |
 | `sector_size` | one per (year, control) | how many institutions are still operating: the denominator |
+| `national_series` | one per (series, year) | the US long run back to 1869, `institutions` and `enrollment`, from NCES Digest; `basis` records the counting definition per row |
+| `timeline_marker` | one per (series, year) | key policy dates for a national chart (a simpler, currently-unrendered predecessor to `national_turn`) |
+| `national_turn` | one per inflection | the "what drove the turns" reading under each national chart: sourced likely cause, category, and an `is_inference` flag |
 | `institution_ein` | one per (institution, EIN) | the OPEID -> EIN crosswalk, hand-curated, the join to IRS filings |
 | `financial_filing` | one per (institution, tax year, source) | Form 990 revenue, expenses, balance sheet; raw filing facts only |
 | `financial_line_item` | one per breakout line | the filing's free-text revenue lines, stored verbatim |
