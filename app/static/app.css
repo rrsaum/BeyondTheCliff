@@ -256,6 +256,8 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
   background: #1f3a5f; color: #fff; cursor: pointer; }
 .admin button[disabled] { background: #9aa6b2; cursor: not-allowed; }
 .admin-error { color: #8a1f1f; }
+.motto { font-style: italic; color: var(--ink-soft); margin: 0 0 .5rem; font-size: 1.02rem; }
+.inst-logo { max-height: 76px; width: auto; float: right; margin: 0 0 .5rem 1rem; }
 .admin-added { background: #eef4ee; border-left: 3px solid var(--good); border-radius: 0 6px 6px 0;
   padding: .55rem .8rem; margin: .8rem 0; font-size: .9rem; }
 .autopsy-queue td a { display: inline-block; margin-right: .4rem; font-size: .82rem; }

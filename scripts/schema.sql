@@ -58,7 +58,12 @@ CREATE TABLE institution (
                           'financial','enrollment','accreditation','sponsor','misconduct',
                           'disaster','restructuring','external','benefactor')),
   notes                 TEXT,
-  source_url            TEXT
+  source_url            TEXT,
+  motto                 TEXT,                   -- the school's motto, verbatim (with a translation
+                                                -- in the same cell when it is Latin), sourced
+  logo_url              TEXT                    -- URL of a logo/seal ONLY when it is verifiably
+                                                -- public domain or CC (the open-license rule);
+                                                -- trademarked logos are left NULL by design
 );
 
 -- Name history: schools rename, sometimes repeatedly. end_year NULL = current name.

@@ -114,7 +114,7 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 00112100,closed,2011,2011-08-12,0,,Records held by religious organization overseeing the institution.,https://web.archive.org/web/20110616120808/http://www.santacruzsentinel.com/localnews/ci_18268515
 02612200,closed,2016,2016-02-04,1,,,https://ktla.com/news/nationworld/marinello-beauty-schools-announce-closure-of-all-u-s-campuses-4300-students-displaced/
 00488700,closed,2010,2010-06-30,0,,"Immaculata University, Registrar’s Office, 1145 King Rd, 30 Villa Maria Immaculata, PA 19345-0634",https://www.immaculata.edu/centennial/historic-past/
-02075700,closed,2018,2018-12-18,0,,"Career Education Corporation, 231 North Martingale Road, Sclkatimburg, IL 60173",https://www.insidehighered.com/quicktakes/2015/12/10/briarcliffe-college-plans-close-2018
+02075700,closed,2018,2018-12-31,0,,"Stopped enrolling in 2015 and closed December 31, 2018 citing financial difficulties, following a $10.25M settlement with the NY attorney general over inflated job-placement rates.",https://en.wikipedia.org/wiki/Briarcliffe_College
 00778100,closed,2018,2018-12-07,1,,"Education Technology Partners 10801-2 North Mopac Expressway, Suite 317, Austin, TX 78759",https://www.inquirer.com/business/brightwood-career-institute-closing-philadelphia-locations-20181206.html
 03043200,closed,2018,2018-12-07,1,,"Education Technology Partners 10801-2 North Mopac Expressway, Suite 317, Austin, TX 78759",https://www.ktnv.com/news/brightwood-college-campus-in-las-vegas-closing
 02091702,closed,2018,2018-12-07,1,,"Education Technology Partners 10801-2 North Mopac Expressway, Suite 317, Austin, TX 78759",https://www.nbcsandiego.com/news/local/brightwood-college-kearny-mesa-chula-vista-closure-education-corporation-of-america-students/167113/
@@ -478,7 +478,7 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 00254700,closed,2018,2018-05-11,0,,University of Nebraska-Lincoln,http://web.archive.org/web/20190324025134/https://www.graceuniversity.edu/an-important-announcement-from-grace-university/
 00264900,closed,2018,2018-05-11,0,,Walden University,https://www.santafenewmexican.com/news/local_news/santa-fe-university-of-art-and-design-to-close-in-2018/article_57adac92-1fb3-11e7-a116-d78535d012ce.html
 00266700,closed,2016,2016-08-05,1,,Long Island University,http://web.archive.org/web/20210420051012/https://www.newsday.com/long-island/education/dowling-college-in-oakdale-closes-its-doors-after-48-years-1.11861115
-00270400,closed,2019,2019-08-10,0,,Mercy College,https://www.insidehighered.com/quicktakes/2019/03/06/college-new-rochelle-will-close
+00270400,closed,2019,2019-09-20,0,,"Announced closure Feb 22, 2019 after failing to pay roughly $20M in federal payroll taxes; a former controller was charged by the SEC with concealing the finances. Filed Chapter 11 in Sept 2019 with about $80M in liabilities; programs absorbed by Mercy College.",https://en.wikipedia.org/wiki/College_of_New_Rochelle
 00318300,closed,2018,2018-01-31,0,,Other (I could not find anything online regarding a retention agreement).,https://www.crisismagazine.com/2017/st-gregorys-university-closing-doors
 00349800,closed,2011,2011-06-30,0,,"The FOIA report mentions Lambuth University as the record holder, but University of Memphis has an option for students to access their records.",https://www.cardinalandcream.info/2011/lambuth-university-closes-discusses-future-for-students-campus/
 00375200,closed,2014,2014-04-29,0,,King University,https://www.chronofhorse.com/article/virginia-intermont-college-considers-closing-july
@@ -780,7 +780,7 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 00270900,closed,2021,2021-08-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00275102,closed,2016,2016-08-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00277700,closed,2023,2023-08-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-00279000,closed,2023,2023-08-25,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
+00279000,closed,2023,2023-08-31,,,"Ceased operations on August 31, 2023 after years of financial struggles; Middle States revoked accreditation in December 2023.",https://en.wikipedia.org/wiki/Alliance_University_(New_York_City)
 00280301,closed,2023,2023-12-22,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00282200,closed,2021,2021-06-01,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00290100,closed,2024,2024-06-30,,,Closed under financial pressure and enrollment decline (574 students in 2007 to 357 in 2023-24; endowment $28.8M in 2022); accreditation expired the same day. Had served as a teach-out partner for Cazenovia and Medaille the prior year.,https://en.wikipedia.org/wiki/Wells_College
@@ -1761,7 +1761,7 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 03089700,closed,2013,2013-11-22,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 03090600,closed,2019,2019-03-29,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 03094400,closed,2016,2016-02-04,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-03095500,closed,2023,2023-02-24,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
+03095500,closed,2023,2023-03-01,,,"Closed March 1, 2023 after its accreditation was removed and the U.S. Dept. of Education restricted federal-aid access, amid misconduct allegations.",https://en.wikipedia.org/wiki/ASA_College
 03096300,closed,2015,2015-07-27,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 03096500,closed,2016,2016-06-22,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 03097800,closed,2020,2020-10-31,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
@@ -2219,3 +2219,27 @@ MAN-0850,consolidated,1962,,,,"The School of Theology closed; its program consol
 00290100,founded,1868,,,,"Founded in Aurora, New York; a women's college until it became coeducational in 2005.",https://en.wikipedia.org/wiki/Wells_College
 00268500,founded,1824,,,,"Founded as the Genesee Seminary (Methodist-sponsored, later non-sectarian); a degree-granting college from 1988.",https://en.wikipedia.org/wiki/Cazenovia_College
 00183300,founded,1889,,,,"Founded in Rensselaer, Indiana; Catholic, affiliated with the Missionaries of the Precious Blood.",https://en.wikipedia.org/wiki/Saint_Joseph%27s_College_(Indiana)
+00279000,founded,1882,,,,Founded as the Missionary Training Institute (Christian and Missionary Alliance).,https://en.wikipedia.org/wiki/Alliance_University_(New_York_City)
+03095500,founded,1985,,,,Founded as a for-profit college in New York City.,https://en.wikipedia.org/wiki/ASA_College
+02075700,founded,1966,,,,"Founded on Long Island; a 4-year college from 1997, owned by Career Education Corporation.",https://en.wikipedia.org/wiki/Briarcliffe_College
+02525600,founded,1980,,,,A New York City branch of the for-profit Art Institutes chain (Education Management Corporation).,https://en.wikipedia.org/wiki/Art_Institute_of_New_York_City
+00270400,founded,1904,,,,Founded by the Ursuline Order (Mother Irene Gill).,https://en.wikipedia.org/wiki/College_of_New_Rochelle
+00270500,founded,1920,,,,Founded by the Sisters of Saint Joseph of Carondelet.,https://en.wikipedia.org/wiki/College_of_Saint_Rose
+MAN-0934,consolidated,1920,,,,Merged into Bethany-Peniel College.,https://en.wikipedia.org/wiki/Peniel_College
+MAN-0935,consolidated,1931,,,,Merged into Bethany-Peniel College.,https://en.wikipedia.org/wiki/Arkansas_Holiness_College
+MAN-0936,consolidated,1940,,,,Merged into Bethany-Peniel College.,https://en.wikipedia.org/wiki/Bresee_Theological_College
+MAN-0937,consolidated,1929,,,,Merged into Bethany-Peniel College.,https://en.wikipedia.org/wiki/Central_Nazarene_College
+MAN-0938,consolidated,1911,,,,Merged into Central Nazarene College.,https://en.wikipedia.org/wiki/Nazarene_Bible_Institute
+MAN-0939,closed,1903,,,,Holiness-movement institute; closed Feb 1903 after its president incurred unauthorized debt and filed for bankruptcy; an antecedent of Eastern Nazarene College.,https://en.wikipedia.org/wiki/Pentecostal_Collegiate_Institute_(New_York)
+MAN-0940,closed,1988,,,,Franciscan Roman Catholic seminary (1912-1988); closed as part of a national trend toward concentrating seminarians at large centers.,https://en.wikipedia.org/wiki/St._Anthony-on-Hudson_Seminary
+MAN-0941,closed,1937,,,,"Residential labor college ('labor's Harvard'), 1921-1937; the board voted Nov 21, 1937 to suspend and close amid Depression-era financial pressure. Alumni include Walter Reuther and Ella Baker.",https://en.wikipedia.org/wiki/Brookwood_Labor_College
+MAN-0942,closed,1956,,,,Private art school (1931-1956); contracted and closed as the postwar GI Bill enrollment wave receded. Faculty included Charles Burchfield.,https://en.wikipedia.org/wiki/Art_Institute_of_Buffalo
+MAN-0943,closed,1853,,,,"Short-lived Rochester women's college (1852-1853); fell into debt and closed within a year, its land donated to the University of Rochester.",https://en.wikipedia.org/wiki/Barleywood_Female_University
+MAN-0944,consolidated,1977,,,,Merged into Pace University.,https://en.wikipedia.org/wiki/Briarcliff_College
+MAN-0945,campus_closed,2018,,,,permanently closed in 2018 with its parent.,https://en.wikipedia.org/wiki/Briarcliffe_College%E2%80%93Patchogue
+MAN-0946,closed,1977,,,,"Women's junior college in Millbrook, NY (1890-1977); closed Aug 9, 1977 after a costly, failed attempt to modernize and go coed. Distinct from Bennett College in Greensboro, NC. Alumni include Ray Eames.",https://en.wikipedia.org/wiki/Bennett_College_(New_York)
+MAN-0947,consolidated,1989,,,,Merged into Iona College.,https://en.wikipedia.org/wiki/Elizabeth_Seton_College
+MAN-0948,closed,1980,,,,"Catholic college (Franciscan Sisters of Peekskill) adjacent to West Point, 1933-1980; closed after the 1979-80 year, its property acquired by the U.S. Military Academy for its museum.",https://en.wikipedia.org/wiki/Ladycliff_College
+MAN-0949,closed,1990,,,,"Catholic junior college for women, Syracuse (founded c.1934); closed 1990 per Wikipedia, though a cited source gives 1988. No successor named.",https://en.wikipedia.org/wiki/Maria_Regina_College
+MAN-0950,closed,2007,,,,"Catholic women's college (Religious of the Sacred Heart of Mary, 1907); consolidated into Fordham University in 2000 but closed after the 2007 class, campus sold in 2008 for $27M.","https://en.wikipedia.org/wiki/Marymount_College,_Tarrytown"
+MAN-0951,closed,1984,,,,Catholic minor seminary of the Diocese of Rockville Centre (founded 1961); its junior college closed in 1968 and its high school in 1984.,https://en.wikipedia.org/wiki/St._Pius_X_Preparatory_Seminary

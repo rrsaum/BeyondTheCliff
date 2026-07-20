@@ -5,7 +5,9 @@
 <p class="breadcrumb"><a href="/">The Closure and Consolidation Map</a> &middot; <a href="/admin/edit?id={{ inst.id }}">Edit</a></p>
 
 <article class="institution">
+  {% if inst.logo_url %}<img class="inst-logo" src="{{ inst.logo_url }}" alt="{{ inst.name | title }} seal" loading="lazy">{% endif %}
   <h1>{{ inst.name | title }}</h1>
+  {% if inst.motto %}<p class="motto">{{ inst.motto }}</p>{% endif %}
   {% if inst.background %}<p class="lead">{{ inst.background }}</p>{% endif %}
 
   {% if inst.status == 'at_risk' %}
