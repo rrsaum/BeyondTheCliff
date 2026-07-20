@@ -597,18 +597,24 @@ def small_multiples(
         marks = []
         for yr, v in pts:
             cx, cy = sx(yr), sy(v)
-            tw, th = 78, 34
+            tw, th, gap = 78, 34, 10
             tx = min(max(cx - tw / 2, 2), w - tw)
+            # Flip the callout below the dot when it would clip the top of the frame. The peak
+            # dot sits at padt, and a callout drawn above it lands at a negative y, outside the
+            # card, which is the clipping in the screenshot. Below the dot, the same callout is
+            # always inside. ty is the rect top; text baselines are offset from it either way.
+            above = cy - th - gap >= padt
+            ty = cy - th - gap if above else cy + gap
             marks.append(
                 f'<g class="sm-pt" tabindex="0" role="img" '
                 f'aria-label="{yr}: {escape(fmt_value(v))}">'
                 f'<circle class="hit" cx="{cx:.1f}" cy="{cy:.1f}" r="11"/>'
                 f'<circle class="sm-dot" cx="{cx:.1f}" cy="{cy:.1f}" r="3.2"/>'
-                f'<g class="sm-tip"><rect x="{tx:.1f}" y="{cy - th - 10:.1f}" width="{tw}" '
+                f'<g class="sm-tip"><rect x="{tx:.1f}" y="{ty:.1f}" width="{tw}" '
                 f'height="{th}" rx="4"/>'
-                f'<text x="{tx + tw / 2:.1f}" y="{cy - th + 5:.1f}" class="sm-tv" '
+                f'<text x="{tx + tw / 2:.1f}" y="{ty + 15:.1f}" class="sm-tv" '
                 f'text-anchor="middle">{escape(fmt_value(v))}</text>'
-                f'<text x="{tx + tw / 2:.1f}" y="{cy - th + 17:.1f}" class="sm-tl" '
+                f'<text x="{tx + tw / 2:.1f}" y="{ty + 27:.1f}" class="sm-tl" '
                 f'text-anchor="middle">{yr}</text></g></g>'
             )
         out.append(
