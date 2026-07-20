@@ -481,7 +481,7 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 00270400,closed,2019,2019-09-20,0,,"Announced closure Feb 22, 2019 after failing to pay roughly $20M in federal payroll taxes; a former controller was charged by the SEC with concealing the finances. Filed Chapter 11 in Sept 2019 with about $80M in liabilities; programs absorbed by Mercy College.",https://en.wikipedia.org/wiki/College_of_New_Rochelle
 00318300,closed,2018,2018-01-31,0,,Other (I could not find anything online regarding a retention agreement).,https://www.crisismagazine.com/2017/st-gregorys-university-closing-doors
 00349800,closed,2011,2011-06-30,0,,"The FOIA report mentions Lambuth University as the record holder, but University of Memphis has an option for students to access their records.",https://www.cardinalandcream.info/2011/lambuth-university-closes-discusses-future-for-students-campus/
-00375200,closed,2014,2014-04-29,0,,King University,https://www.chronofhorse.com/article/virginia-intermont-college-considers-closing-july
+00375200,closed,2014,2014-05-20,0,,"Lost SACS accreditation in 2013 and closed after announcing it May 20, 2014, amid severe financial and enrollment decline.",https://en.wikipedia.org/wiki/Virginia_Intermont_College
 00464204,closed,2016,2016-06-24,1,,Campus Nexus and managed by academic personnel at the corporate offices.,https://www.twincities.com/2016/05/17/globe-university-4-minneapolis-area-campuses/
 00464205,closed,2016,2016-12-31,0,,Campus Nexus and managed by academic personnel at the corporate offices. I searched online and it seems that Broadview may have closed and student records from MSB and Global could be accessed through MN Office of Higher Education https://www.broadviewuniversity.edu/msb-globe/.,https://bringmethenews.com/news/globe-university-and-mn-school-of-business-are-closing-all-campuses
 00464206,closed,2016,2016-12-31,0,,Campus Nexus and managed by academic personnel at the corporate offices. I searched online and it seems that Broadview may have closed and student records from MSB and Global could be accessed through MN Office of Higher Education https://www.broadviewuniversity.edu/msb-globe/.,https://bringmethenews.com/news/globe-university-and-mn-school-of-business-are-closing-all-campuses
@@ -787,7 +787,7 @@ institution_id,event_type,event_year,event_date,abrupt,counterpart_institution_i
 00293500,closed,2018,2018-05-11,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00293700,closed,2018,2018-12-21,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00301015,closed,2008,2008-06-30,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-00308500,closed,2024,2024-05-02,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
+00308500,closed,2024,2024-05-02,,,"Announced closure in February 2024 and closed May 2, 2024 after years of financial challenges.",https://en.wikipedia.org/wiki/Notre_Dame_College
 00319100,closed,2020,2020-07-11,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00320600,closed,2024,2024-05-01,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00321000,closed,2015,2015-06-30,,,Closed (IPEDS CLOSEDAT).,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
@@ -2290,3 +2290,29 @@ MAN-0986,consolidated,1971,,,,Merged into St. John's University.,https://en.wiki
 MAN-0987,closed,1992,,,,Program/division closed; parent Columbia University continues.,https://en.wikipedia.org/wiki/Columbia_University_School_of_Library_Service
 MAN-0988,closed,1965,,,,Program/division closed; parent St. Lawrence University continues.,https://en.wikipedia.org/wiki/Theological_School_of_St._Lawrence_University
 MAN-0989,closed,2025,,,,Program/division closed; parent The New School continues.,https://en.wikipedia.org/wiki/Schools_of_Public_Engagement
+MAN-0676,founded,1913,,,,"A Roman Catholic college in Dodge City, Kansas.",https://en.wikipedia.org/wiki/St._Mary_of_the_Plains_College
+MAN-0634,founded,1868,,,,"A Viatorian (Catholic) college in Bourbonnais, Illinois.",https://en.wikipedia.org/wiki/St._Viator_College
+MAN-0916,founded,1844,,,,"Founded as Milton Academy in Milton, Wisconsin.",https://en.wikipedia.org/wiki/Milton_College
+MAN-0544,founded,1945,,,,"A nondenominational Christian college in Farmington Hills, Michigan.",https://en.wikipedia.org/wiki/William_Tyndale_College
+00375200,founded,1884,,,,"A Southern Baptist college in Bristol, Virginia.",https://en.wikipedia.org/wiki/Virginia_Intermont_College
+00308500,founded,1922,,,,"A Roman Catholic college in South Euclid, Ohio (Sisters of Notre Dame).",https://en.wikipedia.org/wiki/Notre_Dame_College
+00211700,founded,1946,,,,"A Catholic college in Paxton, Massachusetts (Sisters of Saint Anne).",https://en.wikipedia.org/wiki/Anna_Maria_College
+00368700,founded,1834,,,,"A United Methodist-affiliated college in Poultney, Vermont.",https://en.wikipedia.org/wiki/Green_Mountain_College
+MAN-0990,closed,1989,,,,"A Roman Catholic four-year college in Salina, Kansas (Sisters of St. Joseph of Concordia), founded 1922; closed in June 1989, its campus becoming the Kansas Hig",https://en.wikipedia.org/wiki/Marymount_College_(Kansas)
+MAN-0991,closed,1997,,,,"A four-year Methodist-lineage college in Le Mars, Iowa, founded 1887; closed November 21, 1997 after failing to find a merger partner.",https://en.wikipedia.org/wiki/Westmar_University
+MAN-0992,closed,1890,,,,"The first institution of higher learning for women in Maryland, a Methodist women's college founded 1849 in Baltimore; closed in 1890.",https://en.wikipedia.org/wiki/Baltimore_Female_College
+MAN-0993,closed,1952,,,,"A Lutheran women's college in Lutherville, Maryland (founded 1853 as the Lutherville Female Seminary, renamed 1895); closed in 1952, the property becoming a sen",https://en.wikipedia.org/wiki/Maryland_College_for_Women
+MAN-0994,closed,1911,,,,"A Lutheran women's degree-granting college in Hagerstown, Maryland (founded 1853 as the Hagerstown Female Seminary, renamed 1889); closed in 1911 after financia",https://en.wikipedia.org/wiki/Kee_Mar_College
+MAN-0995,closed,1899,,,,"A private women's college chartered Feb. 20, 1880 in Norfolk, Virginia; closed by 1899 when Mary Washington College took over its building.",https://en.wikipedia.org/wiki/Norfolk_College_for_Young_Ladies
+MAN-0996,closed,1976,,,,"A Methodist two-year women's junior college in Bristol, Virginia (1870); ceased operations in 1976 amid declining enrollment and debt.",https://en.wikipedia.org/wiki/Sullins_College
+MAN-0997,closed,1885,,,,"A Methodist women's college in Wilmington, Delaware (founded 1837); closed in 1885 after enrollment declined through the 1870s and an 1880 smallpox outbreak.",https://en.wikipedia.org/wiki/Wesleyan_Female_College_(Wilmington)
+MAN-0998,closed,1860,,,,"A Baptist college in Mount Palatine, Illinois (1846); lost enrollment after a railroad bypassed it and was sold under fiscal duress by the sheriff in 1860. Unre","https://en.wikipedia.org/wiki/Judson_College_(Mount_Palatine,_Illinois)"
+MAN-0999,closed,2000,,,,"A private Catholic women's college in Milton and Newton, Massachusetts (founded 1956); closed in 2000, its records held at Regis College.",https://en.wikipedia.org/wiki/Aquinas_College_(Massachusetts)
+MAN-1000,closed,2000,,,,"A private college in Haverhill, Massachusetts (founded 1803; a junior college from 1932, four-year from 1971); closed in May 2000 amid budget shortfalls of over",https://en.wikipedia.org/wiki/Bradford_College_(United_States)
+MAN-1001,closed,1972,,,,"A Catholic women's college in Brookline, Massachusetts, sponsored by the Sisters of the Holy Cross (founded 1952); closed in 1972.",https://en.wikipedia.org/wiki/Cardinal_Cushing_College
+MAN-1002,closed,1881,,,,"An early women's institute in Worcester, Massachusetts (founded 1849) offering a college-level curriculum; closed as an institution in 1881.",https://en.wikipedia.org/wiki/Oread_Institute
+MAN-1003,consolidated,1978,,,,Merged into University of San Francisco.,https://en.wikipedia.org/wiki/Lone_Mountain_College
+MAN-1004,consolidated,1971,,,,Merged into Loyola University Maryland.,https://en.wikipedia.org/wiki/Mount_Saint_Agnes_College
+MAN-1005,consolidated,1961,,,,Merged into Hartford Seminary Foundation.,https://en.wikipedia.org/wiki/Bible_Normal_College
+MAN-1006,consolidated,1974,,,,Merged into Boston College.,https://en.wikipedia.org/wiki/Newton_College_of_the_Sacred_Heart
+MAN-1007,campus_closed,2009,,,,"A Churches-of-Christ college in Portland, Oregon (founded 1956 as Columbia Christian College, renamed Cascade College when Oklahoma Christian Universi",https://en.wikipedia.org/wiki/Cascade_College
