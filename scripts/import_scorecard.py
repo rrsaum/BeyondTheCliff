@@ -16,6 +16,7 @@ Because the MERGED files go back to 1996, a school that closed in 2012 still has
 pre-closure Scorecard years here. Writes data/scorecard.csv (one row per institution per
 year with any data). Run before build_db.py. Standard library only.
 """
+
 from __future__ import annotations
 
 import csv
@@ -30,10 +31,18 @@ if not SC_DIR.exists():
 
 # Scorecard column name -> our output column.
 COLS = {
-    "UGDS": "ugds", "ADM_RATE": "adm_rate", "PCTPELL": "pct_pell",
-    "TUITFTE": "tuitfte", "TUITIONFEE_IN": "tuitionfee_in", "COSTT4_A": "costt4_a",
-    "PPTUG_EF": "pptug_ef", "UGDS_WHITE": "ugds_white", "UGDS_BLACK": "ugds_black",
-    "UGDS_HISP": "ugds_hisp", "FIRST_GEN": "first_gen", "CURROPER": "curroper",
+    "UGDS": "ugds",
+    "ADM_RATE": "adm_rate",
+    "PCTPELL": "pct_pell",
+    "TUITFTE": "tuitfte",
+    "TUITIONFEE_IN": "tuitionfee_in",
+    "COSTT4_A": "costt4_a",
+    "PPTUG_EF": "pptug_ef",
+    "UGDS_WHITE": "ugds_white",
+    "UGDS_BLACK": "ugds_black",
+    "UGDS_HISP": "ugds_hisp",
+    "FIRST_GEN": "first_gen",
+    "CURROPER": "curroper",
 }
 OUT_FIELDS = ["institution_id", "year", *COLS.values()]
 NULLS = {"", "NA", "NULL", "PS", "PrivacySuppressed"}
@@ -47,11 +56,16 @@ def main() -> None:
     if not SC_DIR.exists():
         raise SystemExit(f"Scorecard directory not found: {SC_DIR}")
     ours = set()
-    for name in ("institutions.csv", "manual_closures.csv"):  # include hand-curated rows with an OPEID
+    # Match on OPEID across the closed rows (institutions.csv, manual_closures.csv) AND the open
+    # IPEDS roster (institutions_open.csv), so the Scorecard slice covers survivors too, not just
+    # closures. The survivor baseline is what turns "describe the dead" into "dead vs. alive".
+    for name in ("institutions.csv", "manual_closures.csv", "institutions_open.csv"):
         p = DATA / name
         if p.exists():
             with p.open(encoding="utf-8", newline="") as fh:
-                ours |= {r["opeid"].strip() for r in csv.DictReader(fh) if r.get("opeid", "").strip()}
+                ours |= {
+                    r["opeid"].strip() for r in csv.DictReader(fh) if r.get("opeid", "").strip()
+                }
 
     files = sorted(SC_DIR.glob("MERGED*_PP.csv"))
     out, kept_years = [], []
@@ -95,8 +109,10 @@ def main() -> None:
         w.writerows(rows)
 
     insts = len({r["institution_id"] for r in rows})
-    print(f"Scorecard files read: {len(kept_years)}; rows for our institutions: {len(rows)} "
-          f"across {insts} institutions, years {kept_years[0][0]} to {kept_years[-1][0]}")
+    print(
+        f"Scorecard files read: {len(kept_years)}; rows for our institutions: {len(rows)} "
+        f"across {insts} institutions, years {kept_years[0][0]} to {kept_years[-1][0]}"
+    )
     print("Next: python3 scripts/build_db.py")
 
 
