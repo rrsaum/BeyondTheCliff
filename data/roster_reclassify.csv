@@ -1,0 +1,6 @@
+unitid,opeid,name,city,state,correct_status,closed_year,closure_type,verified,source_url,note
+206817,00314700,Bacone College,Muskogee,OK,closed,2024,institutional,batch10-agent,https://en.wikipedia.org/wiki/Bacone_College,Suspended operations spring 2024; Chapter 11 to Chapter 7 liquidation, trustee control 22 May 2025. Historically Native American.
+239512,00387500,Northland College,Ashland,WI,closed,2025,institutional,batch10-agent,https://en.wikipedia.org/wiki/Northland_College_(Wisconsin),Closed at end of 2024-25 academic year (24 May 2025); needed $12M, raised $1.5M.
+130110,00745900,Paier College,Bridgeport,CT,closed,2025,institutional,batch10-agent,https://en.wikipedia.org/wiki/Paier_College,Lost ACCSC accreditation April 2025 and announced it would not reopen.
+192004,00849500,Jamestown Business College,Jamestown,NY,closed,2025,institutional,verified,https://en.wikipedia.org/wiki/Jamestown_Business_College,Closed February 2025; officials cited the college's size and expanding government regulations (stopped enrolling new students Feb 2024).
+421841,03120700,New York Conservatory for Dramatic Arts,New York,NY,closed,2025,institutional,verified,https://en.wikipedia.org/wiki/New_York_Conservatory_for_Dramatic_Arts,Announced 3 June 2025 it would close 31 August 2025 (final instruction 29 Aug 2025); no cause stated in source.
