@@ -280,6 +280,26 @@ CREATE TABLE finance_year (
 );
 CREATE INDEX idx_fin ON finance_year(institution_id, fiscal_year);
 
+-- Program breadth over time, from the IPEDS Completions (C) survey: the count of distinct academic
+-- programs (4-digit CIP families that produced a graduate) an institution ran each year, plus how
+-- many it ADDED and DROPPED versus the prior reported year. This is the quantitative half of the
+-- "you must replace what you cut" thesis: a school whose n_dropped keeps exceeding n_added is
+-- shrinking its offerings (a retreat), while one that adds as it cuts is pivoting. Together with the
+-- curated program_opened / program_closed events, it lets a cut-vs-build ratio be computed per
+-- institution over time. Populated by a dedicated IPEDS-C importer (data/program_year.csv).
+-- Caveat carried in queries, not the data: CIP was recoded in 2011 and 2021, so added/dropped spike
+-- artificially across those two boundaries; the count itself is robust.
+CREATE TABLE program_year (
+  institution_id  TEXT NOT NULL REFERENCES institution(id),
+  year            INTEGER,
+  n_programs      INTEGER,   -- distinct 4-digit CIP programs with >=1 graduate that year
+  n_added         INTEGER,   -- programs present this year but not the prior reported year
+  n_dropped       INTEGER,   -- programs present the prior reported year but not this year
+  source          TEXT,
+  source_url      TEXT
+);
+CREATE INDEX idx_progyr ON program_year(institution_id, year);
+
 -- Financial history from IRS Form 990, the annual return every private nonprofit college files
 -- publicly (a U.S. government record, public domain). This is where "where things fall apart"
 -- becomes measurable: revenue, expenses, and balance sheet in the years before a closure, or in

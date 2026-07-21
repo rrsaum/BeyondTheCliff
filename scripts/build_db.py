@@ -78,6 +78,7 @@ TABLES = [
             "endowment_eoy",
         },
     ),
+    ("program_year.csv", "program_year", {"year", "n_programs", "n_added", "n_dropped"}),
     (
         "financials.csv",
         "financial_filing",
