@@ -13,10 +13,11 @@ F2223_{F1A,F2,F3}_Dict):
 Keyed on UNITID, so we map UNITID -> our institution id (OPEID) via the unitid column on the
 IPEDS-derived rows. Raw sourced dollars ONLY; ratios stay computed in queries.py.
 
-Step A loads the six cleanly cross-comparable variables (total/tuition revenue, investment
-return, total/instruction expense, end-of-year endowment). The revenue-by-source columns
-(federal/state_local/private) are left blank here because GASB and FASB split government money
-differently; a later pass fills them with a defined cross-form convention.
+Loads the six cleanly cross-comparable measures (total/tuition revenue, investment return,
+total/instruction expense, end-of-year endowment) AND revenue by source (federal, state+local,
+private). GASB and FASB split government money on different schedules, so each source is the SUM
+of every line at that government level (operating + nonoperating + appropriations; capital grants
+excluded) -- a defined convention that makes "federal dependence" comparable across the forms.
 
 Reads the per-year form files from uploads/data/ipeds_finance/ (gitignored raw data, like the
 Scorecard importer). For each file it extracts only the columns actually present in that year's
@@ -33,16 +34,27 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 FIN_DIR = ROOT / "uploads" / "data" / "ipeds_finance"
 
-# our output column -> the source variable in each form (verified from the FY2223 dictionary).
-# None means "not mapped for this form" (e.g. for-profit F3 has no endowment).
+# our output column -> the source variable(s) in each form (verified from the FY2223 dictionary).
+# Each per-form entry is a LIST of variable codes that are SUMMED (one element for the directly
+# comparable measures; several for revenue-by-source, where GASB and FASB split government money on
+# different schedules and the comparable convention is to sum every line at that government level
+# -- operating + nonoperating + appropriations, capital grants excluded). Empty list = not reported
+# by that form (e.g. for-profit F3 has no endowment).
 MAP = {
-    #                     F1A (GASB)   F2 (FASB)   F3 (for-profit)
-    "total_revenue": ("F1D01", "F2B01", "F3D09"),
-    "tuition_revenue": ("F1B01", "F2D01", "F3D01"),
-    "investment_return": ("F1B17", "F2D10", "F3D05"),
-    "total_expenses": ("F1C191", "F2E131", "F3E071"),
-    "instruction_expense": ("F1C011", "F2E011", "F3E011"),
-    "endowment_eoy": ("F1H02", "F2H02", None),
+    #                       F1A (GASB public)                    F2 (FASB nonprofit)  F3 (for-profit)
+    "total_revenue": (["F1D01"], ["F2B01"], ["F3D09"]),
+    "tuition_revenue": (["F1B01"], ["F2D01"], ["F3D01"]),
+    "federal_revenue": (["F1B02", "F1B10", "F1B13"], ["F2D02", "F2D05"], ["F3D02"]),
+    "state_local_revenue": (
+        ["F1B03", "F1B04A", "F1B11", "F1B12", "F1B14", "F1B15"],
+        ["F2D03", "F2D04"],
+        ["F3D03"],
+    ),
+    "private_gifts_grants": (["F1B04B", "F1B16"], ["F2D08"], ["F3D04"]),
+    "investment_return": (["F1B17"], ["F2D10"], ["F3D05"]),
+    "total_expenses": (["F1C191"], ["F2E131"], ["F3E071"]),
+    "instruction_expense": (["F1C011"], ["F2E011"], ["F3E011"]),
+    "endowment_eoy": (["F1H02"], ["F2H02"], []),
 }
 FORM_IDX = {"f1a": 0, "f2": 1, "f3": 2}
 OUT_FIELDS = [
@@ -108,12 +120,12 @@ def main() -> None:
             if "UNITID" not in idx:
                 continue
             ui = idx["UNITID"]
-            # resolve, per this year's header, which source column feeds each of our fields
+            # resolve, per this year's header, the header indices that feed each field (summed)
             col = {}
             for out_col, srcs in MAP.items():
-                src = srcs[fi]
-                if src and src.upper() in idx:
-                    col[out_col] = idx[src.upper()]
+                present = [idx[cc.upper()] for cc in srcs[fi] if cc.upper() in idx]
+                if present:
+                    col[out_col] = present
             n = 0
             for row in reader:
                 if ui >= len(row):
@@ -128,8 +140,10 @@ def main() -> None:
                     "source": tag,
                     "source_url": URL.format(tag=tag),
                 }
-                for out_col, ci in col.items():
-                    rec[out_col] = clean_int(row[ci]) if ci < len(row) else ""
+                for out_col, cis in col.items():
+                    vals = [clean_int(row[ci]) for ci in cis if ci < len(row)]
+                    nums = [int(v) for v in vals if v != ""]
+                    rec[out_col] = str(sum(nums)) if nums else ""
                 if any(rec.get(c) for c in MAP):  # skip all-null rows
                     out[(iid, fiscal_year)] = rec  # last form/year wins on any collision
                     n += 1
