@@ -103,14 +103,18 @@ CREATE TABLE enrollment (
   UNIQUE (institution_id, year, source)
 );
 
--- The lifecycle: closures, mergers, renames, reopenings. abrupt = 1 when the closure was
--- precipitous (doors shut with little warning), 0 orderly, NULL unknown. counterpart is
--- the other institution in a merger/acquisition, when known.
+-- The lifecycle: closures, mergers, renames, reopenings, AND the build-side moves (a campus or
+-- program opened, or a program cut). abrupt = 1 when the closure was precipitous (doors shut with
+-- little warning), 0 orderly, NULL unknown. counterpart is the other institution in a
+-- merger/acquisition, when known. The *_opened / program_closed types let the timeline record not
+-- just retreats but reinvestment, so a "cut vs build" ratio is computable per institution over time
+-- (a school that only ever closes things is spiralling; one that closes and opens is pivoting).
 CREATE TABLE event (
   institution_id             TEXT NOT NULL REFERENCES institution(id),
   event_type                 TEXT NOT NULL CHECK (event_type IN
                                ('founded','renamed','merged_into','absorbed','consolidated',
-                                'campus_closed','closed','teachout','reopened')),
+                                'campus_closed','closed','teachout','reopened',
+                                'campus_opened','program_opened','program_closed')),
   event_year                 INTEGER,
   event_date                 TEXT,             -- ISO date when known
   abrupt                     INTEGER,          -- 1 abrupt, 0 orderly, NULL unknown
@@ -249,6 +253,32 @@ CREATE TABLE scorecard (
   curroper        INTEGER    -- currently operating flag (1/0)
 );
 CREATE INDEX idx_sc ON scorecard(institution_id, year);
+
+-- The financial time series, from the IPEDS Finance (F) survey: a U.S. Dept. of Education public
+-- record covering EVERY Title IV institution every year (public, private nonprofit, and for-profit
+-- alike), keyed on UNITID. This is the layer that makes tuition dependence, revenue diversification,
+-- and reserve trends measurable across the whole sector, not just the one Form-990 school. Raw
+-- sourced dollars ONLY, one row per institution per fiscal year: the ratios (tuition share of
+-- revenue, federal-money dependence, months of reserves) are opinions about these numbers and are
+-- computed in app/queries.py so a definition can change without a reimport. Populated by a dedicated
+-- IPEDS-F importer (data/finance_year.csv); empty until that import is run. FASB (private) and GASB
+-- (public) forms report on different line schedules, so the importer maps both onto these columns.
+CREATE TABLE finance_year (
+  institution_id       TEXT NOT NULL REFERENCES institution(id),
+  fiscal_year          INTEGER,
+  total_revenue        INTEGER,   -- total revenues and investment return ($)
+  tuition_revenue      INTEGER,   -- tuition and fees, net of institutional discounts ($)
+  federal_revenue      INTEGER,   -- federal appropriations, grants and contracts ($)
+  state_local_revenue  INTEGER,   -- state + local appropriations, grants and contracts ($)
+  private_gifts_grants INTEGER,   -- private gifts, grants and contracts ($)
+  investment_return    INTEGER,   -- investment return / income ($)
+  total_expenses       INTEGER,   -- total expenses ($)
+  instruction_expense  INTEGER,   -- instruction expenses ($)
+  endowment_eoy        INTEGER,   -- endowment assets, end of fiscal year ($) -- the reserve proxy
+  source               TEXT,      -- e.g. 'IPEDS F2223_F1A'
+  source_url           TEXT
+);
+CREATE INDEX idx_fin ON finance_year(institution_id, fiscal_year);
 
 -- Financial history from IRS Form 990, the annual return every private nonprofit college files
 -- publicly (a U.S. government record, public domain). This is where "where things fall apart"

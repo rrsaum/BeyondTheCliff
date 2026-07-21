@@ -63,6 +63,22 @@ TABLES = [
         {"year", "ugds", "tuitfte", "tuitionfee_in", "costt4_a", "curroper"},
     ),
     (
+        "finance_year.csv",
+        "finance_year",
+        {
+            "fiscal_year",
+            "total_revenue",
+            "tuition_revenue",
+            "federal_revenue",
+            "state_local_revenue",
+            "private_gifts_grants",
+            "investment_return",
+            "total_expenses",
+            "instruction_expense",
+            "endowment_eoy",
+        },
+    ),
+    (
         "financials.csv",
         "financial_filing",
         {
