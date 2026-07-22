@@ -80,6 +80,13 @@ turns the analysis into the exact survivorship-bias trap the whole project was b
 From the authority doc's "what to build, in order" plus its two named hardening steps. Do them in
 this order; each is a clean unit.
 
+**Scope (confirmed 2026-07-22): importing the new fields IS in scope.** Do the analysis first
+(steps 1 to 3), then import the fields in step 4 so the model can use them, then re-run the
+validation with the new signals included. Before importing any field, check whether it already
+exists in the schema (a column in the relevant CSV / table); import only what is genuinely
+missing, and never duplicate a field an importer already produces. Each import previews by default
+and writes nothing without `--commit` (repo convention); source every added field.
+
 1. **Era-forward validation** (hardening step 1). Re-run the existing validation with a
    train-early / test-late split. Report whether the 0.74 to 0.85 holds forward in time. Highest
    priority because it tests the claim the current result cannot: does this generalize across
@@ -91,16 +98,27 @@ this order; each is a clean unit.
 3. **Interaction and combination search, preregistered.** Systematically test the combinations
    the doc flags, especially discount-rate interacted with net-tuition growth and enrollment. Set
    the pass bar first.
-4. **Import the fields that unlock the rest** (only after 1 to 3, and each with a source):
-   - Scorecard **retention and graduation** (Zemsky's third variable). `data/scorecard.csv` does
-     NOT currently carry these columns; add them to `scripts/import_scorecard.py`'s extraction.
+4. **Import the fields that unlock the rest** (after 1 to 3; each field checked-then-imported only
+   if missing, and each with a source). After importing, re-run `health_validate.py` with the new
+   signal added and report whether it clears its preregistered bar out of sample.
+   - Scorecard **retention and graduation** (Zemsky's third variable). Confirmed missing:
+     `data/scorecard.csv` carries `institution_id,year,ugds,adm_rate,pct_pell,tuitfte,
+     tuitionfee_in,costt4_a,pptug_ef,ugds_white,ugds_black,ugds_hisp,first_gen,curroper` and no
+     retention or graduation column. Extend `scripts/import_scorecard.py`'s extraction (the raw
+     Scorecard fields are the retention and completion-rate columns), then widen the `scorecard`
+     schema in `scripts/build_db.py` and the panel readers to carry them.
    - IPEDS Finance **net position** (unlocks the CFI ratios and capital efficiency for public
-     schools, which `finance_year` cannot compute today).
+     schools, which `finance_year` cannot compute today). Confirmed missing per the authority doc.
+     Extend `scripts/import_ipeds_finance.py`.
    - IPEDS Finance **scholarships/aid** (a clean discount rate for all schools, not just the 990
-     handful).
-   - **CAC stays out of scope.** No public federal source breaks out recruitment spend. The
-     honest proxy is student-services expense per new student, and it must be labeled a loose
-     proxy, never "CAC." Do not publish a CAC.
+     handful). Also via `scripts/import_ipeds_finance.py`.
+   - **CAC stays out of scope even now.** No public federal source breaks out recruitment spend.
+     The honest proxy is student-services expense per new student, and it must be labeled a loose
+     proxy, never "CAC." Do not import or publish a CAC.
+
+   For any field that turns out to already exist, note that in the doc and skip its import; do not
+   re-import or shadow it. If a genuinely missing field cannot be sourced cleanly from the public
+   record, mark it NOT AVAILABLE rather than importing a guess.
 
 ---
 
@@ -140,9 +158,15 @@ this order; each is a clean unit.
 - `scripts/verify.sh` passes on every changed file (style + ruff). Run `scripts/verify.sh --tests`
   if a test suite exists for what you touched.
 - The frozen resilience score is unchanged, or deliberately refit, revalidated, and documented.
+- Each new field (retention/graduation, IPEDS net position, scholarships/aid) is either imported
+  from a named source with its importer previewing before `--commit`, or marked NOT AVAILABLE with
+  the reason. Any field found already present is noted and skipped. After import, the validation is
+  re-run with the new signal and its held-out contribution is reported against its preregistered
+  bar.
 
 Do NOT, as part of this handoff: name or rank a living school publicly, refit the frozen score
-casually, import CAC, or present any single-metric correlation as a closure prediction.
+casually, import CAC, hand-edit a generated CSV, or present any single-metric correlation as a
+closure prediction.
 
 ---
 
