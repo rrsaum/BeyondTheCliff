@@ -5,6 +5,8 @@ so the charts always reflect the same subset the table shows.
 
 from __future__ import annotations
 
+import bisect
+
 from .db import connect
 
 # Whitelist: request sort key -> real column. Anything else falls back to close year.
@@ -394,6 +396,8 @@ def scorecard_profile(inst_id: str) -> dict | None:
         "demographics": demo,
         "flags": flags,
         "year_range": f"{min(years)} to {max(years)}",
+        "undergrads": int(val("ugds")) if val("ugds") is not None else None,
+        "undergrads_year": latest.get("ugds", (None, None))[1],
     }
 
 
@@ -775,6 +779,20 @@ def get_institution(inst_id: str) -> dict | None:
     if inst is None:
         conn.close()
         return None
+    # Overlay the hand-curated descriptive facts (founding year, affiliation, sourced bio). The
+    # institution row's own founding_year/religious_affiliation win when present (closures carry
+    # them); the curated CSV fills them for survivors the generated roster left blank.
+    inst = dict(inst)
+    prof = conn.execute(
+        "SELECT founded, affiliation, bio, source_url FROM institution_profile "
+        "WHERE institution_id = ?",
+        (inst_id,),
+    ).fetchone()
+    if prof:
+        inst["founding_year"] = inst.get("founding_year") or prof["founded"]
+        inst["religious_affiliation"] = inst.get("religious_affiliation") or prof["affiliation"]
+        inst["bio"] = prof["bio"]
+        inst["profile_source"] = prof["source_url"]
     events = conn.execute(
         "SELECT * FROM event WHERE institution_id = ? ORDER BY (event_year IS NULL), event_year",
         (inst_id,),
@@ -966,95 +984,173 @@ def closure_anatomy(m: dict) -> dict | None:
     return {"layers": layers, "toll": toll} if layers else None
 
 
-RESILIENCE_BAND_SUB = {
-    "Resilient": "a demand and pricing path like the schools that came through",
-    "Stable": "a steady demand and pricing path",
-    "Watch": "a demand or pricing path worth watching",
-    "Strained": "a demand and pricing path like the schools that did not come through",
-}
+_FOURYR = ("Bachelor's", "Master's", "Doctor's")
 
 
-def _resilience_tag(feat: str, p: float | None) -> str:
-    """A plain-language read of one driver's peer position (no ordinals, no false precision)."""
-    if p is None:
-        return ""
-    pos = max(1, round(p * 100))
-    low, high = f"bottom {pos}%", f"top {max(1, 100 - pos)}%"
-    if feat == "size":
-        return f"{high} by size (a cushion)" if p >= 0.5 else f"{low} by size"
-    if feat == "trend":
-        return f"{high}, growing" if p >= 0.5 else f"{low}, falling"
-    if feat == "tuition":
-        return f"{high} net price" if p >= 0.5 else f"{low} net price"
-    if feat == "pell":
-        return f"{high} Pell share" if p >= 0.5 else f"{low} Pell share"
-    return ""
+def _peer_label(control: str | None, fouryr: bool) -> str:
+    """A plain description of the comparison group, e.g. '4-year private nonprofits'."""
+    base = {
+        "public": "public",
+        "private_nonprofit": "private nonprofit",
+        "private_forprofit": "for-profit",
+    }.get(control, "college")
+    return f"{'4-year' if fouryr else '2-year'} {base}s"
+
+
+def _peer_percentile(
+    conn, field: str, value, year: int, control: str, fouryr: bool
+) -> float | None:
+    """This school's percentile on `field` among COMPARABLE peers (same control and level) in `year`.
+
+    Comparable peers, not all institutions: 762 undergraduates is median-sized among 4-year private
+    nonprofits, but 'top 46%' against a universe stuffed with tiny certificate programs. field is
+    whitelisted below, so it is never user input in the SQL."""
+    if value is None or field not in ("ugds", "tuitfte", "pct_pell"):
+        return None
+    level = (
+        "i.degrees IN ('Bachelor''s','Master''s','Doctor''s')"
+        if fouryr
+        else "(i.degrees NOT IN ('Bachelor''s','Master''s','Doctor''s') OR i.degrees IS NULL)"
+    )
+    rows = sorted(
+        r[0]
+        for r in conn.execute(
+            f"SELECT s.{field} FROM scorecard s JOIN institution i ON i.id = s.institution_id "
+            f"WHERE s.year = ? AND s.{field} IS NOT NULL AND i.control = ? AND {level}",
+            (year, control),
+        )
+    )
+    return bisect.bisect_left(rows, value) / len(rows) if rows else None
 
 
 def resilience_profile(inst_id: str) -> dict | None:
-    """This institution's Resilience score, shaped for the school-page panel.
+    """This institution's Resilience score, shaped for the redesigned school-page panel.
 
-    Reads the precomputed resilience_score row (see scripts/resilience.py) and turns it into an
-    ordered driver list. Pell is always tagged 'context', never a blameworthy driver; the other
-    three are trajectory levers marked as helping or hurting by the sign of their contribution."""
+    The band and overall percentile come from the FROZEN model (all-institution). The per-driver
+    bars show the school's percentile among COMPARABLE peers (same control and level), because that
+    is the comparison a reader can act on. Net tuition is shown neutrally: against all colleges it
+    looks high, but for a private nonprofit it is often below the peer middle, so it is not colored
+    as a fault. Pell is always context. The one clear concern (a falling enrollment line) is flagged.
+    """
     conn = connect()
     row = conn.execute(
-        "SELECT rs.*, i.control, i.status FROM resilience_score rs "
+        "SELECT rs.*, i.control, i.status, i.degrees FROM resilience_score rs "
         "JOIN institution i ON i.id = rs.institution_id WHERE rs.institution_id = ?",
         (inst_id,),
     ).fetchone()
-    n_live = conn.execute(
+    n_open = conn.execute(
         "SELECT COUNT(*) FROM resilience_score rs JOIN institution i ON i.id = rs.institution_id "
         "WHERE i.status = 'open'"
     ).fetchone()[0]
-    conn.close()
     if row is None:
+        conn.close()
         return None
-    feats = ("size", "trend", "pell", "tuition")
-    drivers = []
-    for f in feats:
-        contrib = row[f"c_{f}"]
-        disp = row[f"p_{f}"]
-        if f == "pell":
-            kind = "context"
-        elif contrib is None:
-            continue
-        else:
-            kind = "hurt" if contrib > 0 else "help"
-        drivers.append(
-            {
-                "feat": f,
-                "label": {
-                    "size": "Enrollment size",
-                    "trend": "Enrollment trend",
-                    "pell": "Pell share",
-                    "tuition": "Net tuition/student",
-                }[f],
-                "kind": kind,
-                "weight": abs(contrib) if contrib is not None else 0.0,
-                "tag": _resilience_tag(f, disp),
-            }
+    control = row["control"]
+    fouryr = (row["degrees"] or "") in _FOURYR
+    peers = _peer_label(control, fouryr)
+    sc = conn.execute(
+        "SELECT year, ugds, tuitfte, pct_pell FROM scorecard "
+        "WHERE institution_id = ? AND ugds IS NOT NULL ORDER BY year DESC LIMIT 1",
+        (inst_id,),
+    ).fetchone()
+    # Enrollment direction from the last five reported years (a fact: is the line falling?).
+    ug = [
+        r["ugds"]
+        for r in conn.execute(
+            "SELECT ugds FROM scorecard WHERE institution_id = ? AND ugds IS NOT NULL "
+            "ORDER BY year DESC LIMIT 5",
+            (inst_id,),
         )
-    # Order: hurting levers first (biggest drag first), then helping, context (Pell) last.
-    order = {"hurt": 0, "help": 1, "context": 2}
-    drivers.sort(key=lambda d: (order[d["kind"]], -d["weight"]))
-    top = max((d["weight"] for d in drivers), default=1.0) or 1.0
-    for d in drivers:
-        d["bar"] = round(100 * d["weight"] / top)
+    ]
+    falling = len(ug) >= 2 and ug[0] < ug[-1]
+    growing = len(ug) >= 2 and ug[0] > ug[-1]
+
+    def pp(field):
+        return (
+            _peer_percentile(conn, field, sc[field] if sc else None, sc["year"], control, fouryr)
+            if sc
+            else None
+        )
+
+    def band_note(p, low, mid, high):
+        if p is None:
+            return mid
+        return low if p < 0.4 else (high if p > 0.6 else mid)
+
+    drivers = []
+    # Enrollment trend: the one lever with an unambiguous direction, so it can be flagged.
+    p_trend = row["p_trend"]
+    drivers.append(
+        {
+            "feat": "trend",
+            "label": "Enrollment trend",
+            "pct": round((p_trend if p_trend is not None else 0.5) * 100),
+            "kind": "concern" if falling else ("good" if growing else "neutral"),
+            "note": "enrollment is falling"
+            if falling
+            else ("enrollment is growing" if growing else "enrollment is steady"),
+        }
+    )
+    # Enrollment size, comparable peers.
+    p_size = pp("ugds")
+    drivers.append(
+        {
+            "feat": "size",
+            "label": "Enrollment size",
+            "pct": round((p_size if p_size is not None else row["p_size"] or 0.5) * 100),
+            "kind": "concern" if (p_size is not None and p_size <= 0.25) else "neutral",
+            "note": band_note(
+                p_size, f"small for {peers}", f"about average for {peers}", f"large for {peers}"
+            ),
+        }
+    )
+    # Net tuition, comparable peers, shown NEUTRALLY (direction is genuinely ambiguous for health).
+    p_tui = pp("tuitfte")
+    drivers.append(
+        {
+            "feat": "tuition",
+            "label": "Net tuition/student",
+            "pct": round((p_tui if p_tui is not None else row["p_tuition"] or 0.5) * 100),
+            "kind": "neutral",
+            "note": band_note(
+                p_tui,
+                f"below the middle for {peers}",
+                f"about typical for {peers}",
+                f"above most {peers}",
+            ),
+        }
+    )
+    # Pell reliance: context, never a fault.
+    p_pell = pp("pct_pell")
+    drivers.append(
+        {
+            "feat": "pell",
+            "label": "Pell share",
+            "pct": round((p_pell if p_pell is not None else row["p_pell"] or 0.5) * 100),
+            "kind": "context",
+            "note": band_note(
+                p_pell,
+                f"low Pell share for {peers}",
+                f"typical Pell share for {peers}",
+                f"high Pell share for {peers}",
+            )
+            + " &middot; context, not fault",
+        }
+    )
+    conn.close()
     pctile = row["pctile"]
+    n = min(99, max(1, round(pctile * 100)))
+    suffix = "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
     return {
         "band": row["band"],
-        "band_sub": RESILIENCE_BAND_SUB.get(row["band"], ""),
         "pctile": pctile,
         "marker_pct": round(100 * pctile, 1),
-        "rank_phrase": (
-            f"ranks above ~{min(99, round(pctile * 100))}% of peers"
-            if pctile >= 0.5
-            else f"ranks below ~{min(99, max(1, round((1 - pctile) * 100)))}% of peers"
-        ),
-        "is_public": row["control"] == "public",
+        "pct_ordinal": f"{n}{suffix}",
+        "rank_phrase": f"More resilient than {min(99, round(pctile * 100))}% of the {n_open:,} operating colleges we score",
+        "is_public": control == "public",
         "closed": row["status"] != "open",
-        "n_live": n_live,
+        "n_open": n_open,
+        "peers": peers,
         "drivers": drivers,
     }
 
@@ -1133,6 +1229,37 @@ def resilience_ranking(
         if dist.get(name)
     ]
     return out, total, dist_ordered
+
+
+def financial_summary(inst_id: str) -> dict | None:
+    """Latest and earliest 990 balance-sheet snapshot, for the above-fold vitals and the
+    two-question financial callout: the operating result (income statement) and the reserve
+    (balance sheet) are different questions and are surfaced as such."""
+    conn = connect()
+    rows = conn.execute(
+        "SELECT tax_year, period_end, total_revenue, total_expenses, net_income, net_assets "
+        "FROM financial_filing WHERE institution_id = ? AND net_assets IS NOT NULL ORDER BY tax_year",
+        (inst_id,),
+    ).fetchall()
+    conn.close()
+    if not rows:
+        return None
+    last, first = rows[-1], rows[0]
+
+    def fy(r):
+        return int(r["period_end"][:4]) if r["period_end"] else r["tax_year"] + 1
+
+    exp = last["total_expenses"]
+    return {
+        "fiscal_year": fy(last),
+        "first_fy": fy(first),
+        "net_assets": last["net_assets"],
+        "first_net_assets": first["net_assets"],
+        "net_income": last["net_income"],
+        "total_revenue": last["total_revenue"],
+        "total_expenses": exp,
+        "reserve_ratio": (last["net_assets"] / exp) if exp else None,
+    }
 
 
 def composite_series(inst_id: str) -> dict | None:

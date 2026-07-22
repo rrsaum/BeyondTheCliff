@@ -606,6 +606,7 @@ def institution(request: Request, inst_id: str):
             "hcm_has_severe": any(r["level"] == "2" for r in data["hcm"]),
             "scorecard": queries.scorecard_profile(inst_id),
             "resilience": queries.resilience_profile(inst_id),
+            "financial_summary": queries.financial_summary(inst_id),
             "composite": composite,
             "composite_chart": composite_chart,
             "composite_reading": queries.composite_reading,

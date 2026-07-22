@@ -47,6 +47,9 @@ TABLES = [
     # Hand-curated, and deliberately not part of any generated file: IPEDS has no EIN, and
     # institutions_open.csv is rewritten whole by scripts/import_ipeds_roster.py.
     ("institution_eins.csv", "institution_ein", set()),
+    # Hand-curated founding year / affiliation / sourced bio, same reasoning: not in any generated
+    # file, one sourced row per school. Overlays the institution row for display.
+    ("institution_profile.csv", "institution_profile", {"founded"}),
     ("names.csv", "institution_name", {"start_year", "end_year"}),
     ("campuses.csv", "campus", {"opened_year", "closed_year", "is_main"}),
     ("enrollment.csv", "enrollment", {"year", "total_headcount", "undergrad", "graduate", "fte"}),

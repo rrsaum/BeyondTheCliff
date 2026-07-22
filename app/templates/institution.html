@@ -5,10 +5,33 @@
 <p class="breadcrumb"><a href="/">The Closure and Consolidation Map</a> &middot; <a href="/admin/edit?id={{ inst.id }}">Edit</a></p>
 
 <article class="institution">
-  {% if inst.logo_url %}<img class="inst-logo" src="{{ inst.logo_url }}" alt="{{ inst.name | title }} seal" loading="lazy">{% endif %}
-  <h1>{{ inst.name | title }}</h1>
-  {% if inst.motto %}<p class="motto">{{ inst.motto }}</p>{% endif %}
-  {% if inst.background %}<p class="lead">{{ inst.background }}</p>{% endif %}
+  <header class="inst-head">
+    <div class="inst-head-top">
+      <div>
+        {% if inst.logo_url %}<img class="inst-logo" src="{{ inst.logo_url }}" alt="{{ inst.name | title }} seal" loading="lazy">{% endif %}
+        <h1>{{ inst.name | title }}</h1>
+        <p class="inst-meta">{% if inst.founding_year %}Founded {{ inst.founding_year }} &middot; {% endif %}{% if inst.religious_affiliation %}{{ inst.religious_affiliation }} &middot; {% endif %}{% if inst.city %}{{ inst.city | title }}{{ ', ' + inst.state if inst.state }} &middot; {% endif %}{{ control_labels.get(inst.control, 'Unknown') }}{{ ' ' + inst.level if inst.level }}{% if inst.degrees %} &middot; {{ inst.degrees }}{% endif %}</p>
+      </div>
+      {% if resilience %}<span class="band-chip band-{{ resilience.band | lower }}"><span class="band-dot"></span>{{ resilience.band }} &middot; {{ resilience.pct_ordinal }} pctile</span>{% endif %}
+    </div>
+    {% if inst.bio %}<p class="inst-bio">{{ inst.bio }}</p>{% elif inst.background %}<p class="inst-bio">{{ inst.background }}</p>{% elif inst.motto %}<p class="motto">{{ inst.motto }}</p>{% endif %}
+
+    <dl class="vitals">
+      {% if scorecard and scorecard.undergrads %}<div class="vital"><dt>Undergraduates</dt><dd>{{ '{:,}'.format(scorecard.undergrads) }} <span class="sub">{{ scorecard.undergrads_year }}</span></dd></div>{% endif %}
+      {% if financial_summary %}<div class="vital"><dt>Reserves (net assets)</dt><dd>${{ '%.1f' | format(financial_summary.net_assets / 1e6) }}M{% if financial_summary.reserve_ratio %} <span class="sub">{{ '%.1f' | format(financial_summary.reserve_ratio) }}&times; expenses</span>{% endif %}</dd></div>{% endif %}
+      {% if financial_summary and financial_summary.net_income is not none %}<div class="vital"><dt>Latest operating result</dt><dd class="{{ 'neg' if financial_summary.net_income < 0 else 'pos' }}">{% if financial_summary.net_income < 0 %}-{% endif %}${{ '%.1f' | format((financial_summary.net_income | abs) / 1e6) }}M <span class="sub">FY{{ financial_summary.fiscal_year }}</span></dd></div>{% endif %}
+      {% if composite %}<div class="vital"><dt>Federal responsibility</dt><dd>{{ '%.1f' | format(composite.latest) }} <span class="sub">{{ composite_reading(composite.latest)[1] }}</span></dd></div>{% endif %}
+      {% if resilience %}<div class="vital"><dt>Resilience</dt><dd>{{ resilience.band }} <span class="sub">{{ resilience.pct_ordinal }} pctile</span></dd></div>{% endif %}
+    </dl>
+
+    <div class="flags">
+      {% if scorecard %}{% for f in scorecard.flags %}<span class="flag flag-warn">&#9650; {{ f }}</span>{% endfor %}{% endif %}
+      {% if resilience %}{% for d in resilience.drivers %}{% if d.kind == 'concern' %}<span class="flag flag-risk">&#9660; {{ d.label }}: {{ d.note | safe }}</span>{% endif %}{% endfor %}{% endif %}
+      {% if financial_summary and financial_summary.net_income is not none and financial_summary.net_income < 0 %}<span class="flag flag-risk">&#9660; Spent more than it took in, FY{{ financial_summary.fiscal_year }}</span>{% endif %}
+      {% if financial_summary and financial_summary.reserve_ratio and financial_summary.reserve_ratio >= 1 %}<span class="flag flag-good">&#9679; Reserves ~{{ '%.1f' | format(financial_summary.reserve_ratio) }}&times; annual expenses</span>{% endif %}
+    </div>
+    {% if inst.profile_source %}<p class="src-note">Sources: founding year and affiliation, <a href="{{ inst.profile_source }}" rel="nofollow noopener">Wikipedia</a> (CC BY-SA); all figures, College Scorecard and IRS Form 990.</p>{% endif %}
+  </header>
 
   {% if inst.status == 'at_risk' %}
   <aside class="closure-banner at_risk">
@@ -58,17 +81,13 @@
   </aside>
   {% endif %}
 
-  <dl class="bio">
-    <div><dt>Location</dt><dd>{{ inst.city | title if inst.city else 'Unknown' }}{{ ', ' + inst.state if inst.state }}</dd></div>
-    <div><dt>Control</dt><dd>{{ control_labels.get(inst.control, 'Unknown') }}{{ ' ' + inst.level if inst.level else '' }}</dd></div>
-    {% if inst.religious_affiliation %}<div><dt>Affiliation</dt><dd>{{ inst.religious_affiliation }}</dd></div>{% endif %}
-    {% if inst.founding_year %}<div><dt>Founded</dt><dd>{{ inst.founding_year }}</dd></div>{% endif %}
-    {% if inst.degrees %}<div><dt>Highest award</dt><dd>{{ inst.degrees }}</dd></div>{% endif %}
-    <div><dt>Outcome</dt><dd><span class="pill pill-{{ inst.status }}">{{ status_labels.get(inst.status, inst.status) }}</span>{{ ' in ' ~ inst.status_year if inst.status_year }}</dd></div>
-    {% if inst.cause %}<div><dt>Primary cause</dt><dd>{{ cause_labels.get(inst.cause, inst.cause) }}</dd></div>{% endif %}
-    <div><dt>OPEID</dt><dd>{{ inst.opeid or 'None recorded' }}</dd></div>
-    {% if tags %}<div><dt>Tags</dt><dd>{% for t in tags %}<span class="tag">{{ t }}</span> {% endfor %}</dd></div>{% endif %}
-  </dl>
+  <nav class="inst-jump" aria-label="On this page">
+    {% if resilience %}<a href="#resilience">Resilience</a>{% endif %}
+    {% if scorecard %}<a href="#profile-metrics">Profile</a>{% endif %}
+    {% if composite %}<a href="#composite">Federal score</a>{% endif %}
+    {% if financials or ipeds_chart %}<a href="#financials">Financial record</a>{% endif %}
+    <a href="#details">Details</a>
+  </nav>
 
   {% if hcm_first %}
   <aside class="hcm-flag">
@@ -94,7 +113,7 @@
   {% endif %}
 
   {% if scorecard %}
-  <section class="scorecard">
+  <section class="scorecard" id="profile-metrics">
     <h2>Financial and demographic profile</h2>
     {% if scorecard.flags %}
     <div class="risk-flags">
@@ -113,12 +132,11 @@
   {% endif %}
 
   {% if resilience %}
-  <section class="resilience">
+  <section class="resilience" id="resilience">
     <h2>Resilience read</h2>
     <p class="chart-sub">A peer-relative read of the one thing the federal score does not weigh:
-      the school's demand and pricing path. It compares this school's enrollment and net-tuition
-      trajectory to every living institution and to the ones that closed. It ranks that path; it
-      does not forecast a date.</p>
+      the school's demand and pricing path, compared to every operating college and to the ones
+      that closed. It ranks that path; it does not forecast a date.</p>
     <div class="res-strip" role="img"
       aria-label="Resilience band: {{ resilience.band }}, {{ resilience.rank_phrase }}.">
       <span class="res-seg res-seg-strained"></span>
@@ -130,34 +148,41 @@
     <div class="res-strip-labs"><span>Strained</span><span>Watch</span><span>Stable</span><span>Resilient</span></div>
     <p class="res-pos">
       <span class="band-chip band-{{ resilience.band | lower }}"><span class="band-dot"></span>{{ resilience.band }}</span>
-      {{ resilience.rank_phrase }} of the {{ '{:,}'.format(resilience.n_live) }} living institutions we score{% if resilience.closed %}, read back over its final years{% endif %}.
+      {{ resilience.rank_phrase }}{% if resilience.closed %}, read back over its final years{% endif %}.
     </p>
     <ul class="res-drivers">
       {% for d in resilience.drivers %}
       <li class="res-driver">
         <span class="res-lab">{{ d.label }}</span>
-        <span class="res-bar res-bar-{{ d.kind }}"><span style="width: {{ d.bar }}%"></span></span>
-        <span class="res-tag">{{ d.tag }}{% if d.kind == 'context' %} &middot; context, not fault{% endif %}</span>
+        <span class="res-track" role="img" aria-label="{{ d.pct }}th percentile: {{ d.note | striptags }}">
+          <span class="res-fill res-fill-{{ d.kind }}" style="width: {{ d.pct }}%"></span>
+          <span class="res-mid"></span>
+          <span class="res-val">{{ d.pct }}</span>
+        </span>
+        <span class="res-note">{{ d.note | safe }}</span>
       </li>
       {% endfor %}
     </ul>
+    <div class="res-scale"><span>0</span><span>50 = median peer</span><span>100</span></div>
     {% if resilience.is_public %}
     <p class="res-caveat"><strong>Public institution.</strong> It carries state backing that this
       trajectory read does not see, so a lower band means &ldquo;watch the trend,&rdquo; not
       &ldquo;at risk of closing.&rdquo;{% if not composite %} The federal composite score, by law,
       does not cover most public schools, which qualify on full faith and credit instead.{% endif %}</p>
     {% endif %}
-    <p class="chart-note">Method: a logistic model on four federal signals (enrollment level and
-      five-year trend, Pell share, net tuition per student), validated out of sample (it separates
-      closures from survivors on schools it never saw). Pell reliance is a validated signal but a
-      marker of an under-resourced, vulnerable-student-serving school, shown here as context, never
-      as fault. The score ranks risk; it is not a prediction about this school.</p>
+    <p class="chart-note">Each bar is this school's percentile among {{ resilience.peers }} (its
+      comparable peers), so 50 is the median peer. The overall band is a logistic model on four
+      federal signals (enrollment level and trend, Pell share, net tuition per student), validated
+      out of sample. High net tuition is shown neutrally, not as a fault: against all colleges it
+      reads high, but for its peer group it is often mid-pack. Pell reliance is a marker of an
+      under-resourced, vulnerable-student-serving school, shown as context, never as fault. The
+      score ranks risk; it is not a prediction about this school.</p>
   </section>
   {% endif %}
 
   {% if composite %}
   {% set reading = composite_reading(composite.latest) %}
-  <section class="composite">
+  <section class="composite" id="composite">
     <h2>Federal financial responsibility score</h2>
     <p class="chart-sub">Every private nonprofit and for-profit college that takes federal
       student aid files audited accounts with the U.S. Dept. of Education each year. The
@@ -257,7 +282,7 @@
   {% endif %}
 
   {% if financials %}
-  <section class="financials">
+  <section class="financials" id="financials">
     <h2>The financial record</h2>
     <p class="chart-sub">
       Every private nonprofit college files a Form 990 with the IRS, in public, every year. It is
@@ -265,6 +290,25 @@
       only outside vantage on how a year actually went. What follows is what
       {{ inst.name | title }} filed{% if financials.gap_years %}, for the years it filed{% endif %}.
     </p>
+
+    {% if financial_summary %}
+    <div class="fin-two">
+      <div class="fin-box">
+        <div class="fin-box-h">Did a normal year pay for itself? <span>Income statement</span></div>
+        <div class="fin-box-big {{ 'neg' if financial_summary.net_income is not none and financial_summary.net_income < 0 else 'pos' }}">{% if financial_summary.net_income is not none %}{% if financial_summary.net_income < 0 %}-{% endif %}${{ '%.1f' | format((financial_summary.net_income | abs) / 1e6) }}M{% else %}Not reported{% endif %}</div>
+        <div class="fin-box-exp">FY{{ financial_summary.fiscal_year }}: took in ${{ '%.1f' | format(financial_summary.total_revenue / 1e6) }}M, spent ${{ '%.1f' | format(financial_summary.total_expenses / 1e6) }}M.</div>
+      </div>
+      <div class="fin-box">
+        <div class="fin-box-h">What has it built? <span>Balance sheet</span></div>
+        <div class="fin-box-big pos">${{ '%.1f' | format(financial_summary.net_assets / 1e6) }}M</div>
+        <div class="fin-box-exp">Net assets, up from ${{ '%.1f' | format(financial_summary.first_net_assets / 1e6) }}M in FY{{ financial_summary.first_fy }}.{% if financial_summary.reserve_ratio %} About {{ '%.1f' | format(financial_summary.reserve_ratio) }}&times; a year's expenses in reserve.{% endif %}</div>
+      </div>
+    </div>
+    <p class="fin-two-note">These are two different questions and they do not contradict. Net assets
+      can rise even in a deficit year because investment gains and restricted or endowment gifts do
+      not pass through the revenue line above. The reserve is real: read the chart for money in versus
+      out each year, and the net-assets column in the table for what the school is worth.</p>
+    {% endif %}
 
     {% set l = financials.latest %}
     {% set f = financials.first %}
@@ -451,6 +495,17 @@
 
   {% if inst.notes %}<section><h2>Notes</h2><p class="notes">{{ inst.notes }}</p></section>{% endif %}
   {% if inst.source_url %}<p><a class="src" href="{{ inst.source_url }}" rel="nofollow noopener">Primary source</a></p>{% endif %}
+
+  <section id="details" class="inst-detail-sec">
+    <h2>Details</h2>
+    <dl class="bio">
+      <div><dt>Outcome</dt><dd><span class="pill pill-{{ inst.status }}">{{ status_labels.get(inst.status, inst.status) }}</span>{{ ' in ' ~ inst.status_year if inst.status_year }}</dd></div>
+      {% if inst.cause %}<div><dt>Primary cause</dt><dd>{{ cause_labels.get(inst.cause, inst.cause) }}</dd></div>{% endif %}
+      <div><dt>OPEID</dt><dd>{{ inst.opeid or 'None recorded' }}</dd></div>
+      {% if inst.degrees %}<div><dt>Highest award</dt><dd>{{ inst.degrees }}</dd></div>{% endif %}
+      {% if tags %}<div><dt>Tags</dt><dd>{% for t in tags %}<span class="tag">{{ t }}</span> {% endfor %}</dd></div>{% endif %}
+    </dl>
+  </section>
 </article>
 
 {% endblock %}

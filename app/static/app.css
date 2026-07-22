@@ -358,23 +358,68 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
   border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--ink); }
 .res-strip-labs { display: flex; justify-content: space-between; font-size: .68rem;
   color: var(--ink-soft); }
-.res-pos { font-size: .95rem; margin: .6rem 0 .3rem; }
+.res-pos { font-size: .95rem; margin: .7rem 0 .5rem; }
 .res-drivers { list-style: none; margin: .5rem 0 0; padding: 0; }
-.res-driver { display: grid; grid-template-columns: 9rem 1fr auto; gap: .6rem; align-items: center;
-  padding: .22rem 0; font-size: .82rem; }
+/* One 0-100 percentile scale: the fill IS the percentile in the label, colour is the read. */
+.res-driver { display: grid; grid-template-columns: 9.5rem 1fr auto; gap: .55rem 1rem;
+  align-items: center; padding: .28rem 0; font-size: .82rem; }
 .res-lab { color: var(--ink-soft); }
-.res-bar { height: .5rem; border-radius: 3px; background: #ecebe6; overflow: hidden; }
-.res-bar > span { display: block; height: 100%; border-radius: 3px; min-width: 3px; }
-.res-bar-hurt > span { background: var(--b-strained); }
-.res-bar-help > span { background: var(--b-resilient); }
-.res-bar-context > span { background: #b9bec4; }
-.res-tag { font-size: .72rem; color: var(--ink-soft); white-space: nowrap; }
+.res-track { position: relative; height: 1.15rem; background: #f0efe9; border: 1px solid var(--line);
+  border-radius: 4px; overflow: hidden; }
+.res-fill { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 3px 0 0 3px; min-width: 1.4rem; }
+.res-fill-concern { background: var(--b-strained); }
+.res-fill-good    { background: var(--b-resilient); }
+.res-fill-neutral { background: var(--accent); }
+.res-fill-context { background: #9aa2ab; }
+.res-mid { position: absolute; top: -3px; bottom: -3px; left: 50%; width: 1px; background: var(--ink-soft); opacity: .55; }
+.res-val { position: absolute; top: 50%; left: .45rem; transform: translateY(-50%);
+  font-size: .72rem; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; }
+.res-note { font-size: .78rem; color: var(--ink-soft); white-space: nowrap; }
+.res-scale { display: flex; justify-content: space-between; font-size: .68rem; color: var(--ink-soft);
+  margin: .2rem 0 0; padding-left: 10.05rem; }
 .res-caveat { border-left: 3px solid var(--b-watch); background: #f6efe4; padding: .55rem .75rem;
   border-radius: 6px; font-size: .82rem; color: #6b4a1f; margin: .7rem 0 0; }
 @media (max-width: 560px) {
   .res-driver { grid-template-columns: 7rem 1fr; }
-  .res-tag { grid-column: 2; text-align: left; }
+  .res-note { grid-column: 2; text-align: left; white-space: normal; }
+  .res-scale { padding-left: 7.55rem; }
 }
+
+/* --- Institution page: above-the-fold header, jump-nav, vitals, flags --------------------- */
+.inst-head { margin: 0 0 1rem; }
+.inst-head-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.inst-head h1 { margin: 0; }
+.inst-meta { color: var(--ink-soft); font-size: .92rem; margin: .2rem 0 0; }
+.inst-bio { font-size: 1rem; margin: .55rem 0 0; max-width: 70ch; }
+.vitals { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .1rem 1.4rem;
+  margin: 1rem 0 .2rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: .8rem 0; }
+.vital dt { font-size: .7rem; text-transform: uppercase; letter-spacing: .03em; color: var(--ink-soft); margin: 0; }
+.vital dd { margin: .1rem 0 0; font-size: 1.15rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.vital .sub { font-size: .72rem; font-weight: 400; color: var(--ink-soft); }
+.vital dd.neg { color: var(--closed); } .vital dd.pos { color: var(--good); }
+.flags { display: flex; gap: .4rem; flex-wrap: wrap; margin: .7rem 0 0; }
+.flag { font-size: .76rem; font-weight: 600; padding: .12rem .5rem; border-radius: 4px; border: 1px solid; }
+.flag-warn { color: #7a4614; background: #f6efe4; border-color: #e6d5bb; }
+.flag-risk { color: #7a2731; background: #fdeeee; border-color: #f2d4d7; }
+.flag-good { color: #245c40; background: #e7f0ea; border-color: #cfe3d6; }
+.src-note { font-size: .74rem; color: var(--ink-soft); margin: .7rem 0 0; }
+.inst-jump { position: sticky; top: 0; z-index: 3; background: var(--paper); border-bottom: 1px solid var(--line);
+  display: flex; gap: 1.3rem; padding: .6rem 0; margin: 0 0 1.2rem; font-size: .85rem; font-weight: 600; }
+.inst-jump a { color: var(--accent); }
+.inst-detail-sec { margin-top: 2rem; }
+
+/* --- Institution page: two-question financial callout ------------------------------------ */
+.fin-two { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin: .3rem 0 .6rem; }
+.fin-box { border: 1px solid var(--line); border-radius: var(--radius); padding: .7rem .9rem; background: var(--paper); }
+.fin-box-h { font-size: .82rem; font-weight: 600; }
+.fin-box-h span { display: block; font-size: .68rem; font-weight: 400; text-transform: uppercase;
+  letter-spacing: .03em; color: var(--ink-soft); margin-top: .1rem; }
+.fin-box-big { font-size: 1.5rem; font-weight: 600; font-variant-numeric: tabular-nums; margin: .2rem 0 .1rem; }
+.fin-box-big.neg { color: var(--closed); } .fin-box-big.pos { color: var(--good); }
+.fin-box-exp { font-size: .8rem; color: var(--ink-soft); }
+.fin-two-note { font-size: .84rem; color: var(--ink-soft); border-left: 3px solid var(--accent);
+  background: var(--accent-soft); padding: .5rem .75rem; border-radius: 0 6px 6px 0; margin: 0 0 1rem; max-width: 80ch; }
+@media (max-width: 620px) { .fin-two { grid-template-columns: 1fr; } }
 
 /* --- Sector Resilience ranking page ---------------------------------------------------- */
 /* The whole living roster as one banded bar; segments sized by count, a 2px surface gap between. */

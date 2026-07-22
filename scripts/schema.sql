@@ -463,6 +463,17 @@ CREATE INDEX idx_event_type    ON event(event_type, event_year);
 CREATE INDEX idx_name_inst     ON institution_name(institution_id);
 CREATE INDEX idx_char_tag      ON characteristic(tag);
 
+-- Hand-curated descriptive facts (founding year, affiliation, a short sourced bio) that IPEDS does
+-- not publish and the generated roster cannot carry. Its own hand-curated CSV, one sourced row per
+-- school, each with a source_url. Overlays the institution row at display time (see queries.py).
+CREATE TABLE institution_profile (
+  institution_id TEXT PRIMARY KEY REFERENCES institution(id),
+  founded        INTEGER,   -- year founded, sourced
+  affiliation    TEXT,      -- religious denomination or 'secular'/'nonsectarian', as sourced
+  bio            TEXT,      -- one factual sentence, 20 words or less
+  source_url     TEXT       -- where founded/affiliation/bio were sourced (e.g. Wikipedia, CC BY-SA)
+);
+
 -- Full-text search over current and historical names, so a search finds a school by any
 -- name it ever carried. Rebuilt by build_db.py after the data loads.
 CREATE VIRTUAL TABLE institution_search USING fts5(institution_id UNINDEXED, name);
