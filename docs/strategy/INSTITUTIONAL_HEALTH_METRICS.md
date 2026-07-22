@@ -489,6 +489,37 @@ on the step-4 IPEDS aid import.
 
 Results are recorded in the next subsection only after this one was committed.
 
+### Result (scripts/health_interactions.py)
+
+Common usable set (all six features present): 4,301 schools, 1,023 closed (24 percent), holdout 1,290.
+All models run on this identical set so the AUC lifts are attributable.
+
+| Model | Holdout AUC |
+|---|---|
+| Workhorse (baseline) | 0.895 |
+| + discount main effect (H5) | 0.896 |
+| Additive (+ discount + nt_growth) | 0.896 |
+| Additive + value-trap interactions (H6) | 0.893 |
+
+- **H5: CONFIRMED (as the doc predicted).** The discount proxy as a main effect lifts holdout AUC by
+  +0.001, under the +0.010 line, and its weight is small (+0.11). The discount alone is weak and
+  confounded, exactly like the admit rate. The value-trap premise holds: the give-away itself is not
+  the disease.
+- **H6: FAILED, an honest null.** The two value-trap interaction terms lift holdout AUC by -0.003, on
+  the wrong side of the +0.005 bar: they slightly hurt, which is overfitting. Both interaction
+  coefficients came out POSITIVE (discount x nt_growth +0.08, discount x enrollment_trend +0.33), the
+  opposite of the predicted negative sign. So with the rough proxy the value-trap interaction carries
+  no measurable predictive signal. This does not prove the value trap is false; it means the rough
+  `1 - tuitfte/tuitionfee_in` proxy cannot see it. The clean test is a proper discount rate from the
+  IPEDS scholarships/aid field, imported in step 4, and this null is the reason that import matters.
+
+Two honest notes. The workhorse scores 0.895 here versus 0.846 in the main validation, but that is a
+DIFFERENT, richer-data sample (only schools that also carry a computable discount and net-tuition
+growth, which skew private and tuition-dependent where the signal is stronger), not a better model.
+Do not read it as an improvement. And the net tuition LEVEL stays a strong term (+1.28), while its
+GROWTH adds nothing (+0.06): what predicts is where a school's net tuition sits, not how its discount
+dynamics move, at least as this rough proxy measures them.
+
 ## What to build, in order
 1. **The survivorship-free panel first** (school-year rows, closures and survivors, point-in-time),
    because every correlation claim depends on it and we already hold the inputs. This is the
