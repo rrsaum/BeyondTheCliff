@@ -535,6 +535,32 @@ dynamics move, at least as this rough proxy measures them.
    for all schools), and Scorecard retention/graduation (Zemsky's third variable). CAC stays out
    of scope: the public data does not support it.
 
+## Step 4: imported fields and their re-validation
+
+Each field is checked-then-imported only if genuinely missing, its importer previews before any
+commit, its source is named, and after import the validation is re-run with the new signal and graded
+against a bar set in advance. A field that does not clear its bar is reported as weak, not dropped.
+
+### Retention and graduation (Scorecard) preregistration (before result)
+
+Confirmed missing from the `scorecard` table (no retention or completion column). Source: College
+Scorecard raw MERGED files, public domain. Fields extracted, level-appropriate: full-time retention
+`RET_FT4` (four-year) and `RET_FTL4` (less-than-four-year); completion within 150 percent of expected
+time `C150_4` and `C150_L4`. They are added as OPTIONAL columns in `import_scorecard.py` (extracted
+where the file has them, never added to the file-inclusion check, so no older MERGED file is dropped).
+In the panel a single retention is `COALESCE(RET_FT4, RET_FTL4)` and a single graduation is
+`COALESCE(C150_4, C150_L4)`, each taken as a within-year percentile, median over the window.
+
+- **H7 (retention and graduation add signal, Zemsky's third variable).** Adding retention and/or
+  graduation to the workhorse improves holdout AUC on the common usable set. **Pass bar: >= +0.01
+  holdout AUC over the workhorse.** Retention is a core Zemsky variable, so a real contribution is
+  expected; but it may be collinear with enrollment and selectivity, so if it does not clear +0.01 it
+  is reported as weak, like the admit rate.
+- **Direction prediction:** higher retention and higher graduation carry NEGATIVE weight (more
+  student persistence, less closure risk). A positive or zero weight is reported as such.
+
+Result recorded below only after this preregistration was committed.
+
 ## Descriptive: the century-long closure record (scripts/closure_history.py, NOT predictive)
 
 This section is deliberately walled off from every AUC above. It uses no federal features and predicts
