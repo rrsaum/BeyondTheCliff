@@ -12,6 +12,7 @@
   --warn: #9a5b1d;         /* muted amber for abrupt */
   --closed: #b23a48;       /* muted red */
   --good: #2f6f4f;         /* muted green: a school clearing a federal threshold */
+  --gdp: #c06a12;          /* validated amber, the 4th timeline hue, distinct from the house three */
   --merged: #4a5866;       /* slate */
   --radius: 8px;
   --wrap: 1080px;
@@ -426,3 +427,90 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
 .cat-pandemic    { background: #e9e4ef; color: #5b3a8a; }
 .cat-artifact    { background: #eceae4; color: var(--ink-soft); }
 @media (prefers-color-scheme: dark) { .cat { filter: brightness(1.35); } }
+
+/* ---- /cliff interactive timeline overlay (charts.national_timeline + cliff-timeline.js) ---- */
+.timeline-chart { max-width: 1000px; }
+.timeline-chart .tl-plot { margin-top: .3rem; }
+.tl-svg { width: 100%; height: auto; }
+
+/* one colour token per series; lines, labels, swatches and readout text all read from --c */
+.tl-inst { --c: var(--ink); }
+.tl-enr  { --c: var(--accent); }
+.tl-hs   { --c: var(--good); }
+.tl-gdp  { --c: var(--gdp); }
+.tl-cl   { --c: #8a9099; }
+.tl-line { stroke: var(--c); stroke-width: 2.2; fill: none; }
+.tl-halo { stroke: var(--surface); stroke-width: 4.5; fill: none; }
+.tl-lab  { fill: var(--c); font-size: 11px; font-weight: 700; }
+.tl-sw   { display: inline-block; width: .72rem; height: .72rem; border-radius: 2px; background: var(--c); }
+.tl-fg   { color: var(--c); font-weight: 700; }
+.tl-ref  { stroke: #8f9aa6; stroke-width: 1.1; }
+.tl-clbar { fill: #9aa2ab; opacity: .32; }
+.tl-cllab { fill: var(--ink-soft); font-size: 10px; font-weight: 700; }
+.tl-cross { stroke: var(--ink); stroke-width: 1; opacity: 0; }
+.tl-hit   { touch-action: pan-y; cursor: crosshair; }
+
+/* controls (revealed by JS; hidden attribute keeps them out of the no-JS view) */
+.tl-controls { display: flex; flex-direction: column; gap: .5rem; margin: .2rem 0 .6rem; }
+.tl-chips, .tl-range-row { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; }
+.tl-chip, .tl-dur {
+  font: inherit; font-size: .78rem; font-weight: 600; padding: .35rem .7rem; min-height: 34px;
+  border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink-soft);
+  cursor: pointer; display: inline-flex; align-items: center; gap: .35rem;
+}
+.tl-chip[aria-pressed="true"], .tl-dur[aria-pressed="true"] {
+  background: var(--ink); color: #fff; border-color: var(--ink);
+}
+.tl-range-lab { font-size: .78rem; color: var(--muted, #6b7480); font-weight: 600; }
+.tl-winlab { font-size: .8rem; font-weight: 700; color: var(--ink); }
+.tl-gdpflag {
+  font-size: .74rem; color: #8a5010; background: #fbf1e4; border: 1px solid #edd9be;
+  border-radius: 6px; padding: .15rem .5rem;
+}
+.tl-readout { font-size: .82rem; color: var(--ink-soft); min-height: 1.4em; margin: .1rem 0 0; }
+.tl-readout b { color: var(--ink); }
+.tl-mut { color: var(--muted, #8a8f97); }
+
+/* single dual-handle range bar (two native inputs overlaid on one track) */
+.tl-rangewrap { position: relative; height: 30px; width: min(640px, 100%); margin: .2rem 0 .1rem; }
+.tl-rtrack { position: absolute; top: 13px; left: 8px; right: 8px; height: 4px; background: var(--line); border-radius: 2px; }
+.tl-rfill  { position: absolute; top: 13px; height: 4px; background: var(--accent); border-radius: 2px; }
+.tl-rangewrap input[type=range] {
+  position: absolute; top: 0; left: 0; width: 100%; height: 30px; margin: 0;
+  background: none; -webkit-appearance: none; appearance: none; pointer-events: none;
+}
+.tl-rangewrap input[type=range]::-webkit-slider-runnable-track { background: none; border: none; }
+.tl-rangewrap input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; pointer-events: auto; width: 22px; height: 22px;
+  border-radius: 50%; background: var(--surface); border: 2px solid var(--accent);
+  box-shadow: 0 1px 2px rgba(0,0,0,.25); cursor: grab; margin-top: 4px;
+}
+.tl-rangewrap input[type=range]::-moz-range-track { background: none; border: none; }
+.tl-rangewrap input[type=range]::-moz-range-thumb {
+  pointer-events: auto; width: 22px; height: 22px; border-radius: 50%; background: var(--surface);
+  border: 2px solid var(--accent); cursor: grab;
+}
+.tl-rlabels { display: flex; justify-content: space-between; width: min(640px, 100%); font-size: .7rem; color: var(--muted, #6b7480); }
+
+/* rotate hint: only on small portrait screens; the chart still renders behind it */
+.tl-rotate { display: none; }
+@media (max-width: 640px) and (orientation: portrait) {
+  .tl-rotate {
+    display: block; font-size: .82rem; font-weight: 600; color: #8a5010;
+    background: #fbf1e4; border: 1px solid #edd9be; border-radius: 6px; padding: .5rem .7rem; margin: 0 0 .5rem;
+  }
+}
+@media (max-width: 640px) {
+  .tl-chip, .tl-dur { min-height: 40px; }   /* comfortable touch targets */
+  .timeline-chart .tl-lab { font-size: 10px; }
+}
+
+/* timeline annotations: a recessive marker on a verified data point (e.g. the 1994 graduate
+   trough), drawn only when its series is shown and its year is in the visible window */
+.tl-anno-dot { fill: none; stroke: var(--good); stroke-width: 2; }
+.tl-anno { fill: var(--ink-soft); font-size: 10px; font-weight: 700; }
+
+/* public HS graduates: same green as the total pool but dashed, so it reads as a subset line;
+   default off, toggled on to reveal the annual 1970s-80s shape the total has to straight-line */
+.tl-hspub { --c: var(--good); }
+.tl-line.tl-hspub { stroke-dasharray: 5 3; stroke-width: 1.8; }

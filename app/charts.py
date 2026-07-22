@@ -8,7 +8,9 @@ markup here is intentionally simple and styleable via static/app.css.
 
 from __future__ import annotations
 
+import json
 from html import escape
+from math import log10
 
 
 def bars(title: str, rows: list[tuple], *, label_width: str = "6ch") -> str:
@@ -876,3 +878,218 @@ def trend(title: str, points: list[tuple]) -> str:
         f'<text x="{pad}" y="{pad - 12}" class="tr-ax">peak {ymax:,}</text>'
         f"</svg></figure>"
     )
+
+
+def _tl_interp(points: list[tuple], yr: int) -> float | None:
+    """Linear interpolation of a (year, value) series at year yr; None if yr is outside the
+    series' own range (so a series is never invented before its first record or after its last)."""
+    if not points or yr < points[0][0] or yr > points[-1][0]:
+        return None
+    for i in range(1, len(points)):
+        x1, y1 = points[i]
+        if x1 == yr:
+            return float(y1)
+        if x1 > yr:
+            x0, y0 = points[i - 1]
+            return y0 + (y1 - y0) * (yr - x0) / (x1 - x0)
+    return float(points[0][1])
+
+
+def _tl_ratio_ticks(lo: float, hi: float) -> list[float]:
+    """Nice 1-1.5-2-3-5-7-per-decade ticks for a ratio (log) axis, thinned to at most eight."""
+    cand = [m * 10**p for p in range(0, 6) for m in (1, 1.5, 2, 3, 5, 7)]
+    ticks = [v for v in cand if lo * 0.985 <= v <= hi * 1.015]
+    while len(ticks) > 8:
+        ticks = ticks[::2]
+    return ticks
+
+
+def national_timeline(data: dict, *, title: str, subtitle: str = "", note: str = "") -> str:
+    """Interactive multi-series overlay for /cliff: colleges, enrollment, the high-school-graduate
+    pool, and real GDP on one ratio-scaled index axis, with the closure flow as a context band.
+
+    Progressive enhancement, because every other chart in this app is server-rendered and this one
+    must still work with no JavaScript: the function renders a static SVG of the default window
+    plus the control scaffold (hidden until scripted) and the full series data as JSON. On load,
+    static/cliff-timeline.js reads that same JSON and upgrades the figure into the interactive
+    version (duration buttons, a single dual-handle range, touch scrub). The data dict is the one
+    source both this fallback and the script draw from, so they can never disagree on the numbers.
+
+    A ratio scale is deliberate, not decorative: over a century enrollment grows about twentyfold
+    and the college count about fourfold, and on a linear index axis the larger swamps the smaller
+    into an unreadable line. On a ratio scale equal spacing is equal percent change, so every
+    series reads as a comparable slope. GDP begins in 1929 (BEA has no official series before it),
+    so it is simply absent when the window opens earlier, never extrapolated.
+    """
+    order = data["order"]
+    series = data["series"]
+    start, end = data["defaultStart"], data["defaultEnd"]
+    gdp_from = data["gdpFrom"]
+
+    w, h, padl, padr, padt, padb = 960, 440, 46, 96, 20, 34
+    iw, ih = w - padl - padr, h - padt - padb
+
+    def sx(yr: float) -> float:
+        return padl + (yr - start) / (end - start) * iw
+
+    default_off = data.get("defaultOff", [])
+    active = [k for k in order if k not in default_off and not (k == "gdp" and start < gdp_from)]
+    lines: dict[str, list[tuple]] = {}
+    vlo, vhi = 95.0, 105.0
+    for k in active:
+        pts = [(int(y), float(v)) for y, v in series[k]["points"]]
+        base = _tl_interp(pts, start)
+        if not base:
+            continue
+        seq = [(start, 100.0 * base / base)]
+        seq += [(y, 100.0 * v / base) for y, v in pts if start < y < end]
+        be = _tl_interp(pts, end)
+        if be is not None:
+            seq.append((end, 100.0 * be / base))
+        lines[k] = seq
+        for _, iv in seq:
+            vlo, vhi = min(vlo, iv), max(vhi, iv)
+    dlo, dhi = min(vlo, 100.0), max(vhi, 100.0)
+    lo_l, hi_l = log10(dlo), log10(dhi)
+    lpad = max((hi_l - lo_l) * 0.05, 0.03)
+    y0l, y1l = lo_l - lpad, hi_l + lpad
+
+    def sy(v: float) -> float:
+        return padt + ih - (log10(v) - y0l) / (y1l - y0l) * ih
+
+    svg = [
+        f'<svg viewBox="0 0 {w} {h}" class="cl-svg tl-svg" role="img" '
+        f'aria-label="{escape(title)}: colleges, enrollment, high-school graduates and real GDP '
+        f'indexed to {start}, on a ratio scale">'
+    ]
+    for tv in _tl_ratio_ticks(dlo, dhi):
+        gy = sy(tv)
+        lab = f"{tv / 1000:g}k" if tv >= 1000 else f"{tv:g}"
+        svg.append(
+            f'<line x1="{padl}" y1="{gy:.1f}" x2="{padl + iw}" y2="{gy:.1f}" class="cl-grid"/>'
+        )
+        svg.append(
+            f'<text x="{padl - 6}" y="{gy + 3:.1f}" class="cl-ylab" text-anchor="end">{lab}</text>'
+        )
+    svg.append(
+        f'<line x1="{padl}" y1="{sy(100):.1f}" x2="{padl + iw}" y2="{sy(100):.1f}" class="tl-ref"/>'
+    )
+    svg.append(
+        f'<text x="{padl - 6}" y="{padt - 6:.1f}" class="cl-ylab" text-anchor="start">'
+        f"index, ratio scale ({start}=100)</text>"
+    )
+    span = end - start
+    tstep = 25 if span > 120 else 20 if span > 60 else 10 if span > 30 else 5
+    yy = -(-start // tstep) * tstep
+    while yy <= end:
+        svg.append(
+            f'<text x="{sx(yy):.1f}" y="{h - padb + 16:.1f}" class="cl-xlab" text-anchor="middle">{yy}</text>'
+        )
+        yy += tstep
+    cl = [(int(y), int(v)) for y, v in data["closures"] if start <= y <= end]
+    if cl:
+        cmax = max(v for _, v in cl) or 1
+        bh = ih * 0.26
+        bw = max(iw / (end - start) * 0.7, 1.5)
+        for y, v in cl:
+            bar_h = v / cmax * bh
+            svg.append(
+                f'<rect x="{sx(y) - bw / 2:.1f}" y="{padt + ih - bar_h:.1f}" width="{bw:.1f}" '
+                f'height="{bar_h:.1f}" class="tl-clbar"/>'
+            )
+        svg.append(
+            f'<text x="{padl + 2:.1f}" y="{padt + ih - 4:.1f}" class="tl-cllab" text-anchor="start">'
+            f"closures/yr (context, own scale)</text>"
+        )
+    label_ys: list[float] = []
+    for k in active:
+        seq = lines.get(k)
+        if not seq:
+            continue
+        d = "".join(
+            (("M" if i == 0 else "L") + f"{sx(y):.1f} {sy(v):.1f}") for i, (y, v) in enumerate(seq)
+        )
+        svg.append(f'<path d="{d}" fill="none" class="tl-halo"/>')
+        svg.append(f'<path d="{d}" fill="none" class="tl-line tl-{k}"/>')
+        _, lv = seq[-1]
+        ly = sy(lv) + 3
+        while any(abs(ly - p) < 12 for p in label_ys):  # nudge colliding end-labels apart
+            ly += 12
+        label_ys.append(ly)
+        end_label = series[k].get("short") or series[k]["label"]
+        svg.append(
+            f'<text x="{padl + iw + 5:.1f}" y="{ly:.1f}" class="tl-lab tl-{k}" '
+            f'text-anchor="start">{escape(end_label)}</text>'
+        )
+    for anno in data.get("annotations", []):
+        ak = anno["series"]
+        ayr = anno["year"]
+        if ak not in active or not (start <= ayr <= end):
+            continue
+        apts = [(int(y), float(v)) for y, v in series[ak]["points"]]
+        abase = _tl_interp(apts, start)
+        aval = _tl_interp(apts, ayr)
+        if not abase or aval is None:
+            continue
+        ax, ay = sx(ayr), sy(100.0 * aval / abase)
+        svg.append(f'<circle cx="{ax:.1f}" cy="{ay:.1f}" r="3.5" class="tl-anno-dot"/>')
+        svg.append(
+            f'<text x="{ax:.1f}" y="{ay + 16:.1f}" class="tl-anno" text-anchor="middle">'
+            f"{escape(anno['label'])}</text>"
+        )
+    svg.append("</svg>")
+    static_svg = "".join(svg)
+
+    chips = "".join(
+        f'<button type="button" class="tl-chip" data-k="{k}" '
+        f'aria-pressed="{"false" if k in default_off else "true"}">'
+        f'<span class="tl-sw tl-{k}"></span>{escape(series[k]["label"])}</button>'
+        for k in order
+    )
+    chips += (
+        '<button type="button" class="tl-chip" data-k="cl" aria-pressed="true">'
+        '<span class="tl-sw tl-cl"></span>Closures</button>'
+    )
+    durations = "".join(
+        f'<button type="button" class="tl-dur" data-n="{n}">{lab}</button>'
+        for n, lab in (("10", "10Y"), ("20", "20Y"), ("50", "50Y"), ("100", "100Y"), ("max", "Max"))
+    )
+    payload = (
+        json.dumps(data, separators=(",", ":"))
+        .replace("<", "\\u003c")
+        .replace(">", "\\u003e")
+        .replace("&", "\\u0026")
+    )
+
+    fig = [
+        '<figure class="chart cliff-chart timeline-chart" id="cliff-timeline">',
+        f"<figcaption>{escape(title)}</figcaption>",
+    ]
+    if subtitle:
+        fig.append(f'<p class="chart-sub">{escape(subtitle)}</p>')
+    fig.append('<div class="tl-controls" hidden>')
+    fig.append(f'<div class="tl-chips">{chips}</div>')
+    fig.append(
+        f'<div class="tl-range-row"><span class="tl-range-lab">Range</span>{durations}'
+        '<span class="tl-winlab"></span>'
+        '<span class="tl-gdpflag" hidden>GDP begins 1929; drag the left handle to 1929 or later '
+        "to include it</span></div>"
+    )
+    fig.append(
+        '<div class="tl-rangewrap" title="Drag either handle to set the window">'
+        '<div class="tl-rtrack"></div><div class="tl-rfill"></div>'
+        f'<input type="range" class="tl-start" min="{data["yearMin"]}" max="{data["yearMax"]}" '
+        f'step="1" value="{start}" aria-label="Window start year">'
+        f'<input type="range" class="tl-end" min="{data["yearMin"]}" max="{data["yearMax"]}" '
+        f'step="1" value="{end}" aria-label="Window end year"></div>'
+        f'<div class="tl-rlabels"><span>{data["yearMin"]}</span><span>{data["yearMax"]}</span></div>'
+    )
+    fig.append('<p class="tl-readout" aria-live="polite"></p>')
+    fig.append("</div>")
+    fig.append('<p class="tl-rotate">Rotate to landscape for the full timeline.</p>')
+    fig.append(f'<div class="tl-plot">{static_svg}</div>')
+    if note:
+        fig.append(f'<p class="chart-note">{note}</p>')
+    fig.append(f'<script type="application/json" class="tl-data">{payload}</script>')
+    fig.append("</figure>")
+    return "".join(fig)

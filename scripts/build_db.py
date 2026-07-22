@@ -54,6 +54,10 @@ TABLES = [
     ("closure_metrics.csv", "closure_metric", {"amount", "as_of_year"}),
     ("hcm.csv", "hcm", set()),
     ("hs_graduates.csv", "hs_graduates", {"year", "graduates"}),
+    # Hand-curated annual public HS-graduate counts for the years the importer's Digest tables
+    # skip (1970s-80s, where the source reports only selected years). From NCES Digest 1995/2000,
+    # rounded to thousands; its own file because a different source can never ride the importer's.
+    ("hs_graduates_historic.csv", "hs_graduates", {"year", "graduates"}),
     ("national_series.csv", "national_series", {"year", "value"}),
     ("timeline_markers.csv", "timeline_marker", {"year"}),
     ("national_turns.csv", "national_turn", {"is_inference"}),

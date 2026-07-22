@@ -83,7 +83,7 @@ source URL is extracted. Numbers are never originated: absent facts stay NULL.
 | `scorecard` | one per (institution, year) | College Scorecard slice: enrolment, admit rate, Pell share, net tuition |
 | `composite_score` | one per (institution, award year) | ED Financial Responsibility Composite Score, -1.0 to 3.0 |
 | `sector_size` | one per (year, control) | how many institutions are still operating: the denominator |
-| `national_series` | one per (series, year) | the US long run back to 1869, `institutions` and `enrollment`, from NCES Digest; `basis` records the counting definition per row |
+| `national_series` | one per (series, year) | the US long run: `institutions` and `enrollment` back to 1869 (NCES Digest) and `real_gdp` from 1929 (BEA real GDP, chained 2017 dollars, via FRED `GDPCA`, public domain); `basis` records the counting definition per row. Drives the interactive `/cliff` timeline overlay (`charts.national_timeline` + `static/cliff-timeline.js`, the app's one client-JS chart, progressive-enhancement) |
 | `timeline_marker` | one per (series, year) | key policy dates for a national chart (a simpler, currently-unrendered predecessor to `national_turn`) |
 | `national_turn` | one per inflection | the "what drove the turns" reading under each national chart: sourced likely cause, category, and an `is_inference` flag |
 | `institution_ein` | one per (institution, EIN) | the OPEID -> EIN crosswalk, hand-curated, the join to IRS filings |
@@ -109,8 +109,20 @@ is public domain. `scripts/import_990.py <dir>` reads a folder of filings and wr
 `data/financials.csv` and `data/financial_line_items.csv`. `--dry-run` parses without writing;
 `--check` runs the cross-check below. Reruns are idempotent per (institution, tax year).
 
-Currently loaded: **Montreat College only** (OPEID `00294800`, 13 filings, TY2012 to TY2024, no
-gaps).
+Currently loaded: **Montreat College** (OPEID `00294800`, 13 filings, TY2012 to TY2024, no gaps)
+and **Embry-Riddle Aeronautical University** (OPEID `00147900`, EIN `590936101`, 13 filings, TY2012
+to TY2024). The Embry-Riddle EIN is the consolidated corporation (all three campuses); the crosswalk
+note records that it is mapped to the Daytona Beach roster row, so its figures are the whole
+university, not that campus alone.
+
+**Getting the raw XML (no manual clicking).** ProPublica's Nonprofit Explorer hosts the e-file XML,
+but its `download-xml?object_id=...` endpoint sits behind a Cloudflare challenge: `curl`/`fetch`
+get a 403 "Security Check" page, and the older IRS S3 bucket is gone (404). A real browser
+navigation clears the challenge and the endpoint 302-redirects to a 30-minute presigned S3 URL on
+`pp-990-xml.s3.amazonaws.com`, which is NOT behind Cloudflare. So the flow is: enumerate a filer's
+`object_id`s from its org page, browser-navigate each `download-xml` URL to mint the presigned URL,
+then `curl` that URL to disk. The ProPublica API (`/api/v2/organizations/{ein}.json`) returns
+aggregate financials directly but not the raw XML or the line items the money chart needs.
 
 Six things here were learned by getting them wrong. Do not undo any of them without a reason:
 
@@ -149,6 +161,17 @@ a stack. Two definitions are deliberate:
   and using it left up to $539k a year unexplained inside the stack.
 - `aux_and_other` absorbs investment income, which goes negative in a bad market year and would
   otherwise invert a band.
+- **The earned band handles two filing styles.** A school that itemizes program-service revenue
+  (Montreat: separate "TUITION AND FEES" and "AUXILIARY SERVICES" lines) gets the first band from
+  the matched tuition line item, labelled "Tuition and fees". A school that reports one combined
+  program-service line (Embry-Riddle files a single "HIGHER EDUCATION" line, ~87% of revenue) has
+  no line item matching the tuition bucket, so `financial_series` falls back to the aggregate
+  `program_svc_revenue` and labels the band "Tuition and program revenue" (`earned_label`). Without
+  this, the combined line matched nothing and the whole earned side collapsed to zero, so the chart
+  read "$0 tuition, 79% government grants" and the stack no longer summed to total revenue. The
+  fallback never asserts a tuition figure the filing did not state: the tuition discount rate
+  (`aid_to_tuition`) stays keyed to the itemized tuition line and is correctly blank for a combined
+  filer.
 
 ### Two traps when reading a 990 against an audited statement
 

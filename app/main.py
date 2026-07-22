@@ -217,6 +217,83 @@ def cliff(request: Request, state: str = ""):
     # 1869. The closure map shows a sector contracting from a peak; this is the peak. The x-axis is
     # a proportional decade scale; the causes of each turn live in the "what drove the turns" table
     # (queries.national_turns), and the growth rates are computed live (queries.national_growth).
+    # The unified overlay: supply (colleges), demand (enrollment), the graduate pool, and real GDP
+    # on one ratio-scaled index axis, with the closure flow as context. Interactive via progressive
+    # enhancement (static/cliff-timeline.js); the same data dict renders the no-JS fallback. GDP is
+    # BEA real GDP (national_series 'real_gdp', from 1929); it is absent, never extrapolated, before
+    # then. Closures are our own institutional-closure records, per year.
+    # Annual PUBLIC HS graduates, deduped by year (219.10 and 219.20 overlap on some years). This
+    # is a separate line, never spliced into the total: its 1971-1985 gap years come from NCES
+    # Digest 1995/2000 (rounded, some estimated), so it carries the annual 1970s-80s shape the
+    # total line, collected only at intervals then, has to straight-line across.
+    _pub_seen: set[int] = set()
+    pub_points = []
+    for _y, _v in queries.hs_series("United States", "public"):
+        if _y not in _pub_seen:
+            _pub_seen.add(_y)
+            pub_points.append([_y, _v])
+    timeline_data = {
+        "yearMin": 1869,
+        "yearMax": 2025,
+        "gdpFrom": 1929,
+        "defaultStart": 2000,
+        "defaultEnd": 2025,
+        "order": ["inst", "enr", "hs", "hspub", "gdp"],
+        "defaultOff": ["hspub"],
+        "series": {
+            "inst": {
+                "label": "Colleges (open)",
+                "unit": "count",
+                "source": "NCES",
+                "points": queries.national_series("institutions"),
+            },
+            "enr": {
+                "label": "Enrollment",
+                "unit": "people",
+                "source": "NCES",
+                "points": queries.national_series("enrollment"),
+            },
+            "hs": {
+                "label": "HS graduates",
+                "unit": "people",
+                "source": "NCES",
+                "points": queries.hs_series("United States", "total"),
+            },
+            "hspub": {
+                "label": "HS graduates (public)",
+                "short": "public",
+                "unit": "people",
+                "source": "NCES",
+                "points": pub_points,
+            },
+            "gdp": {
+                "label": "Real GDP",
+                "unit": "gdp",
+                "source": "BEA",
+                "points": queries.national_series("real_gdp"),
+            },
+        },
+        "closures": [[c["year"], c["total"]] for c in queries.national_closures_by_control()],
+        # The prior demographic contraction, anchored on the verified graduate trough (SY 1993-94,
+        # NCES 219.10). Drawn only when the graduate line is shown and 1994 is in the window, so it
+        # appears on the 50-year-and-wider views where that era is visible, not on the default.
+        "annotations": [{"series": "hs", "year": 1994, "label": "prior graduate contraction"}],
+    }
+    timeline_chart = charts.national_timeline(
+        timeline_data,
+        title="A century of colleges, enrollment, graduates, and GDP",
+        subtitle=(
+            "Indexed to the start of the visible window (=100) on a ratio scale, so a sector that "
+            "grew fourfold and one that grew twentyfold read as comparable slopes. Colleges and "
+            "enrollment: NCES. High-school graduates: NCES. Real GDP: BEA (FRED GDPCA, chained 2017 "
+            "dollars), from 1929. Closures: this tracker's institutional-closure records."
+        ),
+        note=(
+            "Figures before 1974 (colleges) and 1986 (graduates) are collected about once a decade, "
+            "so those early stretches are straight lines between sparse points. Real GDP begins in "
+            "1929 and is shown only when the window includes it; it is never extrapolated earlier."
+        ),
+    )
     institutions_chart = charts.line(
         "The number of US colleges, 1869 to 2022",
         queries.national_series("institutions"),
@@ -294,6 +371,7 @@ def cliff(request: Request, state: str = ""):
         request,
         "cliff.html",
         {
+            "timeline_chart": timeline_chart,
             "institutions_chart": institutions_chart,
             "enrollment_chart": enrollment_chart,
             "inst_growth": inst_growth,
@@ -381,13 +459,27 @@ def institution(request: Request, inst_id: str):
         by = {
             k: {r["fiscal_year"]: r[k] for r in s}
             for k in (
-                "tuition",
+                "earned_band",
                 "aux_and_other",
                 "private_giving",
                 "government_grants",
                 "total_expenses",
             )
         }
+        # Precise band descriptions for the note. When a school reports tuition and auxiliaries as
+        # one program-service line, the earned band is that whole line and the second band is only
+        # investment and other revenue; when it itemizes, the second band carries the auxiliaries.
+        if financials["itemizes_tuition"]:
+            aux_desc = (
+                "Auxiliaries and other earned carries room, board, investment income and "
+                "other revenue."
+            )
+        else:
+            aux_desc = (
+                "This school reports tuition, fees, and auxiliaries as one program-service line, "
+                "so they appear together and cannot be split; the second band is investment and "
+                "other revenue."
+            )
         finance_charts.append(
             charts.stacked_money(
                 "Where every dollar came from, against what was spent",
@@ -395,7 +487,7 @@ def institution(request: Request, inst_id: str):
                 # the base because it is the thing the school controls, government grants sit on
                 # top because they are the thing that stops.
                 [
-                    ("tuition", "Tuition and fees", by["tuition"]),
+                    ("tuition", financials["earned_label"], by["earned_band"]),
                     ("auxother", "Auxiliaries and other earned", by["aux_and_other"]),
                     ("private", "Private gifts", by["private_giving"]),
                     ("govt", "Government grants", by["government_grants"]),
@@ -410,8 +502,7 @@ def institution(request: Request, inst_id: str):
                 note=(
                     f"Source: {financials['source']}, {financials['year_range']}, as filed. Fiscal "
                     "years end 30 June. Private gifts is all giving that was not a government "
-                    "grant. Auxiliaries and other earned carries room, board, investment income "
-                    "and other revenue."
+                    f"grant. {aux_desc}"
                 ),
             )
         )

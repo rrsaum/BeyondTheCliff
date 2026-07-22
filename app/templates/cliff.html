@@ -34,6 +34,13 @@
 </section>
 
 <section>
+  <h2>Supply, demand, the pool, and the economy, on one axis</h2>
+  <p class="lead">The whole argument in one view. The number of colleges (supply), enrollment (demand), the high-school-graduate pool that feeds it, and real GDP, each indexed so their growth rates read as comparable slopes, with the closure flow beneath. Pick a range or drag the handles. GDP and the graduate pool keep climbing while colleges and enrollment turn down after 2012, and that is where closures rise.</p>
+  {{ timeline_chart | safe }}
+  <p class="muted">Widen to 50 years or more and the graduate line dips below its own starting level through the 1980s: the last time the pool contracted. Total US high school graduates peaked in the 1976-77 school year at about 3.15 million, then fell about 22 percent to 2.46 million by 1993-94, yet enrollment rose from 11.0 to 13.8 million and the number of colleges from about 3,050 to 3,560 over those same years. The sector grew through a shrinking pipeline, because a rising share of graduates enrolled (an inference from the counts, not a figure in this dataset). That offset is the open question now: participation is already high, so there is less of it left to absorb the decline ahead. Toggle "HS graduates (public)" to see the annual shape through the 1970s and 1980s that the total line, collected only at intervals then, has to straight-line across. Graduate totals: NCES Digest Table 219.10; annual public counts for 1971 to 1985: NCES Digest of 1995 and 2000 (rounded to thousands, some off-survey years estimated); enrollment and college counts: Tables 303.10 and 317.10.</p>
+</section>
+
+<section>
   <h2>The long view</h2>
   <p class="lead">Before the decline, the rise. American higher education grew for a century and a half. These two lines are the peak the sector is now contracting from. Under each is what most likely drove every turn: policy, demographics, the economy, war, each sourced, with our inferences labelled.</p>
   {{ institutions_chart | safe }}
@@ -95,4 +102,8 @@
   <p class="muted">A shrinking graduate pool is a leading indicator of enrollment pressure, and enrollment pressure is what precedes closure. States losing graduates fastest are where the closure risk concentrates next.</p>
 </section>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/cliff-timeline.js?v={{ asset_version('cliff-timeline.js') }}" defer></script>
 {% endblock %}

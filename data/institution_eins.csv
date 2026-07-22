@@ -1,2 +1,3 @@
 institution_id,ein,source,source_url
 00294800,560543261,"Read from the Filer element of Montreat College's own Form 990 returns (TY2012-TY2024). Not from IPEDS: IPEDS does not publish EINs.",https://www.irs.gov/charities-non-profits/form-990-series-downloads
+00147900,590936101,"Read from the Filer element of Embry-Riddle Aeronautical University Inc's Form 990 returns (TY2012 to TY2024). The EIN is the consolidated university (Daytona Beach, Prescott, and Worldwide campuses); mapped to IPEDS unitid 133553 / OPEID 00147900 (the Daytona Beach flagship row), so these 990 financials represent the whole corporation, not that campus alone. IPEDS does not publish EINs.",https://www.irs.gov/charities-non-profits/form-990-series-downloads

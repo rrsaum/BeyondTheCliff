@@ -284,7 +284,7 @@
        is that channel: every band, every year, as a number. #}
     <table class="mini fin-table">
       <thead><tr>
-        <th>Fiscal year</th><th>Tuition</th><th>Aux and other</th><th>Private gifts</th>
+        <th>Fiscal year</th><th>{{ 'Tuition' if financials.itemizes_tuition else 'Tuition + program' }}</th><th>Aux and other</th><th>Private gifts</th>
         <th>Government</th><th>Total revenue</th><th>Expenses</th><th>Result</th>
         <th>Net assets</th>
       </tr></thead>
@@ -293,7 +293,7 @@
         {% macro m(v) %}{% if v is not none %}${{ '{:,.1f}'.format(v / 1000000) }}M{% endif %}{% endmacro %}
         <tr>
           <td>FY{{ r.fiscal_year }}</td>
-          <td>{{ m(r.tuition) }}</td>
+          <td>{{ m(r.earned_band) }}</td>
           <td>{{ m(r.aux_and_other) }}</td>
           <td>{{ m(r.private_giving) }}</td>
           <td>{{ m(r.government_grants) }}</td>

@@ -99,11 +99,16 @@ Still TBD and not yet built (do not assume they exist): IPEDS enrichment for fou
 and enrollment, coverage beyond 2004 to 2020, and the marketing/brand pages. Verify before
 describing anything as present.
 
-**The financial layer covers ONE school.** `financial_filing` holds Montreat College and nothing
-else (13 Form 990 filings, TY2012 to TY2024). Adding a school means adding its OPEID/EIN pairing
-to `data/institution_eins.csv` first, sourced, then pointing `import_990.py` at its filings. There
-is no browser console for this yet: it is the one part of the pipeline that still needs a
-terminal. Full detail and the traps: `docs/technical/DATA_MODEL.md`.
+**The financial layer covers TWO schools.** `financial_filing` holds Montreat College (13 Form 990
+filings, TY2012 to TY2024) and Embry-Riddle Aeronautical University (OPEID `00147900`, EIN
+`590936101`, 13 filings, TY2012 to TY2024). The Embry-Riddle EIN is the consolidated corporation
+(Daytona Beach, Prescott, and Worldwide), mapped to the Daytona Beach roster row, so those figures
+are the whole university, not one campus. Adding a school means adding its OPEID/EIN pairing to
+`data/institution_eins.csv` first, sourced, then pointing `import_990.py` at its filings. The parse
+still runs in a terminal, but the raw XML no longer needs manual clicking: ProPublica's
+`download-xml` endpoint sits behind a Cloudflare challenge that only a real browser clears and
+redirects to a 30-minute presigned S3 URL, so the flow is browser-navigate to mint the URL, then
+`curl` it. Full detail and the traps: `docs/technical/DATA_MODEL.md`.
 
 ## The denominator, and what it is not
 

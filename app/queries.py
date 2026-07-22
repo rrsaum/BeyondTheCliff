@@ -458,10 +458,19 @@ def financial_series(inst_id: str) -> dict | None:
     buckets = _line_totals(conn, inst_id)
     conn.close()
 
+    # Some universities report tuition, fees, and auxiliaries as one program-service line (e.g.
+    # Embry-Riddle's "HIGHER EDUCATION"), so no line item matches the tuition bucket. When a school
+    # never itemizes, the earned-from-students band falls back to the aggregate program service
+    # revenue and is labelled generically. That keeps the stack reconciling to total revenue
+    # instead of dropping the money, and never asserts a tuition figure the filing did not state.
+    itemizes = any(buckets.get(r["tax_year"], {}).get("tuition") is not None for r in rows)
+    earned_label = "Tuition and fees" if itemizes else "Tuition and program revenue"
+
     series = []
     for r in rows:
         line = buckets.get(r["tax_year"], {})
         tuition = line.get("tuition")
+        earned_band = tuition if tuition is not None else r["program_svc_revenue"]
         series.append(
             {
                 "tax_year": r["tax_year"],
@@ -481,6 +490,9 @@ def financial_series(inst_id: str) -> dict | None:
                 "net_assets": r["net_assets"],
                 "employees": r["employees"] or None,  # a filed 0 means "not reported", not "none"
                 "tuition": tuition,
+                # The earned-from-students band: itemized tuition where the filing splits it out,
+                # otherwise the aggregate program service revenue (see earned_label above).
+                "earned_band": earned_band,
                 "grants_paid": r["grants_paid"],
                 # The four bands of the revenue chart. They sum to total_revenue exactly, which
                 # is the only reason a stacked chart is allowed to exist: a stack whose parts do
@@ -504,8 +516,8 @@ def financial_series(inst_id: str) -> dict | None:
                 # market year, and which would otherwise invert a band.
                 "aux_and_other": (
                     None
-                    if None in (r["total_revenue"], r["contributions"]) or tuition is None
-                    else r["total_revenue"] - r["contributions"] - tuition
+                    if None in (r["total_revenue"], r["contributions"]) or earned_band is None
+                    else r["total_revenue"] - r["contributions"] - earned_band
                 ),
                 # Share of all revenue earned from students (tuition, fees, auxiliaries). The higher
                 # this runs, the more a demographic dip lands straight on the operating budget.
@@ -556,6 +568,8 @@ def financial_series(inst_id: str) -> dict | None:
         "source": rows[0]["source"],
         "source_url": rows[0]["source_url"],
         "year_range": f"FY{series[0]['fiscal_year']} to FY{series[-1]['fiscal_year']}",
+        "earned_label": earned_label,
+        "itemizes_tuition": itemizes,
     }
 
 
@@ -567,6 +581,37 @@ def national_series(series: str) -> list[tuple]:
     ).fetchall()
     conn.close()
     return [(r[0], r[1]) for r in rows]
+
+
+def national_closures_by_control() -> list[dict]:
+    """Institutional closures per year, split by control, from our own records. Same filter the
+    closure map uses (status='closed', closure_type='institutional'), so a year here matches the
+    map. Rows whose control we could not source fall to 'unknown' rather than being guessed into a
+    sector. Returns {year, private_nonprofit, private_forprofit, public, unknown, total}."""
+    conn = connect()
+    rows = conn.execute(
+        "SELECT status_year AS y, "
+        "SUM(CASE WHEN control = 'private_nonprofit' THEN 1 ELSE 0 END), "
+        "SUM(CASE WHEN control = 'private_forprofit' THEN 1 ELSE 0 END), "
+        "SUM(CASE WHEN control = 'public' THEN 1 ELSE 0 END), "
+        "SUM(CASE WHEN control IS NULL OR control NOT IN "
+        "('private_nonprofit', 'private_forprofit', 'public') THEN 1 ELSE 0 END) "
+        "FROM institution "
+        "WHERE status = 'closed' AND closure_type = 'institutional' AND status_year IS NOT NULL "
+        "GROUP BY status_year ORDER BY status_year"
+    ).fetchall()
+    conn.close()
+    return [
+        {
+            "year": r[0],
+            "private_nonprofit": r[1],
+            "private_forprofit": r[2],
+            "public": r[3],
+            "unknown": r[4],
+            "total": r[1] + r[2] + r[3] + r[4],
+        }
+        for r in rows
+    ]
 
 
 def timeline_markers(series: str) -> list[dict]:
