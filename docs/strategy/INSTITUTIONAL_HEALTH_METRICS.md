@@ -277,6 +277,50 @@ Hypotheses and pass bars (a signal earns its place only by clearing a bar set he
 
 Results are recorded in the next subsection only after this one was committed.
 
+### Result (scripts/health_era.py)
+
+Split: EARLY (closure year <= 2016) 3,478 schools, 979 closures (28 percent); LATE (2017 and
+after) 3,458 schools, 997 closures (29 percent). Primary direction, train EARLY and test LATE:
+
+| Model | Cross-sectional AUC | Era-forward AUC (test LATE) |
+|---|---|---|
+| Enrollment level only | 0.680 | 0.659 |
+| + enrollment trend | 0.710 | 0.697 |
+| + Pell reliance | 0.776 | 0.757 |
+| + net tuition (the workhorse) | 0.846 | **0.793** |
+| Federal composite ALONE | 0.684 | 0.692 |
+| Composite + trend | 0.695 | 0.682 |
+| Composite + enrollment | 0.720 | 0.705 |
+| Composite + our full set | 0.736 | **0.714** |
+
+(LATE test base rate 29 percent for the universal models, 26 percent for the composite subset.)
+
+**H1: PASS.** The workhorse universal model, trained only on closures through 2016, ranks the
+closures after 2016 at AUC 0.793, well above the 0.70 bar. Direction signs are all as predicted and
+stable (enrollment level -0.71, trend -0.87, Pell +1.09, net tuition +0.83), so no instability. The
+signal is not an artifact of the 2016 for-profit wave: a model that never saw a post-2016 closure
+still ranks them. The forward AUC (0.793) is lower than the cross-sectional (0.846), which is
+honest and expected: some of the cross-sectional strength was era-shared, and predicting the future
+is harder than holding out contemporaries.
+
+**H2: PASS, narrowly.** Composite plus our signals beats composite alone forward in time by +0.022
+(0.714 versus 0.692), clearing the +0.02 bar, and composite alone (0.692) clears its 0.63 floor. But
+the forward lift is thinner than the cross-sectional +0.052, and composite SLOPE is fragile: it
+helped marginally cross-sectionally yet slightly hurts forward (0.682 < 0.692), so the forward gain
+comes from enrollment and net tuition, not from the composite trend. Report the composite-slope term
+as weak, not established.
+
+Robustness, reverse direction (train LATE, test EARLY): the workhorse reaches 0.839 and the
+composite combination lifts +0.077 over composite alone (0.756 versus 0.679), both stronger than the
+forward direction. The asymmetry (forward 0.793, reverse 0.839) is the expected shape: postdicting
+earlier closures from later patterns is easier than predicting later closures from earlier ones.
+Both directions clear the bars, so the result is not an artifact of which era trains.
+
+Net for the reader: the closure signal generalizes across time, not just across schools, and it does
+so mainly through enrollment trajectory, net tuition, and Pell reliance. It still ranks risk rather
+than dating any one school's fate (base rate about 28 to 29 percent), and the federal composite
+score's own forward edge is real but modest once enrollment and pricing are in the model.
+
 ## What to build, in order
 1. **The survivorship-free panel first** (school-year rows, closures and survivors, point-in-time),
    because every correlation claim depends on it and we already hold the inputs. This is the
