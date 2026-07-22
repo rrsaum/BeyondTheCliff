@@ -1,0 +1,246 @@
+# Institutional health metrics: research, analogs, and a validation plan
+
+Purpose: define a set of metrics that separate healthy, growing institutions from those that
+decline and close, borrowing the discipline of quantitative investing (from the sibling
+QuantSage project) and grounding every metric in existing higher-education research and in data
+we actually hold. This is a design document, written before importing more data, so the metric
+set drives what we collect rather than the reverse.
+
+Binding rule, inherited from the whole project and from QuantSage: **no fabrication.** Every
+number is as-reported, from a named federal source, or derived by a stated formula. A metric that
+our data cannot honestly produce is marked so here, not faked.
+
+## The one methodological principle that matters most
+
+The naive version of this project is: chart a metric for a few closed schools, see it fall
+before closure, and declare it predictive. That is survivorship bias plus overfitting, and it is
+exactly the trap QuantSage documented for investing. In `Quantsage/docs/VALUE_QUALITY_VALIDATION.md`
+every point-estimate valuation method "failed on honest data" once deaths were included; deep
+value alone was a **trap** (cheap names died more), and only a combination validated. The lesson
+ports directly:
+
+- Build a **survivorship-free panel**: school-year rows for closures AND survivors, point-in-time,
+  with closure as the terminal "wipeout" outcome. We already have the raw material: **2,221
+  closures and 4,995 survivors carry per-year College Scorecard history**, and 955 closures carry
+  ED composite-score history. Most closure research (Zemsky below) has to reconstruct this; we
+  hold it.
+- **Preregister** the hypothesis and the pass bar before reading results, so a metric earns its
+  place instead of being fit to the closures we happen to have.
+- Split **out-of-sample** (train on earlier closures, test on later) and cluster inference by
+  institution.
+- Expect that **no single metric predicts closure**. QuantSage's finding was that value and
+  quality together did what neither did alone. The higher-ed analog: a high discount rate, or a
+  rising admit rate, or thin reserves, each alone is weak or confounded; the combination
+  (thin reserves AND shrinking enrollment AND a discount that no longer grows net revenue) is the
+  signal. Test combinations, report single-metric claims as weak until proven.
+
+## Existing research and frameworks (verified this session)
+
+1. **Composite Financial Index (CFI)** and its four core ratios (Primary Reserve, Net Operating
+   Revenues, Return on Net Position, Viability), from *Strategic Financial Analysis for Higher
+   Education* (Prager, Sealy & Co. / KPMG). The standard management view of institutional
+   financial health. Source: [NBOA course](https://www.nboa.org/programs/online-courses/course/measuring-financial-health-with-the-composite-financial-index).
+2. **ED Financial Responsibility Composite Score** (34 CFR 668.171), the regulatory descendant of
+   that same Prager/KPMG ratio work, scored -1.0 to 3.0. **We already hold it**: 52,787 rows,
+   2006-07 to 2022-23, for private-nonprofit and proprietary schools. It is the single best
+   established health metric we have, and any new metric should be tested against it, not replace
+   it. Structural limit: it does not cover public institutions, and the ratios were rewritten
+   effective 1 July 2020 (84 FR 49788), so scores do not join across that break (see
+   `app/queries.py:COMPOSITE_BREAK`).
+3. **The College Stress Test** (Zemsky, Shaman, Baldridge; Johns Hopkins University Press, 2020).
+   The leading academic closure-prediction framework, built from IPEDS for 2,800+ institutions on
+   **four variables: new-student enrollments, net cash price, student retention, and major external
+   funding**. Source: [Hopkins Press](https://www.press.jhu.edu/books/title/12286/college-stress-test).
+   Note what it uses and does not: it uses **net price**, not the admission rate, as the pricing
+   signal, and new enrollment, not selectivity, as the demand signal.
+4. **NACUBO Tuition Discounting Study** (annual). Establishes the discount-rate-versus-distress
+   link empirically: the average first-time-undergraduate discount rate reached about 56 to 57
+   percent in 2024-26, and net tuition revenue per student has been falling for many private
+   institutions despite rising discounts. Source: [NACUBO](https://www.nacubo.org/Press-Releases/2025/NACUBO-Study-Finds-Private-Colleges-and-Universities-Are-Offering-Record-Financial-Aid-to-Students),
+   [Inside Higher Ed](https://www.insidehighered.com/news/business/revenue-strategies/2025/06/24/tuition-discounting-hits-another-high).
+
+Rating-agency (Moody's, S&P) and consulting (Bain, "The Financially Sustainable University")
+frameworks add operating-margin, days-cash-on-hand, leverage, and expense-growth-versus-revenue
+lenses. These are my background knowledge, not verified this session; treat their specifics as
+to-be-cited before use.
+
+## Investing analogs (from QuantSage), mapped to institutions
+
+QuantSage's method is to operationalize qualitative wisdom into transparent, computable criteria
+with data tiers and a stated certainty, and to **invert first** (surface every reason it fails
+before any reason it thrives). The mapping:
+
+| QuantSage / investing | Institutional analog | Reading |
+|---|---|---|
+| Wipeout (terminal drawdown >= 80%) | Closure / merger under distress | the outcome to predict |
+| Operating margin, earnings yield | Net operating revenues ratio; operating margin | does a normal year pay for itself |
+| Days cash / liquidity, runway | Primary reserve ratio (expendable resources / expenses) | how long it survives a shock |
+| Leverage / solvency | Viability ratio (expendable resources / debt) | can it carry its obligations |
+| ROIC, asset turnover (quality) | Return on net position; revenue per dollar of assets | how efficiently capital is deployed |
+| Unit economics, gross margin | Net tuition per student; cost per student | the per-student engine |
+| Customer acquisition cost (CAC) | Student acquisition cost | cost to enroll one student |
+| Pricing power / discount to list | Tuition discount rate | pricing strength versus give-away |
+| Revenue growth, retention | New-enrollment trend, retention, graduation | demand and the pipeline |
+| Value trap (cheap-and-dying) | Heavy discount that fails to grow net revenue or fill the class | the give-away that does not work |
+
+## The metric set, with honest feasibility
+
+Feasibility key: **DONE** = computable now from data we hold; **PARTIAL** = only for some schools
+or needs one added field; **NOT AVAILABLE** = public data does not support it.
+
+### A. Financial health (the CFI / ED-score family)
+- **ED composite score trajectory and slope.** DONE. We hold it. A falling multi-year slope
+  toward the 1.5 line is the most direct distress signal; it already showed on the closures we
+  linked this session (Tennessee Temple 0.8, Marymount California 1.1, King's NYC 1.2 before
+  closing). Covers private + proprietary only.
+- **Primary reserve, net operating revenue, viability, return-on-net-position ratios (the CFI
+  four).** PARTIAL. Computable cleanly for the four Form 990 schools (`financial_filing` holds
+  total assets, net assets, revenue, expenses). For public schools, `finance_year` holds revenue,
+  expenses, and endowment but **not net position or total assets**, so return-on-net-position and
+  viability need an added IPEDS Finance field (net position) before they compute.
+
+### B. Unit economics and efficiency
+- **Cost per student = total expenses / enrollment.** DONE. `finance_year.total_expenses` (or 990
+  `total_expenses`) over `scorecard.ugds` or `enrollment.fte`, per year. Its trend answers "are
+  operating costs rising or falling per student."
+- **Net tuition revenue per student.** DONE. `scorecard.tuitfte` is exactly this, populated in
+  141,064 rows. This is Zemsky's "net cash price" signal and is arguably the single most useful
+  per-student number we already hold.
+- **Capital efficiency (return on net assets; revenue per dollar of assets).** PARTIAL, same gap
+  as the CFI ratios: available for the 990 schools, needs an IPEDS net-position import for public
+  schools.
+- **Student acquisition cost (CAC).** **NOT AVAILABLE.** Neither IPEDS Finance nor the Form 990
+  breaks out recruitment or admissions marketing spend. IPEDS "student services" expense lumps
+  admissions with the registrar, financial-aid administration, and student activities, and the
+  990 has no recruitment line. A true CAC (recruitment budget / new enrolled students) lives in a
+  school's internal admissions budget, which is not in any public federal source. We should not
+  publish a CAC and call it that; the closest honest public proxy is student-services expense per
+  new student, which must be labeled as a loose proxy, not CAC.
+
+### C. Pricing and discounting
+- **Tuition discount rate.** PARTIAL, and the definition matters. The NACUBO/proper discount rate
+  is institutional grant aid to undergraduates divided by gross tuition-and-fee revenue.
+  - Clean version: the Form 990 gives gross tuition and institutional aid, and we already compute
+    `aid_to_tuition` for the 990 schools (verified against Montreat's audit at 53% versus 54%).
+  - Rough proxy for everyone: `1 - scorecard.tuitfte / scorecard.tuitionfee_in`. Be careful: this
+    divides net revenue per FTE by the published in-state sticker, which is directional, not a
+    true discount rate. A clean rate for all schools needs the IPEDS Finance scholarships-and-
+    fellowships (aid) field, which we do not currently store.
+  - On the health question: the research says **high discounting is a distress signal for
+    tuition-dependent privates specifically**, but the value-trap logic warns that the discount
+    itself is not the disease. Many healthy schools discount heavily. The predictive combination is
+    a **high and rising discount that fails to grow net tuition revenue or fill the class**: the
+    give-away that no longer works. Test the discount rate INTERACTED with net-tuition-revenue
+    growth and enrollment, not alone.
+
+### D. Demand and selectivity
+- **New-enrollment trend and total-enrollment trend.** DONE. `scorecard.ugds` and the `enrollment`
+  table over years. This is Zemsky's primary demand signal and the direct link to the enrollment
+  cliff the brand tracks.
+- **Selectivity (admission rate) trend.** DONE to chart: `scorecard.adm_rate` is populated for
+  49,084 rows across 3,450 schools and 24 years. On the closure-correlation question, be
+  cautious: a rising admit rate (getting less selective) is a plausible pre-closure signal, but it
+  is **confounded**. Most non-selective schools are perfectly healthy (open-access is a mission,
+  not distress), and test-optional policies and yield shifts move the admit rate for reasons
+  unrelated to health. The leading framework (Zemsky) deliberately uses net price and new
+  enrollment, not the admit rate. So: chartable yes, but its predictive value must be validated on
+  the death-inclusive panel and reported as weak/confounded unless it survives, rather than assumed.
+- **Retention and graduation rates.** PARTIAL. Zemsky's third variable. The Scorecard carries
+  these federally; we would need to add the columns (not currently in `scorecard`).
+- **Tuition dependency and revenue diversification.** DONE from `finance_year` (tuition / total
+  revenue) or 990. Zemsky's fourth variable ("major external funding"). High tuition dependency is
+  what turns a demographic dip into a budget crisis, and it is the core of the brand's thesis.
+
+## Direct answers to the specific questions raised
+- **Acquisition cost per student:** not available from public data. Honest alternative: student-
+  services expense per new student, labeled a loose proxy.
+- **Expenses per year / students (cost per student) and whether operating costs are rising or
+  falling:** yes, computable now, per year, from finance/990 expenses over enrollment.
+- **Efficiency of deploying capital:** yes for the 990 schools (return on net assets); needs an
+  IPEDS net-position import for public schools.
+- **Net discount rate from net tuition versus sticker, and does high discounting cause distress:**
+  a directional proxy is computable now from `tuitfte` versus `tuitionfee_in`; a clean rate needs
+  the IPEDS aid field or the 990. The research supports the discount-distress link for tuition-
+  dependent privates, but the honest test is discount interacted with net-revenue growth and
+  enrollment, not discount alone.
+- **Selectivity rate per year, and does becoming less selective precede closure:** the per-year
+  admit-rate chart is computable now; the closure correlation is a hypothesis to validate on the
+  death-inclusive panel, with the explicit caveat that the admit rate is confounded and the
+  leading framework does not rely on it.
+
+## First descriptive results (scripts/health_panel.py)
+
+A first pass on the panel (1,978 closures, 4,960 survivors, three or more usable years each),
+every metric normalized to a within-year percentile so a school is compared to its peers that
+year. This is DESCRIPTIVE, not the validated out-of-sample test below; read it as which signals
+are worth validating, not as a proven predictor. Closed-minus-survivor separation:
+
+| Signal | Closed | Survivor | Read |
+|---|---|---|---|
+| Enrollment slope, last 5 years | -13.1/yr | +1.1/yr | strongest and cleanest: closures shrink sharply late; survivors grow |
+| Pell share (percentile) | 0.76 | 0.46 | largest level gap, but a MARKER of under-resourced, vulnerable-student-serving schools, not a health lever (an equity finding, never a prescription) |
+| Composite score (raw / percentile) | 1.8 / 0.29 | 2.4 / 0.50 | the established metric separates: closures sit near the bottom third of health |
+| Enrollment size (percentile) | 0.32 | 0.51 | closures are smaller |
+| Admit rate (percentile, high = less selective) | 0.64 | 0.53 | closures modestly less selective: weak and confounded, as predicted |
+| Net tuition per student (percentile) | 0.62 | 0.47 | closures higher, but this tracks sector and tuition dependency, not health |
+
+What this confirms: the established financial metric (composite) and enrollment separate the
+groups; enrollment decline is a **late-stage** signal (steep in the final five years, flat over
+full history, so the window matters); and the single-metric pricing and selectivity signals are
+weak and confounded, exactly as the research and the value-trap logic warned. The Pell result is
+the sobering one and needs care: it says closures fall hardest on schools serving low-income
+students, which is context for the brand, not a lever to pull.
+
+## Out-of-sample validation (scripts/health_validate.py)
+
+The descriptive pass above shows separation; it does not show the separation survives on schools
+the model never saw. This does. One row per institution, features summarized over its window,
+label = closed. Institutions are split by id hash (md5 mod 100), 70 percent train and 30 percent
+holdout, so no school is in both. A plain L2-regularized logistic regression is fit on train
+moments only; the reported number is AUC on the **holdout** (probability a random closure scores
+less healthy than a random survivor). Pure standard library, deterministic, reproducible.
+
+**The question you asked of a health score: does adding our signals beat the federal composite
+score alone?** On the private-nonprofit / proprietary subset that carries a composite score:
+
+| Model | Holdout AUC |
+|---|---|
+| Federal composite score ALONE (baseline) | 0.684 |
+| Composite level + trend | 0.695 |
+| Composite + enrollment level + trend | 0.720 |
+| Composite + our full set (adds Pell) | **0.736** |
+
+Adding enrollment trajectory and Pell reliance to the federal score lifts holdout AUC from 0.684
+to 0.736: a real out-of-sample gain, and the exact Quantsage result (single factor decent, the
+combination better). For the roster ED does not score (publics and any school without a composite),
+the universal Scorecard model stands alone:
+
+| Universal model (whole roster) | Holdout AUC |
+|---|---|
+| Enrollment level only | 0.680 |
+| + enrollment trend | 0.710 |
+| + Pell reliance | 0.776 |
+| + net tuition (where reported) | 0.846 |
+
+Two honest limits. The 0.846 rests on the subset reporting admit rate and net tuition, and admit
+rate adds essentially nothing out of sample (weight near 0.00), exactly as the value-trap logic
+predicted: the workhorses are enrollment level, enrollment trend, Pell reliance, and net tuition.
+And AUC of 0.74 to 0.85 means the model RANKS closure risk well; it does not foretell any one
+school's outcome (panel base rate of closure is about 28 percent). This is a cross-sectional
+discriminative test (does this profile look like the ones that closed), not a time-to-event
+survival model with a date attached. That, plus an era-forward split, is the next hardening step.
+
+## What to build, in order
+1. **The survivorship-free panel first** (school-year rows, closures and survivors, point-in-time),
+   because every correlation claim depends on it and we already hold the inputs. This is the
+   highest-value next step and needs no new import.
+2. **Compute the DONE metrics** on that panel: composite-score slope, cost per student, net
+   tuition per student, tuition dependency, enrollment trend, admit-rate trend, the rough discount
+   proxy.
+3. **Preregister and validate** which of them, and which combinations, separate the 2,221 closures
+   from the 4,995 survivors out-of-sample, following the QuantSage pattern. Report the weak and
+   confounded ones as weak.
+4. **Then import** the fields that unlock the rest: IPEDS Finance net position (capital efficiency
+   and the CFI ratios for public schools), IPEDS Finance scholarships/aid (a clean discount rate
+   for all schools), and Scorecard retention/graduation (Zemsky's third variable). CAC stays out
+   of scope: the public data does not support it.
