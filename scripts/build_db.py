@@ -82,6 +82,25 @@ TABLES = [
             "endowment_eoy",
         },
     ),
+    # Hand-curated finance rows for years a school is absent from IPEDS Finance (Penn State did not
+    # report FY2020-2021), taken from its own audited statements and mapped to the IPEDS categories.
+    # Its own file because import_ipeds_finance.py rewrites finance_year.csv whole.
+    (
+        "finance_year_manual.csv",
+        "finance_year",
+        {
+            "fiscal_year",
+            "total_revenue",
+            "tuition_revenue",
+            "federal_revenue",
+            "state_local_revenue",
+            "private_gifts_grants",
+            "investment_return",
+            "total_expenses",
+            "instruction_expense",
+            "endowment_eoy",
+        },
+    ),
     ("program_year.csv", "program_year", {"year", "n_programs", "n_added", "n_dropped"}),
     (
         "financials.csv",

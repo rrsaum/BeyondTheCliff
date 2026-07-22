@@ -356,6 +356,15 @@
       The chart breaks rather than joining across the gap.
     </p>
     {% endif %}
+    {% if ipeds_finance.audited_years %}
+    <p class="chart-note">
+      {% for y in ipeds_finance.audited_years %}FY{{ y }}{{ ', ' if not loop.last }}{% endfor %},
+      absent from IPEDS Finance, {{ 'is' if ipeds_finance.audited_years|length == 1 else 'are' }} taken from
+      the institution's own audited financial statements (GAAP) and mapped to the IPEDS revenue
+      categories, so {{ 'that year' if ipeds_finance.audited_years|length == 1 else 'those years' }}
+      {{ 'is' if ipeds_finance.audited_years|length == 1 else 'are' }} on a slightly different basis than the rest.
+    </p>
+    {% endif %}
 
     {# Second channel for the palette (see app.css): every band, every year, as a number. #}
     <table class="mini fin-table">

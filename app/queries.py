@@ -596,12 +596,15 @@ def ipeds_finance_series(inst_id: str) -> dict | None:
     if len(rows) < 2:
         return None
     series = []
+    audited_years = []  # years supplied from the school's own audited statements, not IPEDS
     for r in rows:
         tui = r["tuition_revenue"] or 0
         st = r["state_local_revenue"] or 0
         fed = r["federal_revenue"] or 0
         priv = r["private_gifts_grants"] or 0
         tot = r["total_revenue"] or 0
+        if "audited" in (r["source"] or "").lower():
+            audited_years.append(r["fiscal_year"])
         series.append(
             {
                 "fiscal_year": r["fiscal_year"],
@@ -622,6 +625,7 @@ def ipeds_finance_series(inst_id: str) -> dict | None:
         "first": first,
         "latest": last,
         "gap_years": gaps,
+        "audited_years": audited_years,
         "leaderboard": {
             "tuition": last["tuition"],
             "tuition_growth": None
