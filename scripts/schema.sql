@@ -460,3 +460,18 @@ CREATE INDEX idx_char_tag      ON characteristic(tag);
 -- Full-text search over current and historical names, so a search finds a school by any
 -- name it ever carried. Rebuilt by build_db.py after the data loads.
 CREATE VIRTUAL TABLE institution_search USING fts5(institution_id UNINDEXED, name);
+
+-- Peer-relative Resilience score, a pure function of scorecard + composite + status already in
+-- this DB. Populated by scripts/resilience.write_scores after the data loads (never from a CSV):
+-- the model weights are frozen in resilience.py, the peer percentiles are recomputed each build.
+-- band in ('Resilient','Stable','Watch','Strained'); pctile/health/p_*/c_* are 0..1 display and
+-- signed-contribution values. See docs/strategy/INSTITUTIONAL_HEALTH_METRICS.md.
+CREATE TABLE resilience_score (
+  institution_id TEXT PRIMARY KEY REFERENCES institution(id),
+  band     TEXT NOT NULL CHECK (band IN ('Resilient','Stable','Watch','Strained')),
+  pctile   REAL NOT NULL,        -- health rank among LIVING institutions, 0..1
+  health   REAL NOT NULL,        -- 1 - model risk
+  p_size   REAL, p_trend REAL, p_pell REAL, p_tuition REAL,   -- per-driver display percentiles
+  c_size   REAL, c_trend REAL, c_pell REAL, c_tuition REAL    -- signed contributions (>0 = risk)
+);
+CREATE INDEX idx_resilience_band ON resilience_score(band, pctile);

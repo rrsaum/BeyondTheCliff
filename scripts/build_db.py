@@ -20,6 +20,8 @@ import sqlite3
 import sys
 from pathlib import Path
 
+import resilience
+
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 SCHEMA = Path(__file__).resolve().parent / "schema.sql"
@@ -196,6 +198,13 @@ def main() -> None:
         print(f"  {table}: {n} row(s)")
 
     build_search_index(conn)
+
+    # Resilience score: a pure function of the data just loaded (scorecard + composite + status),
+    # computed here so a rebuild refreshes it, exactly like the search index. See resilience.py.
+    conn.row_factory = sqlite3.Row
+    n_scores = resilience.write_scores(conn)
+    conn.row_factory = None
+    print(f"  resilience_score: {n_scores} row(s)")
 
     violations = conn.execute("PRAGMA foreign_key_check").fetchall()
     if violations:

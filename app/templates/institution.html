@@ -112,6 +112,49 @@
   </section>
   {% endif %}
 
+  {% if resilience %}
+  <section class="resilience">
+    <h2>Resilience read</h2>
+    <p class="chart-sub">A peer-relative read of the one thing the federal score does not weigh:
+      the school's demand and pricing path. It compares this school's enrollment and net-tuition
+      trajectory to every living institution and to the ones that closed. It ranks that path; it
+      does not forecast a date.</p>
+    <div class="res-strip" role="img"
+      aria-label="Resilience band: {{ resilience.band }}, {{ resilience.rank_phrase }}.">
+      <span class="res-seg res-seg-strained"></span>
+      <span class="res-seg res-seg-watch"></span>
+      <span class="res-seg res-seg-stable"></span>
+      <span class="res-seg res-seg-resilient"></span>
+      <span class="res-marker" style="left: {{ resilience.marker_pct }}%"></span>
+    </div>
+    <div class="res-strip-labs"><span>Strained</span><span>Watch</span><span>Stable</span><span>Resilient</span></div>
+    <p class="res-pos">
+      <span class="band-chip band-{{ resilience.band | lower }}"><span class="band-dot"></span>{{ resilience.band }}</span>
+      {{ resilience.rank_phrase }} of the {{ '{:,}'.format(resilience.n_live) }} living institutions we score{% if resilience.closed %}, read back over its final years{% endif %}.
+    </p>
+    <ul class="res-drivers">
+      {% for d in resilience.drivers %}
+      <li class="res-driver">
+        <span class="res-lab">{{ d.label }}</span>
+        <span class="res-bar res-bar-{{ d.kind }}"><span style="width: {{ d.bar }}%"></span></span>
+        <span class="res-tag">{{ d.tag }}{% if d.kind == 'context' %} &middot; context, not fault{% endif %}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if resilience.is_public %}
+    <p class="res-caveat"><strong>Public institution.</strong> It carries state backing that this
+      trajectory read does not see, so a lower band means &ldquo;watch the trend,&rdquo; not
+      &ldquo;at risk of closing.&rdquo;{% if not composite %} The federal composite score, by law,
+      does not cover most public schools, which qualify on full faith and credit instead.{% endif %}</p>
+    {% endif %}
+    <p class="chart-note">Method: a logistic model on four federal signals (enrollment level and
+      five-year trend, Pell share, net tuition per student), validated out of sample (it separates
+      closures from survivors on schools it never saw). Pell reliance is a validated signal but a
+      marker of an under-resourced, vulnerable-student-serving school, shown here as context, never
+      as fault. The score ranks risk; it is not a prediction about this school.</p>
+  </section>
+  {% endif %}
+
   {% if composite %}
   {% set reading = composite_reading(composite.latest) %}
   <section class="composite">

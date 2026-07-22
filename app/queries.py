@@ -966,6 +966,99 @@ def closure_anatomy(m: dict) -> dict | None:
     return {"layers": layers, "toll": toll} if layers else None
 
 
+RESILIENCE_BAND_SUB = {
+    "Resilient": "a demand and pricing path like the schools that came through",
+    "Stable": "a steady demand and pricing path",
+    "Watch": "a demand or pricing path worth watching",
+    "Strained": "a demand and pricing path like the schools that did not come through",
+}
+
+
+def _resilience_tag(feat: str, p: float | None) -> str:
+    """A plain-language read of one driver's peer position (no ordinals, no false precision)."""
+    if p is None:
+        return ""
+    pos = max(1, round(p * 100))
+    low, high = f"bottom {pos}%", f"top {max(1, 100 - pos)}%"
+    if feat == "size":
+        return f"{high} by size (a cushion)" if p >= 0.5 else f"{low} by size"
+    if feat == "trend":
+        return f"{high}, growing" if p >= 0.5 else f"{low}, falling"
+    if feat == "tuition":
+        return f"{high} net price" if p >= 0.5 else f"{low} net price"
+    if feat == "pell":
+        return f"{high} Pell share" if p >= 0.5 else f"{low} Pell share"
+    return ""
+
+
+def resilience_profile(inst_id: str) -> dict | None:
+    """This institution's Resilience score, shaped for the school-page panel.
+
+    Reads the precomputed resilience_score row (see scripts/resilience.py) and turns it into an
+    ordered driver list. Pell is always tagged 'context', never a blameworthy driver; the other
+    three are trajectory levers marked as helping or hurting by the sign of their contribution."""
+    conn = connect()
+    row = conn.execute(
+        "SELECT rs.*, i.control, i.status FROM resilience_score rs "
+        "JOIN institution i ON i.id = rs.institution_id WHERE rs.institution_id = ?",
+        (inst_id,),
+    ).fetchone()
+    n_live = conn.execute(
+        "SELECT COUNT(*) FROM resilience_score rs JOIN institution i ON i.id = rs.institution_id "
+        "WHERE i.status = 'open'"
+    ).fetchone()[0]
+    conn.close()
+    if row is None:
+        return None
+    feats = ("size", "trend", "pell", "tuition")
+    drivers = []
+    for f in feats:
+        contrib = row[f"c_{f}"]
+        disp = row[f"p_{f}"]
+        if f == "pell":
+            kind = "context"
+        elif contrib is None:
+            continue
+        else:
+            kind = "hurt" if contrib > 0 else "help"
+        drivers.append(
+            {
+                "feat": f,
+                "label": {
+                    "size": "Enrollment size",
+                    "trend": "Enrollment trend",
+                    "pell": "Pell share",
+                    "tuition": "Net tuition/student",
+                }[f],
+                "kind": kind,
+                "weight": abs(contrib) if contrib is not None else 0.0,
+                "tag": _resilience_tag(f, disp),
+            }
+        )
+    # Order: hurting levers first (biggest drag first), then helping, context (Pell) last.
+    order = {"hurt": 0, "help": 1, "context": 2}
+    drivers.sort(key=lambda d: (order[d["kind"]], -d["weight"]))
+    top = max((d["weight"] for d in drivers), default=1.0) or 1.0
+    for d in drivers:
+        d["bar"] = round(100 * d["weight"] / top)
+    pctile = row["pctile"]
+    return {
+        "band": row["band"],
+        "band_sub": RESILIENCE_BAND_SUB.get(row["band"], ""),
+        "pctile": pctile,
+        "marker_pct": round(100 * pctile, 1),
+        "rank_phrase": (
+            f"ranks above ~{min(99, round(pctile * 100))}% of peers"
+            if pctile >= 0.5
+            else f"ranks below ~{min(99, max(1, round((1 - pctile) * 100)))}% of peers"
+        ),
+        "is_public": row["control"] == "public",
+        "closed": row["status"] != "open",
+        "n_live": n_live,
+        "drivers": drivers,
+    }
+
+
 def composite_series(inst_id: str) -> dict | None:
     """This institution's Financial Responsibility Composite Score history, as published by
     ED. Returns the raw published scores and nothing derived: the pass/zone/fail reading is

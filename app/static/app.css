@@ -14,6 +14,12 @@
   --good: #2f6f4f;         /* muted green: a school clearing a federal threshold */
   --gdp: #c06a12;          /* validated amber, the 4th timeline hue, distinct from the house three */
   --merged: #4a5866;       /* slate */
+  /* Resilience bands: an ordinal health scale reusing the house status hues. Always shown with a
+     text label and a dot, so colour is never the only channel. */
+  --b-resilient: #2f6f4f;  /* = --good */
+  --b-stable: #3f7d8c;      /* muted teal, one step off the accent */
+  --b-watch: #9a5b1d;       /* = --warn */
+  --b-strained: #b23a48;    /* = --closed */
   --radius: 8px;
   --wrap: 1080px;
   --gap: 1rem;
@@ -326,6 +332,49 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
 .score-pass { color: var(--accent); }
 .score-zone { color: var(--warn); }
 .score-fail { color: var(--closed); }
+
+/* --- Resilience read (peer-relative health band) --------------------------------------- */
+/* Band identity: a coloured dot plus the always-present text label, never colour alone. */
+.band-chip { display: inline-flex; align-items: center; gap: .4rem; font-weight: 700;
+  font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; padding: .12rem .55rem;
+  border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+.band-dot { width: .6rem; height: .6rem; border-radius: 50%; display: inline-block; flex: none;
+  background: currentColor; }
+.band-resilient { color: var(--b-resilient); }
+.band-stable { color: var(--b-stable); }
+.band-watch { color: var(--b-watch); }
+.band-strained { color: var(--b-strained); }
+/* The peer-position strip: four ordinal zones, this school's marker plotted by percentile. */
+.res-strip { position: relative; display: flex; height: 32px; border-radius: 6px;
+  overflow: hidden; border: 1px solid var(--line); margin: .3rem 0 .25rem; }
+.res-seg { height: 100%; }
+.res-seg-strained { width: 15%; background: #efd7da; }
+.res-seg-watch { width: 20%; background: #eaddca; }
+.res-seg-stable { width: 25%; background: #d7e2e6; }
+.res-seg-resilient { width: 40%; background: #d3e4d8; }
+.res-marker { position: absolute; top: -4px; bottom: -4px; width: 3px; background: var(--ink);
+  transform: translateX(-50%); }
+.res-marker::after { content: ""; position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
+  border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--ink); }
+.res-strip-labs { display: flex; justify-content: space-between; font-size: .68rem;
+  color: var(--ink-soft); }
+.res-pos { font-size: .95rem; margin: .6rem 0 .3rem; }
+.res-drivers { list-style: none; margin: .5rem 0 0; padding: 0; }
+.res-driver { display: grid; grid-template-columns: 9rem 1fr auto; gap: .6rem; align-items: center;
+  padding: .22rem 0; font-size: .82rem; }
+.res-lab { color: var(--ink-soft); }
+.res-bar { height: .5rem; border-radius: 3px; background: #ecebe6; overflow: hidden; }
+.res-bar > span { display: block; height: 100%; border-radius: 3px; min-width: 3px; }
+.res-bar-hurt > span { background: var(--b-strained); }
+.res-bar-help > span { background: var(--b-resilient); }
+.res-bar-context > span { background: #b9bec4; }
+.res-tag { font-size: .72rem; color: var(--ink-soft); white-space: nowrap; }
+.res-caveat { border-left: 3px solid var(--b-watch); background: #f6efe4; padding: .55rem .75rem;
+  border-radius: 6px; font-size: .82rem; color: #6b4a1f; margin: .7rem 0 0; }
+@media (max-width: 560px) {
+  .res-driver { grid-template-columns: 7rem 1fr; }
+  .res-tag { grid-column: 2; text-align: left; }
+}
 
 /* --- Composite-score admin console ------------------------------------------------------ */
 .admin-years td { vertical-align: middle; }
