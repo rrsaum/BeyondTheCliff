@@ -583,6 +583,22 @@ Common usable set (workhorse plus retention plus graduation all present): 6,121 
   retention, not graduation. Both columns are kept in the data (they are distinct federal fields), but
   the model gains from retention alone.
 
+### IPEDS net position and scholarships/aid: BLOCKED on the F2223 dictionary (not guessed)
+
+Status as of 2026-07-22: the raw IPEDS Finance form files are present (118 form-year files under
+`uploads/data/ipeds_finance/`, reachable in the worktree), and the net-position and
+scholarship/discount variables physically exist in the headers (F2A01 to F2A20 and F2C01 to F2C15 in
+the FASB F2 form; F1A01 to F1A18 in the GASB F1A form). But `import_ipeds_finance.py` sets the
+standard for this importer explicitly: its codes are "verified against the official FY2022-23
+dictionary (F2223_{F1A,F2,F3}_Dict)." That dictionary is NOT currently on disk (searched), so which
+F2A code is total net assets and which F2C code is discounts and allowances cannot be identified to
+that same verified standard from the codes alone. Per the honesty rule and the importer's own bar,
+these two fields are NOT imported on a guess. They are unblocked by either supplying the F2223
+dictionary (or the confirmed codes), or a ground-truth cross-check of a candidate discount code
+against a school with a known audited discount rate (Montreat, about 53 percent), which would be
+labeled inference-sourced, not dictionary-verified. Until then: net position and a clean discount
+rate remain PENDING, and the value-trap H6 test stays open (it needs the clean discount rate).
+
 Refresh note (honest bookkeeping): regenerating `data/scorecard.csv` to populate the new columns also
 brought its row set current with the institution roster (155,976 shared rows unchanged, verified by a
 zero-mismatch diff on the core columns; 71 rows added, none dropped). That refresh nudged the earlier
