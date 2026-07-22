@@ -621,6 +621,43 @@ roster, not just the 990 handful.
 
 Results recorded below only after this preregistration was committed.
 
+#### Clean-discount and reserve result (scripts/health_finance.py)
+
+Common usable set (workhorse plus clean discount, net-tuition growth, and reserve all present): 4,010
+schools, 681 closed (17 percent), holdout 1,229. All models on the identical set.
+
+| Model | Holdout AUC |
+|---|---|
+| Workhorse (baseline) | 0.885 |
+| + clean discount (H6a) | 0.890 |
+| + reserve ratio (H8) | 0.889 |
+| Additive (+ discount + nt_growth) | 0.893 |
+| Additive + value-trap interactions (H6b) | 0.893 |
+
+- **H6a: CONFIRMED, and more pointed than expected.** The clean discount as a main effect adds +0.004
+  (under the +0.010 line), and its weight is -0.28, PROTECTIVE, not distress: better-resourced schools
+  discount more, so a high discount on its own is if anything a sign of capacity, not weakness. The
+  discount is not the disease, exactly as the value-trap logic held.
+- **H6b: FAILED, a stronger null than the rough proxy gave.** With a clean, dictionary-verified
+  discount rate the value-trap interaction adds -0.000 (bar +0.005). The rough proxy could not see the
+  give-away-that-does-not-work; the clean rate confirms there is nothing to see out of sample. Net
+  tuition GROWTH is a strong main effect (weight -1.01: falling net tuition revenue is real risk), but
+  the multiplicative interaction of discount with growth or enrollment adds nothing beyond the
+  components. The value trap is intuitive and appears in the qualitative literature; it is not an
+  out-of-sample closure predictor in this panel, and that is the honest finding.
+- **H8: FAILED, weak.** The reserve ratio (net position over total expenses) adds +0.004, under the
+  +0.010 bar. Its weight is -0.49, the correct sign (a thicker reserve, less closure risk), so it is a
+  legitimate health indicator, but it is largely redundant with the workhorse and adds little
+  incremental discrimination. It is the first balance-sheet-strength signal that covers public
+  institutions, which is worth keeping for description even though it did not clear the prediction bar.
+
+Net for step 4: of the three imported fields, only retention cleared its bar (H7, +0.014). The clean
+discount confirmed the discount-alone null (protective, not distress), the value-trap interaction
+failed even with clean data, and the reserve ratio is a weak incremental signal. The workhorse
+(enrollment level and trend, Pell, net tuition) plus retention remains the model; the new finance
+fields are better for describing a school than for improving the closure ranking. (Workhorse AUC 0.885
+here is a richer-data subset, not a better model than the 0.846.)
+
 Refresh note (honest bookkeeping): regenerating `data/scorecard.csv` to populate the new columns also
 brought its row set current with the institution roster (155,976 shared rows unchanged, verified by a
 zero-mismatch diff on the core columns; 71 rows added, none dropped). That refresh nudged the earlier
