@@ -349,6 +349,50 @@ so mainly through enrollment trajectory, net tuition, and Pell reliance. It stil
 than dating any one school's fate (base rate about 28 to 29 percent), and the federal composite
 score's own forward edge is real but modest once enrollment and pricing are in the model.
 
+## Time-to-event / survival framing (hardening step 2)
+
+The models above are cross-sectional: they summarize a school's whole window into one row and ask
+"does this profile look like the ones that closed." A board asks the sharper question: "given how we
+look right NOW, what is the chance we close within the next few years." That is a discrete-time
+hazard model, and it also fixes the one honest weakness of steps 1 and 2: features here are computed
+AS OF each observation year, not summarized over a window that (for survivors) reaches into the
+future. Point-in-time by construction, so no future information leaks into a past observation.
+
+### Preregistration (written and committed before the holdout was read)
+
+Design, fixed in advance:
+
+- **Person-period panel.** One row per institution per Scorecard year t in its history, with features
+  computed as of year t: enrollment level (within-year percentile of ugds at t), enrollment trend
+  (five-year ugds slope ending at t), Pell (percentile of pct_pell at t), net tuition (percentile of
+  tuitfte at t). The composite subset adds the most recent composite score on or before t.
+- **Label = closes within H years of t.** For a closure with closure year S and t < S, the event is
+  1 if `S - t <= H` else 0. Survivors are always 0. Horizons **H = 3 and H = 5**, both preregistered.
+- **Censoring (stated in advance).** A survivor person-period at year t is included only if the
+  outcome window is observable, `t + H <= max Scorecard year`; otherwise it is right-censored and
+  dropped (we have not yet seen whether it survives H years). Closure person-periods with `t < S` are
+  always labelable and kept. This is the standard discrete-time-hazard treatment of censoring.
+- **Split by institution** (the existing `md5 mod 100`, 70/30, reused from health_validate), so every
+  person-period of a school is in train OR holdout, never split across. Report holdout AUC.
+- Same machinery reused (percentile, slope, logistic fit, AUC). Standard library, deterministic.
+
+Hypotheses and pass bars:
+
+- **H3 (the point-in-time hazard is useful at a board horizon).** The workhorse hazard model predicts
+  "closes within H years" out of sample. **Pass bar: holdout AUC >= 0.70 for both H = 3 and H = 5.**
+  This is a harder, near-horizon, point-in-time task than the window-summary model, and 0.70 is the
+  floor for "clearly useful." Because it leaks no future information, it is the most honest single
+  discrimination number in this document.
+- **H4 (nearer is clearer), directional, not pass/fail.** Predict AUC(H = 3) >= AUC(H = 5): imminent
+  closure shows sharper distress than closure five years out. If the order reverses, report it.
+- **Direction predictions (instability check).** Enrollment level and trend keep negative weights,
+  Pell and net tuition keep positive weights, as in every model above. Sign flips are reported.
+- **Reported with:** person-period count, unique institutions, and the event base rate for each
+  horizon, plus the caveat that person-periods are clustered within institution (the institution
+  split controls leakage; AUC is computed over person-periods and read with that clustering in mind).
+
+Results are recorded in the next subsection only after this one was committed.
+
 ## What to build, in order
 1. **The survivorship-free panel first** (school-year rows, closures and survivors, point-in-time),
    because every correlation claim depends on it and we already hold the inputs. This is the
