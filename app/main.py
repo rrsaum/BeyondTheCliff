@@ -389,6 +389,47 @@ def cliff(request: Request, state: str = ""):
     )
 
 
+RESILIENCE_SORTABLE = ["risk", "health", "name"]
+
+
+@app.get("/resilience", response_class=HTMLResponse)
+def resilience(
+    request: Request,
+    control: str = "",
+    state: str = "",
+    sort: str = "risk",
+    page: int = 1,
+):
+    if sort not in RESILIENCE_SORTABLE:
+        sort = "risk"
+    page = max(1, page)
+    rows, total, dist = queries.resilience_ranking(
+        control, state, sort=sort, page=page, per_page=PER_PAGE
+    )
+    pages = max(1, ceil(total / PER_PAGE))
+    dist_total = sum(n for _, n in dist)
+    base = {k: v for k, v in {"control": control, "state": state, "sort": sort}.items() if v}
+    return templates.TemplateResponse(
+        request,
+        "resilience.html",
+        {
+            "rows": rows,
+            "total": total,
+            "dist": dist,
+            "dist_total": dist_total,
+            "page": page,
+            "pages": pages,
+            "sort": sort,
+            "control": control,
+            "state": state,
+            "facets": queries.facets(),
+            "control_labels": queries.CONTROL_LABELS,
+            "prev_qs": _qs(**{**base, "page": page - 1}) if page > 1 else "",
+            "next_qs": _qs(**{**base, "page": page + 1}) if page < pages else "",
+        },
+    )
+
+
 @app.get("/institution/{inst_id}", response_class=HTMLResponse)
 def institution(request: Request, inst_id: str):
     data = queries.get_institution(inst_id)

@@ -2,15 +2,15 @@
 """Resilience score: the shared scoring library for the institutional-health band.
 
 ONE home for the scoring logic, imported by build_db.py (to populate the resilience_score table
-at build time), by health_score.py (which FITS the model and prints fresh coefficients), and by
-health_validate.py (which splits and validates out of sample). The score is the universal,
-out-of-sample-validated model documented in docs/strategy/INSTITUTIONAL_HEALTH_METRICS.md:
-enrollment level, five-year enrollment trend, Pell reliance, and net tuition per student.
+at build time). Its `--fit` mode FITS the model and prints fresh coefficients; health_validate.py
+splits and validates it out of sample. The score is the universal, out-of-sample-validated model
+documented in docs/strategy/INSTITUTIONAL_HEALTH_METRICS.md: enrollment level, five-year
+enrollment trend, Pell reliance, and net tuition per student.
 
 The deployed coefficients are FROZEN below, not refit on every build: the model was validated
 once, and a published, cited score has to be stable, so a school's band cannot move because some
 other school's data shifted the fit. To refresh the model deliberately (new data or a new method),
-run `python3 scripts/health_score.py`, which prints an updated FROZEN block to paste here, and
+run `python3 scripts/resilience.py --fit`, which prints an updated FROZEN block to paste here, and
 re-validate with health_validate.py before adopting it. Peer PERCENTILES are still computed live
 each build (they are a ranking of whoever is in the roster now); only the model weights are frozen.
 
@@ -41,8 +41,7 @@ CONTEXT_FEATS = {"pell"}
 BANDS = [(0.60, "Resilient"), (0.35, "Stable"), (0.15, "Watch"), (0.0, "Strained")]
 
 # Frozen production model: standardized logistic-regression weights + standardization moments +
-# intercept, fit on the full panel by health_score.py. Refresh only via that script (see module
-# docstring). Placeholder zeros here are filled by running health_score.py once.
+# intercept, fit on the full panel by `--fit`. Refresh only that way (see module docstring).
 FROZEN = {
     "mean": {"size": 0.456089, "trend": 15.180505, "pell": 0.539800, "tuition": 0.506701},
     "sd": {"size": 0.280249, "trend": 414.185876, "pell": 0.278638, "tuition": 0.263959},

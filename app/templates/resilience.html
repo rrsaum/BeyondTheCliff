@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Sector Resilience | Beyond the Cliff{% endblock %}
+{% block main %}
+
+<section class="intro">
+  <h1>Sector Resilience</h1>
+  <p class="lead">Every living degree-granting institution with three or more years of federal
+    data, banded by a peer-relative read of its demand and pricing path: enrollment level and
+    five-year trend, Pell reliance, and net tuition per student. The band ranks how a school's
+    trajectory compares to the ones that came through and the ones that closed. It is a place to
+    start a conversation, not a forecast of any school's future.</p>
+</section>
+
+<section class="res-rank" aria-label="Resilience ranking">
+  {% if dist_total %}
+  <div class="distbar" role="img"
+    aria-label="{{ dist_total }} institutions: {% for name, n in dist %}{{ n }} {{ name }}{{ '; ' if not loop.last }}{% endfor %}.">
+    {% for name, n in dist %}
+    <span class="distseg dist-{{ name | lower }}" style="flex: {{ n }}">
+      <b>{{ '{:,}'.format(n) }}</b><small>{{ name }}</small>
+    </span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <form class="filters" method="get" action="/resilience">
+    <div class="field">
+      <label for="control">Control</label>
+      <select id="control" name="control">
+        <option value="">All controls</option>
+        {% for key, label in facets.controls.items() %}
+        <option value="{{ key }}" {{ 'selected' if control == key }}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="state">State</label>
+      <select id="state" name="state">
+        <option value="">All states</option>
+        {% for s in facets.states %}
+        <option value="{{ s }}" {{ 'selected' if state == s }}>{{ s }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="sort">Order</label>
+      <select id="sort" name="sort">
+        <option value="risk" {{ 'selected' if sort == 'risk' }}>Least resilient first</option>
+        <option value="health" {{ 'selected' if sort == 'health' }}>Most resilient first</option>
+        <option value="name" {{ 'selected' if sort == 'name' }}>By name</option>
+      </select>
+    </div>
+    <div class="field field-actions">
+      <button type="submit">Apply</button>
+      <a class="clear" href="/resilience">Clear</a>
+    </div>
+  </form>
+
+  <p class="result-count">{{ '{:,}'.format(total) }} living institution{{ '' if total == 1 else 's' }}
+    scored{% if control or state %} in this selection{% endif %}. Showing page {{ page }} of {{ pages }}.</p>
+
+  <div class="table-scroll">
+  <table class="results res-table">
+    <thead>
+      <tr>
+        <th>Institution</th>
+        <th>Control</th>
+        <th>State</th>
+        <th>Band</th>
+        <th class="num">Percentile</th>
+        <th>Chief drag</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in rows %}
+      <tr>
+        <td><a href="/institution/{{ r.id }}">{{ r.name | title }}</a></td>
+        <td>{{ control_labels.get(r.control, '') }}</td>
+        <td>{{ r.state }}</td>
+        <td><span class="band-chip band-{{ r.band | lower }}"><span class="band-dot"></span>{{ r.band }}</span></td>
+        <td class="num">{{ r.pctile }}</td>
+        <td>{{ r.chief_drag if r.chief_drag else '&mdash;' | safe }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6" class="muted">No institutions match this selection.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+  <nav class="pager" aria-label="Pagination">
+    {% if prev_qs %}<a href="/resilience{{ prev_qs }}">Previous</a>{% else %}<span class="disabled">Previous</span>{% endif %}
+    <span>Page {{ page }} of {{ pages }}</span>
+    {% if next_qs %}<a href="/resilience{{ next_qs }}">Next</a>{% else %}<span class="disabled">Next</span>{% endif %}
+  </nav>
+
+  <p class="chart-note">Percentile is health rank among the living roster (higher is more
+    resilient). Public institutions carry state backing this trajectory read does not see, so a low
+    band flags a trend to watch, not closure risk; the federal composite score, by law, does not
+    cover most of them. Pell reliance is a validated signal but a marker of an under-resourced,
+    vulnerable-student-serving school, weighed in the model yet never treated as a fault. Method and
+    out-of-sample validation: see the model behind the Resilience read on any institution page. The
+    band ranks risk; it is not a prediction about any single school.</p>
+</section>
+
+{% endblock %}

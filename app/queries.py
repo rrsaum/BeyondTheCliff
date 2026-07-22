@@ -1059,6 +1059,82 @@ def resilience_profile(inst_id: str) -> dict | None:
     }
 
 
+RESILIENCE_SORTS = {
+    "risk": "rs.pctile ASC, i.name ASC",  # least resilient first (the schools to watch)
+    "health": "rs.pctile DESC, i.name ASC",
+    "name": "i.name ASC",
+}
+_RESILIENCE_DRAGS = {
+    "enrollment trend": "c_trend",
+    "net tuition": "c_tuition",
+    "small size": "c_size",
+}
+
+
+def resilience_ranking(
+    control: str, state: str, sort: str, page: int, per_page: int
+) -> tuple[list, int, list]:
+    """The living roster ranked by Resilience, for the Sector Resilience page.
+
+    Returns (page rows, total matching, band distribution). Only living institutions carry a
+    forward-looking band, so the page is survivors only. The distribution reflects the active
+    filter so the bar moves with the control/state selection."""
+    where = ["i.status = 'open'"]
+    params: list = []
+    if control:
+        where.append("i.control = ?")
+        params.append(control)
+    if state:
+        where.append("i.state = ?")
+        params.append(state)
+    clause = " AND ".join(where)
+    order = RESILIENCE_SORTS.get(sort, RESILIENCE_SORTS["risk"])
+    conn = connect()
+    total = conn.execute(
+        f"SELECT COUNT(*) FROM resilience_score rs JOIN institution i ON i.id = rs.institution_id "
+        f"WHERE {clause}",
+        params,
+    ).fetchone()[0]
+    dist = {
+        r["band"]: r["n"]
+        for r in conn.execute(
+            f"SELECT rs.band, COUNT(*) n FROM resilience_score rs "
+            f"JOIN institution i ON i.id = rs.institution_id WHERE {clause} GROUP BY rs.band",
+            params,
+        )
+    }
+    rows = conn.execute(
+        f"SELECT i.id, i.name, i.control, i.state, rs.band, rs.pctile, "
+        f"rs.c_size, rs.c_trend, rs.c_tuition FROM resilience_score rs "
+        f"JOIN institution i ON i.id = rs.institution_id WHERE {clause} "
+        f"ORDER BY {order} LIMIT ? OFFSET ?",
+        [*params, per_page, (page - 1) * per_page],
+    ).fetchall()
+    conn.close()
+    out = []
+    for r in rows:
+        drags = {label: r[col] for label, col in _RESILIENCE_DRAGS.items()}
+        chief, val = max(drags.items(), key=lambda kv: kv[1] if kv[1] is not None else -9)
+        out.append(
+            {
+                "id": r["id"],
+                "name": r["name"],
+                "control": r["control"],
+                "state": r["state"],
+                "band": r["band"],
+                "pctile": round(r["pctile"] * 100),
+                "chief_drag": chief if (val is not None and val > 0) else "",
+            }
+        )
+    # Best-first ordered distribution for the stacked bar (only bands that occur).
+    dist_ordered = [
+        (name, dist[name])
+        for name in ("Strained", "Watch", "Stable", "Resilient")
+        if dist.get(name)
+    ]
+    return out, total, dist_ordered
+
+
 def composite_series(inst_id: str) -> dict | None:
     """This institution's Financial Responsibility Composite Score history, as published by
     ED. Returns the raw published scores and nothing derived: the pass/zone/fail reading is

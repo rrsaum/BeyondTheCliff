@@ -376,6 +376,21 @@ table.mini th, table.mini td { border: 1px solid var(--line); padding: .35rem .6
   .res-tag { grid-column: 2; text-align: left; }
 }
 
+/* --- Sector Resilience ranking page ---------------------------------------------------- */
+/* The whole living roster as one banded bar; segments sized by count, a 2px surface gap between. */
+.distbar { display: flex; gap: 2px; height: 46px; border-radius: 6px; overflow: hidden;
+  margin: 1rem 0 1.2rem; }
+.distseg { display: flex; flex-direction: column; justify-content: center; align-items: center;
+  color: #fff; font-size: .74rem; padding: .1rem; min-width: 3.2rem; }
+.distseg b { font-weight: 700; font-variant-numeric: tabular-nums; }
+.distseg small { font-weight: 400; opacity: .92; font-size: .68rem; }
+.dist-resilient { background: var(--b-resilient); }
+.dist-stable { background: var(--b-stable); }
+.dist-watch { background: var(--b-watch); }
+.dist-strained { background: var(--b-strained); }
+.res-table td.num, .res-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.res-table .band-chip { font-size: .72rem; padding: .06rem .45rem; }
+
 /* --- Composite-score admin console ------------------------------------------------------ */
 .admin-years td { vertical-align: middle; }
 .admin-years form { margin: 0; }
