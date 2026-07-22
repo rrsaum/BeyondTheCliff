@@ -230,6 +230,53 @@ school's outcome (panel base rate of closure is about 28 percent). This is a cro
 discriminative test (does this profile look like the ones that closed), not a time-to-event
 survival model with a date attached. That, plus an era-forward split, is the next hardening step.
 
+## Era-forward validation (hardening step 1)
+
+The cross-sectional split above holds out schools, not time: it shows the signal generalizes across
+institutions, but a model can still ride an era. The 2016 for-profit collapse alone is 455 of the
+2,061 dated panel closures (22 percent in one year), so a cross-sectional split can train and test
+on the same wave. The era-forward split trains on the earlier closures and tests on the later ones,
+which is the harder and more honest question: does a model fit to the past rank the closures that
+came after?
+
+### Preregistration (written and committed before the holdout was read)
+
+Design, fixed in advance:
+
+- **Era cutoff Y = 2016**, chosen from the closure-year distribution alone (median split: 1,043
+  panel closures with `status_year <= 2016`, about 1,018 from 2017 on), before any AUC was
+  computed. EARLY = closures through 2016; LATE = closures 2017 and after.
+- **Survivors** (no closure year) are partitioned by `md5(id) mod 2` so no survivor is in both eras
+  and each side keeps a realistic base rate (about 30 percent closures per side). The two dated
+  panel closures with no `status_year` are dropped.
+- **Primary test: train EARLY, test LATE** (the genuine forward direction). Train-LATE / test-EARLY
+  is run only as a symmetric robustness check.
+- Same machinery as `health_validate.py`: median within-year-percentile features, an L2 logistic
+  regression standardized on the train moments only, AUC on the held-out era. Reused, not rewritten.
+- **Known limitation, stated up front:** survivor features summarize each survivor's full window,
+  not a window truncated at Y, so the temporal generalization is carried by the closure cohorts, not
+  by point-in-time survivor snapshots. The rigorous point-in-time version is hardening step 2 (the
+  discrete-time hazard model), which is exactly why that step exists. This step tests one thing: do
+  the closure patterns learned before 2017 rank the closures after 2016.
+
+Hypotheses and pass bars (a signal earns its place only by clearing a bar set here, in advance):
+
+- **H1 (universal model holds forward).** The universal model (enrollment level, five-year trend,
+  Pell reliance, net tuition per student) trained on EARLY ranks LATE closures usefully.
+  **Pass bar: LATE-era holdout AUC >= 0.70.** Cross-sectional was 0.776 (enrollment + Pell) to 0.846
+  (with net tuition); temporal generalization normally costs AUC, and 0.70 is the floor for "still
+  clearly useful and materially above the 0.5 chance line." Below 0.70 means the cross-sectional
+  result is materially era-specific, and this doc will say so.
+- **H2 (the combination still beats the federal score forward in time).** On the composite subset,
+  **era-forward AUC(composite + our signals) minus AUC(composite alone) >= +0.02, and composite-alone
+  era-forward AUC >= 0.63.** Cross-sectional lift was 0.684 to 0.736 (+0.052); forward in time the
+  combination must still add at least +0.02 to count as robust rather than era-specific.
+- **Direction predictions (instability check).** Enrollment level and trend keep negative weights
+  (protective), Pell and net tuition keep positive weights (risk-associated), matching the
+  cross-sectional signs. Any sign flip forward in time is reported as instability, not smoothed over.
+
+Results are recorded in the next subsection only after this one was committed.
+
 ## What to build, in order
 1. **The survivorship-free panel first** (school-year rows, closures and survivors, point-in-time),
    because every correlation claim depends on it and we already hold the inputs. This is the
