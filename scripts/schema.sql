@@ -250,7 +250,11 @@ CREATE TABLE scorecard (
   ugds_black      REAL,
   ugds_hisp       REAL,
   first_gen       REAL,      -- first-generation share 0-1
-  curroper        INTEGER    -- currently operating flag (1/0)
+  curroper        INTEGER,   -- currently operating flag (1/0)
+  ret_ft4         REAL,      -- first-time full-time retention, 4-year (0-1)
+  ret_ftl4        REAL,      -- first-time full-time retention, <4-year (0-1)
+  c150_4          REAL,      -- completion within 150% of expected time, 4-year (0-1)
+  c150_l4         REAL       -- completion within 150% of expected time, <4-year (0-1)
 );
 CREATE INDEX idx_sc ON scorecard(institution_id, year);
 

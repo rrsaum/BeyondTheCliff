@@ -64,7 +64,9 @@ def build_rows(con):
     }
     sc = defaultdict(dict)
     for r in con.execute(
-        "SELECT institution_id,year,ugds,adm_rate,tuitfte,pct_pell FROM scorecard WHERE year IS NOT NULL"
+        "SELECT institution_id,year,ugds,adm_rate,tuitfte,pct_pell, "
+        "COALESCE(ret_ft4,ret_ftl4) AS retention, COALESCE(c150_4,c150_l4) AS grad "
+        "FROM scorecard WHERE year IS NOT NULL"
     ):
         sc[r["institution_id"]][r["year"]] = r
     comp = defaultdict(dict)
@@ -81,7 +83,7 @@ def build_rows(con):
                     d[r["year"]].append(r[field])
         return _pct_fn(d)
 
-    pf = {m: collect(m) for m in ("ugds", "tuitfte", "adm_rate", "pct_pell")}
+    pf = {m: collect(m) for m in ("ugds", "tuitfte", "adm_rate", "pct_pell", "retention", "grad")}
     cby = defaultdict(list)
     for i, ys in comp.items():
         for y, s in ys.items():
@@ -108,6 +110,8 @@ def build_rows(con):
                 tuit_pctile=_med([pf["tuitfte"](y, ys[y]["tuitfte"]) for y in win]),
                 adm_pctile=_med([pf["adm_rate"](y, ys[y]["adm_rate"]) for y in win]),
                 pell_pctile=_med([pf["pct_pell"](y, ys[y]["pct_pell"]) for y in win]),
+                ret_pctile=_med([pf["retention"](y, ys[y]["retention"]) for y in win]),
+                grad_pctile=_med([pf["grad"](y, ys[y]["grad"]) for y in win]),
             )
         )
     return rows

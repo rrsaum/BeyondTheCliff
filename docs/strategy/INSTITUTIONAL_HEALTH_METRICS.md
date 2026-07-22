@@ -561,6 +561,36 @@ In the panel a single retention is `COALESCE(RET_FT4, RET_FTL4)` and a single gr
 
 Result recorded below only after this preregistration was committed.
 
+### Retention and graduation result (scripts/health_retention.py)
+
+Common usable set (workhorse plus retention plus graduation all present): 6,121 schools, 1,613 closed
+(26 percent), holdout 1,838. All models on the identical set so the lift is attributable.
+
+| Model | Holdout AUC |
+|---|---|
+| Workhorse (baseline) | 0.813 |
+| + retention | 0.826 |
+| + graduation | 0.819 |
+| + retention + graduation | 0.826 |
+
+- **H7: PASS, through retention.** Retention plus graduation lift holdout AUC by +0.014 over the
+  workhorse, clearing the +0.010 bar. Retention's weight is -0.51 (negative, as predicted: more
+  first-year persistence, less closure risk). Zemsky's third variable earns its place out of sample,
+  the first newly imported field to do so.
+- **Graduation is redundant with retention, reported as such.** On its own graduation adds only +0.006
+  (weight -0.34); added on top of retention it collapses to a +0.01 weight and adds no AUC (0.826
+  either way). The two are collinear and retention carries the signal, so the useful new feature is
+  retention, not graduation. Both columns are kept in the data (they are distinct federal fields), but
+  the model gains from retention alone.
+
+Refresh note (honest bookkeeping): regenerating `data/scorecard.csv` to populate the new columns also
+brought its row set current with the institution roster (155,976 shared rows unchanged, verified by a
+zero-mismatch diff on the core columns; 71 rows added, none dropped). That refresh nudged the earlier
+baselines by a few thousandths when recomputed on the current DB (for example federal composite alone
+0.684 to 0.679, composite plus our set 0.736 to 0.730, all-universal 0.846 to 0.845). No conclusion in
+steps 1 to 3 changes; those numbers were computed on the pre-refresh data and reproduce to within
+about 0.005 on the refreshed data.
+
 ## Descriptive: the century-long closure record (scripts/closure_history.py, NOT predictive)
 
 This section is deliberately walled off from every AUC above. It uses no federal features and predicts

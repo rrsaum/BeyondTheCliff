@@ -10,6 +10,7 @@ extracts ~13 columns that speak to closure risk and student profile:
   selectivity  ADM_RATE
   finances     TUITFTE (net tuition/FTE), TUITIONFEE_IN, COSTT4_A, PCTPELL
   demographics PPTUG_EF (part-time share), UGDS_WHITE/BLACK/HISP, FIRST_GEN
+  outcomes     RET_FT4/RET_FTL4 (full-time retention), C150_4/C150_L4 (150%-time completion)
   status       CURROPER
 
 Because the MERGED files go back to 1996, a school that closed in 2012 still has its
@@ -44,7 +45,17 @@ COLS = {
     "FIRST_GEN": "first_gen",
     "CURROPER": "curroper",
 }
-OUT_FIELDS = ["institution_id", "year", *COLS.values()]
+# OPTIONAL columns: extracted where a file carries them, but NOT part of the file-inclusion check
+# below, because retention and completion were added to Scorecard later than the core fields and are
+# absent (or null) in the oldest MERGED files. Adding them to the required set would drop those years.
+# Level-appropriate: RET_FT4 / C150_4 are four-year, RET_FTL4 / C150_L4 are less-than-four-year.
+OPT_COLS = {
+    "RET_FT4": "ret_ft4",
+    "RET_FTL4": "ret_ftl4",
+    "C150_4": "c150_4",
+    "C150_L4": "c150_l4",
+}
+OUT_FIELDS = ["institution_id", "year", *COLS.values(), *OPT_COLS.values()]
 NULLS = {"", "NA", "NULL", "PS", "PrivacySuppressed"}
 
 
@@ -82,6 +93,7 @@ def main() -> None:
                 continue
             ope_i = idx["OPEID"]
             col_i = {sc: idx[sc] for sc in COLS}
+            opt_i = {sc: idx[sc] for sc in OPT_COLS if sc in idx}  # only those the file carries
             n = 0
             for row in reader:
                 if ope_i >= len(row):
@@ -92,7 +104,12 @@ def main() -> None:
                 rec = {"institution_id": opeid, "year": year}
                 for sc, out_col in COLS.items():
                     rec[out_col] = clean(row[col_i[sc]] if col_i[sc] < len(row) else "")
-                if any(rec[c] for c in COLS.values()):  # skip rows that are all-null
+                for sc, out_col in OPT_COLS.items():
+                    i2 = opt_i.get(sc)
+                    rec[out_col] = clean(row[i2]) if (i2 is not None and i2 < len(row)) else ""
+                if any(
+                    rec[c] for c in COLS.values()
+                ):  # skip rows that are all-null on the core set
                     out.append(rec)
                     n += 1
         kept_years.append((year, n))
