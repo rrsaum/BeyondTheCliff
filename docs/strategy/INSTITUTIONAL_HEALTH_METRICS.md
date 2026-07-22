@@ -440,6 +440,55 @@ Reading note (clustering): person-periods repeat within a school, so the counts 
 observations. The institution split prevents leakage across train and holdout, and the AUC is read as
 a ranking over school-years with that clustering understood, not as independent trials.
 
+## Interaction and combination search (step 3)
+
+The value-trap thesis (from QuantSage and stated in the metric set above) is that the discount rate
+alone is not the disease: many healthy schools discount heavily. The distress signal is a high
+discount that FAILS to grow net tuition revenue or fill the class, the give-away that no longer
+works. This step tests that specific interaction rather than scanning all pairs, so a positive result
+is not multiple-comparison luck.
+
+### Preregistration (written and committed before the holdout was read)
+
+Design, fixed in advance:
+
+- **Discount proxy**, the rough one the doc allows: within-year percentile of `1 - tuitfte /
+  tuitionfee_in` (net tuition per FTE over the in-state sticker), median over the school's window. The
+  raw proxy has severe outliers (a minimum of -2641 where net revenue per FTE exceeds the in-state
+  sticker), so the percentile form is used for robustness. This is directional, NOT a clean discount
+  rate; a clean rate needs the IPEDS scholarships/aid field imported in step 4.
+- **Net-tuition growth (nt_growth):** five-year slope of `tuitfte`, the same slope machinery as the
+  enrollment trend.
+- **Cross-sectional by-institution panel**, one row per school, the existing `md5 mod 100` 70/30
+  split, so the additive baseline is comparable to the workhorse (cross-sectional 0.846). Reuses the
+  percentile, slope, fit, and AUC helpers.
+- Standardize every term on the train moments; interaction terms are products of the standardized
+  main effects.
+
+Hypotheses and bars:
+
+- **H5 (discount alone is weak or confounded, as the doc predicts).** Adding the discount proxy as a
+  MAIN effect to the workhorse does not materially improve holdout AUC. **Prediction: lift < +0.01**,
+  mirroring the admit-rate value-trap result. Reported either way.
+- **H6 (the value-trap interaction earns its place).** Adding the two preregistered interaction terms
+  to the additive model (workhorse + discount + nt_growth main effects) improves holdout AUC:
+  - `discount x nt_growth` (a high give-away that does not grow net revenue), and
+  - `discount x enrollment_trend` (a high give-away that does not fill the class).
+  **Pass bar: interaction-model holdout AUC minus additive-model holdout AUC >= +0.005.** Modest on
+  purpose (interactions add little), and only this specific pair is tested, set in advance.
+- **Directional prediction (interpretability check).** Because "high discount with falling net
+  tuition / falling enrollment" is the risk case, and that case is a NEGATIVE product of the
+  standardized terms (high discount positive, decline negative), the two interaction coefficients are
+  predicted NEGATIVE. A positive or zero coefficient means the value-trap combination does not carry
+  risk in this data, and that is reported.
+
+Honest expectation set in advance: the doc already grades the discount proxy as weak and confounded,
+and this proxy is rough, so H6 may well fail. A null result here is a real finding (the give-away
+interaction is not measurable with the rough proxy), not a disappointment, and the clean test waits
+on the step-4 IPEDS aid import.
+
+Results are recorded in the next subsection only after this one was committed.
+
 ## What to build, in order
 1. **The survivorship-free panel first** (school-year rows, closures and survivors, point-in-time),
    because every correlation claim depends on it and we already hold the inputs. This is the
