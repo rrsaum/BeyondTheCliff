@@ -3647,6 +3647,19 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 00174500,2020-21,2021,1.0,2021-05-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 00174500,2021-22,2022,0.5,2022-05-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 00174500,2022-23,2023,0.0,2023-05-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+00174600,2006-07,2007,3.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+00174600,2007-08,2008,2.7,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+00174600,2008-09,2009,2.3,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+00174600,2009-10,2010,3.0,2010-06-30,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+00174600,2010-11,2011,3.0,2011-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+00174600,2011-12,2012,2.8,2012-06-30,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+00174600,2012-13,2013,2.4,2013-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+00174600,2013-14,2014,2.7,2014-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+00174600,2014-15,2015,2.2,2015-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
+00174600,2015-16,2016,2.2,2016-06-30,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
+00174600,2016-17,2017,2.0,2017-06-30,Non-profit,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
+00174600,2017-18,2018,2.0,2018-06-30,Non-profit,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
+00174600,2018-19,2019,1.3,2019-06-30,"Private, Nonprofit","November 19, 2021",https://studentaid.gov/data-center/school/composite-scores,2018-19.xls
 00174800,2006-07,2007,1.1,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 00174800,2007-08,2008,0.6,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 00174800,2008-09,2009,0.1,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -14826,6 +14839,15 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 00351900,2020-21,2021,3.0,2021-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 00351900,2021-22,2022,2.2,2022-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 00351900,2022-23,2023,2.3,2023-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+00352400,2006-07,2007,2.6,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+00352400,2007-08,2008,1.5,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+00352400,2008-09,2009,0.8,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+00352400,2009-10,2010,2.8,2010-06-30,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+00352400,2010-11,2011,2.8,2011-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+00352400,2011-12,2012,2.5,2012-06-30,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+00352400,2012-13,2013,1.8,2013-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+00352400,2013-14,2014,2.3,2014-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+00352400,2014-15,2015,1.8,2015-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
 00352500,2006-07,2007,2.6,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 00352500,2007-08,2008,0.8,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 00352500,2008-09,2009,0.3,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -17973,6 +17995,14 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 00502900,2020-21,2021,3.0,2021-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 00502900,2021-22,2022,2.3,2022-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 00502900,2022-23,2023,3.0,2023-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+00506600,2006-07,2007,2.8,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+00506600,2007-08,2008,2.9,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+00506600,2008-09,2009,2.3,2008-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+00506600,2009-10,2010,2.9,2009-12-31,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+00506600,2010-11,2011,2.6,2010-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+00506600,2011-12,2012,2.3,2011-12-31,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+00506600,2012-13,2013,0.9,2012-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+00506600,2013-14,2014,2.5,2013-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
 00510200,2006-07,2007,2.9,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 00510200,2007-08,2008,3.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 00510200,2008-09,2009,1.9,2008-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -18023,6 +18053,8 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 00520800,2020-21,2021,1.9,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 00520800,2021-22,2022,1.7,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 00520800,2022-23,2023,2.2,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+00521000,2008-09,2009,2.3,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+00521000,2009-10,2010,2.8,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
 00531000,2006-07,2007,2.6,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 00531000,2007-08,2008,1.7,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 00531000,2008-09,2009,2.6,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -18791,6 +18823,16 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 00663900,2020-21,2021,3.0,2021-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 00663900,2021-22,2022,2.2,2022-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 00663900,2022-23,2023,2.2,2023-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+00666600,2006-07,2007,-1.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+00666600,2007-08,2008,-1.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+00666600,2008-09,2009,-1.0,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+00666600,2009-10,2010,-1.0,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+00666600,2010-11,2011,-0.7,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+00666600,2011-12,2012,-1.0,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+00666600,2012-13,2013,-0.3,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+00666600,2013-14,2014,-1.0,2013-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+00666600,2016-17,2017,0.9,2016-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
+00666600,2017-18,2018,-0.2,2017-12-31,Proprietary,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
 00673100,2006-07,2007,1.6,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 00673100,2007-08,2008,1.2,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 00673100,2008-09,2009,0.7,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -19262,6 +19304,16 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 00729100,2020-21,2021,3.0,2020-12-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 00729100,2021-22,2022,3.0,2021-12-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 00729100,2022-23,2023,2.2,2022-12-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+00729600,2006-07,2007,1.5,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+00729600,2007-08,2008,2.9,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+00729600,2008-09,2009,3.0,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+00729600,2009-10,2010,3.0,2010-06-30,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+00729600,2010-11,2011,2.8,2011-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+00729600,2011-12,2012,3.0,2012-06-30,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+00729600,2013-14,2014,2.2,2014-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+00729600,2014-15,2015,1.5,2015-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
+00729600,2015-16,2016,1.2,2016-06-30,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
+00729600,2016-17,2017,2.3,2017-06-30,Non-profit,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
 00729700,2015-16,2016,2.9,2015-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
 00729700,2016-17,2017,-1.0,2016-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
 00729700,2017-18,2018,-1.0,2017-12-31,Proprietary,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
@@ -20320,6 +20372,15 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 00826700,2008-09,2009,2.6,2009-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
 00826700,2009-10,2010,2.5,2010-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
 00826700,2010-11,2011,1.9,2011-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+00832800,2006-07,2007,3.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+00832800,2007-08,2008,2.8,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+00832800,2008-09,2009,2.2,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+00832800,2009-10,2010,2.9,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+00832800,2010-11,2011,3.0,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+00832800,2011-12,2012,3.0,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+00832800,2012-13,2013,2.8,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+00832800,2013-14,2014,3.0,2013-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+00832800,2014-15,2015,3.0,2014-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
 00833200,2006-07,2007,0.2,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 00833200,2007-08,2008,-0.3,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 00833200,2008-09,2009,3.0,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -20427,6 +20488,8 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 00849800,2020-21,2021,2.7,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 00849800,2021-22,2022,3.0,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 00849800,2022-23,2023,3.0,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+00850100,2008-09,2009,3.0,2008-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+00850100,2009-10,2010,2.9,2009-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
 00853700,2015-16,2016,1.1,2015-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
 00853700,2016-17,2017,1.8,2016-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
 00853700,2017-18,2018,1.9,2017-12-31,Proprietary,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
@@ -20852,6 +20915,12 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 00894600,2020-21,2021,-1.0,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 00894600,2021-22,2022,-0.7,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 00894600,2022-23,2023,1.6,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+00894700,2006-07,2007,3.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+00894700,2007-08,2008,2.8,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+00894700,2008-09,2009,3.0,2009-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+00894700,2009-10,2010,2.7,2010-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+00894700,2010-11,2011,1.9,2011-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+00894700,2011-12,2012,1.8,2012-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
 00895500,2006-07,2007,2.4,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 00895500,2007-08,2008,2.5,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 00895500,2008-09,2009,2.7,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -21019,6 +21088,13 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 00915700,2020-21,2021,3.0,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 00915700,2021-22,2022,2.4,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 00915700,2022-23,2023,1.8,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+00917200,2006-07,2007,2.9,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+00917200,2007-08,2008,2.7,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+00917200,2008-09,2009,1.8,2008-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+00917200,2009-10,2010,2.7,2009-12-31,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+00917200,2010-11,2011,2.7,2010-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+00917200,2011-12,2012,2.4,2011-12-31,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+00917200,2012-13,2013,2.9,2012-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
 00918600,2006-07,2007,2.6,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 00918600,2007-08,2008,1.8,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 00918600,2008-09,2009,3.0,2009-05-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -21293,6 +21369,15 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 00951500,2020-21,2021,3.0,2021-06-30,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 00951500,2021-22,2022,3.0,2022-06-30,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 00951500,2022-23,2023,3.0,2023-06-30,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+00952000,2006-07,2007,2.3,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+00952000,2007-08,2008,1.7,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+00952000,2008-09,2009,2.4,2009-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+00952000,2009-10,2010,3.0,2010-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+00952000,2010-11,2011,2.6,2011-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+00952000,2011-12,2012,1.7,2012-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+00952000,2012-13,2013,2.6,2013-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+00952000,2013-14,2014,2.7,2014-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+00952000,2014-15,2015,2.7,2015-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
 00952300,2015-16,2016,1.8,2016-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
 00952300,2016-17,2017,1.8,2017-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
 00952300,2018-19,2019,1.8,2019-06-30,Proprietary,"November 19, 2021",https://studentaid.gov/data-center/school/composite-scores,2018-19.xls
@@ -21597,6 +21682,10 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 00972300,2016-17,2017,3.0,2017-06-30,Non-profit,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
 00972300,2017-18,2018,3.0,2018-06-30,Non-profit,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
 00972300,2018-19,2019,2.4,2019-06-30,"Private, Nonprofit","November 19, 2021",https://studentaid.gov/data-center/school/composite-scores,2018-19.xls
+00973200,2006-07,2007,-0.8,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+00973200,2007-08,2008,1.1,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+00973200,2008-09,2009,0.4,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+00973200,2010-11,2011,1.8,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
 00973900,2006-07,2007,1.9,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 00973900,2007-08,2008,1.5,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 00973900,2008-09,2009,1.8,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -21873,6 +21962,13 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 01004300,2021-22,2022,3.0,2021-12-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 01004300,2022-23,2023,2.2,2022-12-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
 01005900,2012-13,2013,0.0,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+01006500,2006-07,2007,2.4,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+01006500,2007-08,2008,1.6,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+01006500,2008-09,2009,1.1,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+01006500,2009-10,2010,1.3,2010-06-30,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+01006500,2010-11,2011,2.0,2011-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+01006500,2011-12,2012,2.4,2012-06-30,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+01006500,2012-13,2013,2.2,2013-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
 01009800,2006-07,2007,1.8,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 01009800,2007-08,2008,1.8,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 01009800,2008-09,2009,1.8,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -22256,6 +22352,15 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 01046000,2020-21,2021,2.6,2021-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 01046000,2021-22,2022,2.8,2022-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 01046000,2022-23,2023,1.5,2023-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+01047000,2006-07,2007,1.7,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+01047000,2007-08,2008,1.7,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+01047000,2008-09,2009,1.6,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+01047000,2009-10,2010,1.8,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+01047000,2010-11,2011,2.6,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+01047000,2011-12,2012,2.0,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+01047000,2012-13,2013,2.3,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+01047000,2013-14,2014,1.6,2013-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+01047000,2014-15,2015,2.4,2014-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
 01047400,2006-07,2007,3.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 01047400,2007-08,2008,3.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 01047400,2008-09,2009,2.5,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -22956,6 +23061,15 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 01119200,2020-21,2021,2.3,2020-08-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 01119200,2021-22,2022,1.7,2021-08-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 01119200,2022-23,2023,2.5,2022-08-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+01120300,2006-07,2007,2.3,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+01120300,2007-08,2008,2.9,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+01120300,2008-09,2009,2.2,2008-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+01120300,2009-10,2010,2.0,2009-12-31,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+01120300,2010-11,2011,1.8,2010-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+01120300,2011-12,2012,1.9,2011-12-31,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+01120300,2012-13,2013,2.1,2012-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+01120300,2013-14,2014,2.2,2013-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+01120300,2014-15,2015,2.4,2014-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
 01138500,2006-07,2007,2.8,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 01138500,2007-08,2008,2.9,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 01138500,2008-09,2009,2.2,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -29229,6 +29343,15 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 02265600,2020-21,2021,1.8,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 02265600,2021-22,2022,3.0,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 02265600,2022-23,2023,3.0,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+02265900,2006-07,2007,1.5,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+02265900,2007-08,2008,1.5,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+02265900,2008-09,2009,1.1,2008-09-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+02265900,2009-10,2010,-0.7,2009-09-30,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+02265900,2010-11,2011,-0.7,2010-09-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+02265900,2011-12,2012,-0.8,2011-09-30,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+02265900,2012-13,2013,-1.0,2012-09-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+02265900,2013-14,2014,-0.6,2013-09-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+02265900,2014-15,2015,-0.9,2014-09-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
 02266200,2006-07,2007,1.7,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 02266200,2007-08,2008,1.1,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 02266200,2008-09,2009,2.3,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -29924,6 +30047,7 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 02292700,2020-21,2021,3.0,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 02292700,2021-22,2022,3.0,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 02292700,2022-23,2023,3.0,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+02294000,2015-16,2016,2.1,2015-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
 02296000,2006-07,2007,1.8,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 02296000,2007-08,2008,2.5,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 02296000,2008-09,2009,2.2,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -31735,6 +31859,11 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 02502100,2011-12,2012,3.0,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
 02502100,2012-13,2013,1.8,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
 02502100,2013-14,2014,1.8,2013-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+02502400,2006-07,2007,1.6,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+02502400,2007-08,2008,1.5,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+02502400,2008-09,2009,0.9,2009-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+02502400,2009-10,2010,1.2,2010-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+02502400,2010-11,2011,0.0,2011-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
 02503400,2006-07,2007,2.7,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 02503400,2007-08,2008,2.4,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 02503400,2008-09,2009,2.7,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -31919,6 +32048,7 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 02515400,2020-21,2021,1.8,2020-09-30,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 02515400,2021-22,2022,1.8,2021-09-30,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 02515400,2022-23,2023,2.2,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+02516100,2008-09,2009,2.2,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
 02516200,2006-07,2007,3.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 02516200,2007-08,2008,0.9,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 02516200,2008-09,2009,0.6,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -32779,6 +32909,10 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 02554800,2020-21,2021,1.8,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 02554800,2021-22,2022,1.6,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 02554800,2022-23,2023,1.9,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+02555300,2006-07,2007,1.9,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+02555300,2007-08,2008,1.1,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+02555300,2008-09,2009,1.0,2009-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+02555300,2009-10,2010,-1.0,2010-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
 02556100,2006-07,2007,1.6,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 02556100,2007-08,2008,1.9,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 02556100,2008-09,2009,0.2,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -33031,6 +33165,13 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 02563000,2020-21,2021,2.9,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 02563000,2021-22,2022,2.5,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 02563000,2022-23,2023,3.0,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+02563500,2006-07,2007,2.1,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+02563500,2007-08,2008,2.1,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+02563500,2008-09,2009,1.9,2008-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+02563500,2009-10,2010,2.0,2009-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+02563500,2010-11,2011,2.0,2010-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+02563500,2011-12,2012,1.2,2011-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+02563500,2012-13,2013,1.5,2012-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
 02564700,2006-07,2007,2.7,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 02564700,2007-08,2008,3.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 02564700,2008-09,2009,1.8,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -34237,6 +34378,18 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03002400,2015-16,2016,1.5,2015-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
 03002400,2016-17,2017,1.5,2016-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
 03002400,2017-18,2018,1.5,2017-12-31,Proprietary,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
+03005000,2006-07,2007,2.3,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03005000,2007-08,2008,2.5,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03005000,2008-09,2009,2.0,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03005000,2009-10,2010,3.0,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+03005000,2010-11,2011,2.5,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+03005000,2011-12,2012,2.0,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+03005000,2012-13,2013,1.8,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+03005000,2013-14,2014,2.0,2013-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+03005000,2014-15,2015,2.2,2014-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
+03005000,2015-16,2016,2.6,2015-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
+03005000,2016-17,2017,2.0,2016-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
+03005000,2017-18,2018,2.2,2017-12-31,Proprietary,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
 03005100,2006-07,2007,1.5,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03005100,2007-08,2008,1.6,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03005100,2008-09,2009,1.7,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -34351,6 +34504,14 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03007300,2015-16,2016,2.4,2016-06-30,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
 03007300,2016-17,2017,2.2,2017-06-30,Non-profit,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
 03007300,2017-18,2018,2.0,2018-06-30,Non-profit,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
+03007600,2006-07,2007,2.7,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03007600,2007-08,2008,2.8,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03007600,2008-09,2009,2.9,2009-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03007600,2009-10,2010,2.7,2010-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+03007600,2010-11,2011,2.5,2011-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+03007600,2011-12,2012,2.7,2012-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+03007600,2012-13,2013,1.2,2013-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+03007600,2013-14,2014,1.3,2014-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
 03007900,2006-07,2007,2.4,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03007900,2007-08,2008,3.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03007900,2008-09,2009,1.7,2008-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -34808,6 +34969,15 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03028500,2010-11,2011,2.3,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
 03028500,2011-12,2012,3.0,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
 03028500,2012-13,2013,3.0,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+03029200,2006-07,2007,2.5,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03029200,2007-08,2008,2.5,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03029200,2008-09,2009,2.6,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03029200,2009-10,2010,3.0,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+03029200,2010-11,2011,2.4,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+03029200,2011-12,2012,2.0,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+03029200,2012-13,2013,3.0,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+03029200,2013-14,2014,1.5,2013-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+03029200,2014-15,2015,3.0,2014-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
 03029700,2006-07,2007,3.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03029700,2007-08,2008,3.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03029700,2008-09,2009,2.9,2008-09-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -36415,6 +36585,14 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03108600,2020-21,2021,1.6,2021-06-30,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 03108600,2021-22,2022,2.8,2022-06-30,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 03108600,2022-23,2023,1.5,2023-06-30,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+03108700,2006-07,2007,3.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03108700,2007-08,2008,3.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03108700,2008-09,2009,3.0,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03108700,2009-10,2010,3.0,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+03108700,2010-11,2011,2.3,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+03108700,2011-12,2012,1.9,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+03108700,2012-13,2013,2.5,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+03108700,2013-14,2014,2.9,2013-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
 03109000,2006-07,2007,2.8,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03109000,2007-08,2008,2.4,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03109000,2008-09,2009,2.9,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -36741,6 +36919,10 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03116300,2012-13,2013,2.2,2012-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
 03116300,2013-14,2014,2.2,2013-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
 03116300,2014-15,2015,2.7,2014-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
+03116800,2006-07,2007,1.1,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03116800,2007-08,2008,2.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03116800,2008-09,2009,3.0,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03116800,2009-10,2010,0.6,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
 03116900,2006-07,2007,3.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03116900,2007-08,2008,0.6,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03116900,2008-09,2009,3.0,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -37032,6 +37214,10 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03127500,2020-21,2021,3.0,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 03127500,2021-22,2022,3.0,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 03127500,2022-23,2023,1.8,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+03127700,2006-07,2007,1.8,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03127700,2007-08,2008,3.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03127700,2008-09,2009,3.0,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03127700,2009-10,2010,-0.4,2010-06-30,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
 03128100,2006-07,2007,2.2,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03128100,2007-08,2008,2.2,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03128100,2008-09,2009,2.6,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -37344,6 +37530,12 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03177300,2020-21,2021,3.0,2021-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 03177300,2021-22,2022,3.0,2022-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 03177300,2022-23,2023,3.0,2023-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+03178400,2006-07,2007,1.8,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03178400,2007-08,2008,3.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03178400,2008-09,2009,3.0,2009-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03178400,2009-10,2010,3.0,2010-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+03178400,2010-11,2011,3.0,2011-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+03178400,2011-12,2012,2.7,2012-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
 03179500,2006-07,2007,2.6,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03179500,2007-08,2008,2.4,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03179500,2008-09,2009,2.6,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -37378,6 +37570,16 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03181400,2020-21,2021,2.6,2020-08-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 03181400,2021-22,2022,3.0,2021-08-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 03181400,2022-23,2023,2.8,2022-08-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+03182300,2006-07,2007,3.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03182300,2007-08,2008,1.8,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03182300,2008-09,2009,1.3,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03182300,2009-10,2010,1.3,2010-06-30,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+03182300,2010-11,2011,1.4,2011-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+03182300,2012-13,2013,2.3,2013-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+03182300,2013-14,2014,1.8,2014-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+03182300,2015-16,2016,0.6,2016-06-30,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
+03182300,2016-17,2017,0.6,2017-06-30,Non-profit,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
+03182300,2017-18,2018,0.6,2018-06-30,Non-profit,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
 03185300,2015-16,2016,2.8,2015-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
 03185300,2016-17,2017,3.0,2016-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
 03185300,2017-18,2018,2.6,2017-12-31,Proprietary,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
@@ -37890,6 +38092,15 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03283300,2020-21,2021,3.0,2021-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 03283300,2021-22,2022,2.6,2022-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 03283300,2022-23,2023,3.0,2023-06-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+03284300,2006-07,2007,2.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03284300,2007-08,2008,2.1,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03284300,2008-09,2009,2.0,2008-08-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03284300,2009-10,2010,2.1,2009-08-31,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+03284300,2010-11,2011,2.3,2010-08-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+03284300,2011-12,2012,1.8,2011-08-31,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+03284300,2012-13,2013,1.6,2012-08-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+03284300,2013-14,2014,2.8,2013-08-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+03284300,2014-15,2015,3.0,2014-08-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
 03288300,2006-07,2007,2.4,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03288300,2007-08,2008,2.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03288300,2008-09,2009,1.4,2008-12-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -38413,6 +38624,7 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03395300,2012-13,2013,3.0,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
 03395300,2013-14,2014,2.4,2013-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
 03395300,2014-15,2015,1.4,2014-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
+03399300,2015-16,2016,2.3,2015-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
 03400300,2006-07,2007,1.6,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03400300,2007-08,2008,2.6,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03400300,2008-09,2009,3.0,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -38910,6 +39122,12 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03453400,2020-21,2021,1.9,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 03453400,2021-22,2022,2.1,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 03453400,2022-23,2023,2.4,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+03455500,2006-07,2007,1.1,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03455500,2007-08,2008,1.0,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03455500,2008-09,2009,0.7,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03455500,2009-10,2010,-0.3,2010-06-30,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+03455500,2010-11,2011,-0.5,2011-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+03455500,2011-12,2012,-0.7,2012-06-30,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
 03455700,2015-16,2016,1.5,2015-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
 03455700,2016-17,2017,-1.0,2016-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
 03455700,2017-18,2018,-1.0,2017-12-31,Proprietary,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
@@ -39096,6 +39314,11 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03480300,2020-21,2021,0.7,2021-06-30,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 03480300,2021-22,2022,0.1,2022-06-30,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 03480300,2022-23,2023,-0.5,2023-06-30,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+03485400,2006-07,2007,2.5,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03485400,2007-08,2008,3.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03485400,2008-09,2009,2.7,2009-01-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03485400,2009-10,2010,1.7,2010-01-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+03485400,2010-11,2011,1.6,2011-01-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
 03490300,2006-07,2007,0.6,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03490300,2007-08,2008,-1.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03490300,2008-09,2009,1.7,2009-01-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -41038,6 +41261,19 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03800300,2020-21,2021,3.0,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 03800300,2021-22,2022,1.8,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 03800300,2022-23,2023,3.0,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+03800400,2006-07,2007,1.6,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03800400,2007-08,2008,1.8,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03800400,2008-09,2009,2.3,2009-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03800400,2009-10,2010,2.6,2010-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+03800400,2010-11,2011,2.6,2011-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+03800400,2011-12,2012,2.8,2012-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+03800400,2012-13,2013,2.1,2013-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+03800400,2013-14,2014,1.5,2014-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+03800400,2014-15,2015,1.6,2015-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
+03800400,2015-16,2016,1.5,2016-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
+03800400,2016-17,2017,1.5,2017-06-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
+03800400,2017-18,2018,-0.9,2018-06-30,Proprietary,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
+03800400,2018-19,2019,-0.1,2019-06-30,Proprietary,"November 19, 2021",https://studentaid.gov/data-center/school/composite-scores,2018-19.xls
 03801400,2006-07,2007,1.9,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03801400,2007-08,2008,2.3,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03801400,2008-09,2009,1.9,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -41123,6 +41359,8 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03808300,2020-21,2021,3.0,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 03808300,2021-22,2022,2.9,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 03808300,2022-23,2023,1.9,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+03810300,2008-09,2009,3.0,2008-09-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03810300,2009-10,2010,3.0,2009-09-30,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
 03811300,2006-07,2007,2.1,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03811300,2007-08,2008,2.5,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03811300,2008-09,2009,2.1,2008-08-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -41691,6 +41929,15 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 03878300,2011-12,2012,2.4,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
 03878300,2012-13,2013,0.2,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
 03878300,2013-14,2014,-1.0,2013-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+03881300,2006-07,2007,2.1,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+03881300,2007-08,2008,2.9,,Private Non-Profit,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+03881300,2008-09,2009,2.6,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+03881300,2009-10,2010,3.0,2010-06-30,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+03881300,2010-11,2011,3.0,2011-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+03881300,2011-12,2012,3.0,2012-06-30,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+03881300,2012-13,2013,3.0,2013-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+03881300,2014-15,2015,2.6,2014-08-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
+03881300,2015-16,2016,2.3,2015-08-31,Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
 03881400,2006-07,2007,3.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 03881400,2007-08,2008,3.0,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 03881400,2008-09,2009,3.0,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -43538,6 +43785,13 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 04115600,2020-21,2021,3.0,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 04115600,2021-22,2022,2.7,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 04115600,2022-23,2023,2.1,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+04116000,2006-07,2007,0.8,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+04116000,2007-08,2008,1.7,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+04116000,2008-09,2009,2.2,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+04116000,2009-10,2010,3.0,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+04116000,2010-11,2011,2.8,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+04116000,2011-12,2012,3.0,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+04116000,2012-13,2013,2.0,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
 04116400,2008-09,2009,2.8,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
 04116400,2009-10,2010,2.6,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
 04116400,2010-11,2011,2.7,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
@@ -44560,6 +44814,12 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 04131900,2007-08,2008,2.3,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 04131900,2008-09,2009,2.5,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
 04131900,2009-10,2010,2.9,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+04132000,2006-07,2007,2.4,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
+04132000,2007-08,2008,2.3,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
+04132000,2008-09,2009,2.5,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+04132000,2009-10,2010,2.9,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+04132000,2010-11,2011,2.5,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+04132000,2011-12,2012,1.7,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
 04132100,2006-07,2007,2.4,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2006-07.xls
 04132100,2007-08,2008,2.3,,Proprietary,"June 30, 2010",https://studentaid.gov/data-center/school/composite-scores,2007-08.xls
 04132100,2008-09,2009,2.5,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
@@ -45405,6 +45665,7 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 04143200,2020-21,2021,1.9,2020-09-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 04143200,2021-22,2022,1.9,2021-09-30,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 04143200,2022-23,2023,1.3,2022-07-31,Non Profit,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+04143300,2008-09,2009,1.7,2009-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
 04143500,2008-09,2009,1.2,2008-07-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
 04143500,2015-16,2016,1.5,2015-07-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
 04143500,2016-17,2017,1.9,2016-07-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
@@ -46330,6 +46591,18 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 04155200,2020-21,2021,3.0,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 04155200,2021-22,2022,3.0,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 04155200,2022-23,2023,2.6,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+04155300,2008-09,2009,3.0,2008-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
+04155300,2010-11,2011,2.8,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+04155300,2011-12,2012,3.0,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+04155300,2012-13,2013,3.0,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+04155300,2013-14,2014,1.6,2013-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+04155300,2014-15,2015,1.6,2014-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
+04155300,2015-16,2016,2.0,2015-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
+04155300,2016-17,2017,1.5,2016-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
+04155300,2017-18,2018,1.6,2017-12-31,Proprietary,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
+04155300,2018-19,2019,1.8,2018-12-31,Proprietary,"November 19, 2021",https://studentaid.gov/data-center/school/composite-scores,2018-19.xls
+04155300,2019-20,2020,1.6,2019-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2019-20.xls
+04155300,2020-21,2021,2.9,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 04155500,2008-09,2009,3.0,2008-07-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2008-09.xls
 04155500,2009-10,2010,1.8,2009-07-31,Private Non-Profit,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
 04155500,2010-11,2011,2.8,2010-07-31,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
@@ -47151,6 +47424,13 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 04167800,2020-21,2021,3.0,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 04167800,2021-22,2022,3.0,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 04167800,2022-23,2023,1.8,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+04168500,2009-10,2010,2.8,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
+04168500,2010-11,2011,2.2,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+04168500,2011-12,2012,2.2,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+04168500,2012-13,2013,2.0,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+04168500,2013-14,2014,2.0,2013-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+04168500,2014-15,2015,2.1,2014-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
+04168500,2015-16,2016,1.4,2015-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
 04168600,2009-10,2010,3.0,2009-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2009-10.xls
 04168600,2010-11,2011,1.3,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
 04168600,2011-12,2012,2.8,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
@@ -48380,6 +48660,15 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 04185100,2020-21,2021,1.6,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 04185100,2021-22,2022,1.6,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 04185100,2022-23,2023,2.5,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+04185400,2010-11,2011,1.7,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
+04185400,2011-12,2012,1.6,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
+04185400,2012-13,2013,1.5,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
+04185400,2013-14,2014,1.0,2013-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+04185400,2014-15,2015,1.2,2014-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
+04185400,2015-16,2016,1.5,2015-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls
+04185400,2016-17,2017,0.0,2016-09-30,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2016-17.xls
+04185400,2017-18,2018,1.1,2017-09-30,Proprietary,"September 18, 2020",https://studentaid.gov/data-center/school/composite-scores,2017-18.xls
+04185400,2018-19,2019,-1.0,2018-09-30,Proprietary,"November 19, 2021",https://studentaid.gov/data-center/school/composite-scores,2018-19.xls
 04185600,2010-11,2011,3.0,2010-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2010-11.xls
 04185600,2011-12,2012,0.1,2011-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2011-12.xls
 04185600,2012-13,2013,1.8,2012-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2012-13.xls
@@ -50732,6 +51021,8 @@ institution_id,award_year,year,score,fy_end,institution_type,as_of,source_url,so
 04234600,2020-21,2021,2.0,2020-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2020-21.xls
 04234600,2021-22,2022,0.2,2021-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2021-22.xls
 04234600,2022-23,2023,-1.0,2022-12-31,Proprietary,"December 17, 2024",https://studentaid.gov/data-center/school/composite-scores,2022-23.xls
+04234700,2013-14,2014,-1.0,2014-06-30,Non Profit,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
+04234700,2018-19,2019,-0.7,2018-12-31,"Private, Nonprofit","November 19, 2021",https://studentaid.gov/data-center/school/composite-scores,2018-19.xls
 04234900,2013-14,2014,3.0,2013-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2013-14.xls
 04234900,2014-15,2015,1.5,2014-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2014-15.xls
 04234900,2015-16,2016,1.9,2015-12-31,Proprietary,,https://studentaid.gov/data-center/school/composite-scores,2015-16.xls

@@ -2276,11 +2276,11 @@ MAN-0972,closed,1944,,,,A New York City art school run by the Grand Central Art 
 MAN-0973,closed,1967,,,,"A New York City acting school founded 1940, initially housed at The New School; sustained by Saul C. Colin until his death in 1967, when it ended. Non-degree; a",https://en.wikipedia.org/wiki/Dramatic_Workshop
 MAN-0974,closed,1935,,,,"A non-degree art academy, noted as the first art school for African Americans in New York City when it opened there in 1929; closed in 1935.",https://en.wikipedia.org/wiki/Boykin%27s_School_of_Art
 MAN-0975,closed,1998,,,,A New York City actor-training conservatory founded 1974; lost federal student-aid eligibility in 1996 and fully closed in late 1998.,https://en.wikipedia.org/wiki/National_Shakespeare_Conservatory
-MAN-0976,closed,2021,,,,"A for-profit massage-therapy school with Syracuse and Rochester campuses (1997); closed December 10, 2021.",https://en.wikipedia.org/wiki/Onondaga_School_of_Therapeutic_Massage
+04155300,closed,2021,,,,"A for-profit massage-therapy school with Syracuse and Rochester campuses (1997); closed December 10, 2021.",https://en.wikipedia.org/wiki/Onondaga_School_of_Therapeutic_Massage
 MAN-0977,closed,1898,,,,"A Presbyterian women's college in Granville, Ohio; closed in 1898.",https://en.wikipedia.org/wiki/Granville_Female_College
 MAN-0978,closed,1898,,,,"A Christian missionary trade school in Springfield, Massachusetts (founded 1887, twice renamed); discontinued in 1898, its building leased to a high school.",https://en.wikipedia.org/wiki/Springfield_Industrial_Institute
 MAN-0979,consolidated,1978,,,,Merged into Hamilton College.,https://en.wikipedia.org/wiki/Kirkland_College
-MAN-0980,consolidated,2016,,,,Merged into Clarkson University.,https://en.wikipedia.org/wiki/Union_Graduate_College
+03881300,consolidated,2016,,,,Merged into Clarkson University.,https://en.wikipedia.org/wiki/Union_Graduate_College
 MAN-0981,consolidated,1875,,,,Merged into Syracuse University.,https://en.wikipedia.org/wiki/Genesee_College
 MAN-0982,consolidated,1872,,,,Merged into Syracuse University.,https://en.wikipedia.org/wiki/Geneva_Medical_College
 MAN-0983,consolidated,2020,,,,Merged into Russell Sage College.,https://en.wikipedia.org/wiki/Sage_College_of_Albany
@@ -2572,10 +2572,10 @@ MAN-1120,founded,1900,,,,,https://en.wikipedia.org/wiki/Mound_Bayou_Industrial_C
 MAN-1120,closed,1936,,,,,https://en.wikipedia.org/wiki/Mound_Bayou_Industrial_College
 MAN-1121,founded,1884,,,,,https://en.wikipedia.org/wiki/Guadalupe_College
 MAN-1121,closed,1937,,,,,https://en.wikipedia.org/wiki/Guadalupe_College
-MAN-1122,founded,1934,,,,,https://en.wikipedia.org/wiki/Cleveland_Institute_of_Electronics
-MAN-1122,closed,2022,,,,,https://en.wikipedia.org/wiki/Cleveland_Institute_of_Electronics
-MAN-1123,founded,1898,,,,,https://en.wikipedia.org/wiki/Lutheran_School_of_Nursing
-MAN-1123,closed,2022,,,,,https://en.wikipedia.org/wiki/Lutheran_School_of_Nursing
+00521000,founded,1934,,,,,https://en.wikipedia.org/wiki/Cleveland_Institute_of_Electronics
+00521000,closed,2022,,,,,https://en.wikipedia.org/wiki/Cleveland_Institute_of_Electronics
+00666600,founded,1898,,,,,https://en.wikipedia.org/wiki/Lutheran_School_of_Nursing
+00666600,closed,2022,,,,,https://en.wikipedia.org/wiki/Lutheran_School_of_Nursing
 MAN-1124,founded,2017,,,,,https://en.wikipedia.org/wiki/Washington_Technology_University
 MAN-1124,closed,2022,,,,,https://en.wikipedia.org/wiki/Washington_Technology_University
 00335300,founded,1821,,,,,https://en.wikipedia.org/wiki/University_of_the_Sciences
@@ -2598,10 +2598,10 @@ MAN-0693,merged_into,1934,,,,,https://en.wikipedia.org/wiki/
 00177100,founded,1959,,,,,https://en.wikipedia.org/wiki/
 MAN-1127,founded,1983,,,,,https://en.wikipedia.org/wiki/Southwest_University_of_Visual_Arts
 MAN-1127,closed,2020,,,,,https://en.wikipedia.org/wiki/Southwest_University_of_Visual_Arts
-MAN-1128,founded,1995,,,,,https://en.wikipedia.org/wiki/California_International_Business_University
-MAN-1128,closed,2020,,,,,https://en.wikipedia.org/wiki/California_International_Business_University
-MAN-1129,founded,1965,,,,,https://en.wikipedia.org/wiki/Robert_Morris_University_Illinois
-MAN-1129,merged_into,2020,,,,Merged into Roosevelt University,https://en.wikipedia.org/wiki/Robert_Morris_University_Illinois
+04234700,founded,1995,,,,,https://en.wikipedia.org/wiki/California_International_Business_University
+04234700,closed,2020,,,,,https://en.wikipedia.org/wiki/California_International_Business_University
+00174600,founded,1965,,,,,https://en.wikipedia.org/wiki/Robert_Morris_University_Illinois
+00174600,merged_into,2020,,,,Merged into Roosevelt University,https://en.wikipedia.org/wiki/Robert_Morris_University_Illinois
 MAN-1130,founded,2009,,,,,https://en.wikipedia.org/wiki/Lindenwood_University_%E2%80%93_Belleville
 MAN-1130,closed,2020,,,,,https://en.wikipedia.org/wiki/Lindenwood_University_%E2%80%93_Belleville
 MAN-1131,founded,1787,,,,,https://en.wikipedia.org/wiki/Castleton_University
@@ -2612,8 +2612,8 @@ MAN-1133,founded,2004,,,,,https://en.wikipedia.org/wiki/Art_Institute_of_Tampa
 MAN-1133,closed,2023,,,,,https://en.wikipedia.org/wiki/Art_Institute_of_Tampa
 MAN-1134,founded,1972,,,,,https://en.wikipedia.org/wiki/Granite_State_College
 MAN-1134,merged_into,2023,,,,Merged into University of New Hampshire,https://en.wikipedia.org/wiki/Granite_State_College
-MAN-1135,founded,1898,,,,,https://en.wikipedia.org/wiki/New_Hampshire_Institute_of_Art
-MAN-1135,merged_into,2019,,,,Merged into New England College,https://en.wikipedia.org/wiki/New_Hampshire_Institute_of_Art
+03182300,founded,1898,,,,,https://en.wikipedia.org/wiki/New_Hampshire_Institute_of_Art
+03182300,merged_into,2019,,,,Merged into New England College,https://en.wikipedia.org/wiki/New_Hampshire_Institute_of_Art
 00134201,founded,1966,,,,,https://en.wikipedia.org/wiki/
 00304630,founded,1850,,,,,https://en.wikipedia.org/wiki/
 00125212,founded,1945,,,,,https://en.wikipedia.org/wiki/
@@ -2675,14 +2675,14 @@ MAN-1141,closed,2024,,,,,https://en.wikipedia.org/wiki/Fairfax_University_of_Ame
 01092300,closed,2024,,,,,https://en.wikipedia.org/wiki/
 MAN-1142,founded,1989,,,,,https://en.wikipedia.org/wiki/Baptist_Theological_Seminary_at_Richmond
 MAN-1142,closed,2019,,,,,https://en.wikipedia.org/wiki/Baptist_Theological_Seminary_at_Richmond
-MAN-1143,founded,1968,,,,,https://en.wikipedia.org/wiki/Washington_Theological_Union
-MAN-1143,closed,2015,,,,,https://en.wikipedia.org/wiki/Washington_Theological_Union
+01006500,founded,1968,,,,,https://en.wikipedia.org/wiki/Washington_Theological_Union
+01006500,closed,2015,,,,,https://en.wikipedia.org/wiki/Washington_Theological_Union
 MAN-1144,founded,1991,,,,,https://en.wikipedia.org/wiki/University_of_Texas_at_Brownsville
 MAN-1144,merged_into,2015,,,,,https://en.wikipedia.org/wiki/University_of_Texas_at_Brownsville
 MAN-1145,founded,1927,,,,,https://en.wikipedia.org/wiki/University_of_Texas%E2%80%93Pan_American
 MAN-1145,merged_into,2015,,,,,https://en.wikipedia.org/wiki/University_of_Texas%E2%80%93Pan_American
-MAN-1146,founded,1946,,,,,https://en.wikipedia.org/wiki/Tennessee_Temple_University
-MAN-1146,merged_into,2015,,,,,https://en.wikipedia.org/wiki/Tennessee_Temple_University
+00352400,founded,1946,,,,,https://en.wikipedia.org/wiki/Tennessee_Temple_University
+00352400,merged_into,2015,,,,,https://en.wikipedia.org/wiki/Tennessee_Temple_University
 MAN-1147,founded,2009,,,,,https://en.wikipedia.org/wiki/Drexel_University_Sacramento
 MAN-1147,closed,2015,,,,,https://en.wikipedia.org/wiki/Drexel_University_Sacramento
 MAN-1148,founded,1984,,,,,https://en.wikipedia.org/wiki/IADT_Tampa
@@ -2719,8 +2719,8 @@ MAN-1151,founded,1963,,,,,https://en.wikipedia.org/wiki/Darton_State_College
 MAN-1151,merged_into,2016,,,,,https://en.wikipedia.org/wiki/Darton_State_College
 MAN-1152,founded,1992,,,,,https://en.wikipedia.org/wiki/George_Wythe_University
 MAN-1152,closed,2016,,,,,https://en.wikipedia.org/wiki/George_Wythe_University
-MAN-1153,founded,1994,,,,,https://en.wikipedia.org/wiki/Michigan_Jewish_Institute
-MAN-1153,closed,2016,,,,,https://en.wikipedia.org/wiki/Michigan_Jewish_Institute
+03284300,founded,1994,,,,,https://en.wikipedia.org/wiki/Michigan_Jewish_Institute
+03284300,closed,2016,,,,,https://en.wikipedia.org/wiki/Michigan_Jewish_Institute
 MAN-1154,founded,1931,,,,,https://en.wikipedia.org/wiki/St._Catharine_College
 MAN-1154,closed,2016,,,,,https://en.wikipedia.org/wiki/St._Catharine_College
 MAN-1155,founded,1984,,,,,https://en.wikipedia.org/wiki/McNally_Smith_College_of_Music
@@ -2767,8 +2767,8 @@ MAN-0823,founded,1875,,,,,https://en.wikipedia.org/wiki/
 MAN-0823,closed,2017,,,,,https://en.wikipedia.org/wiki/
 MAN-1158,founded,2000,,,,,https://en.wikipedia.org/wiki/Culinard
 MAN-1158,closed,2018,,,,,https://en.wikipedia.org/wiki/Culinard
-MAN-1159,founded,1963,,,,,https://en.wikipedia.org/wiki/Coleman_University
-MAN-1159,closed,2018,,,,,https://en.wikipedia.org/wiki/Coleman_University
+00729600,founded,1963,,,,,https://en.wikipedia.org/wiki/Coleman_University
+00729600,closed,2018,,,,,https://en.wikipedia.org/wiki/Coleman_University
 MAN-1160,founded,1935,,,,,https://en.wikipedia.org/wiki/Georgia_Southern_University%E2%80%93Armstrong_Campus
 MAN-1160,merged_into,2018,,,,,https://en.wikipedia.org/wiki/Georgia_Southern_University%E2%80%93Armstrong_Campus
 MAN-1161,founded,1911,,,,,https://en.wikipedia.org/wiki/Lyndon_State_College
@@ -2777,10 +2777,10 @@ MAN-1162,founded,2005,,,,,https://en.wikipedia.org/wiki/International_Academy_of
 MAN-1162,closed,2018,,,,,https://en.wikipedia.org/wiki/International_Academy_of_Design_and_Technology_San_Antonio
 MAN-1163,founded,1976,,,,,https://en.wikipedia.org/wiki/Institute_for_Advanced_Study_of_Human_Sexuality
 MAN-1163,closed,2018,,,,,https://en.wikipedia.org/wiki/Institute_for_Advanced_Study_of_Human_Sexuality
-MAN-1164,founded,1997,,,,,https://en.wikipedia.org/wiki/Silicon_Valley_University
-MAN-1164,closed,2018,,,,,https://en.wikipedia.org/wiki/Silicon_Valley_University
-MAN-1165,founded,1995,,,,,https://en.wikipedia.org/wiki/Solex_College
-MAN-1165,closed,2018,,,,,https://en.wikipedia.org/wiki/Solex_College
+03810300,founded,1997,,,,,https://en.wikipedia.org/wiki/Silicon_Valley_University
+03810300,closed,2018,,,,,https://en.wikipedia.org/wiki/Silicon_Valley_University
+04168500,founded,1995,,,,,https://en.wikipedia.org/wiki/Solex_College
+04168500,closed,2018,,,,,https://en.wikipedia.org/wiki/Solex_College
 MAN-1166,founded,2000,,,,,https://en.wikipedia.org/wiki/Northwest_Theological_Seminary
 MAN-1166,closed,2018,,,,,https://en.wikipedia.org/wiki/Northwest_Theological_Seminary
 01303918,founded,1973,,,,,https://en.wikipedia.org/wiki/
@@ -2822,8 +2822,8 @@ MAN-1167,closed,2012,,,,,https://en.wikipedia.org/wiki/
 02160306,founded,1978,,,,,https://en.wikipedia.org/wiki/
 MAN-1168,founded,1998,,,,,https://en.wikipedia.org/wiki/
 MAN-1168,closed,2014,,,,,https://en.wikipedia.org/wiki/
-MAN-1169,founded,1969,,,,,https://en.wikipedia.org/wiki/
-MAN-1169,closed,2014,,,,,https://en.wikipedia.org/wiki/
+03455500,founded,1969,,,,,https://en.wikipedia.org/wiki/
+03455500,closed,2014,,,,,https://en.wikipedia.org/wiki/
 MAN-1170,founded,1988,,,,,https://en.wikipedia.org/wiki/
 MAN-1170,closed,2014,,,,,https://en.wikipedia.org/wiki/
 MAN-1171,founded,1981,,,,,https://en.wikipedia.org/wiki/
@@ -2920,8 +2920,8 @@ MAN-1204,founded,1984,,,,,https://en.wikipedia.org/wiki/
 MAN-1204,closed,2009,,,,,https://en.wikipedia.org/wiki/
 MAN-1205,founded,1980,,,,,https://en.wikipedia.org/wiki/
 MAN-1205,closed,2010,,,,,https://en.wikipedia.org/wiki/
-MAN-1206,founded,1981,,,,,https://en.wikipedia.org/wiki/
-MAN-1206,merged_into,2010,,,,,https://en.wikipedia.org/wiki/
+03127700,founded,1981,,,,,https://en.wikipedia.org/wiki/
+03127700,merged_into,2010,,,,,https://en.wikipedia.org/wiki/
 MAN-1207,founded,2005,,,,,https://en.wikipedia.org/wiki/
 MAN-1207,closed,2011,,,,,https://en.wikipedia.org/wiki/
 MAN-1208,founded,1962,,,,,https://en.wikipedia.org/wiki/
@@ -3428,8 +3428,8 @@ MAN-1397,founded,1901,,,,,https://en.wikipedia.org/wiki/
 MAN-1397,merged_into,1932,,,,,https://en.wikipedia.org/wiki/
 MAN-1398,founded,1857,,,,,https://en.wikipedia.org/wiki/
 MAN-1398,closed,1981,,,,,https://en.wikipedia.org/wiki/
-MAN-1399,founded,2008,,,,,https://en.wikipedia.org/wiki/
-MAN-1399,closed,2016,,,,,https://en.wikipedia.org/wiki/
+04143300,founded,2008,,,,,https://en.wikipedia.org/wiki/
+04143300,closed,2016,,,,,https://en.wikipedia.org/wiki/
 MAN-1400,founded,1848,,,,,https://en.wikipedia.org/wiki/
 MAN-1400,closed,1874,,,,,https://en.wikipedia.org/wiki/
 MAN-1401,founded,1850,,,,,https://en.wikipedia.org/wiki/
