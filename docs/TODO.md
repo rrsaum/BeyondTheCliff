@@ -41,6 +41,16 @@ with `scripts/verify.sh` before marking anything done.
 - **Possible dedup false-positives.** The tiered name matcher can over-match on a single shared
   token (for example historical "Birmingham College" against modern "Birmingham-Southern"), which
   can slightly understate genuinely-missing historical colleges. Spot-check when adding sources.
+- **Backfill sourced closure years into nine blank-year rows (from the 2026-07-22 autopsy pass).**
+  These already-tracked rows have a blank `status_year` that the Wikipedia read now sources; edit
+  each via `/admin/edit?id=...` after re-confirming the source: `MAN-0545` Alabama Presbyterian
+  (1923), `MAN-0657` Leander Clark (1919), `MAN-0655` Humboldt (1916), `MAN-0809` Scio (1911),
+  `MAN-0795` Red River Valley (1905), `MAN-0835` Penn College of Dental Surgery (1909), `MAN-0904`
+  Blair Business College (1933), `MAN-0851` American Temperance University (1908), `MAN-0804`
+  Nelson Business College (1930).
+- **Reconcile one closure-year discrepancy.** `MAN-1463` Lake Charles College records 1902, but
+  its Wikipedia article says the school closed in 1899. One source is wrong; the existing row's
+  provenance is unknown, so it was not overwritten. Check a primary source before editing.
 
 ## Coverage (which institutions failed)
 

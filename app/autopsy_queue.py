@@ -16,6 +16,7 @@ from __future__ import annotations
 import csv
 import datetime
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 QUEUE = Path(__file__).resolve().parent.parent / "data" / "autopsy_queue.csv"
 FIELDS = ["added", "school", "urls", "status", "notes"]
@@ -36,9 +37,19 @@ def _write(rows: list[dict]) -> None:
         writer.writerows({k: r.get(k, "") for k in FIELDS} for r in rows)
 
 
+def _name_from_url(url: str) -> str:
+    """Derive a school name from a URL's last path segment, so a bare link queues cleanly. A
+    Wikipedia article path is the title: '/wiki/William_%26_Vashti_College' -> 'William & Vashti
+    College'. Returns '' when there is no usable segment (the caller then drops the line)."""
+    seg = urlsplit(url).path.rstrip("/").rsplit("/", 1)[-1]
+    return unquote(seg).replace("_", " ").strip()
+
+
 def parse_bulk(text: str) -> list[tuple[str, str]]:
     """Each non-empty line is one school. Everything before the first http(s) URL is the school
-    name; from there on, whitespace-separated URLs. A line with no URL is queued name-only."""
+    name; from there on, whitespace-separated URLs. When a line is a bare URL (no name before it),
+    the name is derived from the first URL's last path segment. A line with no URL is queued
+    name-only."""
     out = []
     for line in text.splitlines():
         line = line.strip()
@@ -48,6 +59,8 @@ def parse_bulk(text: str) -> list[tuple[str, str]]:
         if i >= 0:
             school = line[:i].strip(" -|,\t")
             urls = " ".join(line[i:].split())
+            if not school and urls:
+                school = _name_from_url(urls.split()[0])
         else:
             school, urls = line.strip(" -|,\t"), ""
         if school:

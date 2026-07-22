@@ -279,6 +279,12 @@ appends the rows to the CSVs and rebuilds the database in-process.
   and already-tracked rows are reported but not written.
 - Dedup keys (OPEID, and name + state) make re-running a batch a no-op. The git diff of the
   CSVs is the audit trail, exactly as with a hand edit.
+- The form reads **College Evaluator URLs only** (`collegeevaluator.com/...`): a non-CE link
+  (a Wikipedia page, or a comma-split fragment) is flagged and never fetched or parsed, since the
+  parser only understands the two CE page shapes. The append is keyed off the CSV's live header,
+  not a fixed field list (other tools widen these files with `parent_survives` / `motto` /
+  `logo_url`), and writes through a temp file then renames, so it preserves every existing column
+  and can never truncate the source on error.
 
 The same page also has a **news / announced closure form** (`app/news_ingest.py`) for closures
 federal data has not captured: an announced (upcoming) closure, or a program closure. A news
@@ -314,6 +320,17 @@ field in the browser, most often to reclassify an `announced` closure to `closed
 passes, or to code a cause. The row is located by id in whichever source CSV holds it, the edit
 is validated against the schema enums, the file is rewritten, and the DB rebuilt. The git diff is
 the audit trail.
+
+**Closure-autopsy queue** (`app/autopsy_queue.py`, `/admin/autopsy`, `data/autopsy_queue.csv`):
+a browser-managed worklist of closed schools to profile, mostly historical colleges with a
+Wikipedia article. Paste one school per line; a bare URL derives its name from the last path
+segment (`/wiki/William_%26_Vashti_College` becomes "William & Vashti College"), or prefix a line
+with `Name https://url` to set the name explicitly. Duplicate names are skipped with feedback. The
+queue only **collects** pointers: the profiling itself (reading each source, verifying every fact)
+is done by hand into `data/manual_closures.csv` as `MAN-####` rows, deduped by name + state, so no
+founding year, closure year, or cause is ever machine-guessed out of prose. `autopsy_queue.csv` is
+git-ignored (a local worklist); the resulting closure rows in `manual_closures.csv` are the
+committed, sourced output. Wikipedia is cited as the source and attributed CC BY-SA.
 
 **Cause of failure** (`cause`, enum-checked, nullable): the tracker is a post-mortem, so each
 closure carries a primary sourced cause from a fixed taxonomy: financial, enrollment,

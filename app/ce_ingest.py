@@ -477,9 +477,18 @@ def build_batch(urls: list[str]) -> Batch:
         url = url.strip()
         if not url:
             continue
+        if not re.match(r"https?://(www\.)?collegeevaluator\.com/", url, re.I):
+            proposals.append(Proposal(url=url, institution=slug_for(url),
+                                      error="not a College Evaluator URL (expected "
+                                      "https://www.collegeevaluator.com/institute/...); nothing parsed. "
+                                      "This form reads College Evaluator closure pages only, not "
+                                      "Wikipedia or other sites, and a stray comma can split one line "
+                                      "into two.").finalize())
+            continue
         try:
             page = parse_page(url, fetch_html(url))
-        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError) as exc:
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError,
+                ValueError) as exc:
             proposals.append(Proposal(url=url, institution=slug_for(url),
                                       error=f"could not fetch: {exc}").finalize())
             continue
@@ -493,14 +502,37 @@ def build_batch(urls: list[str]) -> Batch:
 
 # ---- commit ------------------------------------------------------------------------------
 
+def _existing_header(path: Path) -> list[str]:
+    """The column names already on disk, or [] for a missing/empty file. Other tools widen these
+    CSVs after ingest (enrich_ipeds adds parent_survives; the autopsy pass adds motto/logo_url), so
+    the live header, not this module's field list, is the source of truth for what to write."""
+    if not path.exists():
+        return []
+    with path.open(encoding="utf-8-sig", newline="") as fh:
+        return next(csv.reader(fh), [])
+
+
 def _append(path: Path, fields: list[str], rows: list[dict]) -> None:
+    """Append rows, preserving every column the file already carries. Keyed off the on-disk header
+    (widened with any field the new rows introduce), never a fixed list, so an enrichment column is
+    never dropped and an unknown column never raises. Writes to a temp file then renames, so a
+    failure can never truncate the source CSV (a fixed-list DictWriter once wiped 1860 rows)."""
     if not rows:
         return
     existing = _read(path)
-    with path.open("w", encoding="utf-8", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=fields)
+    header = _existing_header(path) or list(fields)
+    seen = set(header)
+    for source in (fields, *(r.keys() for r in rows)):
+        for key in source:
+            if key not in seen:
+                header.append(key)
+                seen.add(key)
+    tmp = path.with_name(path.name + ".tmp")
+    with tmp.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=header)
         w.writeheader()
-        w.writerows(existing + [{k: r.get(k, "") for k in fields} for r in rows])
+        w.writerows({k: r.get(k, "") for k in header} for r in (existing + list(rows)))
+    tmp.replace(path)
 
 
 def commit(urls: list[str]) -> tuple[Batch, dict]:

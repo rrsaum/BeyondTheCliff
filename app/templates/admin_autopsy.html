@@ -6,7 +6,8 @@
   <p class="breadcrumb"><a href="/admin">Ingest closures</a></p>
 
   {% if error %}<p class="admin-error">{{ error }}</p>{% endif %}
-  {% if added %}<p class="admin-added"><strong>Queued {{ added|length }}:</strong> {{ added|join(', ') }}.{% if skipped %} Already in the queue, skipped: {{ skipped|join(', ') }}.{% endif %}</p>{% endif %}
+  {% if added %}<p class="admin-added"><strong>Queued {{ added|length }}:</strong> {{ added|join(', ') }}.{% if skipped %} Already in the queue, skipped: {{ skipped|join(', ') }}.{% endif %}</p>
+  {% elif skipped %}<p class="admin-added"><strong>Nothing new to queue.</strong> All {{ skipped|length }} already in the queue: {{ skipped|join(', ') }}.</p>{% endif %}
 
   <p class="lead">A worklist of closed schools to profile. Paste one school per line: the name
   followed by its Wikipedia URL and any other source URLs (news, an archived college site, a
