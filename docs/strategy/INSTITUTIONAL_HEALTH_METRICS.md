@@ -34,6 +34,34 @@ ports directly:
   (thin reserves AND shrinking enrollment AND a discount that no longer grows net revenue) is the
   signal. Test combinations, report single-metric claims as weak until proven.
 
+## Coverage boundary: this is a modern-era model (binding, verified 2026-07-22)
+
+Every predictive result in this document (the validation, the era-forward split, the survival model,
+the interaction search) is bounded by where the federal predictor variables exist, and that boundary
+must be stated wherever a result is cited. Verified against the database:
+
+- The closure RECORD spans the century: 3,921 closures, closure years 1746 to 2027, of which about
+  749 closed before 2004 (78 before 1900, 156 in 1900 to 1949, 177 in 1950 to 1979, 290 in 1980 to
+  1999, 48 in 2000 to 2003).
+- The model FEATURES come from College Scorecard, which does not reach back that far. First
+  populated year: enrollment (ugds) 1997, net tuition (tuitfte) 1999, admit rate 2002, and Pell
+  share (pct_pell) only 2009. Composite scores begin 2006-07.
+- Consequence: of the 2,063 closures that can enter the panel (three or more Scorecard years), ZERO
+  closed before 2004. The hand-curated `enrollment` table reaches to 1882, but only one of the 749
+  pre-2004 closures has three or more years in it, so an enrollment-only signal cannot rescue the
+  historical era either.
+
+So the predictive model is a **modern federal-data-era closure model** (closure outcomes 2004 and
+after, features 2009 and after for the full workhorse). It is not, and cannot honestly be, a
+hundred-year predictive model: a college that closed in 1935 has no federal Pell share, net tuition,
+admit rate, or composite score to compute a feature from. This is a limit of the public record, not
+a scope choice, and no metric is ever fabricated to fill it.
+
+What the full 1746 to 2027 record CAN support is a **descriptive** analysis (closures per decade,
+recorded cause by era, lifespans where a founding year is known), reported separately below and
+never mixed with the predictive AUCs, because it rests on different data (name, closure year, and a
+recorded cause for 366 of the 749 pre-2004 closures) and answers a different question.
+
 ## Existing research and frameworks (verified this session)
 
 1. **Composite Financial Index (CFI)** and its four core ratios (Primary Reserve, Net Operating
