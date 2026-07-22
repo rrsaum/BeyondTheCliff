@@ -104,9 +104,14 @@ and writes nothing without `--commit` (repo convention); source every added fiel
    - Scorecard **retention and graduation** (Zemsky's third variable). Confirmed missing:
      `data/scorecard.csv` carries `institution_id,year,ugds,adm_rate,pct_pell,tuitfte,
      tuitionfee_in,costt4_a,pptug_ef,ugds_white,ugds_black,ugds_hisp,first_gen,curroper` and no
-     retention or graduation column. Extend `scripts/import_scorecard.py`'s extraction (the raw
-     Scorecard fields are the retention and completion-rate columns), then widen the `scorecard`
-     schema in `scripts/build_db.py` and the panel readers to carry them.
+     retention or graduation column. The raw Scorecard fields are on disk and confirmed present:
+     retention is `RET_FT4/RET_FTL4/RET_PT4/RET_PTL4`, completion is `C150_4/C150_L4/C100_4`, in
+     `uploads/data/College_Scorecard_Raw_Data_06032026/MERGED*_PP.csv`. Extend
+     `scripts/import_scorecard.py`'s extraction, add the columns to the `scorecard` table in
+     `scripts/schema.sql` (build_db.py loads that file, it is no longer inline DDL), and widen the
+     panel readers to carry them. Note: `scripts/resilience.py` is now wired into `build_db.py`
+     (`resilience.write_scores()` populates a `resilience_score` table on every build), so a schema
+     or field change must keep that build step working.
    - IPEDS Finance **net position** (unlocks the CFI ratios and capital efficiency for public
      schools, which `finance_year` cannot compute today). Confirmed missing per the authority doc.
      Extend `scripts/import_ipeds_finance.py`.
