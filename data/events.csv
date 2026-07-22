@@ -2267,7 +2267,7 @@ MAN-0963,closed,1987,,,,A Roman Catholic seminary college founded in Brooklyn in
 MAN-0964,closed,1977,,,,"A public hospital-based nursing diploma school founded Jan 3, 1923, the first nursing school for African-American women in New York City; closed in 1977 partly ",https://en.wikipedia.org/wiki/Harlem_Hospital_School_of_Nursing
 MAN-0965,closed,1961,,,,"A hospital-based diploma nursing school in the Bronx (1898), the first nursing school for African-American women in New York City; closed September 5, 1961 afte",https://en.wikipedia.org/wiki/Lincoln_School_for_Nurses
 MAN-0966,closed,1875,,,,A 19th-century New York City medical/hydropathy school (1853) that conferred the M.D. degree; closed in 1875 when it was offered for sale.,https://en.wikipedia.org/wiki/New_York_Hydropathic_and_Physiological_School
-MAN-0967,closed,2023,,,,A private non-denominational Christian liberal-arts college in New York City (founded 1938; not the colonial Columbia predecessor); did not open for fall 2023 a,https://en.wikipedia.org/wiki/King%27s_College_(New_York_City)
+04095300,closed,2023,,,,A private non-denominational Christian liberal-arts college in New York City (founded 1938; not the colonial Columbia predecessor); did not open for fall 2023 a,https://en.wikipedia.org/wiki/King%27s_College_(New_York_City)
 MAN-0968,closed,1954,,,,"A New York City for-profit business college founded 1858; closed by 1954, after which its building was bought by Stern College for Women.",https://en.wikipedia.org/wiki/Packard_Business_College
 MAN-0969,closed,2017,,,,"A New York City for-profit two-year college founded 1909 as the Marconi Institute; closed September 1, 2017 citing economic factors.",https://en.wikipedia.org/wiki/TCI_College_of_Technology
 MAN-0970,closed,2017,,,,"A New York City for-profit career college descending from the 1937 Tobe-Coburn School (merged with the Wood School in 1992, renamed 1993); closed in 2017.",https://en.wikipedia.org/wiki/Wood_Tob%C3%A9%E2%80%93Coburn_School
@@ -2454,8 +2454,8 @@ MAN-1065,founded,1962,,,,,https://en.wikipedia.org/wiki/Englewood_Cliffs_College
 MAN-1065,closed,1974,,,,,https://en.wikipedia.org/wiki/Englewood_Cliffs_College
 MAN-1066,founded,1964,,,,,https://en.wikipedia.org/wiki/Thomas_More_College_(New_York_City)
 MAN-1066,merged_into,1974,,,,Merged into Fordham University,https://en.wikipedia.org/wiki/Thomas_More_College_(New_York_City)
-MAN-1067,founded,1932,,,,,https://en.wikipedia.org/wiki/Marymount_California_University
-MAN-1067,closed,2022,,,,,https://en.wikipedia.org/wiki/Marymount_California_University
+01047400,founded,1932,,,,,https://en.wikipedia.org/wiki/Marymount_California_University
+01047400,closed,2022,,,,,https://en.wikipedia.org/wiki/Marymount_California_University
 MAN-1068,founded,1851,,,,,https://en.wikipedia.org/wiki/Mary_Sharp_College
 MAN-1068,closed,1896,,,,,https://en.wikipedia.org/wiki/Mary_Sharp_College
 MAN-1069,founded,1859,,,,,https://en.wikipedia.org/wiki/Due_West_Female_College
@@ -2578,8 +2578,8 @@ MAN-1123,founded,1898,,,,,https://en.wikipedia.org/wiki/Lutheran_School_of_Nursi
 MAN-1123,closed,2022,,,,,https://en.wikipedia.org/wiki/Lutheran_School_of_Nursing
 MAN-1124,founded,2017,,,,,https://en.wikipedia.org/wiki/Washington_Technology_University
 MAN-1124,closed,2022,,,,,https://en.wikipedia.org/wiki/Washington_Technology_University
-MAN-1125,founded,1821,,,,,https://en.wikipedia.org/wiki/University_of_the_Sciences
-MAN-1125,merged_into,2022,,,,Merged into Saint Joseph's University,https://en.wikipedia.org/wiki/University_of_the_Sciences
+00335300,founded,1821,,,,,https://en.wikipedia.org/wiki/University_of_the_Sciences
+00335300,merged_into,2022,,,,Merged into Saint Joseph's University,https://en.wikipedia.org/wiki/University_of_the_Sciences
 MAN-1126,founded,1885,,,,,https://en.wikipedia.org/wiki/SS._Cyril_and_Methodius_Seminary
 MAN-1126,closed,2022,,,,,https://en.wikipedia.org/wiki/SS._Cyril_and_Methodius_Seminary
 00754900,founded,1899,,,,,https://en.wikipedia.org/wiki/
@@ -3444,7 +3444,7 @@ MAN-1405,founded,1855,,,,,https://en.wikipedia.org/wiki/
 MAN-1405,closed,1898,,,,,https://en.wikipedia.org/wiki/
 MAN-1406,founded,1857,,,,,https://en.wikipedia.org/wiki/
 MAN-1406,merged_into,1919,,,,,https://en.wikipedia.org/wiki/
-MAN-0407,founded,1865,,,,,https://en.wikipedia.org/wiki/
+00170900,founded,1865,,,,,https://en.wikipedia.org/wiki/
 MAN-1407,founded,1851,,,,,https://en.wikipedia.org/wiki/
 MAN-1407,closed,1853,,,,,https://en.wikipedia.org/wiki/
 MAN-1408,founded,1818,,,,,https://en.wikipedia.org/wiki/
