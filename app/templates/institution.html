@@ -313,6 +313,80 @@
   </section>
   {% endif %}
 
+  {% if ipeds_finance %}
+  {% set lb = ipeds_finance.leaderboard %}
+  {% set lat = ipeds_finance.latest %}
+  {% set fst = ipeds_finance.first %}
+  <section class="financials">
+    <h2>The financial record</h2>
+    <p class="chart-sub">
+      {{ inst.name | title }} is a public institution and does not file a Form 990, so its
+      financial record comes from the IPEDS Finance survey (GASB): the same revenue-against-spending
+      picture, {{ ipeds_finance.year_range }}.
+    </p>
+    <dl class="fin-metrics">
+      <div class="fin-metric">
+        <dt>Tuition and fees, FY{{ lat.fiscal_year }}</dt>
+        <dd>${{ '{:,.1f}'.format(lb.tuition / 1000000000) }}B
+          {% if lb.tuition_growth is not none %}<span class="fin-sub">{{ '%+d' | format((lb.tuition_growth * 100) | round | int) }}% since FY{{ fst.fiscal_year }}</span>{% endif %}
+        </dd>
+      </div>
+      <div class="fin-metric">
+        <dt>State + local, FY{{ lat.fiscal_year }}</dt>
+        <dd>${{ '{:,.0f}'.format(lb.state_local / 1000000) }}M
+          {% if lb.state_growth is not none %}<span class="fin-sub">{{ '%+d' | format((lb.state_growth * 100) | round | int) }}% since FY{{ fst.fiscal_year }}</span>{% endif %}
+        </dd>
+      </div>
+      {% if lb.tuition_per_state is not none %}
+      <div class="fin-metric">
+        <dt>Tuition per $1 of state</dt>
+        <dd>{{ '{:.1f}'.format(lb.tuition_per_state) }}x
+          {% if lb.tuition_per_state_first is not none %}<span class="fin-sub">was {{ '{:.1f}'.format(lb.tuition_per_state_first) }}x in FY{{ fst.fiscal_year }}</span>{% endif %}
+        </dd>
+      </div>
+      {% endif %}
+    </dl>
+
+    {{ ipeds_chart | safe }}
+
+    {% if ipeds_finance.gap_years %}
+    <p class="chart-note">
+      No IPEDS Finance data for
+      {% for y in ipeds_finance.gap_years %}FY{{ y }}{{ ', ' if not loop.last }}{% endfor %}.
+      The chart breaks rather than joining across the gap.
+    </p>
+    {% endif %}
+
+    {# Second channel for the palette (see app.css): every band, every year, as a number. #}
+    <table class="mini fin-table">
+      <thead><tr>
+        <th>Fiscal year</th><th>Tuition</th><th>State + local</th><th>Federal</th><th>Private gifts</th>
+        <th>Other</th><th>Total revenue</th><th>Expenses</th><th>Result</th>
+      </tr></thead>
+      <tbody>
+        {% for r in ipeds_finance.series %}
+        {% macro mb(v) %}{% if v is not none %}${{ '{:,.1f}'.format(v / 1000000) }}M{% endif %}{% endmacro %}
+        {% set res = (r.total_revenue or 0) - (r.total_expenses or 0) %}
+        <tr>
+          <td>FY{{ r.fiscal_year }}</td>
+          <td>{{ mb(r.tuition) }}</td>
+          <td>{{ mb(r.state_local) }}</td>
+          <td>{{ mb(r.federal) }}</td>
+          <td>{{ mb(r.private) }}</td>
+          <td>{{ mb(r.other) }}</td>
+          <td>{{ mb(r.total_revenue) }}</td>
+          <td>{{ mb(r.total_expenses) }}</td>
+          <td class="{{ 'fin-neg' if res < 0 }}">{% if r.total_expenses is not none %}{{ '-' if res < 0 }}${{ '{:,.1f}'.format((res if res >= 0 else -res) / 1000000) }}M{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="chart-note">
+      Source: {{ ipeds_finance.source }} (IPEDS Finance){% if ipeds_finance.source_url %}, <a class="src" href="{{ ipeds_finance.source_url }}" rel="nofollow noopener">table</a>{% endif %}. Figures as reported. "Other operating revenue" is the residual to total revenue and varies by institution.
+    </p>
+  </section>
+  {% endif %}
+
   {% if hcm %}
   <section>
     <h2>Heightened Cash Monitoring history</h2>

@@ -573,6 +573,73 @@ def financial_series(inst_id: str) -> dict | None:
     }
 
 
+def ipeds_finance_series(inst_id: str) -> dict | None:
+    """A public institution's IPEDS Finance record (finance_year): the GASB counterpart to the
+    Form 990. Public universities do not file a 990, so this is their revenue-by-source history.
+
+    Bands: tuition, state and local appropriations, federal, private gifts, and 'other', where
+    'other' is the residual to total revenue. finance_year stores only the named categories, so
+    the residual is not itemized: it varies by institution (auxiliaries, a hospital or health
+    system, sales and services, IP and patent licensing, publishing, investment return) and is
+    labelled as a residual, never a specific source. Investment return sits inside it and can run
+    negative for an endowment-rich school; itemizing these is a later import expansion.
+    """
+    conn = connect()
+    rows = conn.execute(
+        "SELECT fiscal_year, total_revenue, tuition_revenue, state_local_revenue, "
+        "federal_revenue, private_gifts_grants, total_expenses, source, source_url "
+        "FROM finance_year WHERE institution_id = ? AND total_revenue IS NOT NULL "
+        "ORDER BY fiscal_year",
+        (inst_id,),
+    ).fetchall()
+    conn.close()
+    if len(rows) < 2:
+        return None
+    series = []
+    for r in rows:
+        tui = r["tuition_revenue"] or 0
+        st = r["state_local_revenue"] or 0
+        fed = r["federal_revenue"] or 0
+        priv = r["private_gifts_grants"] or 0
+        tot = r["total_revenue"] or 0
+        series.append(
+            {
+                "fiscal_year": r["fiscal_year"],
+                "tuition": tui,
+                "state_local": st,
+                "federal": fed,
+                "private": priv,
+                "other": tot - tui - st - fed - priv,
+                "total_revenue": tot,
+                "total_expenses": r["total_expenses"],
+            }
+        )
+    first, last = series[0], series[-1]
+    fyears = [r["fiscal_year"] for r in series]
+    gaps = [y for y in range(fyears[0], fyears[-1] + 1) if y not in fyears]
+    return {
+        "series": series,
+        "first": first,
+        "latest": last,
+        "gap_years": gaps,
+        "leaderboard": {
+            "tuition": last["tuition"],
+            "tuition_growth": None
+            if not first["tuition"]
+            else last["tuition"] / first["tuition"] - 1,
+            "state_local": last["state_local"],
+            "state_growth": (
+                None if not first["state_local"] else last["state_local"] / first["state_local"] - 1
+            ),
+            "tuition_per_state": _ratio(last["tuition"], last["state_local"]),
+            "tuition_per_state_first": _ratio(first["tuition"], first["state_local"]),
+        },
+        "source": rows[0]["source"],
+        "source_url": rows[0]["source_url"],
+        "year_range": f"FY{first['fiscal_year']} to FY{last['fiscal_year']}",
+    }
+
+
 def national_series(series: str) -> list[tuple]:
     """The long-run national line for 'institutions' or 'enrollment', 1869 to latest (NCES)."""
     conn = connect()

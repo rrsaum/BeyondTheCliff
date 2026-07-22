@@ -77,6 +77,10 @@ h2 { font-size: 1.15rem; margin: 1.6rem 0 .6rem; }
 .sw-auxother, .area-auxother { background: #79aabb; fill: #79aabb; }
 .sw-private, .area-private   { background: #2f6f4f; fill: #2f6f4f; }
 .sw-govt, .area-govt         { background: #c06a12; fill: #c06a12; }
+/* IPEDS public-finance chart only: the "Other operating revenue" residual band, deliberately
+   receded to a light neutral so the education sources read in full colour above it. Not a
+   categorical hue, so it does not need to clear the categorical-palette separation checks. */
+.sw-other, .area-other       { background: #d4d7db; fill: #d4d7db; }
 .sw-expense                  { background: var(--closed); }
 .sw-line { height: .2rem; }
 /* Green against amber is deltaE 7.4 for protanopia, which the rule allows ONLY with a second

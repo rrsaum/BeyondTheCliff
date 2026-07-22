@@ -193,6 +193,7 @@ def stacked_money(
     subtitle: str = "",
     note: str = "",
     ymax: float | None = None,
+    gutter: bool = True,
 ) -> str:
     """Revenue by source (stacked bands) against a spending line, over fiscal years.
 
@@ -216,7 +217,11 @@ def stacked_money(
             '<p class="muted">Not enough filings to chart.</p></figure>'
         )
     w, h = 980, 360
-    padl, padr, padt, padb = 64, 208, 24, 66
+    # The right gutter holds the direct band labels; with a legend instead (gutter=False) the
+    # plot reclaims that width. Used by the IPEDS public-finance chart, whose five bands crowd
+    # the gutter, so it labels through the legend and the row table instead.
+    padl, padt, padb = 64, 24, 66
+    padr = 208 if gutter else 40
     top_total = {y: sum((b[2].get(y) or 0) for b in bands) for y in years}
     hi = ymax or max(list(top_total.values()) + [line[2].get(y) or 0 for y in years]) * 1.08
 
@@ -236,13 +241,18 @@ def stacked_money(
             run = [b]
     runs.append(run)
 
+    # Adaptive axis unit: billions past $1B (public flagships run to $7B+), millions below, so the
+    # same chart reads for a $70M college and a $7.7B university.
+    def fm(v: float) -> str:
+        return f"${v / 1e9:.1f}B" if abs(v) >= 1e9 else f"${v / 1e6:.0f}M"
+
     out = []
     for k in range(5):
         gv = hi * k / 4
         out.append(
             f'<line x1="{padl}" y1="{sy(gv):.1f}" x2="{w - padr}" y2="{sy(gv):.1f}" class="cl-grid"/>'
             f'<text x="{padl - 8}" y="{sy(gv) + 3.5:.1f}" class="cl-ylab" text-anchor="end">'
-            f"${gv / 1e6:.0f}M</text>"
+            f"{fm(gv)}</text>"
         )
     base = {y: 0.0 for y in years}
     for css, _lab, vals in bands:
@@ -276,30 +286,31 @@ def stacked_money(
             f'class="fin-dot fin-{lcss}"/>'
         )
 
-    ly = years[-1]
-    total = top_total[ly] or 1
-    items = [(sy(lvals.get(ly) or 0), (lcss, llab, lvals.get(ly) or 0, None))]
-    prev = 0.0
-    for css, lab, vals in bands:
-        v = vals.get(ly) or 0
-        items.append((sy(prev + v / 2), (css, lab, v, v / total)))
-        prev += v
-    for (ypos, (css, lab, val, share)), (anchor, _) in zip(
-        _declutter(items, 26.0, h - padb), sorted(items, key=lambda t: t[0])
-    ):
-        if abs(ypos - anchor) > 4:
-            # A label pushed off its band points at the wrong band without a leader.
-            out.append(
-                f'<path d="M {w - padr + 1} {anchor:.1f} H {w - padr + 5} V {ypos - 3.5:.1f} '
-                f'H {w - padr + 8}" class="leader leader-{css}"/>'
+    if gutter:
+        ly = years[-1]
+        total = top_total[ly] or 1
+        items = [(sy(lvals.get(ly) or 0), (lcss, llab, lvals.get(ly) or 0, None))]
+        prev = 0.0
+        for css, lab, vals in bands:
+            v = vals.get(ly) or 0
+            items.append((sy(prev + v / 2), (css, lab, v, v / total)))
+            prev += v
+        for (ypos, (css, lab, val, share)), (anchor, _) in zip(
+            _declutter(items, 26.0, h - padb), sorted(items, key=lambda t: t[0])
+        ):
+            if abs(ypos - anchor) > 4:
+                # A label pushed off its band points at the wrong band without a leader.
+                out.append(
+                    f'<path d="M {w - padr + 1} {anchor:.1f} H {w - padr + 5} V {ypos - 3.5:.1f} '
+                    f'H {w - padr + 8}" class="leader leader-{css}"/>'
+                )
+            sub = f"${val / 1e6:.1f}M" + (
+                f" · {share * 100:.0f}% of revenue" if share is not None else ""
             )
-        sub = f"${val / 1e6:.1f}M" + (
-            f" · {share * 100:.0f}% of revenue" if share is not None else ""
-        )
-        out.append(
-            f'<text x="{w - padr + 10}" y="{ypos:.1f}" class="gut gut-{css}">{escape(lab)}</text>'
-            f'<text x="{w - padr + 10}" y="{ypos + 12:.1f}" class="gutsub">{escape(sub)}</text>'
-        )
+            out.append(
+                f'<text x="{w - padr + 10}" y="{ypos:.1f}" class="gut gut-{css}">{escape(lab)}</text>'
+                f'<text x="{w - padr + 10}" y="{ypos + 12:.1f}" class="gutsub">{escape(sub)}</text>'
+            )
 
     sty = h - padb + 30
     out.append(

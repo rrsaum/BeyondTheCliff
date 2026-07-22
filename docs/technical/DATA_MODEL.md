@@ -189,6 +189,27 @@ Both were confirmed against Montreat's FY2025 Single Audit, and both will recur 
   ($26,749,295) matches the 990's TUITION AND FEES ($26,285,908) within $463k, and the rates agree
   at 53.2% computed against 53.6% audited. Verified on one school in one year.
 
+### Public institutions: the IPEDS Finance record (`finance_year`)
+
+Public universities do not file a Form 990 (they are governmental instrumentalities), so their
+financial record comes from the IPEDS Finance survey (GASB), loaded by
+`scripts/import_ipeds_finance.py` into `finance_year` (dollars, ~1,830 public schools, 2003 to
+2023). `queries.ipeds_finance_series()` builds the same revenue-against-spending view a 990 gets:
+bands are tuition, state and local appropriations, federal, private gifts, and `other` (the
+residual to total revenue). The institution page shows it (via `charts.stacked_money(..., gutter=
+False)`, education sources in full colour with `other` a receded neutral) only when a school has
+NO 990, so private nonprofits keep their 990 record and publics get this one.
+
+Two limits to know. First, **`other` is a single residual**: `finance_year` stores only the named
+categories, so `other` lumps auxiliaries, any hospital or health system, sales and services, IP or
+patent licensing, publishing, independent operations, and investment return. It varies enormously
+by school (Penn State's is mostly its health system; Stanford's FY2021 was $13.5B of endowment
+gains) and is labelled a residual, never a specific source. Itemizing it means importing the extra
+IPEDS revenue columns, a schema and importer expansion not yet done. Second, **investment return
+sits inside `other` and can run negative** for an endowment-rich school (MIT FY2022 was about
+-$1.6B), which a stacked area cannot draw cleanly; the current gate to public institutions avoids
+the worst of it, but breaking investment out as its own signed band is part of the same expansion.
+
 ## Maintenance playbook
 
 - **Correct a fact:** edit the cell in the relevant `data/*.csv`, run `build_db.py`. The

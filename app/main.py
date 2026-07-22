@@ -506,6 +506,46 @@ def institution(request: Request, inst_id: str):
                 ),
             )
         )
+    # Public institutions do not file a 990, so with no 990 record, fall back to the IPEDS Finance
+    # record (GASB) for the same revenue-by-source view, fed by finance_year. Education sources
+    # carry full colour; "Other" (the residual to total revenue) is a receded band, and the five
+    # bands label through the legend rather than the crowded right gutter (gutter=False).
+    ipeds_finance = None
+    ipeds_chart = None
+    if not financials:
+        ipeds_finance = queries.ipeds_finance_series(inst_id)
+        if ipeds_finance:
+            s = ipeds_finance["series"]
+            years = [r["fiscal_year"] for r in s]
+            by = {
+                k: {r["fiscal_year"]: r[k] for r in s}
+                for k in ("tuition", "state_local", "federal", "private", "other", "total_expenses")
+            }
+            ipeds_chart = charts.stacked_money(
+                "Where every dollar came from, against what was spent",
+                [
+                    ("tuition", "Tuition and fees", by["tuition"]),
+                    ("govt", "State and local appropriations", by["state_local"]),
+                    ("auxother", "Federal appropriations and grants", by["federal"]),
+                    ("private", "Private gifts and grants", by["private"]),
+                    ("other", "Other operating revenue", by["other"]),
+                ],
+                ("expense", "Expenses", by["total_expenses"]),
+                years=years,
+                gutter=False,
+                subtitle=(
+                    "Public universities do not file a Form 990, so this is the IPEDS Finance "
+                    "record. Every source stacks to total revenue; the line is what the school "
+                    "spent. The education sources carry full colour; 'Other' is receded."
+                ),
+                note=(
+                    f"Source: {ipeds_finance['source']} (IPEDS Finance), {ipeds_finance['year_range']}. "
+                    "'Other operating revenue' is the residual to total revenue: auxiliaries, "
+                    "a hospital or health system, sales and services, licensing, and investment "
+                    "return. It varies by institution and is not itemized beyond the named IPEDS "
+                    "categories."
+                ),
+            )
     # HCM banner: when did the distress signal first appear relative to closure?
     hcm_first = data["hcm"][0]["as_of_date"] if data["hcm"] else None
     hcm_lead_years = None
@@ -529,6 +569,8 @@ def institution(request: Request, inst_id: str):
             "composite_reading": queries.composite_reading,
             "financials": financials,
             "finance_charts": finance_charts,
+            "ipeds_finance": ipeds_finance,
+            "ipeds_chart": ipeds_chart,
             **data,
         },
     )
