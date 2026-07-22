@@ -393,6 +393,53 @@ Hypotheses and pass bars:
 
 Results are recorded in the next subsection only after this one was committed.
 
+### Result (scripts/health_survival.py)
+
+Person-period panel (max Scorecard year 2026, the censoring horizon). Holdout is the institution
+split, so every year of a school is on one side only.
+
+| Model | 3-year horizon | 5-year horizon |
+|---|---|---|
+| Enrollment level only | 0.705 | 0.701 |
+| + enrollment trend | 0.718 | 0.715 |
+| + Pell reliance | 0.769 | 0.769 |
+| + net tuition (workhorse) | **0.801** | **0.800** |
+| Federal composite ALONE (subset) | 0.677 | 0.678 |
+| Composite + workhorse (subset) | 0.738 | 0.735 |
+
+Panel sizes: 3-year horizon 138,917 person-periods over 7,079 schools, 6,123 events (**4.4 percent
+base rate**); 5-year horizon 129,094 periods over 7,023 schools, 9,711 events (**7.5 percent**). The
+workhorse holdout is about 22,300 periods over 1,914 schools (Pell and net tuition, from 2009 and
+1999, constrain it below the size-only 38,500).
+
+**H3: PASS at both horizons.** The point-in-time workhorse hazard ranks "closes within H years" at
+AUC 0.801 (three years) and 0.800 (five years), both well above the 0.70 bar. This is the most
+honest single discrimination number in this document: features are computed as of each observation
+year, so no future information leaks back, and it still reaches 0.80, essentially the cross-sectional
+0.846. Direction signs are all as predicted and stable (size -0.59, trend -0.13, Pell +0.82, tuition
++0.67), no instability.
+
+**H4: not supported, and the reality is better than the prediction.** I predicted the three-year
+horizon would discriminate more sharply than the five-year; they are essentially identical (0.801
+versus 0.800). So the distress profile is about as visible five years ahead as three, a durable
+signal rather than a last-minute flag, which is the more useful finding for a board.
+
+Two limits stated plainly, both from the run:
+
+- **Low base rate.** Only 4.4 percent of school-years precede a closure within three years (7.5
+  percent within five). An AUC of 0.80 RANKS risk well, but at a 4 to 7 percent base rate it is not a
+  precise per-school prediction: most flagged school-years do not end in closure. The model sorts who
+  is more at risk; it does not stamp a school closed.
+- **Enrollment trend is weak point-in-time.** Its weight is small (-0.13) and it adds only +0.013
+  over level alone, unlike the window-summary models where the five-year slope was a top signal. That
+  earlier strength was a LATE effect: the -13.1 per year drop in health_panel is concentrated in the
+  final pre-closure years. Measured at an arbitrary observation year, Pell reliance (+0.051 over
+  level) and net tuition (+0.032) carry the point-in-time signal, and the trend does not.
+
+Reading note (clustering): person-periods repeat within a school, so the counts overstate independent
+observations. The institution split prevents leakage across train and holdout, and the AUC is read as
+a ranking over school-years with that clustering understood, not as independent trials.
+
 ## What to build, in order
 1. **The survivorship-free panel first** (school-year rows, closures and survivors, point-in-time),
    because every correlation claim depends on it and we already hold the inputs. This is the
