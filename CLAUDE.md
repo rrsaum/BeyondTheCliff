@@ -62,6 +62,25 @@ working tree where git sees them, and uvicorn `--reload` still picks up code edi
 port is `TRACKER_PORT` (default 8002) and the container name is derived from the directory, so
 each worktree gets its own stack. Nothing is hardcoded; see "More than one session at once".
 
+### Install from a snapshot (skip the build)
+
+For a deployment that should NOT run the CSV-to-SQL pipeline, ship a prebuilt database snapshot
+instead. The maintainer builds the DB once and packages it; the target restores it and serves,
+running none of the SQL builds:
+
+```
+python3 scripts/build_db.py            # (maintainer) make sure the DB is current
+python3 scripts/backup_db.py           # (maintainer) -> dist/beyondthecliff.db.gz + manifest
+scripts/install.sh                     # (target) restore the snapshot into data/, verified
+```
+
+`backup_db.py` writes a consistent gzipped snapshot (~15 MB) plus a manifest of per-table row
+counts and a sha256. `install.sh` verifies the checksum before restoring and the restored DB's
+integrity and row counts after, moving any existing DB aside first (`--force` to skip that). The
+snapshot lives in the gitignored `dist/`, so distribute it as a release asset or in the installer
+bundle, not in git. The snapshot is a build artifact like the DB: never a source of truth. When the
+`data/*.csv` change, rebuild and re-snapshot; do not hand-edit either.
+
 ## More than one session at once (binding)
 
 **Never run a second writing session in this checkout. Use a worktree.** Full procedure and the
