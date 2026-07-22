@@ -534,3 +534,38 @@ dynamics move, at least as this rough proxy measures them.
    and the CFI ratios for public schools), IPEDS Finance scholarships/aid (a clean discount rate
    for all schools), and Scorecard retention/graduation (Zemsky's third variable). CAC stays out
    of scope: the public data does not support it.
+
+## Descriptive: the century-long closure record (scripts/closure_history.py, NOT predictive)
+
+This section is deliberately walled off from every AUC above. It uses no federal features and predicts
+nothing; it describes the whole documented record (3,569 closures with a year, 1746 to 2027) using
+only closure year, sector, and a recorded cause where one exists. It exists because the tracker's
+reach is a century even though the model's is not.
+
+**The overriding caveat, stated first so nothing below is misread:** the historical record is radically
+LESS complete than the modern one. Recent closures are captured near-completely by IPEDS and SHEEO;
+pre-1950 closures are only whatever Wikipedia and Wikidata recorded. So the raw counts cannot be read
+as a clean time trend. Any per-decade growth is part real and part the record simply getting more
+complete.
+
+- **Closures per decade.** The record rises from a handful per decade before 1900, to 194 in the
+  1990s, 274 in the 2000s, and then 2,091 in the 2010s (with 503 already in the 2020s). About 73
+  percent of all dated closures in the record fall in the 2010s. Part of that spike is real (the
+  for-profit contraction below), and part is completeness: do not quote the raw ratio of the 2010s to
+  the 1840s as a hundred-fold increase, because the 1840s are radically undercounted.
+- **Sector mix of closures by era (control, 92 percent coverage, the robust finding).** The record
+  shifts from nonprofit-dominated to for-profit-dominated: pre-1950 was 85 percent nonprofit and 5
+  percent for-profit; 1950 to 1999, 45 percent nonprofit and 22 percent for-profit; 2000 to 2011, 31
+  percent nonprofit and 55 percent for-profit; 2012 to 2027, **18 percent nonprofit and 73 percent
+  for-profit.** This is well covered and matches the denominator finding that most of the modern
+  sector decline is for-profit contraction: the modern closure wave is overwhelmingly a for-profit
+  event, and a private-nonprofit reader is not living the same story the aggregate count tells.
+- **Recorded cause by era (partial, among closures WITH a recorded cause).** Financial insolvency is
+  the leading recorded cause in every era (about 40 to 45 percent), with enrollment decline and loss
+  of accreditation rising in the modern era. But coverage is thin and falls over time (71 percent of
+  pre-1950 closures carry a cause, 40 percent in 1950 to 1999, 14 percent in 2000 to 2011, 9 percent
+  in 2012 to 2027), so read this as the shape among the labeled minority, not the full population.
+- **Institutional lifespan (closure year minus founding year): NOT AVAILABLE.** Only 124 of 3,569
+  closures carry a founding year, nearly all of them modern, far too sparse for an honest lifespan
+  distribution. Marked NOT AVAILABLE rather than estimated. Filling it would need a sourced founding
+  year for the historical closures, which is a separate curation task.
