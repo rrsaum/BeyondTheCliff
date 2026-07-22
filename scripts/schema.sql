@@ -279,6 +279,8 @@ CREATE TABLE finance_year (
   total_expenses       INTEGER,   -- total expenses ($)
   instruction_expense  INTEGER,   -- instruction expenses ($)
   endowment_eoy        INTEGER,   -- endowment assets, end of fiscal year ($) -- the reserve proxy
+  tuition_allowances   INTEGER,   -- discounts/allowances applied to tuition ($); gross = net + this
+  net_position         INTEGER,   -- total net position/net assets/equity ($); the reserve balance
   source               TEXT,      -- e.g. 'IPEDS F2223_F1A'
   source_url           TEXT
 );

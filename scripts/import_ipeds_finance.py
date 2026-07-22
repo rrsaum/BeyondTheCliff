@@ -55,6 +55,13 @@ MAP = {
     "total_expenses": (["F1C191"], ["F2E131"], ["F3E071"]),
     "instruction_expense": (["F1C011"], ["F2E011"], ["F3E011"]),
     "endowment_eoy": (["F1H02"], ["F2H02"], []),
+    # Discounts and allowances applied to tuition and fees. tuition_revenue above is NET (after
+    # discounts), so gross tuition = tuition_revenue + tuition_allowances and the discount rate is
+    # tuition_allowances / gross. Codes verified in the FY2223 dictionary (F1E08/F2C08/F3C06).
+    "tuition_allowances": (["F1E08"], ["F2C08"], ["F3C06"]),
+    # Total net position (GASB) / total net assets (FASB) / total equity (for-profit). The balance
+    # a reserve/viability ratio is read against. Codes verified in the FY2223 dictionary.
+    "net_position": (["F1A18"], ["F2A06"], ["F3A03"]),
 }
 FORM_IDX = {"f1a": 0, "f2": 1, "f3": 2}
 OUT_FIELDS = [
@@ -69,6 +76,8 @@ OUT_FIELDS = [
     "total_expenses",
     "instruction_expense",
     "endowment_eoy",
+    "tuition_allowances",
+    "net_position",
     "source",
     "source_url",
 ]

@@ -583,21 +583,43 @@ Common usable set (workhorse plus retention plus graduation all present): 6,121 
   retention, not graduation. Both columns are kept in the data (they are distinct federal fields), but
   the model gains from retention alone.
 
-### IPEDS net position and scholarships/aid: BLOCKED on the F2223 dictionary (not guessed)
+### IPEDS net position and scholarships/aid (dictionary-verified and imported)
 
-Status as of 2026-07-22: the raw IPEDS Finance form files are present (118 form-year files under
-`uploads/data/ipeds_finance/`, reachable in the worktree), and the net-position and
-scholarship/discount variables physically exist in the headers (F2A01 to F2A20 and F2C01 to F2C15 in
-the FASB F2 form; F1A01 to F1A18 in the GASB F1A form). But `import_ipeds_finance.py` sets the
-standard for this importer explicitly: its codes are "verified against the official FY2022-23
-dictionary (F2223_{F1A,F2,F3}_Dict)." That dictionary is NOT currently on disk (searched), so which
-F2A code is total net assets and which F2C code is discounts and allowances cannot be identified to
-that same verified standard from the codes alone. Per the honesty rule and the importer's own bar,
-these two fields are NOT imported on a guess. They are unblocked by either supplying the F2223
-dictionary (or the confirmed codes), or a ground-truth cross-check of a candidate discount code
-against a school with a known audited discount rate (Montreat, about 53 percent), which would be
-labeled inference-sourced, not dictionary-verified. Until then: net position and a clean discount
-rate remain PENDING, and the value-trap H6 test stays open (it needs the clean discount rate).
+The F2223 dictionary was supplied and parsed, so the codes are now verified to the importer's own
+standard, not guessed. Added to `import_ipeds_finance.py` and to `finance_year`:
+
+- **tuition_allowances** (discounts/allowances applied to tuition and fees): `F1E08` (GASB) /
+  `F2C08` (FASB) / `F3C06` (for-profit). Since `tuition_revenue` is NET of discounts, gross tuition is
+  `tuition_revenue + tuition_allowances` and the clean discount rate is `tuition_allowances / gross`.
+- **net_position** (total net position / total net assets / total equity): `F1A18` / `F2A06` /
+  `F3A03`. Read as a reserve against `total_expenses`.
+
+Import verified clean: zero core-column mismatches on all 111,277 rows, none added or dropped;
+allowances populate 100 percent, net position 72 percent. The clean discount rate is sane (median
+0.17, tenth to ninetieth percentile 0.00 to 0.52), unlike the rough scorecard proxy (median 0.29,
+minimum -2641). It covers 6,703 institutions, publics included, so it is a discount rate for the whole
+roster, not just the 990 handful.
+
+#### Preregistration for the clean-discount and reserve re-validation (before result)
+
+- **H6-clean (the value trap, retested with a real discount rate).** With the rough proxy, the
+  discount main effect added +0.001 and the value-trap interaction was a null (-0.003). Now, on a
+  common usable set (workhorse plus the clean discount, net-tuition growth, and reserve all present):
+  - **H6a (discount main effect):** predict the clean discount as a main effect still adds little
+    (< +0.01), because the value-trap logic says the discount alone is not the disease. Reported
+    either way.
+  - **H6b (value-trap interaction):** adding `discount x net_tuition_growth` and
+    `discount x enrollment_trend` to the additive model improves holdout AUC. **Pass bar: >= +0.005**,
+    interaction coefficients predicted NEGATIVE (high discount with falling revenue or enrollment is
+    the risk case). This is the clean rerun of the test the rough proxy could not do.
+- **H8 (reserves / net position).** A primary-reserve-style ratio, `net_position / total_expenses`
+  (how many years of expenses the reserve covers), added to the workhorse improves holdout AUC.
+  **Pass bar: >= +0.01**, weight predicted NEGATIVE (a thicker reserve, less closure risk). This is
+  the first balance-sheet-strength signal that covers PUBLIC institutions, which the composite score
+  by law does not.
+- Reported with the usable-set size and base rate; weak or null results kept and labeled.
+
+Results recorded below only after this preregistration was committed.
 
 Refresh note (honest bookkeeping): regenerating `data/scorecard.csv` to populate the new columns also
 brought its row set current with the institution roster (155,976 shared rows unchanged, verified by a

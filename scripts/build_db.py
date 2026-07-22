@@ -82,6 +82,8 @@ TABLES = [
             "total_expenses",
             "instruction_expense",
             "endowment_eoy",
+            "tuition_allowances",
+            "net_position",
         },
     ),
     # Hand-curated finance rows for years a school is absent from IPEDS Finance (Penn State did not
@@ -101,6 +103,8 @@ TABLES = [
             "total_expenses",
             "instruction_expense",
             "endowment_eoy",
+            "tuition_allowances",
+            "net_position",
         },
     ),
     ("program_year.csv", "program_year", {"year", "n_programs", "n_added", "n_dropped"}),
