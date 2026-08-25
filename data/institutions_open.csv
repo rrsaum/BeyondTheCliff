@@ -942,7 +942,6 @@ id,opeid,unitid,unitid_match,name,control,level,sector_raw,degrees,city,state,st
 00246000,00246000,177144,exact,Culver-Stockton College,private_nonprofit,4yr,Private nonprofit 4yr or above,Master's,Canton,MO,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00246100,00246100,177214,exact,Drury University,private_nonprofit,4yr,Private nonprofit 4yr or above,Master's,Springfield,MO,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00246200,00246200,177278,exact,Eden Theological Seminary,private_nonprofit,4yr,Private nonprofit 4yr or above,Doctorate,Webster Groves,MO,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-00246300,00246300,177339,exact,Evangel University,private_nonprofit,4yr,Private nonprofit 4yr or above,Doctorate,Springfield,MO,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00246600,00246600,177551,exact,Harris-Stowe State University,public,4yr,Public 4yr or above,Bachelor's,Saint Louis,MO,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00246700,00246700,177083,exact,Conception Seminary College,private_nonprofit,4yr,Private nonprofit 4yr or above,Bachelor's,Conception,MO,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00246800,00246800,177676,exact,Jefferson College,public,2yr,Public 2yr,Award (2 to 4 years),Hillsboro,MO,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
@@ -1386,7 +1385,6 @@ id,opeid,unitid,unitid_match,name,control,level,sector_raw,degrees,city,state,st
 00319800,00319800,209065,exact,Linfield University,private_nonprofit,4yr,Private nonprofit 4yr or above,Master's,McMinnville,OR,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00320300,00320300,209241,exact,Mount Angel Seminary,private_nonprofit,4yr,Private nonprofit 4yr or above,Doctorate,Saint Benedict,OR,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00320400,00320400,209250,exact,Mt Hood Community College,public,4yr,Public 4yr or above,Bachelor's,Gresham,OR,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-00320700,00320700,209603,exact,Pacific Northwest College of Art,private_nonprofit,4yr,Private nonprofit 4yr or above,Master's,Portland,OR,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00320800,00320800,209409,exact,Bushnell University,private_nonprofit,4yr,Private nonprofit 4yr or above,Post-master's certificate,Eugene,OR,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00320900,00320900,210429,exact,Western Oregon University,public,4yr,Public 4yr or above,Doctorate,Monmouth,OR,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00321100,00321100,209506,exact,Oregon Institute of Technology,public,4yr,Public 4yr or above,Doctorate,Klamath Falls,OR,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
@@ -1461,7 +1459,6 @@ id,opeid,unitid,unitid_match,name,control,level,sector_raw,degrees,city,state,st
 00330400,00330400,214175,exact,Muhlenberg College,private_nonprofit,4yr,Private nonprofit 4yr or above,Master's,Allentown,PA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00330600,00330600,216542,exact,University of Valley Forge,private_nonprofit,4yr,Private nonprofit 4yr or above,Master's,Phoenixville,PA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00330900,00330900,214883,exact,Peirce College,private_nonprofit,4yr,Private nonprofit 4yr or above,Master's,Philadelphia,PA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-00331100,00331100,214564,exact,Salus University,private_nonprofit,4yr,Private nonprofit 4yr or above,Doctorate,Elkins Park,PA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00331300,00331300,216852,exact,Widener University,private_nonprofit,4yr,Private nonprofit 4yr or above,Doctorate,Chester,PA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00331500,00331500,498562,exact,Commonwealth University of Pennsylvania,public,4yr,Public 4yr or above,Doctorate,Bloomsburg,PA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 00331600,00331600,498571,exact,Pennsylvania Western University,public,4yr,Public 4yr or above,Doctorate,California,PA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
@@ -2892,7 +2889,6 @@ id,opeid,unitid,unitid_match,name,control,level,sector_raw,degrees,city,state,st
 02066200,02066200,193654,exact,The New School,private_nonprofit,4yr,Private nonprofit 4yr or above,Doctorate,New York,NY,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02068000,02068000,419031,exact,United Technical Center,public,lt2yr,Public <2yr,Certificate (1 to 2 years),Clarksburg,WV,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02068100,02068100,142832,exact,Adler University,private_nonprofit,4yr,Private nonprofit 4yr or above,Doctorate,Chicago,IL,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-02068200,02068200,176770,exact,Cox College,private_nonprofit,4yr,Private nonprofit 4yr or above,Doctorate,Springfield,MO,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02068300,02068300,212045,exact,Douglas Education Center,private_forprofit,2yr,Private for-profit 2yr,Associate's,Monessen,PA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02069000,02069000,194116,exact,New York School of Interior Design,private_nonprofit,4yr,Private nonprofit 4yr or above,Master's,New York,NY,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02070500,02070500,112075,exact,Concordia University-Irvine,private_nonprofit,4yr,Private nonprofit 4yr or above,Doctorate,Irvine,CA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
@@ -3059,7 +3055,6 @@ id,opeid,unitid,unitid_match,name,control,level,sector_raw,degrees,city,state,st
 02180000,02180000,380377,exact,Northwest Indian College,public,4yr,Public 4yr or above,Bachelor's,Bellingham,WA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02180100,02180100,171997,exact,Ross Medical Education Center-Warren,private_forprofit,lt2yr,Private for-profit <2yr,Certificate (1 to 2 years),Warren,MI,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02181600,02181600,373696,exact,Rob Roy Academy-Worcester,private_forprofit,lt2yr,Private for-profit <2yr,Certificate (1 to 2 years),Worcester,MA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-02182900,02182900,165167,exact,Cambridge College,private_nonprofit,4yr,Private nonprofit 4yr or above,Doctorate,Boston,MA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02183000,02183000,214528,exact,Orleans Technical College,private_nonprofit,2yr,Private nonprofit 2yr,Associate's,Philadelphia,PA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02184400,02184400,207704,exact,Jenks Beauty College,private_forprofit,lt2yr,Private for-profit <2yr,Certificate (1 to 2 years),Jenks,OK,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02185800,02185800,118994,exact,Moler Barber College,private_forprofit,lt2yr,Private for-profit <2yr,Certificate (1 to 2 years),Oakland,CA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
@@ -3462,7 +3457,6 @@ id,opeid,unitid,unitid_match,name,control,level,sector_raw,degrees,city,state,st
 02576900,02576900,102845,exact,Charter College,private_forprofit,4yr,Private for-profit 4yr or above,Bachelor's,Anchorage,AK,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02577000,02577000,454607,exact,Paul Mitchell the School-Esani,private_forprofit,lt2yr,Private for-profit <2yr,Certificate (1 to 2 years),Roswell,GA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02578200,02578200,368452,exact,Nossi College of Art and Design,private_forprofit,4yr,Private for-profit 4yr or above,Bachelor's,Nashville,TN,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
-02578400,02578400,164085,exact,Maryland University of Integrative Health,private_nonprofit,4yr,Private nonprofit 4yr or above,Doctorate,Laurel,MD,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02582000,02582000,491446,exact,Bnos Zion Of Bobov Seminary,private_nonprofit,2yr,Private nonprofit 2yr,Associate's,Brooklyn,NY,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02582200,02582200,159027,exact,Belbo Beauty Institute,private_forprofit,lt2yr,Private for-profit <2yr,Certificate (1 to 2 years),Shreveport,LA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip
 02583000,02583000,140003,exact,Gwinnett College-Lilburn,private_forprofit,2yr,Private for-profit 2yr,Associate's,Lilburn,GA,open,2024,https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip

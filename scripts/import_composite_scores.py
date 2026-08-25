@@ -80,7 +80,9 @@ SOURCES = {
     "2021-22": f"{_SAG}/ay-21-22-composite-scores.xls",
     "2022-23": f"{_SAG}/ay-22-23-composite-scores.xls",
 }
-# AY 2023-24 and later are deliberately absent: every plausible filename 404s as of July 2026.
+# AY 2023-24 and later are deliberately absent: every plausible filename still 404s, rechecked
+# August 2026 (ay-23-24-, ay23-24-, ay-2023-24-, 20232024CompositeScores, .xlsx, and ay-24-25-).
+# data.ed.gov's CKAN index still stops at 2017-18, so it cannot confirm a newer year either.
 # Do not add one without fetching it first; a guessed URL is not a source.
 
 

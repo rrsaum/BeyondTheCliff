@@ -23,6 +23,7 @@ restricted). Dry run by default: writes scripts/_cause_wiki_review.csv for eyeba
 Usage:
     python3 scripts/enrich_cause_wikipedia.py [--limit N] [--commit]
 """
+
 from __future__ import annotations
 
 import csv
@@ -40,19 +41,62 @@ UA = "BeyondTheCliff-research/1.0 (higher-ed closure research; contact apps@boun
 ATTRIB = "Primary cause per Wikipedia (CC BY-SA)."
 
 STATE_FULL = {
-    "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California",
-    "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "DC": "District of Columbia",
-    "FL": "Florida", "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois",
-    "IN": "Indiana", "IA": "Iowa", "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana",
-    "ME": "Maine", "MD": "Maryland", "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota",
-    "MS": "Mississippi", "MO": "Missouri", "MT": "Montana", "NE": "Nebraska", "NV": "Nevada",
-    "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York",
-    "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon",
-    "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina", "SD": "South Dakota",
-    "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont", "VA": "Virginia",
-    "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming", "PR": "Puerto Rico",
+    "AL": "Alabama",
+    "AK": "Alaska",
+    "AZ": "Arizona",
+    "AR": "Arkansas",
+    "CA": "California",
+    "CO": "Colorado",
+    "CT": "Connecticut",
+    "DE": "Delaware",
+    "DC": "District of Columbia",
+    "FL": "Florida",
+    "GA": "Georgia",
+    "HI": "Hawaii",
+    "ID": "Idaho",
+    "IL": "Illinois",
+    "IN": "Indiana",
+    "IA": "Iowa",
+    "KS": "Kansas",
+    "KY": "Kentucky",
+    "LA": "Louisiana",
+    "ME": "Maine",
+    "MD": "Maryland",
+    "MA": "Massachusetts",
+    "MI": "Michigan",
+    "MN": "Minnesota",
+    "MS": "Mississippi",
+    "MO": "Missouri",
+    "MT": "Montana",
+    "NE": "Nebraska",
+    "NV": "Nevada",
+    "NH": "New Hampshire",
+    "NJ": "New Jersey",
+    "NM": "New Mexico",
+    "NY": "New York",
+    "NC": "North Carolina",
+    "ND": "North Dakota",
+    "OH": "Ohio",
+    "OK": "Oklahoma",
+    "OR": "Oregon",
+    "PA": "Pennsylvania",
+    "RI": "Rhode Island",
+    "SC": "South Carolina",
+    "SD": "South Dakota",
+    "TN": "Tennessee",
+    "TX": "Texas",
+    "UT": "Utah",
+    "VT": "Vermont",
+    "VA": "Virginia",
+    "WA": "Washington",
+    "WV": "West Virginia",
+    "WI": "Wisconsin",
+    "WY": "Wyoming",
+    "PR": "Puerto Rico",
 }
-CLOSURE_MARK = re.compile(r"clos|ceas|shut|defunct|dissolv|bankrupt|insolven|discontinu|merg|shutter")
+CLOSURE_MARK = re.compile(
+    r"clos|ceas|shut|defunct|dissolv|bankrupt|insolven|discontinu|merg|shutter"
+)
 
 # A cause is coded only from EXPLICIT distress phrasing, not any keyword that happens to sit near
 # the word "closed". Each cause is an ordered list of regexes; the first cause with a hit wins,
@@ -60,38 +104,109 @@ CLOSURE_MARK = re.compile(r"clos|ceas|shut|defunct|dissolv|bankrupt|insolven|dis
 # background mentions ("accredited by NECHE", "founded by the Sisters of Mercy") do not match,
 # because the patterns require the failure phrasing itself (lost accreditation, order withdrew).
 CAUSE_PATTERNS = [
-    ("misconduct", [r"\bfraud\b", r"embezzl", r"\bscandal\b", r"financial (misconduct|irregular)",
-                    r"mismanagement", r"criminal (charge|investigation)", r"indict"]),
-    ("accreditation", [r"lost (its )?accreditation", r"loss of (its )?accreditation",
-                       r"accreditation (was )?(withdrawn|revoked|lost|denied|terminated)",
-                       r"stripped of[^.]{0,20}accreditation", r"withdraw[^.]{0,20}accreditation",
-                       r"denied accreditation", r"placed on probation by[^.]{0,30}accredit"]),
-    ("disaster", [r"destroyed by (a )?fire", r"burned down", r"\bhurricane\b", r"flood[^.]{0,20}destroy",
-                  r"\bearthquake\b", r"\btornado\b", r"damaged by[^.]{0,20}(fire|storm|flood)"]),
-    ("external", [r"during the (covid|coronavirus)", r"covid-19 pandemic", r"the pandemic",
-                  r"great depression", r"world war"]),
-    ("sponsor", [r"(order|diocese|archdiocese|church|synod|congregation)[^.]{0,40}"
-                 r"(withdr|could no longer|ended its support|discontinued|ceased to support)",
-                 r"loss of (church|denominational|religious) (support|sponsor)",
-                 r"sponsoring (order|body|church)[^.]{0,30}withdr"]),
-    ("restructuring", [r"as part of a[^.]{0,40}(consolidation|restructuring|reorganization|merger of)",
-                       r"state (university |college )?system[^.]{0,40}(consolidat|merg|restructur)",
-                       r"legislat[^.]{0,40}(consolidat|merg|clos)"]),
-    ("enrollment", [r"declin\w* enrollment", r"enrollment declin", r"dwindling enrollment",
-                    r"falling enrollment", r"low enrollment", r"drop in enrollment",
-                    r"shrinking (student body|enrollment)", r"enrollment (challeng|problem|crisis)",
-                    r"decreasing enrollment", r"loss of students"]),
-    ("financial", [r"financial (trouble|difficult|problem|challeng|distress|crisis|strain|woe|"
-                   r"pressure|hardship|instab|struggl|shortfall)", r"struggl\w* financially",
-                   r"mounting debt", r"\binsolven", r"\bbankrupt", r"budget (deficit|shortfall)",
-                   r"could not[^.]{0,30}(sustain|afford|financ)", r"unable to[^.]{0,30}financ",
-                   r"economic (difficult|hardship)", r"lack of funding", r"funding (shortfall|cuts)"]),
+    (
+        "misconduct",
+        [
+            r"\bfraud\b",
+            r"embezzl",
+            r"\bscandal\b",
+            r"financial (misconduct|irregular)",
+            r"mismanagement",
+            r"criminal (charge|investigation)",
+            r"indict",
+        ],
+    ),
+    (
+        "accreditation",
+        [
+            r"lost (its )?accreditation",
+            r"loss of (its )?accreditation",
+            r"accreditation (was )?(withdrawn|revoked|lost|denied|terminated)",
+            r"stripped of[^.]{0,20}accreditation",
+            r"withdraw[^.]{0,20}accreditation",
+            r"denied accreditation",
+            r"placed on probation by[^.]{0,30}accredit",
+        ],
+    ),
+    (
+        "disaster",
+        [
+            r"destroyed by (a )?fire",
+            r"burned down",
+            r"\bhurricane\b",
+            r"flood[^.]{0,20}destroy",
+            r"\bearthquake\b",
+            r"\btornado\b",
+            r"damaged by[^.]{0,20}(fire|storm|flood)",
+        ],
+    ),
+    (
+        "external",
+        [
+            r"during the (covid|coronavirus)",
+            r"covid-19 pandemic",
+            r"the pandemic",
+            r"great depression",
+            r"world war",
+        ],
+    ),
+    (
+        "sponsor",
+        [
+            r"(order|diocese|archdiocese|church|synod|congregation)[^.]{0,40}"
+            r"(withdr|could no longer|ended its support|discontinued|ceased to support)",
+            r"loss of (church|denominational|religious) (support|sponsor)",
+            r"sponsoring (order|body|church)[^.]{0,30}withdr",
+        ],
+    ),
+    (
+        "restructuring",
+        [
+            r"as part of a[^.]{0,40}(consolidation|restructuring|reorganization|merger of)",
+            r"state (university |college )?system[^.]{0,40}(consolidat|merg|restructur)",
+            r"legislat[^.]{0,40}(consolidat|merg|clos)",
+        ],
+    ),
+    (
+        "enrollment",
+        [
+            r"declin\w* enrollment",
+            r"enrollment declin",
+            r"dwindling enrollment",
+            r"falling enrollment",
+            r"low enrollment",
+            r"drop in enrollment",
+            r"shrinking (student body|enrollment)",
+            r"enrollment (challeng|problem|crisis)",
+            r"decreasing enrollment",
+            r"loss of students",
+        ],
+    ),
+    (
+        "financial",
+        [
+            r"financial (trouble|difficult|problem|challeng|distress|crisis|strain|woe|"
+            r"pressure|hardship|instab|struggl|shortfall)",
+            r"struggl\w* financially",
+            r"mounting debt",
+            r"\binsolven",
+            r"\bbankrupt",
+            r"budget (deficit|shortfall)",
+            r"could not[^.]{0,30}(sustain|afford|financ)",
+            r"unable to[^.]{0,30}financ",
+            r"economic (difficult|hardship)",
+            r"lack of funding",
+            r"funding (shortfall|cuts)",
+        ],
+    ),
 ]
 # Explicit causal connectors: text right after these is the stated reason for the closure.
 CAUSAL = re.compile(
     r"(?:due to|because of|citing|cited|as a result of|amid|attributed to|blamed on|"
     r"in the face of|faced with|owing to|as a consequence of|brought on by|driven by|"
-    r"result of)\s+(.{0,140})", re.I)
+    r"result of)\s+(.{0,140})",
+    re.I,
+)
 
 
 def _match(text: str) -> str:
@@ -133,12 +248,23 @@ def read_csv(path: Path) -> tuple[list[str], list[dict]]:
 
 
 def fetch_extract(title: str) -> str | None:
-    params = {"action": "query", "format": "json", "redirects": "1", "prop": "extracts",
-              "explaintext": "1", "titles": title}
+    params = {
+        "action": "query",
+        "format": "json",
+        "redirects": "1",
+        "prop": "extracts",
+        "explaintext": "1",
+        "titles": title,
+    }
     url = "https://en.wikipedia.org/w/api.php?" + urllib.parse.urlencode(params)
     try:
-        out = subprocess.run(["curl", "-sS", "--max-time", "30", "-A", UA, url],
-                             capture_output=True, text=True, timeout=45, check=False)
+        out = subprocess.run(
+            ["curl", "-sS", "--max-time", "30", "-A", UA, url],
+            capture_output=True,
+            text=True,
+            timeout=45,
+            check=False,
+        )
     except (OSError, subprocess.SubprocessError):
         return None
     if out.returncode != 0 or not out.stdout:
@@ -155,8 +281,23 @@ def closure_sentences(text: str) -> str:
     return " ".join(s for s in re.split(r"(?<=[.!?])\s+", text) if CLOSURE_MARK.search(s.lower()))
 
 
-_STOP = {"OF", "THE", "AND", "A", "AT", "SCHOOL", "SCHOOLS", "COLLEGE", "COLLEGES", "INSTITUTE",
-         "INSTITUTES", "ACADEMY", "UNIVERSITY", "SEMINARY", "INC"}
+_STOP = {
+    "OF",
+    "THE",
+    "AND",
+    "A",
+    "AT",
+    "SCHOOL",
+    "SCHOOLS",
+    "COLLEGE",
+    "COLLEGES",
+    "INSTITUTE",
+    "INSTITUTES",
+    "ACADEMY",
+    "UNIVERSITY",
+    "SEMINARY",
+    "INC",
+}
 
 
 def _dtok(s: str) -> set:
@@ -166,12 +307,22 @@ def _dtok(s: str) -> set:
 def search_titles(name: str, limit: int = 3) -> list[str]:
     """Wikipedia search for candidate article titles (for names whose exact title has no page,
     e.g. a disambiguated 'Concordia College (Selma, Alabama)')."""
-    params = {"action": "query", "format": "json", "list": "search",
-              "srsearch": f"{name} college closed", "srlimit": str(limit)}
+    params = {
+        "action": "query",
+        "format": "json",
+        "list": "search",
+        "srsearch": f"{name} college closed",
+        "srlimit": str(limit),
+    }
     url = "https://en.wikipedia.org/w/api.php?" + urllib.parse.urlencode(params)
     try:
-        out = subprocess.run(["curl", "-sS", "--max-time", "30", "-A", UA, url],
-                             capture_output=True, text=True, timeout=45, check=False)
+        out = subprocess.run(
+            ["curl", "-sS", "--max-time", "30", "-A", UA, url],
+            capture_output=True,
+            text=True,
+            timeout=45,
+            check=False,
+        )
         hits = json.loads(out.stdout)["query"]["search"]
     except (OSError, subprocess.SubprocessError, ValueError, KeyError):
         return []
@@ -224,8 +375,16 @@ def main() -> None:
     def rank(t):
         r = t[2]
         c, lv = (r.get("control") or ""), (r.get("level") or "")
-        return (0 if (c in ("private_nonprofit", "public") and lv == "4yr") else
-                1 if lv == "4yr" else 2 if c in ("private_nonprofit", "public") else 3)
+        return (
+            0
+            if (c in ("private_nonprofit", "public") and lv == "4yr")
+            else 1
+            if lv == "4yr"
+            else 2
+            if c in ("private_nonprofit", "public")
+            else 3
+        )
+
     targets.sort(key=rank)
     if limit:
         targets = targets[:limit]
@@ -262,9 +421,18 @@ def main() -> None:
             skipped["no_article"] += 1
             continue
         if cause:
-            coded.append({"path": path, "i": i, "id": r.get("id"), "name": name,
-                          "state": r.get("state"), "year": r.get("status_year"),
-                          "cause": cause, "evidence": evidence})
+            coded.append(
+                {
+                    "path": path,
+                    "i": i,
+                    "id": r.get("id"),
+                    "name": name,
+                    "state": r.get("state"),
+                    "year": r.get("status_year"),
+                    "cause": cause,
+                    "evidence": evidence,
+                }
+            )
             dist[cause] = dist.get(cause, 0) + 1
         elif "does not discuss" in reason:
             skipped["no_closure"] += 1
@@ -278,14 +446,18 @@ def main() -> None:
     with REVIEW.open("w", encoding="utf-8", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=["id", "name", "state", "year", "cause", "evidence"])
         w.writeheader()
-        w.writerows({k: c[k] for k in ("id", "name", "state", "year", "cause", "evidence")} for c in coded)
+        w.writerows(
+            {k: c[k] for k in ("id", "name", "state", "year", "cause", "evidence")} for c in coded
+        )
 
     print(f"Targets tried: {len(targets)}")
     print(f"  coded: {len(coded)}")
     for c, k in sorted(dist.items(), key=lambda kv: -kv[1]):
         print(f"    {c:14} {k}")
-    print(f"  skipped: no article {skipped['no_article']}, no closure text {skipped['no_closure']}, "
-          f"not corroborated {skipped['not_corroborated']}, no cause stated {skipped['no_cause']}")
+    print(
+        f"  skipped: no article {skipped['no_article']}, no closure text {skipped['no_closure']}, "
+        f"not corroborated {skipped['not_corroborated']}, no cause stated {skipped['no_cause']}"
+    )
     print(f"Review file: {REVIEW.relative_to(Path(__file__).resolve().parent.parent)}")
 
     if commit and coded:
@@ -299,6 +471,11 @@ def main() -> None:
                 row["cause"] = c["cause"]
                 note = (row.get("notes") or "").strip()
                 if ATTRIB not in note:
+                    # SHEEO's Notes column is often a bare records-location fragment with no
+                    # terminal punctuation ("Parchment"), so appending on a plain space fused
+                    # the two facts into one unreadable sentence on the reader-facing profile.
+                    if note and not note.endswith((".", "!", "?")):
+                        note += "."
                     row["notes"] = (note + " " + ATTRIB).strip()
             with path.open("w", encoding="utf-8", newline="") as fh:
                 w = csv.DictWriter(fh, fieldnames=fields)
