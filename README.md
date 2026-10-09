@@ -95,8 +95,8 @@ Some limits are structural and the app states them where it shows the data:
 - ED does not score public institutions, so composite scores cover private nonprofit and
   proprietary schools only. ED rewrote the ratios effective 1 July 2020, so scores on either
   side of that date are never joined into one line.
-- Form 990 financial history currently covers two schools: Montreat College and Embry-Riddle
-  Aeronautical University.
+- Form 990 financial history currently covers three schools: Montreat College, Embry-Riddle
+  Aeronautical University, and Russell Sage College.
 
 Tables, sources, and the import traps are documented in
 [`docs/technical/DATA_MODEL.md`](docs/technical/DATA_MODEL.md).

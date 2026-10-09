@@ -118,9 +118,11 @@ Still TBD and not yet built (do not assume they exist): IPEDS enrichment for fou
 and enrollment, coverage beyond 2004 to 2020, and the marketing/brand pages. Verify before
 describing anything as present.
 
-**The financial layer covers TWO schools.** `financial_filing` holds Montreat College (13 Form 990
-filings, TY2012 to TY2024) and Embry-Riddle Aeronautical University (OPEID `00147900`, EIN
-`590936101`, 13 filings, TY2012 to TY2024). The Embry-Riddle EIN is the consolidated corporation
+**The financial layer covers THREE schools.** `financial_filing` holds Montreat College (13 Form 990
+filings, TY2012 to TY2024), Embry-Riddle Aeronautical University (OPEID `00147900`, EIN
+`590936101`, 13 filings, TY2012 to TY2024), and Russell Sage College (OPEID `00281000`, EIN
+`141338488`, 12 filings, TY2012 to TY2024 with no TY2019 return; filed as "The Sage Colleges"
+before the 2020 rebrand, same EIN). The Embry-Riddle EIN is the consolidated corporation
 (Daytona Beach, Prescott, and Worldwide), mapped to the Daytona Beach roster row, so those figures
 are the whole university, not one campus. Adding a school means adding its OPEID/EIN pairing to
 `data/institution_eins.csv` first, sourced, then pointing `import_990.py` at its filings. The parse
