@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Beyond the Cliff pre-commit gate: the same checks as scripts/verify.sh, scoped to STAGED
+# files, so any commit (any editor, any human, not just the Claude agent) is checked before it
+# lands. Pre-existing findings in untouched files never block unrelated work.
+#
+#   - style_lint.py: hard-blocks the em-dash; buzzword and death-watch tone are advisory.
+#   - ruff: lint + format-check on staged Python.
+#
+# Checks the working-tree copy of each staged file, so stage the fix along with the edit.
+#
+# Install once per clone:   scripts/install-hooks.sh   (sets core.hooksPath)
+# Emergency bypass:         git commit --no-verify
+set -uo pipefail
+
+root=$(git rev-parse --show-toplevel)
+cd "$root" || exit 0
+
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+[ -n "$staged" ] || exit 0
+
+fail=0
+
+# 1) Style lint on all staged files (style_lint.py filters by suffix itself).
+printf '%s\n' "$staged" | tr '\n' '\0' | xargs -0 python3 scripts/style_lint.py || fail=1
+
+# 2) Ruff on staged Python. Same lookup order as scripts/verify.sh: PATH, then a project venv.
+py=$(printf '%s\n' "$staged" | grep -E '\.py$' || true)
+if [ -n "$py" ]; then
+  ruff_bin=$(command -v ruff || true)
+  [ -n "$ruff_bin" ] || ruff_bin="$root/.venv/bin/ruff"
+  [ -x "$ruff_bin" ] || ruff_bin="$root/venv/bin/ruff"
+  if [ -x "$ruff_bin" ]; then
+    printf '%s\n' "$py" | tr '\n' '\0' | xargs -0 "$ruff_bin" check || fail=1
+    printf '%s\n' "$py" | tr '\n' '\0' | xargs -0 "$ruff_bin" format --check || fail=1
+  else
+    echo "pre-commit: ruff not found on PATH or in .venv (skipping Python checks). Install: pip install ruff" >&2
+  fi
+fi
+
+if [ "$fail" -ne 0 ]; then
+  echo "" >&2
+  echo "pre-commit: blocked. Fix the above and stage the fix, or bypass with 'git commit --no-verify'." >&2
+  exit 1
+fi
+exit 0

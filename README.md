@@ -120,6 +120,9 @@ scripts/verify.sh            # style lint + ruff check + ruff format --check
 scripts/verify.sh --tests    # also run pytest, if a suite exists
 ```
 
+Once per clone, run `scripts/install-hooks.sh` to enable the pre-commit hook in `.githooks/`,
+which runs the same checks on staged files and blocks a commit that fails them.
+
 - **Style:** `scripts/style_lint.py` enforces the house style, including no typographic em-dashes
   anywhere. Python is linted and formatted with ruff.
 - **Copy:** reader-facing text follows `docs/standards/MARKETING_STYLE_GUIDE.md`. Grim facts are
