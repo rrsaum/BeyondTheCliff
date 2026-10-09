@@ -4,7 +4,7 @@
 # lands. Pre-existing findings in untouched files never block unrelated work.
 #
 #   - style_lint.py: hard-blocks the em-dash; buzzword and death-watch tone are advisory.
-#   - ruff: lint + format-check on staged Python.
+#   - ruff: lint on staged Python blocks; format-check is advisory until the formatter is adopted.
 #
 # Checks the working-tree copy of each staged file, so stage the fix along with the edit.
 #
@@ -31,7 +31,10 @@ if [ -n "$py" ]; then
   [ -x "$ruff_bin" ] || ruff_bin="$root/venv/bin/ruff"
   if [ -x "$ruff_bin" ]; then
     printf '%s\n' "$py" | tr '\n' '\0' | xargs -0 "$ruff_bin" check || fail=1
-    printf '%s\n' "$py" | tr '\n' '\0' | xargs -0 "$ruff_bin" format --check || fail=1
+    # Advisory only: the codebase hand-aligns code the formatter would reflow, and adopting
+    # `ruff format` is an open decision (see ruff.toml). Prints the diff summary, never blocks.
+    printf '%s\n' "$py" | tr '\n' '\0' | xargs -0 "$ruff_bin" format --check \
+      || echo "pre-commit: ruff format differences above are advisory (not blocking; see ruff.toml)." >&2
   else
     echo "pre-commit: ruff not found on PATH or in .venv (skipping Python checks). Install: pip install ruff" >&2
   fi

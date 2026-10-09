@@ -121,7 +121,8 @@ scripts/verify.sh --tests    # also run pytest, if a suite exists
 ```
 
 Once per clone, run `scripts/install-hooks.sh` to enable the pre-commit hook in `.githooks/`,
-which runs the same checks on staged files and blocks a commit that fails them.
+which runs the same checks on staged files. Style lint and `ruff check` failures block the
+commit; `ruff format` differences are reported but do not block (see `ruff.toml`).
 
 - **Style:** `scripts/style_lint.py` enforces the house style, including no typographic em-dashes
   anywhere. Python is linted and formatted with ruff.

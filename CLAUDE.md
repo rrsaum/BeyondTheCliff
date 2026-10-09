@@ -266,7 +266,8 @@ unverified, so "done" cannot mean "unchecked." For copy work alone you can run
 ## Engineering notes
 
 - First clone setup: run `scripts/install-hooks.sh` once to activate the pre-commit gate
-  in `.githooks/pre-commit` (style lint + ruff check + ruff format --check on staged files).
+  in `.githooks/pre-commit` (style lint + ruff check on staged files block; ruff format --check is
+  advisory until the formatter is adopted, see `ruff.toml`).
 - `.claude/` is intentionally git-ignored in the sibling projects (local settings, skills,
   everything). Decide per this repo whether to commit it; the standards in `docs/` are meant
   to be shared.
