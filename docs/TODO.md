@@ -153,6 +153,45 @@ $42.9M on the 990 and $31.0M audited, and both are right. The bottom line agrees
   across the whole unbroken chain, which is a stronger validation than either side of a hole. The
   chart still breaks across a missing year by design; there just is not one any more.
 
+## National context layer (NCES Digest)
+
+Added October 2026 from a review of the author's `github.com/rrsaum/Data` HigherEd CSVs, re-pulled
+from the current Digest editions: `national_closure` (Table 317.50), `national_series` by control
+(303.10, 317.10), and `population_18_24` (101.10). The /cliff "private nonprofit picture" section
+draws on the first two. See `docs/technical/DATA_MODEL.md`.
+
+- **Look at the /cliff private nonprofit section on screen.** It was checked through its HTML and
+  approved, but never screenshotted: no browser could run on the host (headless Chromium needs
+  `libatk1.0-0`). In particular confirm the decade-bar end labels sit inside the frame; their room
+  was sized from a character-width estimate, not a measurement.
+- **Test the "sorting" reading before it becomes a claim.** The section's closing line is labelled
+  as our reading, not an NCES finding: average private nonprofit enrollment per college rose from
+  1,507 (1976) to 2,546 (2022), but averages cannot show whether students concentrated in fewer,
+  larger schools. The per-school IPEDS enrollment in `data/enrollment.csv` can test it. If it
+  holds, the line can drop its hedge; if not, rewrite it.
+- **Chart the college-age population.** `population_18_24` (1970 to 2022, thousands) is stored but
+  not drawn anywhere. Any chart goes through the three-mockup gate first.
+- **Add US live births (1970 onward).** Digest Table 101.10, already parsed for the population
+  series, also carries live births per year: the leading indicator of the cliff, 18 years ahead.
+  Store as a `national_series` row set; exclude any row the table footnotes as a projection.
+- **Explain the 1920s in "What drove the turns".** Colleges grew about 3.1%/yr from 1919 to 1929
+  (1,041 to 1,409, Digest 301.20) and no `national_turns` row covers that decade. A row needs a
+  sourced likely cause, flagged `is_inference` where it is one.
+- **The 15 to 29 decennial population back to 1870 is not imported.** The author's
+  `InstCollegePopGrowth.csv` has it, but it is not the conventional college-age band and its values
+  were not verified against a primary Census table. Import only if that source is found.
+- **Rejected from the key-events list (do not re-add without new evidence):** the Smith-Hughes Act
+  of 1917 funds vocational teachers, not colleges (39 Stat. 929), and the college count shows no
+  turn at 1917; the Great Depression and 9/11 coincide with continued growth in the stored series.
+  The other six events were already `national_turns` rows.
+- **The two new chart renderers repeat axis plumbing.** `charts.indexed_lines` and
+  `charts.emphasis_bars` hand-roll their grid, axis labels, and scales, as `line`, `series_lines`,
+  `small_multiples`, and `enrollment_evolution` each already do. A shared `_y_grid` / scale helper
+  would let a fix land once instead of in six places. Not urgent; touches every SVG chart.
+- **`/cliff` opens about 21 SQLite connections per request**, one per query helper, and reads the
+  `institutions` and `enrollment` series three times each. Measured at about 1 ms of overhead in
+  total, so not worth fixing at this data size; revisit if the page grows or slows.
+
 ## Data quality: flagged, not yet fixed
 
 - **`Montreat College - North Carolina Wesleyan College` conflates two schools.** Rows `00294818`
@@ -164,10 +203,6 @@ $42.9M on the 990 and $31.0M audited, and both are right. The bottom line agrees
 - **`style_lint.py` does not catch `&mdash;`.** The em-dash rule is total, but the linter matches
   the literal U+2014 character, not the HTML entity, which renders identically to a reader.
   `app/templates/institution.html:28` has one. Either widen the linter or fix the template.
-- **The repo has no ruff config.** With no `pyproject.toml`, `ruff format` defaults to an 88
-  character line and would reformat essentially every file away from the ~100 character style the
-  code actually uses. `ruff check` passes clean. Pin `line-length` before anyone runs
-  `ruff format`, or the first person to run it produces a repo-wide diff.
 
 ## Operations and repository
 
@@ -180,3 +215,6 @@ $42.9M on the 990 and $31.0M audited, and both are right. The bottom line agrees
   re-run is not planned; `data/scorecard.csv` (the derived, committed output) is what the app uses.
 - **IPEDS enrichment gaps** noted in CLAUDE.md: founding year and enrollment enrichment, and
   coverage beyond the current window, remain partial.
+- **Adopting `ruff format` repo-wide is still undecided.** `ruff.toml` records why: it would rewrite
+  about 2,886 hand-aligned lines. Until it is decided, format only new code; never run it on a
+  whole existing file.
