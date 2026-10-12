@@ -197,8 +197,11 @@ CREATE INDEX idx_hsg ON hs_graduates(jurisdiction, measure, year);
 -- 317.10 splits private into nonprofit and for-profit (1976, 1978, 1980, 1984, then 1986 onward).
 -- Through 1995 both tables count institutions of higher education, then degree-granting Title IV
 -- institutions: the 1996 for-profit step (345 to 614) is largely that redefinition, not growth.
+-- 'population_18_24' is the US resident population aged 18 to 24 (Digest 101.10, Census July 1
+-- estimates), stored in THOUSANDS as real_gdp is stored in billions: `basis` carries the unit.
+-- Census projections in that table are never stored; the series ends at the last estimate.
 CREATE TABLE national_series (
-  series  TEXT NOT NULL,      -- 'institutions' | 'enrollment' | 'real_gdp' | '<series>_<control>'
+  series  TEXT NOT NULL,      -- 'institutions' | 'enrollment' | 'real_gdp' | 'population_18_24' | '<series>_<control>'
   year    INTEGER NOT NULL,
   value   INTEGER NOT NULL,
   basis   TEXT,               -- the counting definition this row is on (see note above)
