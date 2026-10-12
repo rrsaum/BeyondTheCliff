@@ -190,8 +190,15 @@ CREATE INDEX idx_hsg ON hs_graduates(jurisdiction, measure, year);
 -- (branch campuses excluded) onto annual 1974+ (branches included); the enrollment line splices
 -- decennial pre-1947 onto annual 1947+. Those are different definitions, so `basis` records which
 -- each row is on and a reader-facing chart marks the seam. One row per (series, year).
+-- The same two lines broken out by control ride alongside as their own series
+-- ('institutions_public', 'enrollment_private_forprofit', ...), taken from the same Digest table
+-- as the total so the three parts add to it in every year present. Enrollment by control starts in
+-- 1967 (303.10 does not split private before then); institutions by control covers only the years
+-- 317.10 splits private into nonprofit and for-profit (1976, 1978, 1980, 1984, then 1986 onward).
+-- Through 1995 both tables count institutions of higher education, then degree-granting Title IV
+-- institutions: the 1996 for-profit step (345 to 614) is largely that redefinition, not growth.
 CREATE TABLE national_series (
-  series  TEXT NOT NULL,      -- 'institutions' | 'enrollment'
+  series  TEXT NOT NULL,      -- 'institutions' | 'enrollment' | 'real_gdp' | '<series>_<control>'
   year    INTEGER NOT NULL,
   value   INTEGER NOT NULL,
   basis   TEXT,               -- the counting definition this row is on (see note above)
@@ -199,6 +206,28 @@ CREATE TABLE national_series (
   UNIQUE (series, year)
 );
 CREATE INDEX idx_natser ON national_series(series, year);
+
+-- Degree-granting institutions that closed, per academic year, by control and level: NCES's own
+-- national count (Digest Table 317.50), 1969-70 onward. A DIFFERENT COUNT from the tracker's
+-- closure records and never merged with them: NCES counts degree-granting Title IV institutions
+-- only (no non-degree schools, no campus closures), by academic year, where the year is the one
+-- "by which the institution no longer operated (generally it closed at the end of or during the
+-- prior academic year)" (table note). So 2018-19 is 236 here while the tracker's calendar 2018
+-- differs; a chart showing both must say which count is which. Before 1990-91 NCES does not split
+-- private into nonprofit and for-profit, so those rows carry control 'private'; and NCES reports
+-- 1986-87 and 1987-88 as one combined row, kept as published under its own label.
+CREATE TABLE national_closure (
+  academic_year TEXT NOT NULL,    -- NCES label as published, e.g. '2018-19'
+  ay_start      INTEGER NOT NULL, -- first year of that label, for ordering; not a closure date
+  control       TEXT NOT NULL
+    CHECK (control IN ('public','private','private_nonprofit','private_forprofit')),
+  level         TEXT NOT NULL CHECK (level IN ('4yr','2yr')),
+  closed        INTEGER NOT NULL,
+  source        TEXT,
+  source_url    TEXT,
+  UNIQUE (academic_year, control, level)
+);
+CREATE INDEX idx_natclosure ON national_closure(ay_start);
 
 -- Key dates for the timeline under the national charts: the policy or demographic events that are
 -- the LIKELY cause of an inflection in the line above. Editorial attributions, not data readings,

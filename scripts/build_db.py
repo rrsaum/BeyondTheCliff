@@ -64,6 +64,9 @@ TABLES = [
     # rounded to thousands; its own file because a different source can never ride the importer's.
     ("hs_graduates_historic.csv", "hs_graduates", {"year", "graduates"}),
     ("national_series.csv", "national_series", {"year", "value"}),
+    # NCES's national closure count by control and level (Digest 317.50). Hand-curated, and a
+    # different count from the tracker's own closure records: see the schema note.
+    ("national_closures.csv", "national_closure", {"ay_start", "closed"}),
     ("timeline_markers.csv", "timeline_marker", {"year"}),
     ("national_turns.csv", "national_turn", {"is_inference"}),
     (
