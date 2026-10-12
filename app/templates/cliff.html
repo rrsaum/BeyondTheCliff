@@ -64,6 +64,35 @@
   </aside>
 </section>
 
+{% if sector %}
+{# Every figure below comes from queries.sector_picture; the headline only makes each claim the
+   data currently supports, and falls back to a neutral title when it does not. #}
+{% set now = sector.decades[-1] %}
+{% set low = sector.low_decade %}
+{% set rising = low and now.rate > low.rate %}
+<section class="sector-picture">
+  <h2 class="verdict">{% if sector.enr_is_peak and rising %}Private nonprofit colleges enroll more students than ever. More of them are closing.{% else %}Private nonprofit colleges: students against closures{% endif %}</h2>
+  <p class="dek">Fall {{ sector.enr_last_year }} enrollment in private nonprofit colleges was {{ '{:,}'.format(sector.enr_last) }}{% if sector.enr_is_peak %}, the highest NCES has recorded{% endif %}.{% if low %} The share of these colleges closing each year {{ 'rose' if rising else 'moved' }} from {{ '%.1f' | format(low.rate) }} per 1,000 in the {{ low.decade }} to {{ '%.1f' | format(now.rate) }} per 1,000 since {{ now.first }}.{% endif %}</p>
+  {{ sector_index_chart | safe }}
+  {{ sector_rates_chart | safe }}
+  <p class="turn">Our reading, not an NCES finding: the sector is not shrinking, it is sorting. The average private nonprofit college enrolled {{ '{:,.0f}'.format(sector.size_last[1]) }} students in {{ sector.size_last[0] }}, against {{ '{:,.0f}'.format(sector.size_first[1]) }} in {{ sector.size_first[0] }}. Averages do not show which schools gained; the per-school record in the tracker does. <a href="/">See the closure map</a></p>
+  <p class="chart-note">Source: NCES Digest of Education Statistics: Table 317.50 (closures, 2023 edition), Table 317.10 (institutions, 2023 edition), Table 303.10 (fall enrollment, 2024 edition; {{ sector.enr_last_year }} provisional). Degree-granting institutions only, so not the same count as this tracker's closure records. Closure rate: closures in an academic year per 1,000 private nonprofit institutions NCES counted that year. NCES publishes the college count only for selected years before 1986, so that line is straight between them.</p>
+  <details class="tv">
+    <summary>Show the numbers</summary>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Year</th><th>Colleges</th><th>Closed</th><th>Per 1,000</th><th>Students</th></tr></thead>
+      <tbody>
+        {% for r in sector.table %}
+        <tr><td>{{ r.year }}</td><td>{{ '{:,}'.format(r.colleges) if r.colleges else '' }}</td><td>{{ r.closed if r.closed is not none else '' }}</td><td>{{ '%.1f' | format(r.rate) if r.rate is not none else '' }}</td><td>{{ '{:,}'.format(r.students) if r.students else '' }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </details>
+</section>
+{% endif %}
+
 <section>
   <h2>The pipeline: high school graduates</h2>
   {{ national_chart | safe }}

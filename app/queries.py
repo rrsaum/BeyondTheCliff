@@ -658,6 +658,73 @@ def national_series(series: str) -> list[tuple]:
     return [(r[0], r[1]) for r in rows]
 
 
+def sector_picture(control: str = "private_nonprofit") -> dict | None:
+    """One sector's national picture from NCES alone: students against colleges, and how often its
+    colleges close relative to its own size. Every figure the /cliff section quotes is computed
+    here, so the copy can never drift from the data.
+
+    Closure rate = closures in an academic year (Digest 317.50) per 1,000 institutions of that
+    control NCES counted that year (317.10), both degree-granting, matched on the academic year's
+    first year. A decade's rate is its closures over its institution-years, not a mean of yearly
+    ratios. Students and colleges are indexed to 100 in the first year both series exist; the
+    college count is sparse before 1986, so its line is straight between published years."""
+    inst = dict(national_series(f"institutions_{control}"))
+    enr = dict(national_series(f"enrollment_{control}"))
+    conn = connect()
+    rows = conn.execute(
+        "SELECT ay_start, academic_year, SUM(closed) FROM national_closure WHERE control = ? "
+        "GROUP BY ay_start, academic_year ORDER BY ay_start",
+        (control,),
+    ).fetchall()
+    conn.close()
+    closed = {r[0]: r[2] for r in rows}
+    ay = {r[0]: r[1] for r in rows}
+    ryears = [y for y in sorted(closed) if y in inst]
+    if not (inst and enr and ryears):
+        return None
+
+    decades = []
+    for d in range(ryears[0] // 10 * 10, ryears[-1] + 1, 10):
+        ys = [y for y in ryears if d <= y < d + 10]
+        if ys:
+            n = sum(closed[y] for y in ys)
+            decades.append(
+                {
+                    "label": f"{ay[ys[0]]} to {ay[ys[-1]]}",
+                    "first": ay[ys[0]],
+                    "decade": f"{d}s",
+                    "years": len(ys),
+                    "closed": n,
+                    "rate": 1000 * n / sum(inst[y] for y in ys),
+                }
+            )
+    base = min(y for y in inst if y in enr)
+    size = {y: enr[y] / inst[y] for y in inst if y in enr}
+    e_last = max(enr)
+    return {
+        "enr_last_year": e_last,
+        "enr_last": enr[e_last],
+        "enr_is_peak": enr[e_last] == max(enr.values()),
+        "decades": decades,
+        "low_decade": min(decades[:-1], key=lambda d: d["rate"]) if len(decades) > 1 else None,
+        "index_base": base,
+        "students_index": [(y, 100 * enr[y] / enr[base]) for y in sorted(enr) if y >= base],
+        "colleges_index": [(y, 100 * inst[y] / inst[base]) for y in sorted(inst)],
+        "size_first": (min(size), size[min(size)]),
+        "size_last": (max(size), size[max(size)]),
+        "table": [
+            {
+                "year": ay.get(y, str(y)),
+                "colleges": inst.get(y),
+                "closed": closed.get(y),
+                "rate": 1000 * closed[y] / inst[y] if y in ryears else None,
+                "students": enr.get(y),
+            }
+            for y in sorted(set(ryears) | {y for y in enr if y >= ryears[0]})
+        ],
+    }
+
+
 def national_closures_by_control() -> list[dict]:
     """Institutional closures per year, split by control, from our own records. Same filter the
     closure map uses (status='closed', closure_type='institutional'), so a year here matches the

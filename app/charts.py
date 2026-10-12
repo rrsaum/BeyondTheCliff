@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 from html import escape
+from itertools import pairwise
 from math import log10
 
 
@@ -233,7 +234,7 @@ def stacked_money(
 
     # Runs of consecutive filed years: a year nobody filed is a hole, not a straight line.
     runs, run = [], [years[0]]
-    for a, b in zip(years, years[1:]):
+    for a, b in pairwise(years):
         if b - a == 1:
             run.append(b)
         else:
@@ -511,7 +512,7 @@ def series_lines(
         # methodology break splits the line for the same reason: the values either side are
         # not the same measurement, so joining them would draw a trend that does not exist.
         runs, run = [], [pts[0]]
-        for prev, cur in zip(pts, pts[1:]):
+        for prev, cur in pairwise(pts):
             crosses_break = break_at is not None and prev[0] < break_at[0] < cur[0]
             if cur[0] - prev[0] == 1 and not crosses_break:
                 run.append(cur)
@@ -756,7 +757,7 @@ def enrollment_evolution(
         f'<polyline points="{" ".join(f"{sx(y):.1f},{sy(v):.1f}" for y, v in pts)}" class="ev-gapline"/>'
     )
     runs, run = [], [pts[0]]
-    for a, b in zip(pts, pts[1:]):
+    for a, b in pairwise(pts):
         if b[0] - a[0] == 1:
             run.append(b)
         else:
@@ -908,7 +909,7 @@ def _tl_interp(points: list[tuple], yr: int) -> float | None:
 
 def _tl_ratio_ticks(lo: float, hi: float) -> list[float]:
     """Nice 1-1.5-2-3-5-7-per-decade ticks for a ratio (log) axis, thinned to at most eight."""
-    cand = [m * 10**p for p in range(0, 6) for m in (1, 1.5, 2, 3, 5, 7)]
+    cand = [m * 10**p for p in range(6) for m in (1, 1.5, 2, 3, 5, 7)]
     ticks = [v for v in cand if lo * 0.985 <= v <= hi * 1.015]
     while len(ticks) > 8:
         ticks = ticks[::2]
@@ -969,9 +970,11 @@ def national_timeline(data: dict, *, title: str, subtitle: str = "", note: str =
         return padt + ih - (log10(v) - y0l) / (y1l - y0l) * ih
 
     svg = [
-        f'<svg viewBox="0 0 {w} {h}" class="cl-svg tl-svg" role="img" '
-        f'aria-label="{escape(title)}: colleges, enrollment, high-school graduates and real GDP '
-        f'indexed to {start}, on a ratio scale">'
+        (
+            f'<svg viewBox="0 0 {w} {h}" class="cl-svg tl-svg" role="img" '
+            f'aria-label="{escape(title)}: colleges, enrollment, high-school graduates and real GDP '
+            f'indexed to {start}, on a ratio scale">'
+        )
     ]
     for tv in _tl_ratio_ticks(dlo, dhi):
         gy = sy(tv)
@@ -1104,3 +1107,115 @@ def national_timeline(data: dict, *, title: str, subtitle: str = "", note: str =
     fig.append(f'<script type="application/json" class="tl-data">{payload}</script>')
     fig.append("</figure>")
     return "".join(fig)
+
+
+def _hover_point(cx: float, cy: float, w: int, value: str, label: str) -> str:
+    """An invisible hit target with the CSS-only callout the small multiples use: hover or focus
+    shows the value, nothing is drawn at rest, and the table under the chart carries every number
+    for anyone who cannot hover."""
+    tw, th = 96, 34
+    tx = min(max(cx - tw / 2, 2), w - tw - 2)
+    ty = cy - th - 10 if cy - th - 10 >= 2 else cy + 10
+    return (
+        f'<g class="sm-pt" tabindex="0" role="img" aria-label="{escape(label)}: {escape(value)}">'
+        f'<circle class="hit" cx="{cx:.1f}" cy="{cy:.1f}" r="9"/>'
+        f'<g class="sm-tip"><rect x="{tx:.1f}" y="{ty:.1f}" width="{tw}" height="{th}" rx="4"/>'
+        f'<text x="{tx + tw / 2:.1f}" y="{ty + 15:.1f}" class="sm-tv" text-anchor="middle">'
+        f"{escape(value)}</text>"
+        f'<text x="{tx + tw / 2:.1f}" y="{ty + 27:.1f}" class="sm-tl" text-anchor="middle">'
+        f"{escape(label)}</text></g></g>"
+    )
+
+
+def indexed_lines(
+    title: str,
+    lines: list[tuple[str, str, list[tuple]]],
+    *,
+    ylo: float,
+    yhi: float,
+    ticks: list[float],
+) -> str:
+    """Two or more series on ONE axis, each indexed to 100 at a common base year, so series of
+    different units (students, colleges) compare as growth without a second scale. lines:
+    (label, css modifier 'emph' | 'rest', points). The emphasised line is the accent, the rest is
+    a neutral grey: an emphasis pair, validated at dE 27.1 normal vision and 24.8 under simulated
+    CVD. Identity never rests on colour alone: a legend above and a direct label at each end."""
+    if not lines or not all(pts for _, _, pts in lines):
+        return (
+            f'<figure class="chart ix-chart"><figcaption>{escape(title)}</figcaption>'
+            '<p class="muted">No data.</p></figure>'
+        )
+    w, h, padl, padr, padt, padb = 700, 210, 44, 150, 14, 24
+    years = [y for _, _, pts in lines for y, _ in pts]
+    x0, x1 = min(years), max(years)
+
+    def sx(x):
+        return padl + (x - x0) / ((x1 - x0) or 1) * (w - padl - padr)
+
+    def sy(v):
+        return h - padb - (v - ylo) / ((yhi - ylo) or 1) * (h - padt - padb)
+
+    legend = "".join(
+        f'<span><i class="ix-key ix-{mod}"></i>{escape(label)}</span>' for label, mod, _ in lines
+    )
+    svg = [f'<svg viewBox="0 0 {w} {h}" class="cl-svg" role="img" aria-label="{escape(title)}">']
+    for t in ticks:
+        svg.append(
+            f'<line x1="{padl}" y1="{sy(t):.1f}" x2="{w - padr}" y2="{sy(t):.1f}" class="cl-grid"/>'
+            f'<text x="{padl - 6}" y="{sy(t) + 3.5:.1f}" class="cl-ylab" text-anchor="end">'
+            f"{t:.0f}</text>"
+        )
+    # Grey first so the emphasised line draws on top where they cross.
+    for label, mod, pts in sorted(lines, key=lambda line: line[1] == "emph"):
+        pts = sorted(pts)
+        poly = " ".join(f"{sx(y):.1f},{sy(v):.1f}" for y, v in pts)
+        ly, lv = pts[-1]
+        svg.append(
+            f'<polyline points="{poly}" class="ix-line ix-{mod}" fill="none"/>'
+            f'<circle cx="{sx(ly):.1f}" cy="{sy(lv):.1f}" r="4" class="ix-dot ix-{mod}"/>'
+            f'<text x="{sx(ly) + 9:.1f}" y="{sy(lv) + 4:.1f}" class="ix-lab">'
+            f"{escape(label)} {lv:.0f}</text>"
+        )
+        svg.extend(_hover_point(sx(y), sy(v), w, f"{v:.0f}", f"{label}, {y}") for y, v in pts)
+    svg.append(
+        f'<text x="{padl}" y="{h - 6}" class="cl-xlab">{x0}</text>'
+        f'<text x="{w - padr}" y="{h - 6}" class="cl-xlab" text-anchor="end">{x1}</text></svg>'
+    )
+    return (
+        f'<figure class="chart ix-chart"><figcaption>{escape(title)}</figcaption>'
+        f'<div class="ix-legend">{legend}</div>{"".join(svg)}</figure>'
+    )
+
+
+def period_rates(title: str, rows: list[dict]) -> str:
+    """Horizontal bars, one per period, every value labelled at the bar end, so no hover is
+    needed. rows: {label, rate, closed, years}. The last (current) period is the accent and the
+    earlier ones grey: the same emphasis pair as indexed_lines, so the two read as one system."""
+    if not rows:
+        return (
+            f'<figure class="chart pr-chart"><figcaption>{escape(title)}</figcaption>'
+            '<p class="muted">No data.</p></figure>'
+        )
+    w, rowh, padl, padr = 700, 30, 190, 150
+    h = rowh * len(rows) + 8
+    top = max(r["rate"] for r in rows) or 1
+    svg = [f'<svg viewBox="0 0 {w} {h}" class="cl-svg" role="img" aria-label="{escape(title)}">']
+    for i, r in enumerate(rows):
+        y = 4 + i * rowh
+        bw = max(r["rate"] / top * (w - padl - padr), 8)
+        mod = "emph" if i == len(rows) - 1 else "rest"
+        # Square at the baseline, 4px rounded data-end.
+        svg.append(
+            f'<text x="{padl - 10}" y="{y + 15}" class="pr-name" text-anchor="end">'
+            f"{escape(r['label'])}</text>"
+            f'<path class="pr-bar pr-{mod}" d="M{padl},{y + 4} H{padl + bw - 4:.1f} '
+            f"Q{padl + bw:.1f},{y + 4} {padl + bw:.1f},{y + 8} V{y + 16} "
+            f'Q{padl + bw:.1f},{y + 20} {padl + bw - 4:.1f},{y + 20} H{padl} Z"/>'
+            f'<text x="{padl + bw + 8:.1f}" y="{y + 16}" class="pr-num">'
+            f"{r['rate']:.1f} per 1,000 · {r['closed']} closed in {r['years']} yrs</text>"
+        )
+    svg.append("</svg>")
+    return (
+        f'<figure class="chart pr-chart"><figcaption>{escape(title)}</figcaption>'
+        f"{''.join(svg)}</figure>"
+    )

@@ -324,6 +324,28 @@ def cliff(request: Request, state: str = ""):
             "enrollment, all institutions, 50 states + DC."
         ),
     )
+    # The reader's own sector, nationally: private nonprofit students against colleges (indexed to
+    # a common base, one axis) and its closure rate per decade. NCES only; every quoted figure is
+    # computed in queries.sector_picture, and the template words it. Chosen from three mockups.
+    sector = queries.sector_picture("private_nonprofit")
+    sector_index_chart = sector_rates_chart = ""
+    if sector:
+        ix = [v for _, v in sector["students_index"] + sector["colleges_index"]]
+        ix_lo = min(80, floor(min(ix) / 20) * 20)
+        ix_hi = max(200, ceil(max(ix) / 50) * 50)
+        sector_index_chart = charts.indexed_lines(
+            f"Students and colleges, both set to 100 in {sector['index_base']}",
+            [
+                ("Students enrolled", "emph", sector["students_index"]),
+                ("Colleges open", "rest", sector["colleges_index"]),
+            ],
+            ylo=ix_lo,
+            yhi=ix_hi,
+            ticks=list(range(100, ix_hi + 1, 50)),
+        )
+        sector_rates_chart = charts.period_rates(
+            "Closures per 1,000 colleges a year, by decade", sector["decades"]
+        )
     # Growth rates computed live from national_series, so a quoted rate can never drift from the
     # data. The era boundaries are editorial; the numbers are not.
     inst_growth = queries.national_growth(
@@ -378,6 +400,9 @@ def cliff(request: Request, state: str = ""):
             "enr_growth": enr_growth,
             "inst_turns": inst_turns,
             "enr_turns": enr_turns,
+            "sector": sector,
+            "sector_index_chart": sector_index_chart,
+            "sector_rates_chart": sector_rates_chart,
             "national_chart": national,
             "state_chart": state_chart,
             "decliners": decliners,
