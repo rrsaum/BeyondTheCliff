@@ -330,21 +330,23 @@ def cliff(request: Request, state: str = ""):
     sector = queries.sector_picture("private_nonprofit")
     sector_index_chart = sector_rates_chart = ""
     if sector:
-        ix = [v for _, v in sector["students_index"] + sector["colleges_index"]]
-        ix_lo = min(80, floor(min(ix) / 20) * 20)
-        ix_hi = max(200, ceil(max(ix) / 50) * 50)
         sector_index_chart = charts.indexed_lines(
             f"Students and colleges, both set to 100 in {sector['index_base']}",
             [
                 ("Students enrolled", "emph", sector["students_index"]),
                 ("Colleges open", "rest", sector["colleges_index"]),
             ],
-            ylo=ix_lo,
-            yhi=ix_hi,
-            ticks=list(range(100, ix_hi + 1, 50)),
         )
-        sector_rates_chart = charts.period_rates(
-            "Closures per 1,000 colleges a year, by decade", sector["decades"]
+        sector_rates_chart = charts.emphasis_bars(
+            "Closures per 1,000 colleges a year, by decade",
+            [
+                (
+                    d["label"],
+                    d["rate"],
+                    f"{d['rate']:.1f} per 1,000 · {d['closed']} closed in {d['years']} yrs",
+                )
+                for d in sector["decades"]
+            ],
         )
     # Growth rates computed live from national_series, so a quoted rate can never drift from the
     # data. The era boundaries are editorial; the numbers are not.

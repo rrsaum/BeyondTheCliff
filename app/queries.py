@@ -677,47 +677,50 @@ def sector_picture(control: str = "private_nonprofit") -> dict | None:
         (control,),
     ).fetchall()
     conn.close()
-    closed = {r[0]: r[2] for r in rows}
-    ay = {r[0]: r[1] for r in rows}
+    closed = {r[0]: (r[1], r[2]) for r in rows}  # ay_start -> (NCES label, closures)
     ryears = [y for y in sorted(closed) if y in inst]
     if not (inst and enr and ryears):
         return None
+
+    def per_1000(n: int, colleges: int) -> float:
+        return 1000 * n / colleges
 
     decades = []
     for d in range(ryears[0] // 10 * 10, ryears[-1] + 1, 10):
         ys = [y for y in ryears if d <= y < d + 10]
         if ys:
-            n = sum(closed[y] for y in ys)
+            n = sum(closed[y][1] for y in ys)
             decades.append(
                 {
-                    "label": f"{ay[ys[0]]} to {ay[ys[-1]]}",
-                    "first": ay[ys[0]],
+                    "label": f"{closed[ys[0]][0]} to {closed[ys[-1]][0]}",
+                    "first": closed[ys[0]][0],
                     "decade": f"{d}s",
                     "years": len(ys),
                     "closed": n,
-                    "rate": 1000 * n / sum(inst[y] for y in ys),
+                    "rate": per_1000(n, sum(inst[y] for y in ys)),
                 }
             )
-    base = min(y for y in inst if y in enr)
-    size = {y: enr[y] / inst[y] for y in inst if y in enr}
-    e_last = max(enr)
+    low = min(decades[:-1], key=lambda d: d["rate"]) if len(decades) > 1 else None
+    both = sorted(y for y in inst if y in enr)
+    base, e_last = both[0], max(enr)
     return {
         "enr_last_year": e_last,
         "enr_last": enr[e_last],
         "enr_is_peak": enr[e_last] == max(enr.values()),
         "decades": decades,
-        "low_decade": min(decades[:-1], key=lambda d: d["rate"]) if len(decades) > 1 else None,
+        "low_decade": low,
+        "rising": low is not None and decades[-1]["rate"] > low["rate"],
         "index_base": base,
         "students_index": [(y, 100 * enr[y] / enr[base]) for y in sorted(enr) if y >= base],
         "colleges_index": [(y, 100 * inst[y] / inst[base]) for y in sorted(inst)],
-        "size_first": (min(size), size[min(size)]),
-        "size_last": (max(size), size[max(size)]),
+        "size_first": (base, enr[base] / inst[base]),
+        "size_last": (both[-1], enr[both[-1]] / inst[both[-1]]),
         "table": [
             {
-                "year": ay.get(y, str(y)),
+                "year": closed[y][0] if y in closed else str(y),
                 "colleges": inst.get(y),
-                "closed": closed.get(y),
-                "rate": 1000 * closed[y] / inst[y] if y in ryears else None,
+                "closed": closed[y][1] if y in closed else None,
+                "rate": per_1000(closed[y][1], inst[y]) if y in ryears else None,
                 "students": enr.get(y),
             }
             for y in sorted(set(ryears) | {y for y in enr if y >= ryears[0]})

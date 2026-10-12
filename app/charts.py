@@ -11,7 +11,7 @@ from __future__ import annotations
 import json
 from html import escape
 from itertools import pairwise
-from math import log10
+from math import ceil, floor, log10
 
 
 def bars(title: str, rows: list[tuple], *, label_width: str = "6ch") -> str:
@@ -66,10 +66,7 @@ def line(
     """
     pts = sorted((int(y), int(v)) for y, v in points if str(v).strip() not in ("", "None"))
     if len(pts) < 2:
-        return (
-            f'<figure class="chart cliff-chart"><figcaption>{escape(title)}</figcaption>'
-            '<p class="muted">No data.</p></figure>'
-        )
+        return _no_data(title, "cliff-chart")
     marks = [m for m in (markers or []) if pts[0][0] <= int(m["year"]) <= pts[-1][0]]
     w, h, padl, padr, padt, padb = 720, 340, 60, 18, 34, (54 if marks else 30)
     years = [p[0] for p in pts]
@@ -633,10 +630,7 @@ def small_multiples(
     of a small multiple: the eye compares shape against a fixed frame, not against a legend.
     """
     if not panels:
-        return (
-            f'<figure class="chart {css}"><figcaption>{escape(title)}</figcaption>'
-            '<p class="muted">No data.</p></figure>'
-        )
+        return _no_data(title, css)
     w, h, padl, padr, padt, padb = 700, 132, 54, 92, 12, 24
     years = [y for _, _, pts in panels for y, _ in pts]
     xmin, xmax = min(years), max(years)
@@ -663,29 +657,21 @@ def small_multiples(
         # A dot per year, each its own hover/focus target. The callout is CSS only, so it works
         # in a server-rendered page with no script; the table under the chart is the
         # non-hover route to the same numbers, because a tooltip may enhance access, never gate it.
-        marks = []
-        for yr, v in pts:
-            cx, cy = sx(yr), sy(v)
-            tw, th, gap = 78, 34, 10
-            tx = min(max(cx - tw / 2, 2), w - tw)
-            # Flip the callout below the dot when it would clip the top of the frame. The peak
-            # dot sits at padt, and a callout drawn above it lands at a negative y, outside the
-            # card, which is the clipping in the screenshot. Below the dot, the same callout is
-            # always inside. ty is the rect top; text baselines are offset from it either way.
-            above = cy - th - gap >= padt
-            ty = cy - th - gap if above else cy + gap
-            marks.append(
-                f'<g class="sm-pt" tabindex="0" role="img" '
-                f'aria-label="{yr}: {escape(fmt_value(v))}">'
-                f'<circle class="hit" cx="{cx:.1f}" cy="{cy:.1f}" r="11"/>'
-                f'<circle class="sm-dot" cx="{cx:.1f}" cy="{cy:.1f}" r="3.2"/>'
-                f'<g class="sm-tip"><rect x="{tx:.1f}" y="{ty:.1f}" width="{tw}" '
-                f'height="{th}" rx="4"/>'
-                f'<text x="{tx + tw / 2:.1f}" y="{ty + 15:.1f}" class="sm-tv" '
-                f'text-anchor="middle">{escape(fmt_value(v))}</text>'
-                f'<text x="{tx + tw / 2:.1f}" y="{ty + 27:.1f}" class="sm-tl" '
-                f'text-anchor="middle">{yr}</text></g></g>'
+        marks = [
+            _hover_point(
+                sx(yr),
+                sy(v),
+                w=w,
+                value=fmt_value(v),
+                label=str(yr),
+                tw=78,
+                r=11,
+                top=padt,
+                right=0,
+                dot=True,
             )
+            for yr, v in pts
+        ]
         out.append(
             f'<div class="sm-pan"><div class="sm-h"><span class="sm-name">{escape(label)}</span>'
             f'<span class="sm-d">{escape(sub)}</span></div>'
@@ -1109,16 +1095,39 @@ def national_timeline(data: dict, *, title: str, subtitle: str = "", note: str =
     return "".join(fig)
 
 
-def _hover_point(cx: float, cy: float, w: int, value: str, label: str) -> str:
-    """An invisible hit target with the CSS-only callout the small multiples use: hover or focus
-    shows the value, nothing is drawn at rest, and the table under the chart carries every number
-    for anyone who cannot hover."""
-    tw, th = 96, 34
-    tx = min(max(cx - tw / 2, 2), w - tw - 2)
-    ty = cy - th - 10 if cy - th - 10 >= 2 else cy + 10
+def _no_data(title: str, css: str) -> str:
+    return (
+        f'<figure class="chart {css}"><figcaption>{escape(title)}</figcaption>'
+        '<p class="muted">No data.</p></figure>'
+    )
+
+
+def _hover_point(
+    cx: float,
+    cy: float,
+    *,
+    w: int,
+    value: str,
+    label: str,
+    tw: int = 96,
+    r: float = 9,
+    top: float = 2,
+    right: float = 2,
+    dot: bool = False,
+) -> str:
+    """One point's CSS-only hover/focus callout, shared by every SVG chart here: no script, so it
+    works in the server-rendered page, and the table under each chart carries the same numbers
+    for anyone who cannot hover (a tooltip may enhance access, never gate it). The callout flips
+    below the point when drawing it above would cross `top` and clip. With dot=False nothing is
+    drawn at rest, so the hit circle itself carries the keyboard focus ring (.hit-ring)."""
+    th, gap = 34, 10
+    tx = min(max(cx - tw / 2, 2), w - tw - right)
+    ty = cy - th - gap if cy - th - gap >= top else cy + gap
+    mark = f'<circle class="sm-dot" cx="{cx:.1f}" cy="{cy:.1f}" r="3.2"/>' if dot else ""
     return (
         f'<g class="sm-pt" tabindex="0" role="img" aria-label="{escape(label)}: {escape(value)}">'
-        f'<circle class="hit" cx="{cx:.1f}" cy="{cy:.1f}" r="9"/>'
+        f'<circle class="hit{"" if dot else " hit-ring"}" cx="{cx:.1f}" cy="{cy:.1f}" r="{r}"/>'
+        f"{mark}"
         f'<g class="sm-tip"><rect x="{tx:.1f}" y="{ty:.1f}" width="{tw}" height="{th}" rx="4"/>'
         f'<text x="{tx + tw / 2:.1f}" y="{ty + 15:.1f}" class="sm-tv" text-anchor="middle">'
         f"{escape(value)}</text>"
@@ -1127,95 +1136,88 @@ def _hover_point(cx: float, cy: float, w: int, value: str, label: str) -> str:
     )
 
 
-def indexed_lines(
-    title: str,
-    lines: list[tuple[str, str, list[tuple]]],
-    *,
-    ylo: float,
-    yhi: float,
-    ticks: list[float],
-) -> str:
+def indexed_lines(title: str, lines: list[tuple[str, str, list[tuple]]]) -> str:
     """Two or more series on ONE axis, each indexed to 100 at a common base year, so series of
     different units (students, colleges) compare as growth without a second scale. lines:
-    (label, css modifier 'emph' | 'rest', points). The emphasised line is the accent, the rest is
-    a neutral grey: an emphasis pair, validated at dE 27.1 normal vision and 24.8 under simulated
-    CVD. Identity never rests on colour alone: a legend above and a direct label at each end."""
+    (label, emphasis 'emph' | 'rest', points). The axis is derived here and always includes the
+    100 baseline. The emphasised line is the accent, the rest a neutral grey: one emphasis pair
+    (dE 27.1 normal vision, 24.8 under simulated CVD, validated), never a palette, and identity
+    also rides on the legend and a direct end label, never colour alone."""
     if not lines or not all(pts for _, _, pts in lines):
-        return (
-            f'<figure class="chart ix-chart"><figcaption>{escape(title)}</figcaption>'
-            '<p class="muted">No data.</p></figure>'
-        )
+        return _no_data(title, "ix-chart")
     w, h, padl, padr, padt, padb = 700, 210, 44, 150, 14, 24
     years = [y for _, _, pts in lines for y, _ in pts]
+    vals = [v for _, _, pts in lines for _, v in pts]
     x0, x1 = min(years), max(years)
+    ylo = min(80, floor(min(vals) / 20) * 20)
+    yhi = max(200, ceil(max(vals) / 50) * 50)
+    ticks = range(ceil(ylo / 50) * 50, yhi + 1, 50)
 
     def sx(x):
         return padl + (x - x0) / ((x1 - x0) or 1) * (w - padl - padr)
 
     def sy(v):
-        return h - padb - (v - ylo) / ((yhi - ylo) or 1) * (h - padt - padb)
+        return h - padb - (v - ylo) / (yhi - ylo) * (h - padt - padb)
 
     legend = "".join(
-        f'<span><i class="ix-key ix-{mod}"></i>{escape(label)}</span>' for label, mod, _ in lines
+        f'<span class="fin-key"><i class="fin-swatch fin-{emph}"></i>{escape(label)}</span>'
+        for label, emph, _ in lines
     )
     svg = [f'<svg viewBox="0 0 {w} {h}" class="cl-svg" role="img" aria-label="{escape(title)}">']
     for t in ticks:
         svg.append(
             f'<line x1="{padl}" y1="{sy(t):.1f}" x2="{w - padr}" y2="{sy(t):.1f}" class="cl-grid"/>'
             f'<text x="{padl - 6}" y="{sy(t) + 3.5:.1f}" class="cl-ylab" text-anchor="end">'
-            f"{t:.0f}</text>"
+            f"{t}</text>"
         )
     # Grey first so the emphasised line draws on top where they cross.
-    for label, mod, pts in sorted(lines, key=lambda line: line[1] == "emph"):
-        pts = sorted(pts)
+    for label, emph, pts in sorted(lines, key=lambda line: line[1] == "emph"):
         poly = " ".join(f"{sx(y):.1f},{sy(v):.1f}" for y, v in pts)
         ly, lv = pts[-1]
         svg.append(
-            f'<polyline points="{poly}" class="ix-line ix-{mod}" fill="none"/>'
-            f'<circle cx="{sx(ly):.1f}" cy="{sy(lv):.1f}" r="4" class="ix-dot ix-{mod}"/>'
+            f'<polyline points="{poly}" class="ix-line fin-{emph}"/>'
+            f'<circle cx="{sx(ly):.1f}" cy="{sy(lv):.1f}" r="4" class="ix-dot fin-{emph}"/>'
             f'<text x="{sx(ly) + 9:.1f}" y="{sy(lv) + 4:.1f}" class="ix-lab">'
             f"{escape(label)} {lv:.0f}</text>"
         )
-        svg.extend(_hover_point(sx(y), sy(v), w, f"{v:.0f}", f"{label}, {y}") for y, v in pts)
+        svg.extend(
+            _hover_point(sx(y), sy(v), w=w, value=f"{v:.0f}", label=f"{label}, {y}") for y, v in pts
+        )
     svg.append(
         f'<text x="{padl}" y="{h - 6}" class="cl-xlab">{x0}</text>'
         f'<text x="{w - padr}" y="{h - 6}" class="cl-xlab" text-anchor="end">{x1}</text></svg>'
     )
     return (
         f'<figure class="chart ix-chart"><figcaption>{escape(title)}</figcaption>'
-        f'<div class="ix-legend">{legend}</div>{"".join(svg)}</figure>'
+        f'<div class="fin-legend">{legend}</div>{"".join(svg)}</figure>'
     )
 
 
-def period_rates(title: str, rows: list[dict]) -> str:
-    """Horizontal bars, one per period, every value labelled at the bar end, so no hover is
-    needed. rows: {label, rate, closed, years}. The last (current) period is the accent and the
-    earlier ones grey: the same emphasis pair as indexed_lines, so the two read as one system."""
+def emphasis_bars(title: str, rows: list[tuple[str, float, str]]) -> str:
+    """Horizontal SVG bars, one per row, each labelled at its end, so no hover is needed. rows:
+    (label, value, value_text); the caller owns the wording. The last row (the current period)
+    takes the accent and the earlier ones the neutral grey: the same emphasis pair as
+    indexed_lines, so the two read as one system. Square at the baseline, 4px rounded data-end."""
     if not rows:
-        return (
-            f'<figure class="chart pr-chart"><figcaption>{escape(title)}</figcaption>'
-            '<p class="muted">No data.</p></figure>'
-        )
+        return _no_data(title, "eb-chart")
     w, rowh, padl, padr = 700, 30, 190, 150
     h = rowh * len(rows) + 8
-    top = max(r["rate"] for r in rows) or 1
+    top = max(v for _, v, _ in rows) or 1
     svg = [f'<svg viewBox="0 0 {w} {h}" class="cl-svg" role="img" aria-label="{escape(title)}">']
-    for i, r in enumerate(rows):
+    for i, (label, value, text) in enumerate(rows):
         y = 4 + i * rowh
-        bw = max(r["rate"] / top * (w - padl - padr), 8)
-        mod = "emph" if i == len(rows) - 1 else "rest"
-        # Square at the baseline, 4px rounded data-end.
+        bw = max(value / top * (w - padl - padr), 8)
+        emph = "emph" if i == len(rows) - 1 else "rest"
         svg.append(
-            f'<text x="{padl - 10}" y="{y + 15}" class="pr-name" text-anchor="end">'
-            f"{escape(r['label'])}</text>"
-            f'<path class="pr-bar pr-{mod}" d="M{padl},{y + 4} H{padl + bw - 4:.1f} '
+            f'<text x="{padl - 10}" y="{y + 15}" class="eb-name" text-anchor="end">'
+            f"{escape(label)}</text>"
+            f'<path class="eb-bar fin-{emph}" d="M{padl},{y + 4} H{padl + bw - 4:.1f} '
             f"Q{padl + bw:.1f},{y + 4} {padl + bw:.1f},{y + 8} V{y + 16} "
             f'Q{padl + bw:.1f},{y + 20} {padl + bw - 4:.1f},{y + 20} H{padl} Z"/>'
-            f'<text x="{padl + bw + 8:.1f}" y="{y + 16}" class="pr-num">'
-            f"{r['rate']:.1f} per 1,000 · {r['closed']} closed in {r['years']} yrs</text>"
+            f'<text x="{padl + bw + 8:.1f}" y="{y + 16}" class="eb-num">{escape(text)}</text>'
         )
     svg.append("</svg>")
     return (
-        f'<figure class="chart pr-chart"><figcaption>{escape(title)}</figcaption>'
+        f'<figure class="chart eb-chart"><figcaption>{escape(title)}</figcaption>'
         f"{''.join(svg)}</figure>"
     )

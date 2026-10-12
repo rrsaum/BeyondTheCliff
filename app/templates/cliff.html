@@ -69,10 +69,9 @@
    data currently supports, and falls back to a neutral title when it does not. #}
 {% set now = sector.decades[-1] %}
 {% set low = sector.low_decade %}
-{% set rising = low and now.rate > low.rate %}
 <section class="sector-picture">
-  <h2 class="verdict">{% if sector.enr_is_peak and rising %}Private nonprofit colleges enroll more students than ever. More of them are closing.{% else %}Private nonprofit colleges: students against closures{% endif %}</h2>
-  <p class="dek">Fall {{ sector.enr_last_year }} enrollment in private nonprofit colleges was {{ '{:,}'.format(sector.enr_last) }}{% if sector.enr_is_peak %}, the highest NCES has recorded{% endif %}.{% if low %} The share of these colleges closing each year {{ 'rose' if rising else 'moved' }} from {{ '%.1f' | format(low.rate) }} per 1,000 in the {{ low.decade }} to {{ '%.1f' | format(now.rate) }} per 1,000 since {{ now.first }}.{% endif %}</p>
+  <h2 class="verdict">{% if sector.enr_is_peak and sector.rising %}Private nonprofit colleges enroll more students than ever. More of them are closing.{% else %}Private nonprofit colleges: students against closures{% endif %}</h2>
+  <p class="dek">Fall {{ sector.enr_last_year }} enrollment in private nonprofit colleges was {{ '{:,}'.format(sector.enr_last) }}{% if sector.enr_is_peak %}, the highest NCES has recorded{% endif %}.{% if low %} The share of these colleges closing each year {{ 'rose' if sector.rising else 'moved' }} from {{ '%.1f' | format(low.rate) }} per 1,000 in the {{ low.decade }} to {{ '%.1f' | format(now.rate) }} per 1,000 since {{ now.first }}.{% endif %}</p>
   {{ sector_index_chart | safe }}
   {{ sector_rates_chart | safe }}
   <p class="turn">Our reading, not an NCES finding: the sector is not shrinking, it is sorting. The average private nonprofit college enrolled {{ '{:,.0f}'.format(sector.size_last[1]) }} students in {{ sector.size_last[0] }}, against {{ '{:,.0f}'.format(sector.size_first[1]) }} in {{ sector.size_first[0] }}. Averages do not show which schools gained; the per-school record in the tracker does. <a href="/">See the closure map</a></p>
@@ -80,7 +79,7 @@
   <details class="tv">
     <summary>Show the numbers</summary>
     <div class="table-scroll">
-    <table>
+    <table class="mini">
       <thead><tr><th>Year</th><th>Colleges</th><th>Closed</th><th>Per 1,000</th><th>Students</th></tr></thead>
       <tbody>
         {% for r in sector.table %}
