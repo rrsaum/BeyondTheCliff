@@ -666,8 +666,11 @@ def sector_picture(control: str = "private_nonprofit") -> dict | None:
     Closure rate = closures in an academic year (Digest 317.50) per 1,000 institutions of that
     control NCES counted that year (317.10), both degree-granting, matched on the academic year's
     first year. A decade's rate is its closures over its institution-years, not a mean of yearly
-    ratios. Students and colleges are indexed to 100 in the first year both series exist; the
-    college count is sparse before 1986, so its line is straight between published years."""
+    ratios. The current period is compared with the period immediately before it, never with
+    the lowest earlier one, and the copy states how many years the current period holds.
+    Students and colleges are indexed to 100 in the first year both series exist; the college
+    count is sparse before 1986, so its line is straight between published years. Year labels are
+    academic years throughout (fall enrollment Y sits in Y-Y+1)."""
     inst = dict(national_series(f"institutions_{control}"))
     enr = dict(national_series(f"enrollment_{control}"))
     conn = connect()
@@ -676,10 +679,15 @@ def sector_picture(control: str = "private_nonprofit") -> dict | None:
         "GROUP BY ay_start, academic_year ORDER BY ay_start",
         (control,),
     ).fetchall()
+    basis = conn.execute(
+        "SELECT basis FROM national_series WHERE series = ? ORDER BY year DESC LIMIT 1",
+        (f"enrollment_{control}",),
+    ).fetchone()
     conn.close()
     closed = {r[0]: (r[1], r[2]) for r in rows}  # ay_start -> (NCES label, closures)
     ryears = [y for y in sorted(closed) if y in inst]
-    if not (inst and enr and ryears):
+    both = sorted(y for y in inst if y in enr)
+    if not (ryears and both):
         return None
 
     def per_1000(n: int, colleges: int) -> float:
@@ -700,30 +708,40 @@ def sector_picture(control: str = "private_nonprofit") -> dict | None:
                     "rate": per_1000(n, sum(inst[y] for y in ys)),
                 }
             )
-    low = min(decades[:-1], key=lambda d: d["rate"]) if len(decades) > 1 else None
-    both = sorted(y for y in inst if y in enr)
+    prev = decades[-2] if len(decades) > 1 else None
     base, e_last = both[0], max(enr)
+    s_ix = {y: 100 * enr[y] / enr[base] for y in sorted(enr) if y >= base}
+    c_ix = {y: 100 * inst[y] / inst[base] for y in sorted(inst) if y >= base}
+
+    def ay_label(y: int) -> str:
+        if y in closed:
+            return closed[y][0]
+        return f"{y}-{y + 1}" if (y + 1) % 100 == 0 else f"{y}-{str(y + 1)[2:]}"
+
     return {
         "enr_last_year": e_last,
         "enr_last": enr[e_last],
         "enr_is_peak": enr[e_last] == max(enr.values()),
         "decades": decades,
-        "low_decade": low,
-        "rising": low is not None and decades[-1]["rate"] > low["rate"],
+        "enr_last_provisional": bool(basis and "provisional" in (basis[0] or "")),
+        "prev_decade": prev,
+        "rising": prev is not None and decades[-1]["rate"] > prev["rate"],
         "index_base": base,
-        "students_index": [(y, 100 * enr[y] / enr[base]) for y in sorted(enr) if y >= base],
-        "colleges_index": [(y, 100 * inst[y] / inst[base]) for y in sorted(inst)],
+        "students_index": list(s_ix.items()),
+        "colleges_index": list(c_ix.items()),
         "size_first": (base, enr[base] / inst[base]),
         "size_last": (both[-1], enr[both[-1]] / inst[both[-1]]),
         "table": [
             {
-                "year": closed[y][0] if y in closed else str(y),
+                "year": ay_label(y),
                 "colleges": inst.get(y),
-                "closed": closed[y][1] if y in closed else None,
+                "closed": closed[y][1] if y in ryears else None,
                 "rate": per_1000(closed[y][1], inst[y]) if y in ryears else None,
                 "students": enr.get(y),
+                "students_ix": s_ix.get(y),
+                "colleges_ix": c_ix.get(y),
             }
-            for y in sorted(set(ryears) | {y for y in enr if y >= ryears[0]})
+            for y in sorted(set(ryears) | set(s_ix) | set(c_ix))
         ],
     }
 

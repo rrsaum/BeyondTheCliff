@@ -14,9 +14,9 @@
   --good: #2f6f4f;         /* muted green: a school clearing a federal threshold */
   --gdp: #c06a12;          /* validated amber, the 4th timeline hue, distinct from the house three */
   --merged: #4a5866;       /* slate */
-  --neutral: #9aa4ad;      /* the grey half of the accent emphasis pair: dE 27.1 normal, 24.8 CVD
-                              against --accent (validated). 2.5:1 on white, so any mark in it
-                              ships with direct labels or a table */
+  --neutral: #858f99;      /* the grey half of the accent emphasis pair: dE 20.4 normal, 18.1 CVD
+                              against --accent (validated), 3.29:1 on white, so it clears the
+                              WCAG 3:1 non-text minimum for chart marks */
   /* Resilience bands: an ordinal health scale reusing the house status hues. Always shown with a
      text label and a dot, so colour is never the only channel. */
   --b-resilient: #2f6f4f;  /* = --good */

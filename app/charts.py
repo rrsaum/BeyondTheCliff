@@ -1170,7 +1170,9 @@ def indexed_lines(title: str, lines: list[tuple[str, str, list[tuple]]]) -> str:
             f'<text x="{padl - 6}" y="{sy(t) + 3.5:.1f}" class="cl-ylab" text-anchor="end">'
             f"{t}</text>"
         )
-    # Grey first so the emphasised line draws on top where they cross.
+    # Grey first so the emphasised line draws on top where they cross. Hover callouts are
+    # collected and painted after every line, so no line or end label can cover a tooltip.
+    hovers = []
     for label, emph, pts in sorted(lines, key=lambda line: line[1] == "emph"):
         poly = " ".join(f"{sx(y):.1f},{sy(v):.1f}" for y, v in pts)
         ly, lv = pts[-1]
@@ -1180,9 +1182,10 @@ def indexed_lines(title: str, lines: list[tuple[str, str, list[tuple]]]) -> str:
             f'<text x="{sx(ly) + 9:.1f}" y="{sy(lv) + 4:.1f}" class="ix-lab">'
             f"{escape(label)} {lv:.0f}</text>"
         )
-        svg.extend(
+        hovers.extend(
             _hover_point(sx(y), sy(v), w=w, value=f"{v:.0f}", label=f"{label}, {y}") for y, v in pts
         )
+    svg.extend(hovers)
     svg.append(
         f'<text x="{padl}" y="{h - 6}" class="cl-xlab">{x0}</text>'
         f'<text x="{w - padr}" y="{h - 6}" class="cl-xlab" text-anchor="end">{x1}</text></svg>'
@@ -1200,20 +1203,28 @@ def emphasis_bars(title: str, rows: list[tuple[str, float, str]]) -> str:
     indexed_lines, so the two read as one system. Square at the baseline, 4px rounded data-end."""
     if not rows:
         return _no_data(title, "eb-chart")
-    w, rowh, padl, padr = 700, 30, 190, 150
+    # padr is sized for an end label of about 36 characters at 11.5px, so the longest bar's
+    # label stays inside the viewBox.
+    w, rowh, padl, padr = 700, 30, 190, 270
     h = rowh * len(rows) + 8
     top = max(v for _, v, _ in rows) or 1
     svg = [f'<svg viewBox="0 0 {w} {h}" class="cl-svg" role="img" aria-label="{escape(title)}">']
     for i, (label, value, text) in enumerate(rows):
         y = 4 + i * rowh
-        bw = max(value / top * (w - padl - padr), 8)
+        # True proportion, no minimum length: a stub would misstate a zero or a small value.
+        bw = max(value, 0) / top * (w - padl - padr)
+        rr = min(4, bw / 2)
         emph = "emph" if i == len(rows) - 1 else "rest"
+        bar = (
+            f'<path class="eb-bar fin-{emph}" d="M{padl},{y + 4} H{padl + bw - rr:.1f} '
+            f"Q{padl + bw:.1f},{y + 4} {padl + bw:.1f},{y + 4 + rr:.1f} V{y + 20 - rr:.1f} "
+            f'Q{padl + bw:.1f},{y + 20} {padl + bw - rr:.1f},{y + 20} H{padl} Z"/>'
+            if bw > 0
+            else ""
+        )
         svg.append(
             f'<text x="{padl - 10}" y="{y + 15}" class="eb-name" text-anchor="end">'
-            f"{escape(label)}</text>"
-            f'<path class="eb-bar fin-{emph}" d="M{padl},{y + 4} H{padl + bw - 4:.1f} '
-            f"Q{padl + bw:.1f},{y + 4} {padl + bw:.1f},{y + 8} V{y + 16} "
-            f'Q{padl + bw:.1f},{y + 20} {padl + bw - 4:.1f},{y + 20} H{padl} Z"/>'
+            f"{escape(label)}</text>{bar}"
             f'<text x="{padl + bw + 8:.1f}" y="{y + 16}" class="eb-num">{escape(text)}</text>'
         )
     svg.append("</svg>")
