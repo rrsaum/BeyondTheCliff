@@ -16,9 +16,16 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Source is bind-mounted at run time (see docker-compose.yml); this COPY only makes the
 # image usable on its own.
-COPY . .
+# Run unprivileged. uid 1000 is also the host owner of the bind-mounted code and data
+# in development, so files the app writes there stay editable on the host. In an image
+# without a bind mount, the copied code is owned by the same user so runtime writes
+# under the working directory (caches, exports) still work.
+RUN useradd --uid 1000 --create-home --shell /usr/sbin/nologin app
+COPY --chown=app:app . .
 
 EXPOSE 8000
+
+USER app
 
 # data/beyondthecliff.db is a git-ignored build artifact, so a fresh checkout has no DB and
 # app/db.py refuses to open. Build it on every start: the CSVs are small and this keeps the
