@@ -184,9 +184,23 @@ def as_int(value: str | None) -> int | None:
         return None
 
 
+def read_filing_xml(path: Path) -> ET.Element:
+    """Parse a filing, refusing any document that declares a DTD or entities.
+
+    IRS e-file 990 XML never carries a DOCTYPE, so one is either corruption or a
+    crafted file (entity expansion). Refusing it is the core of what defusedxml
+    does, without adding a dependency to a script run with the system python3.
+    The stdlib parser already loads no external entities on Python 3.12.
+    """
+    data = path.read_bytes()
+    if b"<!DOCTYPE" in data or b"<!ENTITY" in data:
+        raise ET.ParseError("DTD or entity declarations are not allowed in a 990 filing")
+    return ET.fromstring(data)  # nosemgrep: use-defused-xml-parse (DTDs rejected above)
+
+
 def parse_filing(path: Path) -> tuple[dict, list[dict]]:
     """Parse one 990 XML into a financials row plus its verbatim line items."""
-    root = ET.parse(path).getroot()
+    root = read_filing_xml(path)
     tags = index_tags(root)
     ein, name = filer_identity(root)
 
